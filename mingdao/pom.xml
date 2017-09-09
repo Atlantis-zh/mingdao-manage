@@ -35,6 +35,7 @@
 		<mybatis.version>3.4.1</mybatis.version>
 		<quartz.version>2.2.1</quartz.version>
 		<tomcat-jdbc.version>7.0.53</tomcat-jdbc.version>
+		<fastjson.version>1.2.28</fastjson.version>
 	</properties>
 
 	<prerequisites>
@@ -43,6 +44,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
 			<!-- spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -95,6 +103,12 @@
 				<artifactId>spring-jdbc</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
 
 			<!-- spring aop -->
 			<dependency>
