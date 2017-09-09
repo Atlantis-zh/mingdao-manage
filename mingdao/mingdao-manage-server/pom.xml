@@ -41,6 +41,10 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+		</dependency>
 		<!-- jdbc数据源驱动 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

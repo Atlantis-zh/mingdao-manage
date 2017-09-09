@@ -24,17 +24,14 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-		<!-- Connection Pooling Info -->
 		<property name="maxActive" value="${jdbc.pool.maxActive}" />
 		<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
 		<property name="minIdle" value="0" />
 		<property name="maxWait" value="${jdbc.pool.maxWait}" />
 		<property name="defaultAutoCommit" value="true" />
-
 		<property name="minEvictableIdleTimeMillis" value="${jdbc.pool.minEvictableIdleTimeMillis}" />
 		<property name="removeAbandoned" value="${jdbc.pool.removeAbandoned}" />
 		<property name="removeAbandonedTimeout" value="${jdbc.pool.removeAbandonedTimeout}" />
-		
 		<property name="validationQuery" value="${jdbc.pool.validationQuery}" />
 		<!-- 是否测试空闲的数据库连接 -->
         <property name="testWhileIdle" value="${jdbc.pool.testWhileIdle}" />
