@@ -62,10 +62,10 @@
 
 
 	<!-- transaction manager -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<constructor-arg ref="dataSource"></constructor-arg>
 	</bean>
+	
 	<bean id="transactionTemplate"
 		class="org.springframework.transaction.support.TransactionTemplate">
 		<constructor-arg ref="transactionManager"></constructor-arg>
