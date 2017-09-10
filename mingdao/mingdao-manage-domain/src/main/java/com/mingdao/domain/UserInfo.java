@@ -1,12 +1,8 @@
 package com.mingdao.domain;
 
-public class UserInfo extends   SuperVO{
-
-	/**
-	 * 
-	 */
+public class UserInfo extends  SuperVO{
 	private static final long serialVersionUID = 8262248081835118056L;
-	private String id;
+	private Long id;
 	private String passWord;
 	private String userCode;
 	private String userName;
@@ -35,10 +31,10 @@ public class UserInfo extends   SuperVO{
 	public static final String SHOPID="shopId";
 	
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getPassWord() {
