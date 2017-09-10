@@ -48,30 +48,15 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="mapperLocations"
-			value="classpath:sqlmap/mybatis/mysql/**/**Mapper.xml" />
-		<property name="plugins">
-			<array>
-				<bean class="com.yonyou.iuap.mybatis.plugins.PaginationInterceptor">
-					<property name="properties">
-						<props>
-							<prop key="dbms">mysql</prop>
-							<prop key="sqlRegex">.*select.*|.*query.*</prop>
-						</props>
-					</property>
-					<property name="resultConvertor">
-						<bean class="com.yonyou.nccloud.search.pub.convertor.PageResultConvertor" />
-					</property>
-					<property name="requestConvertor">
-						<bean
-							class="com.yonyou.nccloud.search.pub.convertor.PageRequestConvertor" />
-					</property>
-				</bean>
-			</array>
-		</property>
+		<property name="mapperLocations" value="classpath:sqlmap/mybatis/mysql/**/**Mapper.xml" />
 	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
  	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yonyou.nccloud.dao.**" />
+		<property name="basePackage" value="com.mingdao.dao.base.**" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
