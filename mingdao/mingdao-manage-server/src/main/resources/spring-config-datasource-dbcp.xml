@@ -70,6 +70,7 @@
 		class="org.springframework.transaction.support.TransactionTemplate">
 		<constructor-arg ref="transactionManager"></constructor-arg>
 	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" />
 

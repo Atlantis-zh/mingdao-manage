@@ -1,10 +1,6 @@
 package com.mingdao.domain;
 
 public class UserInfo extends   SuperVO{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8262248081835118056L;
 	private String id;
 	private String passWord;
