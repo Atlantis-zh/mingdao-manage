@@ -8,6 +8,23 @@
 	</parent>
 	<artifactId>mingdao-manage-server</artifactId>
 	<dependencies>
+
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-domain</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-dao</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
