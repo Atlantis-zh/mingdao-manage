@@ -37,6 +37,8 @@
 		<quartz.version>2.2.1</quartz.version>
 		<tomcat-jdbc.version>7.0.53</tomcat-jdbc.version>
 		<fastjson.version>1.2.28</fastjson.version>
+		<aspectj.version>1.8.9</aspectj.version>
+		<cglib.version>2.2</cglib.version>
 	</properties>
 
 	<prerequisites>
