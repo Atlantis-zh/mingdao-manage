@@ -20,13 +20,12 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:database.properties</value>
+				<value>classpath:jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<context:component-scan base-package="com.mingdao" />
-
+	<context:component-scan base-package="com.mingdao.server" />
 	<cache:annotation-driven cache-manager="ehCacheManager" />
 
 	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
@@ -38,5 +37,5 @@
 		<property name="configLocation" value="classpath:ehcache-setting.xml"></property>
 	</bean>
 
-	<import resource="spring-config-datasource-dbcp.xml" />
+	<import resource="spring-mybatis.xml" />
 </beans>
