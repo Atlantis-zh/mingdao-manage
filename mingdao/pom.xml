@@ -32,7 +32,7 @@
 		<commons.lang3.version>3.4</commons.lang3.version>
 		<log4j.version>2.4</log4j.version>
 		<mysql.connector.java.version>5.1.36</mysql.connector.java.version>
-		<mybatis.version>3.4.1</mybatis.version>
+		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis.spring.version>1.2.3</mybatis.spring.version>
 		<quartz.version>2.2.1</quartz.version>
 		<tomcat-jdbc.version>7.0.53</tomcat-jdbc.version>

@@ -5,7 +5,7 @@
 		INSERT INTO userinfo
 		(usercode,username,password,nickname,status,phone,email,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{userCode},#{userName},#{passWord},#{nickName},#{status},#{phone},#{email},#{creator},#{createtime},#{modifier},#{modifiedtime})
+		(#{userCode},#{userName},#{passWord},#{nickName},#{status},#{phone},#{email},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 
 </mapper>
