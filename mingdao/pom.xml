@@ -39,6 +39,7 @@
 		<fastjson.version>1.2.28</fastjson.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<cglib.version>2.2</cglib.version>
+		<mingdao.manage.version>1.0.0-SNAPSHOT</mingdao.manage.version>
 	</properties>
 
 	<prerequisites>
@@ -47,6 +48,28 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>com.new.century</groupId>
+				<artifactId>mingdao-manage-domain</artifactId>
+				<version>${mingdao.manage.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.new.century</groupId>
+				<artifactId>mingdao-manage-api</artifactId>
+				<version>${mingdao.manage.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.new.century</groupId>
+				<artifactId>mingdao-manage-dao</artifactId>
+				<version>${mingdao.manage.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.new.century</groupId>
+				<artifactId>mingdao-manage-server</artifactId>
+				<version>${mingdao.manage.version}</version>
+			</dependency>
+
 
 			<dependency>
 				<groupId>com.alibaba</groupId>

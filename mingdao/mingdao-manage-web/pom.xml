@@ -15,6 +15,24 @@
 	</properties>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-dao</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.new.century</groupId>
+			<artifactId>mingdao-manage-server</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -70,8 +88,8 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 		</dependency>
-		
-				
+
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -82,8 +100,8 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.16</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -113,7 +131,7 @@
 		</dependency>
 		<!-- 其他常用包 end' -->
 
-		
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -136,14 +154,6 @@
 					<include>**/*.ini</include>
 				</includes>
 				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-				<filtering>false</filtering>
 			</resource>
 		</resources>
 	</build>
