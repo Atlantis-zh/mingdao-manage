@@ -28,58 +28,61 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>用户标志</th>
+										<th>用户编码</th>
 										<th>用户名称</th>
 										<th>用户状态</th>
+										<th>所属门店</th>
+										<th>手机</th>
 										<th>用户邮箱<i class="icon-envelope"/></th>
 										<th>用户操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
-								<c:forEach items="${datas.datas }" var="user">
+								<c:forEach items="${datas.datas}" var="userInfo">
 									<tr>
 										<td>
-											<a href="#">${user.id }</a>
+											<a href="#">${userInfo.id }</a>
 										</td>
-										<td><a href="${user.id }" class="list_link">${user.username }</a></td>
+										<td><a href="${userInfo.id }" class="list_link">${userInfo.userName }</a></td>
 										<td class="hidden-480">
-											<c:if test="${user.status eq 0 }">
+											<c:if test="${userInfo.status eq '0' }">
 												<span class="emp">停用</span>
-												<a href="updateStatus/${user.id }" class="list_op">启用</a>
+												<a href="updateStatus/${userInfo.id }" class="list_op">启用</a>
 											</c:if>
-											<c:if test="${user.status eq 1 }">
+											<c:if test="${userInfo.status eq '1' }">
 												<span>启用</span>
-												<a href="updateStatus/${user.id }" class="list_op">停用</a>
+												<a href="updateStatus/${userInfo.id }" class="list_op">停用</a>
 											</c:if>
 										</td>
-
+										<td>${userInfo.shopId}</td>
+										<td>${userInfo.phone}</td>
 										<td class="hidden-480">
-											<a href="mailto:${user.email }" class="list_link">${user.email }</a><i class="icon-envelope"/>
+											<a href="mailto:${userInfo.email }" class="list_link">${userInfo.email }</a><i class="icon-envelope"/>
 										</td>
 
 										<td>
 									
-												<c:if test="${user.status eq 1 }">
+												<c:if test="${userInfo.status eq '1' }">
 													<button class="btn btn-xs btn-success" title="启用"> 
 														<i class="ace-icon fa fa-check-square-o bigger-120"></i>
 													</button>
 												</c:if>
-												<c:if test="${user.status eq 0 }">
+												<c:if test="${userInfo.status eq '0' }">
 													<button class="btn btn-xs btn-success" title="停用">
 														<i class="ace-icon fa fa-square-o bigger-120"></i>
 													</button>
 												</c:if>
 
-												<a class="btn btn-xs btn-info" href="update/${user.id }" title="编辑">
+												<a class="btn btn-xs btn-info" href="update/${userInfo.id }" title="编辑">
 													<i class="ace-icon fa fa-pencil bigger-120"></i>
 												</a>
 
-												<a class="btn btn-xs btn-danger" href="delete/${user.id }" title="删除">
+												<a class="btn btn-xs btn-danger" href="delete/${userInfo.id }" title="删除">
 													<i class="ace-icon fa fa-trash-o bigger-120"></i>
 												</a>
 
-												<a class="btn btn-xs btn-success" title="查询管理栏目" href="<%=request.getContextPath() %>/admin/user/listChannels/${user.id }">
+												<a class="btn btn-xs btn-success" title="查询管理栏目" href="<%=request.getContextPath() %>/admin/user/listChannels/${userInfo.id }">
 													<i class="ace-icon fa fa-eye bigger-120"></i>
 												</a>
 									
@@ -98,7 +101,7 @@
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
-													<jsp:include page="/jsp/pager.jsp">
+														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
 														<jsp:param value="users" name="url"/>
 													</jsp:include>

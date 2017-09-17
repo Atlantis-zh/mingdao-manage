@@ -10,7 +10,7 @@
                         http://www.springframework.org/schema/mvc  
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="com.cn.hnust.controller" />
+	<context:component-scan base-package="com.mingdao.controller" />
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -25,6 +25,8 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+
+
 
 	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

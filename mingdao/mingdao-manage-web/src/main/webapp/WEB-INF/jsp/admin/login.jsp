@@ -17,9 +17,9 @@
 								<h1>
 									<i class="ace-icon fa fa-leaf green"></i>
 									<span class="red">66</span>
-									<span class="white" id="id-text2">Internet</span>
+									<span class="white" id="id-text2">MingDao</span>
 								</h1>
-								<h4 class="blue" id="id-company-text">&copy; 66科技</h4>
+								<h4 class="blue" id="id-company-text">&copy; MingDao科技</h4>
 							</div>
 
 							<div class="space-6"></div>
