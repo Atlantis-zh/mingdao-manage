@@ -100,7 +100,7 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="<%=request.getContextPath() %>/user/addUser" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户" class="btn btn-info fa">+</a>
+												<a href="#" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户" onclick="addUser(this)"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" onclick="searchUser(this);" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
 												<a href="<%=request.getContextPath() %>/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
@@ -124,7 +124,7 @@
 
 	</div>
 
-	<%--begin_zhangfx--%>
+	<%--begin_zhangfx_查询框--%>
 	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -163,7 +163,7 @@
 											<label>编号：</label>
 										</td>
 
-										<td class="data"><input type="text" id="jqg1" name="myac" role="textbox"
+										<td class="data"><input type="text"  name="myac" role="textbox"
 																class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 										</td>
 									</tr>
@@ -190,8 +190,112 @@
 						</div>
 					</div>
 					<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
 
 
+     <%--  新增框--%>
+	<div class="modal fade" id="addUser" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
+					 style="cursor: move;">
+					<div class="widget-header">
+						<span class="ui-jqdialog-title" style="float: left;">新增用户</span>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+					</div>
+				</div>
+				<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
+						<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
+							<div class="row">
+								<div class="col-xs-12">
+									<!-- PAGE CONTENT BEGINS -->
+									<sf:form method="post" modelAttribute="userInfo" id="addForm" cssClass="form-horizontal" role="form">
+										<!-- #section:elements.form -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名(必须是英文): </label>
+											<div class="col-sm-9">
+												<sf:input path="userName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="用户名"/>
+												<sf:errors cssClass="errorContainer" path="userName"/>
+											</div>
+										</div>
+										<div class="space-4"></div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 显示名称(可以是中文): </label>
+											<div class="col-sm-9">
+												<sf:input path="nickName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="显示名称"/>
+												<sf:errors cssClass="errorContainer" path="nickName"/>
+											</div>
+										</div>
+
+										<!-- /section:elements.form -->
+										<div class="space-4"></div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-2">用户密码: </label>
+
+											<div class="col-sm-9">
+												<sf:input class="col-xs-10 col-sm-5" id="passWord" type="password" path="passWord" placeholder="用户密码" />
+							<span class="help-inline col-xs-12 col-sm-7">
+								<span class="middle"><sf:errors cssClass="errorContainer" path="passWord"/></span>
+							</span>
+											</div>
+										</div>
+
+
+										<div class="space-4"></div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 联系方式: </label>
+											<div class="col-sm-9">
+												<sf:input path="phone" size="30" cssClass="col-xs-10 col-sm-5" placeholder="联系方式"/>
+												<sf:errors cssClass="errorContainer" path="phone"/>
+											</div>
+										</div>
+
+										<div class="space-4"></div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电子邮箱: </label>
+											<div class="col-sm-9">
+												<sf:input path="email" size="30" cssClass="col-xs-10 col-sm-5" placeholder="电子邮箱"/>
+												<sf:errors cssClass="errorContainer" path="email"/>
+											</div>
+										</div>
+
+										<div class="space-4"></div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态: </label>
+											<div class="col-sm-9">
+												<sf:select path="status" tbindex="1">
+													<sf:option value="0">停用</sf:option>
+													<sf:option value="1">启用</sf:option>
+												</sf:select>
+											</div>
+										</div>
+								</sf:form>
+						</div>
+						</div>
+						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
+							<tbody>
+							<tr>
+								<td colspan="2">
+									<hr class="ui-widget-content" style="margin:1px">
+								</td>
+							</tr>
+							<tr>
+								<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset_add"
+																				  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
+										class="ace-icon fa fa-retweet"></span>重置</a></td>
+								<td class="EditButton"><a id="fbox_grid-table_add"
+														  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
+										class="ace-icon fa fa-search"></span>添加</a></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div>
@@ -210,9 +314,11 @@
 				$(obj).attr("data-target","#searchUser");
 			}
 
-			function closeSearch(){
-				$("#searchmodfbox_grid-table").hide();
+			function addUser(obj){
+				$(obj).attr("data-target","#addUser");
 			}
+
+
 
 
 	</script>
