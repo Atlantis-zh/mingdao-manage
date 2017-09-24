@@ -42,7 +42,7 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  role t where 1=1
+        FROM  perssion t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -53,5 +53,5 @@
               and t.rolecode=#{roleCode}
            </if>
 	</select>
-	
+		
 </mapper>
