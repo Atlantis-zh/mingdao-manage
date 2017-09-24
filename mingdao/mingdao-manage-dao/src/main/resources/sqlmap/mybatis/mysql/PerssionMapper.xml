@@ -6,9 +6,9 @@
 		<result property="perssionCode" javaType="string" jdbcType="VARCHAR" column="perssioncode"/>
 		<result property="perssionName" javaType="string" jdbcType="VARCHAR" column="perssionname"/>
 		<result property="perssionMemo" javaType="string" jdbcType="VARCHAR" column="perssionmemo"/>
-		<result property="creator" javaType="string" jdbcType="VARCHAR" column="creator"/>
+		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
 		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
-		<result property="modifier" javaType="string" jdbcType="VARCHAR" column="modifier"/>
+		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
 		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
 	</resultMap>
 	
