@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingdao.dao.base.IUserRoleRelationDao">
-	<resultMap id="userRoleRelationResultMap" type="com.mingdao.domain.UserRoleRelation">
+<mapper namespace="com.mingdao.domain.PermRoleRelation.IPermRoleRelationDao">
+	<resultMap id="permRoleRelationResultMap" type="com.mingdao.domain.PermRoleRelation">
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
-		<result property="userId" javaType="string" jdbcType="VARCHAR" column="userid"/>
+		<result property="permissionId" javaType="string" jdbcType="VARCHAR" column="permissionid"/>
 		<result property="roleId" javaType="string" jdbcType="VARCHAR" column="roleid"/>
 		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
 		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
@@ -11,16 +11,16 @@
 		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
 	</resultMap>
 	
-	<insert id="insertVO" parameterType="com.mingdao.domain.UserRoleRelation" useGeneratedKeys="true" keyProperty="id">
-	    INSERT INTO user_role_relation
-        (userid,roleid,creator,createtime,modifier,modifiedtime)
+	<insert id="insertVO" parameterType="com.mingdao.domain.PermRoleRelation" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO perm_role_relation
+        (permissionid,roleid,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{userId},#{roleId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{permissionId},#{roleId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
-	<update id="updateVO" parameterType="com.mingdao.domain.UserRoleRelation">
-	    UPDATE user_role_relation SET
-          userid=#{userId},
+	<update id="updateVO" parameterType="com.mingdao.domain.PermRoleRelation">
+	    UPDATE perm_role_relation SET
+          permissionid=#{permissionId},
           roleid=#{roleId},
           creator=#{creator},
           createtime=#{createTime},
@@ -29,20 +29,20 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="userRoleRelationResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="permRoleRelationResultMap">
 	    SELECT
           t.id,
-          t.userid,
+          t.permissionid,
           t.roleid,
           t.creator,
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  user_role_relation t where 1=1
-           <if test="userid != null">
-              and t.userid=#{userId}
+        FROM  perm_role_relation t where 1=1
+           <if test="permissionid != null">
+              and t.permissionid=#{permissionId}
            </if>
-           <if test="roleId != null">
+           <if test="roleid != null">
               and t.roleid=#{roleId}
            </if>
 	</select>
@@ -50,11 +50,11 @@
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from user_role_relation t where 1=1
-           <if test="userid != null">
-              and t.userid=#{userId}
+		from perm_role_relation t where 1=1
+           <if test="permissionid != null">
+              and t.permissionid=#{permissionId}
            </if>
-           <if test="roleId != null">
+           <if test="roleid != null">
               and t.roleid=#{roleId}
            </if>
 	</select>

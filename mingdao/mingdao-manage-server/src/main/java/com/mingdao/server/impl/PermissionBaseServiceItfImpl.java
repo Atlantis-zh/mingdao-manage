@@ -10,7 +10,7 @@ import com.mingdao.api.IPermissionBaseServiceItf;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DateUtil;
-import com.mingdao.dao.base.IPerssionDao;
+import com.mingdao.dao.base.IPermissionDao;
 import com.mingdao.domain.Permission;
 
 /**
@@ -29,11 +29,11 @@ import com.mingdao.domain.Permission;
 public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 
 	@Autowired
-	private IPerssionDao perssionDao;
+	private IPermissionDao permissionDao;
 
 	@Override
 	public Permission insertPermission(Permission permission) {
-		perssionDao.insertVO(permission);
+		permissionDao.insertVO(permission);
 		return permission;
 	}
 
@@ -47,9 +47,9 @@ public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 
 	@Override
 	public Pager<Permission> pageQueryPermissionByCondition(Map<String, Object> param) {
-		int count = perssionDao.getCountByCondition(param);
+		int count = permissionDao.getCountByCondition(param);
 		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Permission> list = perssionDao.pageQueryByCondition(param, pageBounds);
+		List<Permission> list = permissionDao.pageQueryByCondition(param, pageBounds);
 		Pager<Permission> pages = new Pager<Permission>(count, list);
 		return pages;
 	}

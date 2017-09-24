@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingdao.dao.base.IPerssionDao">
-	<resultMap id="perssionResultMap" type="com.mingdao.domain.Permission">
+<mapper namespace="com.mingdao.dao.base.IPermissionDao">
+	<resultMap id="permissionResultMap" type="com.mingdao.domain.Permission">
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
-		<result property="perssionCode" javaType="string" jdbcType="VARCHAR" column="perssioncode"/>
-		<result property="perssionName" javaType="string" jdbcType="VARCHAR" column="perssionname"/>
-		<result property="perssionMemo" javaType="string" jdbcType="VARCHAR" column="perssionmemo"/>
+		<result property="permissionCode" javaType="string" jdbcType="VARCHAR" column="permissioncode"/>
+		<result property="permissionName" javaType="string" jdbcType="VARCHAR" column="permissionname"/>
+		<result property="permissionMemo" javaType="string" jdbcType="VARCHAR" column="permissionmemo"/>
 		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
 		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
@@ -13,17 +13,17 @@
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Permission" useGeneratedKeys="true" keyProperty="id">
-	    INSERT INTO perssion
-        (perssioncode,perssionname,perssionmemo,creator,createtime,modifier,modifiedtime)
+	    INSERT INTO permission
+        (permissioncode,permissionname,permissionmemo,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{perssionCode},#{perssionName},#{perssionMemo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{permissionCode},#{permissionName},#{permissionMemo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Permission">
-	    UPDATE perssion SET
-          perssioncode=#{perssionCode},
-          perssionname=#{perssionName},
-          perssionmemo=#{perssionMemo},
+	    UPDATE permission SET
+          permissioncode=#{permissionCode},
+          permissionname=#{permissionName},
+          permissionmemo=#{permissionMemo},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},
@@ -31,12 +31,12 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="perssionResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="permissionResultMap">
 	    SELECT
           t.id,
-          t.perssioncode,
-          t.perssionname,
-          t.perssionmemo,
+          t.permissioncode,
+          t.permissionname,
+          t.permissionmemo,
           t.usercode,
           t.creator,
           t.createtime,
@@ -46,26 +46,26 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="perssioncode != null">
-              and t.perssioncode=#{perssionCode}
+           <if test="permissioncode != null">
+              and t.permissioncode=#{permissionCode}
            </if>
-           <if test="perssionname != null">
-              and t.perssionname=#{perssionName}
+           <if test="permissionname != null">
+              and t.permissionname=#{permissionName}
            </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from perssion t where 1=1
+		from permission t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="perssioncode != null">
-              and t.perssioncode=#{perssionCode}
+           <if test="permissioncode != null">
+              and t.permissioncode=#{permissionCode}
            </if>
-           <if test="perssionname != null">
-              and t.perssionname=#{perssionName}
+           <if test="permissionname != null">
+              and t.permissionname=#{permissionName}
            </if>
 	</select>	
 </mapper>
