@@ -42,6 +42,7 @@
 		<mingdao.manage.version>1.0.0-SNAPSHOT</mingdao.manage.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+		<mybatis-paginator.version>1.2.15</mybatis-paginator.version>
 	</properties>
 
 	<prerequisites>
@@ -51,6 +52,11 @@
 	<dependencyManagement>
 		<dependencies>
 
+			<dependency>
+				<groupId>com.github.miemiedev</groupId>
+				<artifactId>mybatis-paginator</artifactId>
+				<version>${mybatis-paginator.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.new.century</groupId>
 				<artifactId>mingdao-manage-domain</artifactId>
