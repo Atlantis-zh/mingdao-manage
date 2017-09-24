@@ -20,9 +20,9 @@ public class UserRoleRelation extends SuperVO{
 	private Long id;
 	private Long userId;
 	private Long roleId;
-	private String creator;
+	private Long creator;
 	private String createTime;
-	private String modifier;
+	private Long modifier;
 	private String modifiedTime;
 
 	public static final String ID = "id";
@@ -50,10 +50,12 @@ public class UserRoleRelation extends SuperVO{
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-	public String getCreator() {
+
+	public Long getCreator() {
 		return this.creator;
 	}
-	public void setCreator(String creator) {
+
+	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
 	public String getCreateTime() {
@@ -62,10 +64,12 @@ public class UserRoleRelation extends SuperVO{
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public String getModifier() {
+
+	public Long getModifier() {
 		return this.modifier;
 	}
-	public void setModifier(String modifier) {
+
+	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
 	public String getModifiedTime() {
