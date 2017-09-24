@@ -7,7 +7,7 @@ public class Role extends SuperVO{
 	 */
 	private static final long serialVersionUID = -8945192045194575929L;
 	
-	private String roleId;
+	private Long id;
 	private String roleCode;
 	private String roleName;
 	private String roleMemo;
@@ -16,7 +16,7 @@ public class Role extends SuperVO{
 	private String modifier;
 	private String modifiedTime;
 	
-	public static final String ROLE_ID="role_id";
+	public static final String ID="id";
 	public static final String ROLE_CODE="role_code";
 	public static final String ROLE_NAME="role_name";
 	public static final String ROLE_MEMO="role_memo";
@@ -25,12 +25,6 @@ public class Role extends SuperVO{
 	public static final String MODIFIER="modifier";
 	public static final String MODIFIEDTIME="modifiedTime";
 	
-	public String getRoleId() {
-		return roleId;
-	}
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
 	public String getRoleCode() {
 		return roleCode;
 	}
@@ -72,5 +66,11 @@ public class Role extends SuperVO{
 	}
 	public void setModifiedTime(String modifiedTime) {
 		this.modifiedTime = modifiedTime;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
