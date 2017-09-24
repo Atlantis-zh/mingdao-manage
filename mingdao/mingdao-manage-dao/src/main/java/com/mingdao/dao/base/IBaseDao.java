@@ -11,7 +11,7 @@ public interface IBaseDao<E> {
 	public Long updateVO(E vo);
 	public void deleteByIds(String[] ids);
 	public E queryById(String id);
-	public E queryByCondition(Map<String,Object> param);
+	public E singleQueryByCondition(Map<String, Object> param);
 	public List<E> batchQueryByCondition(Map<String,Object> param);
 	public List<E> pageQueryByCondition(Map<String,Object> param,PageBounds pageBounds);
 	public List<E> queryByIds(String[] ids);

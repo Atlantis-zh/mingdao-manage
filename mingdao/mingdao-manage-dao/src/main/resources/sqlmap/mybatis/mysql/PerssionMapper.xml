@@ -31,26 +31,6 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="queryByCondition" parameterType="java.util.Map" resultMap="perssionResultMap">
-	    SELECT
-          t.id,
-          t.perssioncode,
-          t.perssionname,
-          t.perssionmemo,
-          t.usercode,
-          t.creator,
-          t.createtime,
-          t.modifier,
-          t.modifiedtime
-        FROM  role t where 1=1
-           <if test="id != null">
-              and t.id=#{id}
-           </if>
-           <if test="rolecode != null">
-              and t.perssioncode=#{perssionCode}
-           </if>
-	</select>
-	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="perssionResultMap">
 	    SELECT
           t.id,

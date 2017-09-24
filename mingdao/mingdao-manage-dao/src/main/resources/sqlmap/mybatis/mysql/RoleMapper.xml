@@ -31,7 +31,7 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="queryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
 	    SELECT
           t.id,
           t.rolecode,
