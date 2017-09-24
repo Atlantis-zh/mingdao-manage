@@ -5,6 +5,9 @@
 <html>
 <head>
 <%@ include file="../common/common_css.jsp"%>
+
+
+
 </head>
 <body class="no-skin">
 	<div class="main-content-inner">
@@ -18,8 +21,9 @@
 				<li class="active">用户信息管理</li>
 			</ul><!-- /.breadcrumb -->			
 		</div>
-		
 		<div class="page-content">
+
+
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
@@ -96,8 +100,9 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="<%=request.getContextPath() %>/admin/user/add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户" class="btn btn-info fa">+</a>
-												<a href="<%=request.getContextPath() %>/admin/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/user/addUser" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户" class="btn btn-info fa">+</a>
+												<a href="#" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" onclick="searchUser(this);" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
+												<a href="<%=request.getContextPath() %>/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
@@ -116,11 +121,101 @@
 				</div><!-- /.col -->
 			</div><!-- /.row -->
 		</div>
+
 	</div>
+
+	<%--begin_zhangfx--%>
+	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
+						 style="cursor: move;">
+							<div class="widget-header">
+								<span class="ui-jqdialog-title" style="float: left;">查询条件</span>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+							</div>
+
+					</div>
+					<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
+						<div>
+							<div id="fbox_grid-table" class="searchFilter" style="overflow:auto">
+								<table class="group ui-widget ui-widget-content ui-search-table" style="border:0px none;">
+									<tbody>
+									<tr class="error" style="display:none;">
+										<th colspan="3" class="ui-state-error" align="left"></th>
+									</tr>
+
+									<tr>
+										<td class="first"></td>
+										<td class="columns">
+											<label>姓名：</label>
+										</td>
+
+										<td class="data"><input type="text" id="jqg1" name="myac" role="textbox"
+																class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+										</td>
+									</tr>
+									<tr>
+										<td class="first"></td>
+										<td class="columns">
+											<label>编号：</label>
+										</td>
+
+										<td class="data"><input type="text" id="jqg1" name="myac" role="textbox"
+																class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<table class="EditTable" style="border:0px none;margin-top:5px;width:400px;" id="fbox_grid-table_2">
+								<tbody>
+								<tr>
+									<td colspan="2">
+										<hr class="ui-widget-content" style="margin:1px">
+									</td>
+								</tr>
+								<tr>
+									<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset"
+																					  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
+											class="ace-icon fa fa-retweet"></span>重置</a></td>
+									<td class="EditButton"><a id="fbox_grid-table_search"
+															  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
+											class="ace-icon fa fa-search"></span>查询</a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
+
+
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<%--//end_zhangfx--%>
+
+
+
 <%@ include file="../common/common_js.jsp"%>
 
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery.dataTables.js"></script>
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery.dataTables.bootstrap.js"></script>
+
+
+	<script type="text/javascript">
+			function searchUser(obj){
+				$(obj).attr("data-target","#searchUser");
+			}
+
+			function closeSearch(){
+				$("#searchmodfbox_grid-table").hide();
+			}
+
+
+	</script>
 
 </body>
 </html>

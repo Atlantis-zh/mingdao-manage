@@ -30,21 +30,21 @@
 			<div class="row">
 				<div class="col-xs-12">
 				<!-- PAGE CONTENT BEGINS -->
-				<sf:form method="post" modelAttribute="userDto" id="addForm" cssClass="form-horizontal" role="form">
+				<sf:form method="post" modelAttribute="userInfo" id="addForm" cssClass="form-horizontal" role="form">
 					<!-- #section:elements.form -->
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名(必须是英文): </label>
 						<div class="col-sm-9">
-							<sf:input path="username" size="30" cssClass="col-xs-10 col-sm-5" placeholder="用户名"/>
-							<sf:errors cssClass="errorContainer" path="username"/>
+							<sf:input path="userName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="用户名"/>
+							<sf:errors cssClass="errorContainer" path="userName"/>
 						</div>
 					</div>
 					<div class="space-4"></div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 显示名称(可以是中文): </label>
 						<div class="col-sm-9">
-							<sf:input path="nickname" size="30" cssClass="col-xs-10 col-sm-5" placeholder="显示名称"/>
-							<sf:errors cssClass="errorContainer" path="nickname"/>
+							<sf:input path="nickName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="显示名称"/>
+							<sf:errors cssClass="errorContainer" path="nickName"/>
 						</div>
 					</div>
 
@@ -54,25 +54,14 @@
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-2">用户密码: </label>
 
 						<div class="col-sm-9">
-							<sf:input class="col-xs-10 col-sm-5" id="password" type="password" path="password" placeholder="用户密码" />
+							<sf:input class="col-xs-10 col-sm-5" id="passWord" type="password" path="passWord" placeholder="用户密码" />
 							<span class="help-inline col-xs-12 col-sm-7">
-								<span class="middle"><sf:errors cssClass="errorContainer" path="password"/></span>
+								<span class="middle"><sf:errors cssClass="errorContainer" path="passWord"/></span>
 							</span>
 						</div>
 					</div>
 					
-					<div class="space-4"></div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label no-padding-right" for="form-field-2">确认密码: </label>
 
-						<div class="col-sm-9">
-							<input class="col-xs-10 col-sm-5" id="confirmPwd" name="confirmPwd" type="password" placeholder="确认密码" />
-							<span class="help-inline col-xs-12 col-sm-7">
-								<span class="middle"></span>
-							</span>
-						</div>
-					</div>
-					
 					<div class="space-4"></div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 联系方式: </label>
@@ -102,7 +91,7 @@
 						</div>
 					</div>
 					
-					<div class="space-4"></div>
+					<%--<div class="space-4"></div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 角色: </label>
 						<div class="col-sm-9">
@@ -116,7 +105,7 @@
 						<div class="col-sm-9">
 							<sf:checkboxes items="${groups}" path="groupIds" itemLabel="name" itemValue="id" cssStyle="padding-top:10px;"/>
 						</div>
-					</div>
+					</div>--%>
 					
 					<div class="clearfix form-actions">
 						<div class="col-md-offset-3 col-md-9">
