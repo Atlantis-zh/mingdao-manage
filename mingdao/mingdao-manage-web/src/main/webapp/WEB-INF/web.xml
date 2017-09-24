@@ -26,7 +26,7 @@
 
 	<filter>
 		<filter-name>SystemContextFilter</filter-name>
-		<filter-class>com.mingdao.util.SystemContextFilter</filter-class>
+		<filter-class>com.mingdao.common.pageUtil.SystemContextFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SystemContextFilter</filter-name>

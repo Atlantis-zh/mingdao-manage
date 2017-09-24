@@ -77,6 +77,11 @@
 				<artifactId>mingdao-manage-server</artifactId>
 				<version>${mingdao.manage.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.new.century</groupId>
+				<artifactId>mingdao-manage-common</artifactId>
+				<version>${mingdao.manage.version}</version>
+			</dependency>
 
 
 			<!-- log start -->

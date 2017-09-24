@@ -2,7 +2,6 @@ package com.mingdao.dao.base;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.domain.UserInfo;
-import com.mingdao.util.Pager;
 
 import java.util.List;
 import java.util.Map;

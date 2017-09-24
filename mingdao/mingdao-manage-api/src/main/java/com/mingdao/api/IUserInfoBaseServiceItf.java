@@ -2,9 +2,7 @@ package com.mingdao.api;
 
 import com.mingdao.domain.ResultMessage;
 import com.mingdao.domain.UserInfo;
-import com.mingdao.util.Pager;
-
-import java.util.List;
+import com.mingdao.common.pageUtil.Pager;
 
 public interface IUserInfoBaseServiceItf {
 	
