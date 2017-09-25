@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IPermissionDao">
+	<resultMap id="permissionResultMap" type="com.mingdao.domain.Permission">
+		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<result property="permissionCode" javaType="string" jdbcType="VARCHAR" column="permissioncode"/>
+		<result property="permissionName" javaType="string" jdbcType="VARCHAR" column="permissionname"/>
+		<result property="permissionMemo" javaType="string" jdbcType="VARCHAR" column="permissionmemo"/>
+		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
+		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
+		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.Permission" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO permission
+        (permissioncode,permissionname,permissionmemo,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{permissionCode},#{permissionName},#{permissionMemo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Permission">
+	    UPDATE permission SET
+          permissioncode=#{permissionCode},
+          permissionname=#{permissionName},
+          permissionmemo=#{permissionMemo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="permissionResultMap">
+	    SELECT
+          t.id,
+          t.permissioncode,
+          t.permissionname,
+          t.permissionmemo,
+          t.usercode,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  role t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="permissioncode != null">
+              and t.permissioncode=#{permissionCode}
+           </if>
+           <if test="permissionname != null">
+              and t.permissionname=#{permissionName}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from permission t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="permissioncode != null">
+              and t.permissioncode=#{permissionCode}
+           </if>
+           <if test="permissionname != null">
+              and t.permissionname=#{permissionName}
+           </if>
+	</select>	
+</mapper>

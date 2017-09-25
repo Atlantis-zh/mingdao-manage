@@ -6,9 +6,9 @@
 		<result property="roleCode" javaType="string" jdbcType="VARCHAR" column="rolecode"/>
 		<result property="roleName" javaType="string" jdbcType="VARCHAR" column="rolename"/>
 		<result property="roleMemo" javaType="string" jdbcType="VARCHAR" column="rolememo"/>
-		<result property="creator" javaType="string" jdbcType="VARCHAR" column="creator"/>
+		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
 		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
-		<result property="modifier" javaType="string" jdbcType="VARCHAR" column="modifier"/>
+		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
 		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
 	</resultMap>
 	
@@ -31,7 +31,7 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="queryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
 	    SELECT
           t.id,
           t.rolecode,
@@ -54,4 +54,19 @@
            </if>
 	</select>
 	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from role t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="rolename != null">
+              and t.rolename=#{roleName}
+           </if>
+           <if test="rolecode != null">
+              and t.rolecode=#{roleCode}
+           </if>
+	</select>	
+		
 </mapper>

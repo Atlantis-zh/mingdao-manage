@@ -11,15 +11,15 @@ public class Role extends SuperVO{
 	private String roleCode;
 	private String roleName;
 	private String roleMemo;
-	private String creator;
+	private Long creator;
 	private String createTime;
-	private String modifier;
+	private Long modifier;
 	private String modifiedTime;
 	
 	public static final String ID="id";
-	public static final String ROLE_CODE="role_code";
-	public static final String ROLE_NAME="role_name";
-	public static final String ROLE_MEMO="role_memo";
+	public static final String ROLECODE="roleCode";
+	public static final String ROLENAME="roleName";
+	public static final String ROLEMEMO="roleMemo";
 	public static final String CREATOR="creator";
 	public static final String CREATETIME="createTime";
 	public static final String MODIFIER="modifier";
@@ -43,10 +43,10 @@ public class Role extends SuperVO{
 	public void setRoleMemo(String roleMemo) {
 		this.roleMemo = roleMemo;
 	}
-	public String getCreator() {
+	public Long getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
 	public String getCreateTime() {
@@ -55,10 +55,10 @@ public class Role extends SuperVO{
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public String getModifier() {
+	public Long getModifier() {
 		return modifier;
 	}
-	public void setModifier(String modifier) {
+	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
 	public String getModifiedTime() {

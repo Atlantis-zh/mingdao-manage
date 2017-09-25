@@ -60,7 +60,5 @@
 			and t.username=#{username}
 		</if>
 	</select>
-
-
-
+	
 </mapper>

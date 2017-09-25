@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IUserRoleRelationDao">
+	<resultMap id="userRoleRelationResultMap" type="com.mingdao.domain.UserRoleRelation">
+		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<result property="userId" javaType="string" jdbcType="VARCHAR" column="userid"/>
+		<result property="roleId" javaType="string" jdbcType="VARCHAR" column="roleid"/>
+		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
+		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
+		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.UserRoleRelation" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO user_role_relation
+        (userid,roleid,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{userId},#{roleId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.UserRoleRelation">
+	    UPDATE user_role_relation SET
+          userid=#{userId},
+          roleid=#{roleId},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="userRoleRelationResultMap">
+	    SELECT
+          t.id,
+          t.userid,
+          t.roleid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  user_role_relation t where 1=1
+           <if test="userid != null">
+              and t.userid=#{userId}
+           </if>
+           <if test="roleId != null">
+              and t.roleid=#{roleId}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from user_role_relation t where 1=1
+           <if test="userid != null">
+              and t.userid=#{userId}
+           </if>
+           <if test="roleId != null">
+              and t.roleid=#{roleId}
+           </if>
+	</select>
+	
+</mapper>

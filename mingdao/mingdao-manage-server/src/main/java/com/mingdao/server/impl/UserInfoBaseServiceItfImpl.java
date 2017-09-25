@@ -25,11 +25,9 @@ public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
 	private IUserInfoDao userInfoDao;
 
 	@Override
-	public ResultMessage insertUserInfo(UserInfo userInfo) {
-		int result=userInfoDao.insertVO(userInfo);
-		ResultMessage resultMsg=new ResultMessage();
-		resultMsg.setResult(Integer.valueOf(result));
-		return resultMsg;
+	public UserInfo insertUserInfo(UserInfo userInfo) {
+		userInfoDao.insertVO(userInfo);
+		return userInfo;
 	}
 
 
