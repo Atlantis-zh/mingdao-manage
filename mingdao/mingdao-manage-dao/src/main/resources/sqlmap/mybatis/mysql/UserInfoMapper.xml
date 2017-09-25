@@ -41,8 +41,8 @@
 			t.modifier,
 			t.createtime
 		from  userinfo t where 1=1
-			<if test="id != '' and id != null">
-				and t.id=#{id}
+			<if test="usercode != '' and usercode != null">
+				and t.usercode=#{usercode}
 			</if>
 			<if test="username != '' and username != null">
 				and t.username=#{username}

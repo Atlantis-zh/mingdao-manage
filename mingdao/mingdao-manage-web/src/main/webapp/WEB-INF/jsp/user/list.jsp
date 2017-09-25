@@ -12,7 +12,6 @@
 </head>
 <body class="no-skin">
 	<div class="main-content-inner">
-		<!-- #section:basics/content.breadcrumbs -->
 		<div class="breadcrumbs" id="breadcrumbs">
 			<ul class="breadcrumb">
 				<li>
@@ -20,14 +19,13 @@
 					<a href="#">用户管理</a>
 				</li>
 				<li class="active">用户信息管理</li>
-			</ul><!-- /.breadcrumb -->			
+			</ul>
 		</div>
 		<div class="page-content">
 
 
 			<div class="row">
 				<div class="col-xs-12">
-					<!-- PAGE CONTENT BEGINS -->
 					<div class="row">
 						<div class="col-xs-12">
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
@@ -47,7 +45,7 @@
 								<c:forEach items="${datas.datas}" var="userInfo">
 									<tr>
 										<td>
-											<a href="#">${userInfo.id }</a>
+											<a href="#">${userInfo.userCode }</a>
 										</td>
 										<td><a href="${userInfo.id }" class="list_link">${userInfo.userName }</a></td>
 										<td class="hidden-480">
@@ -101,8 +99,8 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户" onclick="addUser(this)"  class="btn btn-info fa"  data-toggle="modal">+</a>
-												<a href="#" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" onclick="searchUser(this);" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
 												<a href="<%=request.getContextPath() %>/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
@@ -117,86 +115,87 @@
 									</tbody>
 								</table>
 							</div>
-						</div><!-- /.span -->
-					</div><!-- /.row -->
-				</div><!-- /.col -->
-			</div><!-- /.row -->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>
+
 
 	<%--begin_zhangfx_查询框--%>
 	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-					<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
-						 style="cursor: move;">
-							<div class="widget-header">
-								<span class="ui-jqdialog-title" style="float: left;">查询条件</span>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-									&times;
-								</button>
-							</div>
-
+				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
+					 style="cursor: move;">
+					<div class="widget-header">
+						<span class="ui-jqdialog-title" style="float: left;">查询条件</span>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
 					</div>
-					<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
-						<div>
-							<div id="fbox_grid-table" class="searchFilter" style="overflow:auto">
-								<table class="group ui-widget ui-widget-content ui-search-table" style="border:0px none;">
-									<tbody>
-									<tr class="error" style="display:none;">
-										<th colspan="3" class="ui-state-error" align="left"></th>
-									</tr>
 
-									<tr>
-										<td class="first"></td>
-										<td class="columns">
-											<label>姓名：</label>
-										</td>
-
-										<td class="data"><input type="text" id="jqg1" name="myac" role="textbox"
-																class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
-										</td>
-									</tr>
-									<tr>
-										<td class="first"></td>
-										<td class="columns">
-											<label>编号：</label>
-										</td>
-
-										<td class="data"><input type="text"  name="myac" role="textbox"
-																class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
-										</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-							<table class="EditTable" style="border:0px none;margin-top:5px;width:400px;" id="fbox_grid-table_2">
+				</div>
+				<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
+					<div>
+						<div id="fbox_grid-table" class="searchFilter" style="overflow:auto">
+							<table class="group ui-widget ui-widget-content ui-search-table" style="border:0px none;">
 								<tbody>
+								<tr class="error" style="display:none;">
+									<th colspan="3" class="ui-state-error" align="left"></th>
+								</tr>
+
 								<tr>
-									<td colspan="2">
-										<hr class="ui-widget-content" style="margin:1px">
+									<td class="first"></td>
+									<td class="columns">
+										<label>姓名：</label>
+									</td>
+
+									<td class="data"><input type="text" id="search_userName" name="search_userName" role="textbox"
+															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								<tr>
-									<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset"
-																					  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
-											class="ace-icon fa fa-retweet"></span>重置</a></td>
-									<td class="EditButton"><a id="fbox_grid-table_search"
-															  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
-											class="ace-icon fa fa-search"></span>查询</a></td>
+									<td class="first"></td>
+									<td class="columns">
+										<label>编号：</label>
+									</td>
+
+									<td class="data"><input type="text"  id="search_userCode" name="search_userCode" role="textbox"
+															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+									</td>
 								</tr>
 								</tbody>
 							</table>
 						</div>
+						<table class="EditTable" style="border:0px none;margin-top:5px;width:400px;" id="fbox_grid-table_2">
+							<tbody>
+							<tr>
+								<td colspan="2">
+									<hr class="ui-widget-content" style="margin:1px">
+								</td>
+							</tr>
+							<tr>
+								<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset"
+																				  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
+										class="ace-icon fa fa-retweet"></span>重置</a></td>
+								<td class="EditButton"><a id="fbox_grid-table_search"
+														  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
+										class="ace-icon fa fa-search"></span>查询</a></td>
+							</tr>
+							</tbody>
+						</table>
 					</div>
-					<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal -->
+				</div>
+				<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
+			</div>
+		</div>
 	</div>
 
 
-     <%--  新增框--%>
+	<%--  新增框--%>
 	<div class="modal fade" id="addUser" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -210,72 +209,60 @@
 					</div>
 				</div>
 				<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
-						<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
-							<div class="row">
-								<div class="col-xs-12">
-									<!-- PAGE CONTENT BEGINS -->
-									<sf:form method="post" modelAttribute="userInfo" id="addForm" cssClass="form-horizontal" role="form">
-										<!-- #section:elements.form -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名(必须是英文): </label>
-											<div class="col-sm-9">
-												<sf:input path="userName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="用户名"/>
-												<sf:errors cssClass="errorContainer" path="userName"/>
-											</div>
-										</div>
-										<div class="space-4"></div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 显示名称(可以是中文): </label>
-											<div class="col-sm-9">
-												<sf:input path="nickName" size="30" cssClass="col-xs-10 col-sm-5" placeholder="显示名称"/>
-												<sf:errors cssClass="errorContainer" path="nickName"/>
-											</div>
-										</div>
+					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户名(必须是英文): </label>
 
-										<!-- /section:elements.form -->
-										<div class="space-4"></div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-2">用户密码: </label>
+									<div class="col-sm-9">
+										<input id="userName" placeholder="userName" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
 
-											<div class="col-sm-9">
-												<sf:input class="col-xs-10 col-sm-5" id="passWord" type="password" path="passWord" placeholder="用户密码" />
-							<span class="help-inline col-xs-12 col-sm-7">
-								<span class="middle"><sf:errors cssClass="errorContainer" path="passWord"/></span>
-							</span>
-											</div>
-										</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="nickName">  用户名(必须是英文): </label>
 
+									<div class="col-sm-9">
+										<input id="nickName" placeholder="nickName" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
 
-										<div class="space-4"></div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 联系方式: </label>
-											<div class="col-sm-9">
-												<sf:input path="phone" size="30" cssClass="col-xs-10 col-sm-5" placeholder="联系方式"/>
-												<sf:errors cssClass="errorContainer" path="phone"/>
-											</div>
-										</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="password">  用户密码: </label>
 
-										<div class="space-4"></div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电子邮箱: </label>
-											<div class="col-sm-9">
-												<sf:input path="email" size="30" cssClass="col-xs-10 col-sm-5" placeholder="电子邮箱"/>
-												<sf:errors cssClass="errorContainer" path="email"/>
-											</div>
-										</div>
+									<div class="col-sm-9">
+										<input id="password" placeholder="password" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
 
-										<div class="space-4"></div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态: </label>
-											<div class="col-sm-9">
-												<sf:select path="status" tbindex="1">
-													<sf:option value="0">停用</sf:option>
-													<sf:option value="1">启用</sf:option>
-												</sf:select>
-											</div>
-										</div>
-								</sf:form>
-						</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="nickName"> 手机号码:</label>
+
+									<div class="col-sm-9">
+										<input id="phone" placeholder="phone" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="email"> 电子邮箱:  </label>
+
+									<div class="col-sm-9">
+										<input id="email" placeholder="email" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="email">状态: </label>
+
+									<div class="col-sm-9">
+										<select class="form-control" id="form-field-select-1">
+											<option value="0">停用</option>
+											<option value="1">启用</option>
+										</select>
+									</div>
+								</div>
+							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
 							<tbody>
@@ -297,11 +284,10 @@
 					</div>
 				</div>
 				<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal -->
+			</div>
+		</div>
 	</div>
 	<%--//end_zhangfx--%>
-
 
 
 <%@ include file="../common/common_js.jsp"%>
@@ -311,15 +297,43 @@
 
 
 	<script type="text/javascript">
-			function searchUser(obj){
-				$(obj).attr("data-target","#searchUser");
+
+			$("#add").click(function(){
+				$(this).attr("data-target","#addUser");
+			});
+
+			$("#search").click(function(){
+				$(this).attr("data-target","#searchUser");
+			});
+
+			function submitForm(action, params) {
+				var form = $("<form></form>");
+				form.attr('action', action);
+				form.attr('method', 'post');
+				form.attr('target', '_self');
+				for(var i=0 ; i < params.length;i ++){
+					var input1 = $("<input type='hidden' name='"+params[i].name+"' />");
+					input1.attr('value', params[i].val);
+					form.append(input1);
+				}
+				form.appendTo("body");
+				form.css('display', 'none');
+				form.submit();
 			}
 
-			function addUser(obj){
-				$(obj).attr("data-target","#addUser");
-			}
+			$("#fbox_grid-table_search").click(function(){
+				var paramsName = new Object();
+				paramsName.name="search_userName";
+				paramsName.val=$("#search_userName").val();
 
+				var paramsCode = new Object();
+				paramsCode.name="search_userCode";
+				paramsCode.val=$("#search_userCode").val();
 
+				var paramsArr = [paramsName,paramsCode];
+				submitForm("/user/users",paramsArr);
+
+	    	});
 
 
 	</script>

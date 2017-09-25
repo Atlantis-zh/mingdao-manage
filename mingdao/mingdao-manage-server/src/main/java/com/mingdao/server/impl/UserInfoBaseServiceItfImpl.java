@@ -37,7 +37,7 @@ public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
 	public Pager<UserInfo> getUserInfo(UserInfo userInfo) {
 		Map<String,Object> param = new HashMap<>();
 		if(!StringUtils.isEmpty(userInfo)){
-			param.put("id",userInfo.getId());
+			param.put("usercode",userInfo.getUserCode());
 			param.put("username",userInfo.getUserName());
 		}
 		int count =  userInfoDao.getCountUser(param);
