@@ -20,7 +20,7 @@ public class CustType extends SuperVO {
 	private Long id;
 	private String code;
 	private String name;
-	private String storeId;
+	private Long storeId;
 	private String creator;
 	private String createTime;
 	private String modifier;
@@ -50,11 +50,11 @@ public class CustType extends SuperVO {
 		this.name = name;
 	}
 
-	public String getStoreId() {
+	public Long getStoreId() {
 		return this.storeId;
 	}
 
-	public void setStoreId(String storeId) {
+	public void setStoreId(Long storeId) {
 		this.storeId = storeId;
 	}
 
