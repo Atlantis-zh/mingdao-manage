@@ -6,7 +6,7 @@
 	   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
     <!-- 导入数据库的相关配置 -->
-    <import resource="classpath:spring/spring-hibernate.xml"/>
+    <import resource="spring-mybatis.xml" />
 
     <!-- 对应于web.xml中配置的那个shiroFilter -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -18,7 +18,7 @@
         <!-- <property name="successUrl" value="/" ></property> -->
         <!-- 用户访问未对其授权的资源时，所显示的连接 -->
         <property name="unauthorizedUrl" value="/error/unauthorized"/>
-
+        
         <property name="filterChainDefinitions">
             <value>
                 /admin/**=authc
@@ -31,6 +31,7 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
     <!-- 数据库保存的密码是使用MD5算法加密的，所以这里需要配置一个密码匹配对象 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.Md5CredentialsMatcher"></bean>
+    
     <!-- 缓存管理 -->
     <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
 
