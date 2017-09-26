@@ -21,9 +21,9 @@ public class CustType extends SuperVO {
 	private String code;
 	private String name;
 	private Long storeId;
-	private String creator;
+	private Long creator;
 	private String createTime;
-	private String modifier;
+	private Long modifier;
 	private String modifiedTime;
 
 	public Long getId() {
@@ -58,11 +58,11 @@ public class CustType extends SuperVO {
 		this.storeId = storeId;
 	}
 
-	public String getCreator() {
+	public Long getCreator() {
 		return this.creator;
 	}
 
-	public void setCreator(String creator) {
+	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
 
@@ -74,11 +74,11 @@ public class CustType extends SuperVO {
 		this.createTime = createTime;
 	}
 
-	public String getModifier() {
+	public Long getModifier() {
 		return this.modifier;
 	}
 
-	public void setModifier(String modifier) {
+	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
 
