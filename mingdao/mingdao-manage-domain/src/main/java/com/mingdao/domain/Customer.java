@@ -28,7 +28,7 @@ public class Customer extends SuperVO {
 	private String phone;
 	private String identityId;
 	private CustomerSource custSource;
-	private String custTypeId;
+	private Long custTypeId;
 	private Boolean lpr;
 	private Sex sex;
 	private String address;
@@ -39,7 +39,7 @@ public class Customer extends SuperVO {
 	private Double nextServiceCyc;
 	private String vin;
 	private Timestamp buyCarTime;
-	private String brandId;
+	private Long brandId;
 	private String insureCompany;
 	private Timestamp insureExpir;
 	private Double preCyc;
@@ -152,11 +152,11 @@ public class Customer extends SuperVO {
 		this.custSource = custSource;
 	}
 
-	public String getCustTypeId() {
+	public Long getCustTypeId() {
 		return this.custTypeId;
 	}
 
-	public void setCustTypeId(String custTypeId) {
+	public void setCustTypeId(Long custTypeId) {
 		this.custTypeId = custTypeId;
 	}
 
@@ -240,11 +240,11 @@ public class Customer extends SuperVO {
 		this.buyCarTime = buyCarTime;
 	}
 
-	public String getBrandId() {
+	public Long getBrandId() {
 		return this.brandId;
 	}
 
-	public void setBrandId(String brandId) {
+	public void setBrandId(Long brandId) {
 		this.brandId = brandId;
 	}
 

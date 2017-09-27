@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IStoreDao">
+	<resultMap id="storeResultMap" type="com.mingdao.domain.Store">
+		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+		<result property="tel1" javaType="string" jdbcType="VARCHAR" column="tel1"/>
+		<result property="tel2" javaType="string" jdbcType="VARCHAR" column="tel2"/>
+		<result property="tel3" javaType="string" jdbcType="VARCHAR" column="tel3"/>
+		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
+		<result property="isWxShow" javaType="boolean" jdbcType="BOOLEAN" column="iswxshow"/>
+		<result property="isWxDefault" javaType="boolean" jdbcType="BOOLEAN" column="iswxdefault"/>
+		<result property="isHeadStore" javaType="boolean" jdbcType="BOOLEAN" column="isheadstore"/>
+		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
+		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
+		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.Store" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO store
+        (code,name,tel1,tel2,tel3,address,iswxshow,iswxdefault,isheadstore,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{tel1},#{tel2},#{tel3},#{address},#{isWxShow},#{isWxDefault},#{isHeadStore},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Store">
+	    UPDATE store SET
+          code=#{code},
+          name=#{name},
+          tel1=#{tel1},
+          tel2=#{tel2},
+          tel3=#{tel3},
+          address=#{address},
+          iswxshow=#{isWxShow},
+          iswxdefault=#{isWxDefault},
+          isheadstore=#{isHeadStore},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="storeResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.tel1,
+          t.tel2,
+          t.tel3,
+          t.address,
+          t.iswxshow,
+          t.iswxdefault,
+          t.isheadstore,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  store t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from store t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+</mapper>

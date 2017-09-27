@@ -27,9 +27,9 @@ public class Store extends SuperVO {
 	private Boolean isWxShow;
 	private Boolean isWxDefault;
 	private Boolean isHeadStore;
-	private String creator;
+	private Long creator;
 	private String createTime;
-	private String modifier;
+	private Long modifier;
 	private String modifiedTime;
 	public Long getId() {
 		return this.id;
@@ -91,10 +91,12 @@ public class Store extends SuperVO {
 	public void setIsHeadStore(Boolean isHeadStore) {
 		this.isHeadStore = isHeadStore;
 	}
-	public String getCreator() {
+
+	public Long getCreator() {
 		return this.creator;
 	}
-	public void setCreator(String creator) {
+
+	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
 	public String getCreateTime() {
@@ -103,10 +105,12 @@ public class Store extends SuperVO {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public String getModifier() {
+
+	public Long getModifier() {
 		return this.modifier;
 	}
-	public void setModifier(String modifier) {
+
+	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
 	public String getModifiedTime() {
