@@ -1,5 +1,7 @@
 package com.mingdao.domain;
 
+import java.sql.Timestamp;
+
 /**
  *
  * <code>Store<code> <strong></strong>
@@ -28,9 +30,9 @@ public class Store extends SuperVO {
 	private Boolean isWxDefault;
 	private Boolean isHeadStore;
 	private Long creator;
-	private String createTime;
+	private Timestamp createTime;
 	private Long modifier;
-	private String modifiedTime;
+	private Timestamp modifiedTime;
 	public Long getId() {
 		return this.id;
 	}
@@ -99,10 +101,12 @@ public class Store extends SuperVO {
 	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
-	public String getCreateTime() {
+
+	public Timestamp getCreateTime() {
 		return this.createTime;
 	}
-	public void setCreateTime(String createTime) {
+
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
@@ -113,10 +117,12 @@ public class Store extends SuperVO {
 	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
-	public String getModifiedTime() {
+
+	public Timestamp getModifiedTime() {
 		return this.modifiedTime;
 	}
-	public void setModifiedTime(String modifiedTime) {
+
+	public void setModifiedTime(Timestamp modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
 	
