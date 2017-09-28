@@ -17,7 +17,7 @@ import com.mingdao.domain.UserRoleRelation;
  *
  * <code>UserRoleRelationBaseServiceItfImpl<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：c
  * <li></li>
  * </p>
  * 
