@@ -6,7 +6,7 @@ import java.sql.Timestamp;
  *
  * <code>Store<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：门店实体
  * <li></li>
  * </p>
  * 
