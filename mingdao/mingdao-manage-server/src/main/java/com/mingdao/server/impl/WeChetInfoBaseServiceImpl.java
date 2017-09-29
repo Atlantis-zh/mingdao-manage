@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IWeChetBaseService;
@@ -14,17 +15,18 @@ import com.mingdao.dao.base.IWeChetInfoDao;
 import com.mingdao.domain.WeChatInfo;
 
 /**
-*
-* <code>IWeChetInfoDao<code> <strong></strong>
-* <p>
-
-* <li>微信关注列表</li>
-* </p>
-* 
-* @since
-* @version 
-* @author wushzh
-*/
+ *
+ * <code>IWeChetInfoDao<code> <strong></strong>
+ * <p>
+ * 
+ * <li>微信关注列表</li>
+ * </p>
+ * 
+ * @since
+ * @version
+ * @author wushzh
+ */
+@Service
 public class WeChetInfoBaseServiceImpl implements IWeChetBaseService{
 
 	@Autowired
