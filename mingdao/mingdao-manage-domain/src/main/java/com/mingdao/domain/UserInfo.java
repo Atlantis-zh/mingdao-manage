@@ -1,5 +1,7 @@
 package com.mingdao.domain;
 
+import java.sql.Timestamp;
+
 public class UserInfo extends  SuperVO{
 	private static final long serialVersionUID = 8262248081835118056L;
 	private Long id;
@@ -10,11 +12,12 @@ public class UserInfo extends  SuperVO{
 	private String status;
 	private String phone;
 	private String email;
-	private String creator;
-	private String createTime;
-	private String modifier;
-	private String modifiedTime;
 	private String shopId;
+	private Long creator;
+	private Timestamp createTime;
+	private Long modifier;
+	private Timestamp modifiedTime;
+
 	
 	public static final String ID="id";
 	public static final String PASSWORD="passWord";
@@ -79,28 +82,36 @@ public class UserInfo extends  SuperVO{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getCreator() {
+
+	public Long getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+
+	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
-	public String getCreateTime() {
+
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(String createTime) {
+
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-	public String getModifier() {
+
+	public Long getModifier() {
 		return modifier;
 	}
-	public void setModifier(String modifier) {
+
+	public void setModifier(Long modifier) {
 		this.modifier = modifier;
 	}
-	public String getModifiedTime() {
+
+	public Timestamp getModifiedTime() {
 		return modifiedTime;
 	}
-	public void setModifiedTime(String modifiedTime) {
+
+	public void setModifiedTime(Timestamp modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
 	public String getShopId() {
