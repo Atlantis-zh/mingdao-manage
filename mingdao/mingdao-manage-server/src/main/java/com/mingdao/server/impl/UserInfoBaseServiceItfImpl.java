@@ -2,6 +2,7 @@ package com.mingdao.server.impl;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
+import com.mingdao.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
 		List<UserInfo> list = userInfoDao.getUserInfo(param,pageBounds);
 		Pager<UserInfo> pages = new Pager<UserInfo>(count,list);
 		return pages;
+	}
+
+	@Override
+	public int deleteUser(int id) {
+		return userInfoDao.deleteUser(id);
 	}
 }

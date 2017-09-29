@@ -34,6 +34,6 @@ public class Customer extends SuperVO {
 	private String address;
 	private String platNumber;
 	private Double carPrice;
-	private 
+
 
 }

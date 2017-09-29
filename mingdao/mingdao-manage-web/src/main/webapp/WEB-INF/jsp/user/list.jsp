@@ -81,14 +81,9 @@
 													<i class="ace-icon fa fa-pencil bigger-120"></i>
 												</a>
 
-												<a class="btn btn-xs btn-danger" href="delete/${userInfo.id }" title="删除">
+												<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
 													<i class="ace-icon fa fa-trash-o bigger-120"></i>
 												</a>
-
-												<a class="btn btn-xs btn-success" title="查询管理栏目" href="<%=request.getContextPath() %>/admin/user/listChannels/${userInfo.id }">
-													<i class="ace-icon fa fa-eye bigger-120"></i>
-												</a>
-									
 										</td>
 									</tr>
 								</c:forEach>
@@ -221,6 +216,22 @@
 								</div>
 
 								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="userName">  店铺: </label>
+
+									<div class="col-sm-9">
+										<input id="shopId" placeholder="shopId" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户编码: </label>
+
+									<div class="col-sm-9">
+										<input id="userCode" placeholder="userCode" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="nickName">  用户名(必须是英文): </label>
 
 									<div class="col-sm-9">
@@ -232,7 +243,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="password">  用户密码: </label>
 
 									<div class="col-sm-9">
-										<input id="password" placeholder="password" class="col-xs-10 col-sm-5" type="text">
+										<input id="passWord" placeholder="passWord" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
@@ -256,7 +267,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="email">状态: </label>
 
 									<div class="col-sm-9">
-										<select class="form-control" id="form-field-select-1">
+										<select class="form-control" id="status">
 											<option value="0">停用</option>
 											<option value="1">启用</option>
 										</select>
@@ -311,11 +322,14 @@
 				form.attr('action', action);
 				form.attr('method', 'post');
 				form.attr('target', '_self');
-				for(var i=0 ; i < params.length;i ++){
-					var input1 = $("<input type='hidden' name='"+params[i].name+"' />");
-					input1.attr('value', params[i].val);
-					form.append(input1);
+				if(params!=null){
+					for(var i=0 ; i < params.length;i ++){
+						var input1 = $("<input type='hidden' name='"+params[i].name+"' />");
+						input1.attr('value', params[i].val);
+						form.append(input1);
+					}
 				}
+
 				form.appendTo("body");
 				form.css('display', 'none');
 				form.submit();
@@ -332,8 +346,37 @@
 
 				var paramsArr = [paramsName,paramsCode];
 				submitForm("/user/users",paramsArr);
-
 	    	});
+
+		//新增操作
+
+			$("#fbox_grid-table_add").click(function(){
+				var userName = $("#userName").val();
+				var nickName = $("#nickName").val();
+				var passWord = $("#passWord").val();
+				var userCode = $("#userCode").val();
+				var phone =$("#phone").val();
+				var email = $("#email").val();
+				var status = $("#status").val();
+				var shopId = $("#shopId").val();
+
+				$.ajax({
+					type: 'POST',
+					url: "/user/addUser",
+					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId },
+					dataType: "json",
+					success: function (data, status) {
+						submitForm("/user/users",null);
+					},
+					fail: function (err, status) {
+						console.log(err)
+					}
+
+				});
+			});
+
+
+
 
 
 	</script>

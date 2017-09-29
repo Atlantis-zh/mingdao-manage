@@ -10,6 +10,8 @@ public interface IUserInfoBaseServiceItf {
 
 	public Pager<UserInfo> getUserInfo(UserInfo userInfo);
 
+	public int deleteUser(int id);
+
 
 
 }

@@ -20,10 +20,6 @@ public class PermRoleRelation  extends SuperVO{
 	private Long id;
 	private Long permissionId;
 	private Long roleId;
-	private Long creator;
-	private String createTime;
-	private Long modifier;
-	private String modifiedTime;
 
 	public static final String ID = "id";
 	public static final String PERMISSIONID = "permissionId";
@@ -57,36 +53,6 @@ public class PermRoleRelation  extends SuperVO{
 		this.roleId = roleId;
 	}
 
-	public Long getCreator() {
-		return this.creator;
-	}
 
-	public void setCreator(Long creator) {
-		this.creator = creator;
-	}
-
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	public Long getModifier() {
-		return this.modifier;
-	}
-
-	public void setModifier(Long modifier) {
-		this.modifier = modifier;
-	}
-
-	public String getModifiedTime() {
-		return this.modifiedTime;
-	}
-
-	public void setModifiedTime(String modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
 
 }

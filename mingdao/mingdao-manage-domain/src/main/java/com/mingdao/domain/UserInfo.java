@@ -10,10 +10,6 @@ public class UserInfo extends  SuperVO{
 	private String status;
 	private String phone;
 	private String email;
-	private String creator;
-	private String createTime;
-	private String modifier;
-	private String modifiedTime;
 	private String shopId;
 	
 	public static final String ID="id";
@@ -78,30 +74,6 @@ public class UserInfo extends  SuperVO{
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getCreator() {
-		return creator;
-	}
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	public String getModifier() {
-		return modifier;
-	}
-	public void setModifier(String modifier) {
-		this.modifier = modifier;
-	}
-	public String getModifiedTime() {
-		return modifiedTime;
-	}
-	public void setModifiedTime(String modifiedTime) {
-		this.modifiedTime = modifiedTime;
 	}
 	public String getShopId() {
 		return shopId;

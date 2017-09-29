@@ -11,10 +11,7 @@ public class Permission extends SuperVO{
 	private String permissionCode;
 	private String permissionName;
 	private String permissionMemo;
-	private Long creator;
-	private String createTime;
-	private Long modifier;
-	private String modifiedTime;
+
 	
 	public static final String ID="id";
 	public static final String PERMISSIONCODE = "permissionCode";
@@ -55,32 +52,7 @@ public class Permission extends SuperVO{
 	public void setPermissionMemo(String permissionMemo) {
 		this.permissionMemo = permissionMemo;
 	}
-	public Long getCreator() {
-		return creator;
-	}
 
-	public void setCreator(Long creator) {
-		this.creator = creator;
-	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
 
-	public Long getModifier() {
-		return modifier;
-	}
-
-	public void setModifier(Long modifier) {
-		this.modifier = modifier;
-	}
-	public String getModifiedTime() {
-		return modifiedTime;
-	}
-	public void setModifiedTime(String modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
 	
 }

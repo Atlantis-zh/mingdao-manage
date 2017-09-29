@@ -18,4 +18,6 @@ public interface IUserInfoDao extends IBaseDao<UserInfo>{
 
     public int getCountUser(Map<String,Object> param);
 
+    public int deleteUser(int id);
+
 }

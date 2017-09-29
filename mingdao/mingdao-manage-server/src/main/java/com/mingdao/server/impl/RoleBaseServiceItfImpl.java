@@ -25,8 +25,8 @@ public class RoleBaseServiceItfImpl implements IRoleBaseServiceItf{
 
 	@Override
 	public Role updateRole(Role role,Long modifyUserId) {
-		role.setModifier(modifyUserId);
-		role.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		//role.setModifier(modifyUserId);
+	//	role.setModifiedTime(DateUtil.getCurrentDateTime().toString());
 		roleDao.updateVO(role);
 		return role;
 	}

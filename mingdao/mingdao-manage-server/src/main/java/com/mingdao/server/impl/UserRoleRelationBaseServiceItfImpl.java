@@ -39,8 +39,8 @@ public class UserRoleRelationBaseServiceItfImpl implements IUserRoleRelationBase
 
 	@Override
 	public UserRoleRelation updateUserRoleRelation(UserRoleRelation relation, Long modifyUserId) {
-		relation.setModifier(modifyUserId);
-		relation.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		//relation.setModifier(modifyUserId);
+		//relation.setModifiedTime(DateUtil.getCurrentDateTime().toString());
 		dao.updateVO(relation);
 		return relation;
 	}

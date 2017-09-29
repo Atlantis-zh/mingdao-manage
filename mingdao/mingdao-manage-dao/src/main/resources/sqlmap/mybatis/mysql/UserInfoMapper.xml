@@ -20,9 +20,9 @@
 
 	<insert id="insertVO" parameterType="com.mingdao.domain.UserInfo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO userinfo
-		(usercode,username,password,nickname,status,phone,email,creator,createtime,modifier,modifiedtime)
+		(usercode,username,password,nickname,status,phone,email,creator,createtime,modifier,modifiedtime,shopid)
 		VALUES
-		(#{userCode},#{userName},#{passWord},#{nickName},#{status},#{phone},#{email},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{userCode},#{userName},#{passWord},#{nickName},#{status},#{phone},#{email},#{creator},#{createTime},#{modifier},#{modifiedTime},#{shopId})
 	</insert>
 
 	<select id="getUserInfo" parameterType="map" resultMap="userResultMap">
@@ -60,5 +60,9 @@
 			and t.username=#{username}
 		</if>
 	</select>
-	
+
+	<delete id="deleteUser" parameterType="int">
+		delete from userinfo  where id = #{id}
+	</delete>
+
 </mapper>
