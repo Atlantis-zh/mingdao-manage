@@ -2,6 +2,9 @@ package com.mingdao.domain;
 
 import java.sql.Timestamp;
 
+import com.mingdao.enumprop.CustomerSource;
+import com.mingdao.enumprop.Sex;
+
 /**
  *
  * <code>Customer<code> <strong></strong>

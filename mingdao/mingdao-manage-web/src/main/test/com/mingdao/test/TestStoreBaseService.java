@@ -36,8 +36,10 @@ public class TestStoreBaseService {
 	@Rollback(false)
 	public void testInsert() {
 		Store st = new Store();
-		st.setCode("0001");
+		st.setCode("0002");
 		st.setName("北京总店");
+		st.setTel1("16800");
+		st.setAddress("北京天安门");
 		st.setCreateTime(DateUtil.getCurrentTimestamp());
 		service.insertStore(st);
 		System.out.println(st.getId());

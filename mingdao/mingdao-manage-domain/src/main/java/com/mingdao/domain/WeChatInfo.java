@@ -1,17 +1,19 @@
 package com.mingdao.domain;
 
-/**
-*
-* <code>IWeChetInfoDao<code> <strong></strong>
-* <p>
+import com.mingdao.enumprop.Sex;
 
-* <li>微信关注列表</li>
-* </p>
-* 
-* @since
-* @version 
-* @author wushzh
-*/
+/**
+ *
+ * <code>IWeChetInfoDao<code> <strong></strong>
+ * <p>
+ * 
+ * <li>微信关注列表</li>
+ * </p>
+ * 
+ * @since
+ * @version
+ * @author wushzh
+ */
 
 public class WeChatInfo extends SuperVO {
 

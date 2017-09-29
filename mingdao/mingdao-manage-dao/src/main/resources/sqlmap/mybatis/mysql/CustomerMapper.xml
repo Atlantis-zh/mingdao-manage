@@ -10,10 +10,10 @@
 		<result property="birthday" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="birthday"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="identityId" javaType="string" jdbcType="VARCHAR" column="identityid"/>
-		<result property="custSource" javaType="int" jdbcType="INTEGER" column="name"/>
+		<result property="custSource" javaType="int" jdbcType="INTEGER" column="name" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
 		<result property="custTypeId" javaType="long" jdbcType="BIGINT" column="custtypeid"/>
 		<result property="lpr" javaType="boolean" jdbcType="BOOLEAN" column="lpr"/>
-		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex"/>
+		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
 		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
 		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
 		<result property="carPrice" javaType="double" jdbcType="DOUBLE" column="carprice"/>
