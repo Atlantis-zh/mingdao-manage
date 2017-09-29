@@ -106,36 +106,6 @@ public class WeChatInfo extends SuperVO {
 		this.storeId = storeId;
 	}
 
-	public Long getCreator() {
-		return this.creator;
-	}
 
-	public void setCreator(Long creator) {
-		this.creator = creator;
-	}
-
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	public Long getModifier() {
-		return this.modifier;
-	}
-
-	public void setModifier(Long modifier) {
-		this.modifier = modifier;
-	}
-
-	public String getModifiedTime() {
-		return this.modifiedTime;
-	}
-
-	public void setModifiedTime(String modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
 
 }

@@ -46,42 +46,7 @@ public class Customer extends SuperVO {
 	private String insureCompany;
 	private Timestamp insureExpir;
 	private Double preCyc;
-	private String creator;
-	private String createTime;
-	private String modifier;
-	private String modifiedTime;
 
-	public String getCreator() {
-		return this.creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getModifier() {
-		return this.modifier;
-	}
-
-	public void setModifier(String modifier) {
-		this.modifier = modifier;
-	}
-
-	public String getModifiedTime() {
-		return this.modifiedTime;
-	}
-
-	public void setModifiedTime(String modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
 
 	public Long getId() {
 		return this.id;

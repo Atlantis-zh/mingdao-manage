@@ -13,10 +13,7 @@ public class UserInfo extends  SuperVO{
 	private String phone;
 	private String email;
 	private String shopId;
-	private Long creator;
-	private Timestamp createTime;
-	private Long modifier;
-	private Timestamp modifiedTime;
+
 
 	
 	public static final String ID="id";
