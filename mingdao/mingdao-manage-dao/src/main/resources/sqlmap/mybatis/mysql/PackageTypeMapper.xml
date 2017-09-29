@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingdao.dao.base.IMemberShipCardDao">
-	<resultMap id="mscResultMap" type="com.mingdao.domain.MemberShipCard">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingdao.dao.base.IPackageTypeDao">
+	<resultMap id="ptResultMap" type="com.mingdao.domain.PackageType">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
-		<result property="cardRecharge" javaType="double" jdbcType="DOUBLE" column="cardrecharge"/>
-		<result property="cardDonate" javaType="double" jdbcType="DOUBLE" column="carddonate"/>
+		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
+		<result property="count" javaType="int" jdbcType="INTEGER" column="count"/>
 		<result property="expire" javaType="int" jdbcType="INTEGER" column="expire"/>
 		<result property="timeUnit" column="timeunit" typeHandler="com.mingdao.dao.base.typehandler.TimeUnitEnumTypeHandler"/>
-		<result property="cardPicture" javaType="string" jdbcType="VARCHAR" column="cardpicture"/>
 		<result property="shareToBranch" javaType="boolean" jdbcType="BOOLEAN" column="sharetobranch"/>
 		<result property="source" column="source" typeHandler="com.mingdao.dao.base.typehandler.MemberShipSourceEnumTypeHandler"/>
-		<result property="bindPackage" javaType="long" jdbcType="BIGINT" column="bindpackage"/>
 		<result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
 		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
 		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
@@ -21,25 +19,23 @@
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 	</resultMap>
 	
-	<insert id="insertVO" parameterType="com.mingdao.domain.MemberShipCard" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO member_ship_card
-		(storeid,name,cardrecharge,carddonate,expire,timeunit,cardpicture,sharetobranch,source,bindpackage,status,memo,creator,createtime,modifier,modifiedtime)
+	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO packagetype
+		(storeid,name,saleprice,count,expire,timeunit,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{cardPicture},#{shareToBranch},#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{bindPackage},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{name},#{salePrice},#{count},#{expire},#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{shareToBranch},#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
-	<update id="updateVO" parameterType="com.mingdao.domain.MemberShipCard">
-	    UPDATE member_ship_card SET
+	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
+	    UPDATE packagetype SET
           storeid=#{storeId},
           name=#{name},
-          cardrecharge=#{cardRecharge},
-          carddonate=#{cardDonate},
+          saleprice=#{salePrice},
+          count=#{count},
           expire=#{expire},
           timeunit=#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
-          cardpicture=#{cardPicture},
           sharetobranch=#{shareToBranch},
           source=#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
-          bindpackage=#{bindPackage},
           status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
           memo=#{memo},
           creator=#{creator},
@@ -48,27 +44,26 @@
           modifiedtime=#{modifiedTime}
         WHERE id=#{id}
 	</update>
+
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
 	    SELECT
           t.id,
           t.storeid,
           t.name,
-          t.cardrecharge,
-          t.carddonate,
+          t.saleprice,
+          t.count,
           t.expire,
           t.timeunit,
-          t.cardpicture,
           t.sharetobranch,
           t.source,
-          t.bindpackage,
           t.status,
           t.memo,          
           t.creator,
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  member_ship_card t where 1=1
+        FROM  packagetype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -89,7 +84,7 @@
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from member_ship_card t where 1=1
+		from packagetype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -106,5 +101,4 @@
               and t.storeid=#{storeId}
            </if>
 	</select>	
-	
 </mapper>
