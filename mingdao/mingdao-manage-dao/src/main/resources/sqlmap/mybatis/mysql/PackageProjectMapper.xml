@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingdao.dao.base.IPackageProjectDao">
+	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageProject">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="pkgTypeId" javaType="long" jdbcType="BIGINT" column="pkgtypeid"/>
+		<result property="pkgItemId" javaType="long" jdbcType="BIGINT" column="pkgitemid"/>
+		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
+		<result property="price" javaType="double" jdbcType="DOUBLE" column="price"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO package_project
+		(pkgtypeid,pkgitemid,servicecount,price)
+		VALUES
+		(#{pkgTypeId},#{pkgItemId},#{serviceCount},#{price})
+	</insert>
+	
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
+	    UPDATE package_project SET
+          pkgtypeid=#{pkgTypeId},
+          pkgitemid=#{pkgItemId},
+          servicecount=#{serviceCount},
+          price=#{price}
+        WHERE id=#{id}
+	</update>
+
+
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
+	    SELECT
+          t.id,
+          t.pkgtypeid,
+          t.pkgitemid,
+          t.servicecount,
+          t.price
+        FROM  package_project t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null and pkgtypeid != ''">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if>                
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from package_project t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null and pkgtypeid != ''">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if>
+	</select>	
+</mapper>

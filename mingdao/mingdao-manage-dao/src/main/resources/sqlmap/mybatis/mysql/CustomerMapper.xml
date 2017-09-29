@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.domain.ICustomerDao">
+	<resultMap id="customerResultMap" type="com.mingdao.domain.Customer">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="wxNickName" javaType="string" jdbcType="VARCHAR" column="wxnickname"/>
+		<result property="birthday" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="birthday"/>
+		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
+		<result property="identityId" javaType="string" jdbcType="VARCHAR" column="identityid"/>
+		<result property="custSource" javaType="int" jdbcType="INTEGER" column="name" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
+		<result property="custTypeId" javaType="long" jdbcType="BIGINT" column="custtypeid"/>
+		<result property="lpr" javaType="boolean" jdbcType="BOOLEAN" column="lpr"/>
+		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
+		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
+		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
+		<result property="carPrice" javaType="double" jdbcType="DOUBLE" column="carprice"/>
+		<result property="annualExpiration" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="annualexpiration"/>
+		<result property="addressOfPerson" javaType="string" jdbcType="VARCHAR" column="addressofperson"/>
+		<result property="nextServiceCyc" javaType="double" jdbcType="DOUBLE" column="nextservicecyc"/>
+		<result property="vin" javaType="string" jdbcType="VARCHAR" column="vin"/>
+		<result property="buyCarTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="buycartime"/>
+		<result property="brandId" javaType="long" jdbcType="BIGINT" column="brandid"/>
+		<result property="insureCompany" javaType="string" jdbcType="VARCHAR" column="insurecompany"/>
+		<result property="insureExpir" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="insureexpir"/>
+		<result property="preCyc" javaType="double" jdbcType="DOUBLE" column="precyc"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.CustType" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO custtype
+        (code,name,storeid,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{storeId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+</mapper>

@@ -1,5 +1,7 @@
 package com.mingdao.domain;
 
+import java.sql.Timestamp;
+
 public class UserInfo extends  SuperVO{
 	private static final long serialVersionUID = 8262248081835118056L;
 	private Long id;
@@ -11,6 +13,11 @@ public class UserInfo extends  SuperVO{
 	private String phone;
 	private String email;
 	private String shopId;
+	private Long creator;
+	private Timestamp createTime;
+	private Long modifier;
+	private Timestamp modifiedTime;
+
 	
 	public static final String ID="id";
 	public static final String PASSWORD="passWord";

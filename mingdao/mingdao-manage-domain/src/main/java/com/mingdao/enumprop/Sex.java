@@ -1,4 +1,4 @@
-package com.mingdao.domain;
+package com.mingdao.enumprop;
 
 /**
  *

@@ -41,6 +41,7 @@ public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 	public Permission updatePermission(Permission permission, Long modifyUserId) {
 		//permission.setModifier(modifyUserId);
 		permission.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		permissionDao.updateVO(permission);
 		return permission;
 	}
 
