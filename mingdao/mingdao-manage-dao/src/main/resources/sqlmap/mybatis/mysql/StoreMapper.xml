@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mingdao.dao.base.IStoreDao">
 	<resultMap id="storeResultMap" type="com.mingdao.domain.Store">
-		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="tel1" javaType="string" jdbcType="VARCHAR" column="tel1"/>
@@ -12,9 +12,9 @@
 		<result property="isWxShow" javaType="boolean" jdbcType="BOOLEAN" column="iswxshow"/>
 		<result property="isWxDefault" javaType="boolean" jdbcType="BOOLEAN" column="iswxdefault"/>
 		<result property="isHeadStore" javaType="boolean" jdbcType="BOOLEAN" column="isheadstore"/>
-		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
-		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
