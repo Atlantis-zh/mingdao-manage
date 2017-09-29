@@ -18,7 +18,7 @@ import com.mingdao.domain.PackageType;
  *
  * <code>PackageTypeBaseServiceImpl<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：套餐类型服务类
  * <li></li>
  * </p>
  * 
