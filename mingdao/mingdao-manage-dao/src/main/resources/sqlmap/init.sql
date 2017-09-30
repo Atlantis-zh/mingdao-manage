@@ -48,3 +48,27 @@ AUTO_INCREMENT=1
 ROW_FORMAT=COMPACT
 ;
 
+DROP TABLE IF EXISTS `wechatinfo`;
+/*微信关注列表*/
+CREATE TABLE wechatinfo (
+`id`  bigint(20) NOT NULL AUTO_INCREMENT ,
+`code`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`mnname`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`storeid`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`tel`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`address`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`relationcust`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`status`  smallint(1) NULL DEFAULT NULL ,
+`sex`  smallint(1) NULL DEFAULT NULL ,
+`creator`  bigint(20) NULL DEFAULT NULL ,
+`createtime`  datetime NULL DEFAULT NULL ,
+`modifier`  bigint(20) NULL DEFAULT NULL ,
+`modifiedtime`  datetime NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1
+ROW_FORMAT=COMPACT
+;
+
