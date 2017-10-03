@@ -40,8 +40,6 @@ public class StoreBaseServiceImpl implements IStoreBaseService {
 
 	@Override
 	public Store updateStore(Store store, Long modifyUserId) {
-		store.setModifier(modifyUserId);
-		store.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(store);
 		return store;
 	}

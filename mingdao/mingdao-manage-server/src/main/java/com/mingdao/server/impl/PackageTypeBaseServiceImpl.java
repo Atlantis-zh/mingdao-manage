@@ -41,8 +41,6 @@ public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 
 	@Override
 	public PackageType updatePkgType(PackageType packageType, Long modifyUserId) {
-		packageType.setModifier(modifyUserId);
-		packageType.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(packageType);
 		return packageType;
 	}

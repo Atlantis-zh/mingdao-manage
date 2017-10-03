@@ -41,8 +41,6 @@ public class MemberShipCardBaseServiceImpl implements IMemberShipCardBaseService
 
 	@Override
 	public MemberShipCard updateMemShipCard(MemberShipCard msc, Long modifyUserId) {
-		msc.setModifier(modifyUserId);
-		msc.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(msc);
 		return null;
 	}
