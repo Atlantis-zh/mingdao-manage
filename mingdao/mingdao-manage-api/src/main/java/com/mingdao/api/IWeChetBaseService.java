@@ -18,6 +18,11 @@ import java.util.Map;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.WeChatInfo;
 
+/**
+ * 微信关注服务接口
+ * @author wushzh
+ *
+ */
 public interface IWeChetBaseService {
 
 	public WeChatInfo insertWeChatInfo(WeChatInfo weChatInfo);
