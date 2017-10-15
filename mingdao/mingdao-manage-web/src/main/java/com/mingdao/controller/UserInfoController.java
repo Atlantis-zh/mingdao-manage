@@ -53,7 +53,7 @@ public class UserInfoController extends  BaseController{
     @ResponseBody
     public String goToAddUser(UserInfo userInfo,HttpServletRequest request){
         JSONObject result = new JSONObject();
-        super.flushTimeStamp(userInfo, request);
+        super.initTimeStamp(userInfo, request);
         UserInfo user = UserInfoBaseService.insertUserInfo(userInfo);
         if(user==null){
             result.put("status","0");

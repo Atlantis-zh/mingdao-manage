@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.domain.IIntegralRuleDao">
+	<resultMap id="intRuleResultMap" type="com.mingdao.domain.IntegralRule">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="cardTypeId" javaType="long" jdbcType="BIGINT" column="cardtypeid"/>
+	    <result property="consume" javaType="double" jdbcType="DOUBLE" column="consume"/>
+	    <result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.IntegralRule" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO integral_rule
+        (storeid,cardtypeid,consume,memo,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{storeId},#{cardTypeId},#{consume},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.IntegralRule">
+	    UPDATE integral_rule SET
+          storeid=#{storeId},
+          cardtypeid=#{cardTypeId},
+          consume=#{consume},
+          memo=#{memo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="intRuleResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.cardtypeid,
+          t.consume,
+          t.memo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  integral_rule t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from integral_rule t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+	</select>
+</mapper>
