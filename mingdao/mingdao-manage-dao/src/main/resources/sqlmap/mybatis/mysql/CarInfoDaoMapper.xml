@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.domain.CarInfo.ICarInfoDao">
+	<resultMap id="carInfoResultMap" type="com.mingdao.domain.CarInfo">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
+		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
+		<result property="carPrice" javaType="double" jdbcType="DOUBLE" column="carprice"/>
+		<result property="annualExpiration" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="annualexpiration"/>
+		<result property="addressOfPerson" javaType="string" jdbcType="VARCHAR" column="addressofperson"/>
+		<result property="nextServiceCyc" javaType="double" jdbcType="DOUBLE" column="nextservicecyc"/>
+		<result property="vin" javaType="string" jdbcType="VARCHAR" column="vin"/>
+		<result property="buyCarTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="buycartime"/>
+		<result property="brandId" javaType="long" jdbcType="BIGINT" column="brandid"/>
+		<result property="insureCompany" javaType="string" jdbcType="VARCHAR" column="insurecompany"/>
+		<result property="insureExpir" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="insureexpir"/>
+		<result property="preCyc" javaType="double" jdbcType="DOUBLE" column="precyc"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.CarInfo" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO car_info
+        (customerid,plannumber,carprice,annualexpiration,addressofperson,nextservicecyc,vin,buycartime,brandid,insurecompany,insureexpir,precyc,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{customerId},#{platNumber},#{carPrice},#{annualExpiration},#{addressOfPerson},#{nextServiceCyc},#{vin},#{buyCarTime},#{brandId},#{insureCompany},#{insureExpir},#{preCyc},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.CarInfo">
+	    UPDATE car_info SET
+          customerid=#{customerId},
+          plannumber=#{platNumber},
+          carprice=#{carPrice},
+          annualexpiration=#{annualExpiration},
+          addressofperson=#{addressOfPerson},
+          nextservicecyc=#{nextServiceCyc},
+          vin=#{vin},
+          buycartime=#{buyCarTime},
+          brandid=#{brandId},
+          insurecompany=#{insureCompany},
+          insureexpir=#{insureExpir},
+          precyc=#{preCyc},                    
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="carInfoResultMap">
+	    SELECT
+          t.id,
+          t.customerid,
+          t.plannumber,
+          t.carprice,
+          t.annualexpiration,
+          t.addressofperson,
+          t.nextservicecyc,
+          t.vin,
+          t.buycartime,
+          t.brandid,
+          t.insurecompany,
+          t.insureexpir,
+          t.precyc,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  car_info t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid != '' and customerid != null">
+              and t.code=#{code}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from car_info t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid != '' and customerid != null">
+              and t.code=#{code}
+           </if>
+	</select>
+</mapper>
