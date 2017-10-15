@@ -72,3 +72,33 @@ AUTO_INCREMENT=1
 ROW_FORMAT=COMPACT
 ;
 
+CREATE TABLE `customer` (
+`id`  bigint(20) NOT NULL AUTO_INCREMENT ,
+`storeid`  bigint(20) NULL DEFAULT NULL ,
+`name`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`code`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`wxnickname`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`birthday`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`phone`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`identityid`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`custsource`  int(11) NULL DEFAULT NULL ,
+`custtypeid`  bigint(20) NULL DEFAULT NULL ,
+`lpr`  tinyint(4) NULL DEFAULT NULL ,
+`sex`  int(11) NULL DEFAULT NULL ,
+`address`  varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`creator`  bigint(20) NULL DEFAULT NULL ,
+`createtime`  datetime NULL DEFAULT NULL ,
+`modifier`  bigint(20) NULL DEFAULT NULL ,
+`modifiedtime`  datetime NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1
+ROW_FORMAT=COMPACT
+;
+
+
+
+
+
