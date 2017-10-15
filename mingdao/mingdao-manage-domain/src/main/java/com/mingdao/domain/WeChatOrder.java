@@ -1,5 +1,6 @@
 package com.mingdao.domain;
 
+import com.mingdao.enumprop.OrderResource;
 import com.mingdao.enumprop.Sex;
 
 /**

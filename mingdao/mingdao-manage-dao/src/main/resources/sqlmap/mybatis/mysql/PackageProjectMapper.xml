@@ -7,6 +7,10 @@
 		<result property="pkgItemId" javaType="long" jdbcType="BIGINT" column="pkgitemid"/>
 		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
 		<result property="price" javaType="double" jdbcType="DOUBLE" column="price"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">

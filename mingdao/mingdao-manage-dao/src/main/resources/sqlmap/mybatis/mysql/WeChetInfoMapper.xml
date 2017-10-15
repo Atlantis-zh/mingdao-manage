@@ -12,9 +12,10 @@
 		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
 		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex"/>
 		<result property="status" javaType="boolean" jdbcType="BOOLEAN" column="status"/>
-		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
-		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
-		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.WeChatInfo" useGeneratedKeys="true" keyProperty="id">

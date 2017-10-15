@@ -6,10 +6,10 @@
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 	    <result property="storeId" javaType="long" jdbcType="INTEGER" column="storeid"/>
-		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
-		<result property="createTime" javaType="string" jdbcType="VARCHAR" column="createtime"/>
-		<result property="modifier" javaType="long" jdbcType="INTEGER" column="modifier"/>
-		<result property="modifiedTime" javaType="string" jdbcType="VARCHAR" column="modifiedtime"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.CustType" useGeneratedKeys="true" keyProperty="id">

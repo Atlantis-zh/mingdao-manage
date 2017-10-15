@@ -1,4 +1,4 @@
-package com.mingdao.domain;
+package com.mingdao.enumprop;
 
 /**
  * 预约来源类型，1：微信，2：电脑
