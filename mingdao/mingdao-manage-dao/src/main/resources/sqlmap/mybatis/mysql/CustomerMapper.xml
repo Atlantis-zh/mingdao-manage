@@ -49,7 +49,7 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="carInfoResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="customerResultMap">
 	    SELECT
           t.id,
           t.storeid,

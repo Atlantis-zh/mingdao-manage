@@ -72,6 +72,7 @@ AUTO_INCREMENT=1
 ROW_FORMAT=COMPACT
 ;
 
+/*客户基本信息*/
 CREATE TABLE `customer` (
 `id`  bigint(20) NOT NULL AUTO_INCREMENT ,
 `storeid`  bigint(20) NULL DEFAULT NULL ,
@@ -97,6 +98,35 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 AUTO_INCREMENT=1
 ROW_FORMAT=COMPACT
 ;
+
+/*车辆信息*/
+CREATE TABLE `car_info` (
+`id`  bigint(20) NOT NULL AUTO_INCREMENT ,
+`customerid`  bigint(20) NULL DEFAULT NULL ,
+`plannumber`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`carprice`  double NULL DEFAULT NULL ,
+`annualexpiration`  datetime NULL DEFAULT NULL ,
+`addressofperson`  varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`nextservicecyc`  double NULL DEFAULT NULL ,
+`vin`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`buycartime`  datetime NULL DEFAULT NULL ,
+`brandid`  bigint(20) NULL DEFAULT NULL ,
+`insurecompany`  varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`insureexpir`  datetime NULL DEFAULT NULL ,
+`precyc`  double NULL DEFAULT NULL ,
+`creator`  bigint(20) NULL DEFAULT NULL ,
+`createtime`  datetime NULL DEFAULT NULL ,
+`modifier`  bigint(20) NULL DEFAULT NULL ,
+`modifiedtime`  datetime NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1
+ROW_FORMAT=COMPACT
+;
+
+
 
 
 
