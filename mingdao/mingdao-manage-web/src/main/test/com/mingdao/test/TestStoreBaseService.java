@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mingdao.api.IStoreBaseService;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.domain.Store;
 
 /**
@@ -40,7 +39,7 @@ public class TestStoreBaseService {
 		st.setName("北京总店");
 		st.setTel1("16800");
 		st.setAddress("北京天安门");
-		st.setCreateTime(DateUtil.getCurrentTimestamp());
+		// st.setCreateTime(DateUtil.getCurrentTimestamp());
 		service.insertStore(st);
 		System.out.println(st.getId());
 	}

@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mingdao.api.IUserInfoBaseServiceItf;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.domain.UserInfo;
 
 @Transactional
@@ -28,7 +27,7 @@ public class TestUserInfoService {
 		userInfo.setUserCode("0002");
 		userInfo.setUserName("libinf");
 		userInfo.setPassWord("123456");
-		userInfo.setCreateTime(DateUtil.getCurrentTimestamp());
+		// userInfo.setCreateTime(DateUtil.getCurrentTimestamp());
 		service.insertUserInfo(userInfo);
 	}
 }
