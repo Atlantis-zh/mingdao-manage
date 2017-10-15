@@ -359,7 +359,7 @@
 	<!-- 编译插件 -->
 	<build>
 		<filters>
-			<filter>../profiles-develop.properties</filter>
+			<filter>../profiles-mallshow.properties</filter>
 		</filters>
 		<defaultGoal>package</defaultGoal>
 		<resources>
