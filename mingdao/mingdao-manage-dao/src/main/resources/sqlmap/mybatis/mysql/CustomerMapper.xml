@@ -7,35 +7,85 @@
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="wxNickName" javaType="string" jdbcType="VARCHAR" column="wxnickname"/>
-		<result property="birthday" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="birthday"/>
+		<result property="birthday" javaType="string" jdbcType="string" column="birthday"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="identityId" javaType="string" jdbcType="VARCHAR" column="identityid"/>
-		<result property="custSource" javaType="int" jdbcType="INTEGER" column="name" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
+		<result property="custSource" javaType="int" jdbcType="INTEGER" column="custsource" typeHandler="com.mingdao.dao.base.typehandler.CustomerSourceEnumTypeHandler"/>
 		<result property="custTypeId" javaType="long" jdbcType="BIGINT" column="custtypeid"/>
 		<result property="lpr" javaType="boolean" jdbcType="BOOLEAN" column="lpr"/>
-		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="cn.com.shuyangyang.mybatis.EnumStatusHandler"/>
+		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="com.mingdao.dao.base.typehandler.SexEnumTypeHandler"/>
 		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
-		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
-		<result property="carPrice" javaType="double" jdbcType="DOUBLE" column="carprice"/>
-		<result property="annualExpiration" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="annualexpiration"/>
-		<result property="addressOfPerson" javaType="string" jdbcType="VARCHAR" column="addressofperson"/>
-		<result property="nextServiceCyc" javaType="double" jdbcType="DOUBLE" column="nextservicecyc"/>
-		<result property="vin" javaType="string" jdbcType="VARCHAR" column="vin"/>
-		<result property="buyCarTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="buycartime"/>
-		<result property="brandId" javaType="long" jdbcType="BIGINT" column="brandid"/>
-		<result property="insureCompany" javaType="string" jdbcType="VARCHAR" column="insurecompany"/>
-		<result property="insureExpir" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="insureexpir"/>
-		<result property="preCyc" javaType="double" jdbcType="DOUBLE" column="precyc"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
-	<insert id="insertVO" parameterType="com.mingdao.domain.CustType" useGeneratedKeys="true" keyProperty="id">
-	    INSERT INTO custtype
-        (code,name,storeid,creator,createtime,modifier,modifiedtime)
+	<insert id="insertVO" parameterType="com.mingdao.domain.Customer" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO customer
+        (storeid,name,code,wxnickname,birthday,phone,identityid,custsource,custtypeid,lpr,sex,address,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{name},#{storeId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSource},#{custTypeId},#{lpr},#{sex},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Customer">
+	    UPDATE customer SET
+          storeid=#{storeId},
+          name=#{name},
+          code=#{code},
+          wxnickname=#{wxNickName},
+          birthday=#{birthday},
+          phone=#{phone},
+          identityid=#{identityId},
+          custsource=#{custSource},
+          custtypeid=#{custTypeId},
+          lpr=#{lpr},
+          sex=#{sex},
+          address=#{address},                    
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="carInfoResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.name,
+          t.code,
+          t.wxnickname,
+          t.birthday,
+          t.phone,
+          t.identityid,
+          t.custsource,
+          t.custtypeid,
+          t.lpr,
+          t.sex,
+          t.address,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  customer t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != '' and code != null">
+              and t.code=#{code}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from customer t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != '' and code != null">
+              and t.code=#{code}
+           </if>
+	</select>
 </mapper>

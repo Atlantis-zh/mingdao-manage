@@ -6,7 +6,7 @@ import com.mingdao.domain.Customer;
  *
  * <code>ICustomerDao<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：客户基本信息
  * <li></li>
  * </p>
  * 
@@ -16,6 +16,5 @@ import com.mingdao.domain.Customer;
  */
 
 public interface ICustomerDao extends IBaseDao<Customer> {
-
 
 }

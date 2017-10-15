@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import java.sql.Timestamp;
-
 import com.mingdao.enumprop.CustomerSource;
 import com.mingdao.enumprop.Sex;
 
@@ -27,7 +25,7 @@ public class Customer extends SuperVO {
 	private String name;
 	private String code;
 	private String wxNickName;
-	private Timestamp birthday;
+	private String birthday;
 	private String phone;
 	private String identityId;
 	private CustomerSource custSource;
@@ -78,11 +76,11 @@ public class Customer extends SuperVO {
 		this.wxNickName = wxNickName;
 	}
 
-	public Timestamp getBirthday() {
+	public String getBirthday() {
 		return this.birthday;
 	}
 
-	public void setBirthday(Timestamp birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
