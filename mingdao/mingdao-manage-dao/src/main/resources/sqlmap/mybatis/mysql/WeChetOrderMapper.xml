@@ -13,9 +13,9 @@
 	    <result property="emplyeetime" javaType="string" jdbcType="VARCHAR" column="emplyeetime"/>
 	    <result property="tel" javaType="string" jdbcType="VARCHAR" column="tel"/>
 	    <result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
-	    <result property="orderresource" javaType="int" jdbcType="INTEGER" column="name" typeHandler="com.mingdao.dao.base.typehandler.OrderResourceEnumTypeHandler"/>
-	    <result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="com.mingdao.dao.base.typehandler.SexEnumTypeHandler"/>
-	    <result property="status" javaType="int" jdbcType="INTEGER" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
+	    <result property="orderresource" javaType="com.mingdao.enumprop.Source" jdbcType="INTEGER" column="name" typeHandler="com.mingdao.dao.base.typehandler.SourceEnumTypeHandler"/>
+	    <result property="sex" javaType="com.mingdao.enumprop.Sex" jdbcType="INTEGER" column="sex" typeHandler="com.mingdao.dao.base.typehandler.SexEnumTypeHandler"/>
+	    <result property="status" javaType="com.mingdao.enumprop.OrderStatus" jdbcType="INTEGER" column="status" typeHandler="com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler"/>
 	    <result property="meno" javaType="string" jdbcType="VARCHAR" column="meno"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -27,7 +27,7 @@
 	    INSERT INTO wechatorder
         (code,name,storeid,tel,billno,project,cust,employee,emplyeetime,platnumber,orderresource,sex,status,meno,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{name},#{storeId},#{tel},#{billno},#{project},#{cust},#{employee},#{emplyeetime},#{platNumber},#{orderresource},#{sex},#{status},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{code},#{name},#{storeId},#{tel},#{billno},#{project},#{cust},#{employee},#{emplyeetime},#{platNumber},#{orderresource,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},#{sex,typeHandler=com.mingdao.dao.base.typehandler.SexEnumTypeHandler},#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.WeChatOrder">
@@ -37,10 +37,14 @@
           meno=#{meno},
           storeid=#{storeId},
           tel=#{tel},
+          billno=#{billno},
+          project=#{project},          
+          cust=#{cust},                 
           employee=#{employee},
-          project=#{project},
-          sex=#{sex},
-          status=#{status},
+          emplyeetime=#{emplyeetime},
+          platnumber=#{platNumber},         
+          sex=#{sex,typeHandler=com.mingdao.dao.base.typehandler.SexEnumTypeHandler},
+          status=#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},

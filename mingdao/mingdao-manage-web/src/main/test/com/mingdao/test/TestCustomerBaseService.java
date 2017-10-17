@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mingdao.api.ICustomerBaseService;
 import com.mingdao.domain.Customer;
-import com.mingdao.enumprop.CustomerSource;
 import com.mingdao.enumprop.Sex;
+import com.mingdao.enumprop.Source;
 
 /**
  *
@@ -43,7 +43,7 @@ public class TestCustomerBaseService {
 		c.setBirthday("1991-10-10");
 		c.setAddress("北京市海淀区用友软件园");
 		c.setIdentityId("123456789");
-		c.setCustSource(CustomerSource.STORE);
+		c.setCustSource(Source.STORE);
 		c.setPhone("13800138000");
 		c.setSex(Sex.MEN);
 		c.setStoreId(new Long("1"));

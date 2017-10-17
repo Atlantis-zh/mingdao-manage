@@ -46,7 +46,7 @@
 	</update>
 
 	
-	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ptResultMap">
 	    SELECT
           t.id,
           t.storeid,

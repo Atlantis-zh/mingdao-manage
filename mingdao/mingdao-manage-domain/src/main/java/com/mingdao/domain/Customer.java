@@ -1,7 +1,7 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.CustomerSource;
 import com.mingdao.enumprop.Sex;
+import com.mingdao.enumprop.Source;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Customer extends SuperVO {
 	private String birthday;
 	private String phone;
 	private String identityId;
-	private CustomerSource custSource;
+	private Source custSource;
 	private Long custTypeId;
 	private Boolean lpr;
 	private Sex sex;
@@ -100,11 +100,11 @@ public class Customer extends SuperVO {
 		this.identityId = identityId;
 	}
 
-	public CustomerSource getCustSource() {
+	public Source getCustSource() {
 		return this.custSource;
 	}
 
-	public void setCustSource(CustomerSource custSource) {
+	public void setCustSource(Source custSource) {
 		this.custSource = custSource;
 	}
 

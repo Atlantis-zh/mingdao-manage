@@ -7,13 +7,13 @@
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="wxNickName" javaType="string" jdbcType="VARCHAR" column="wxnickname"/>
-		<result property="birthday" javaType="string" jdbcType="string" column="birthday"/>
+		<result property="birthday" javaType="string" jdbcType="VARCHAR" column="birthday"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="identityId" javaType="string" jdbcType="VARCHAR" column="identityid"/>
-		<result property="custSource" javaType="int" jdbcType="INTEGER" column="custsource" typeHandler="com.mingdao.dao.base.typehandler.CustomerSourceEnumTypeHandler"/>
+		<result property="custSource" javaType="com.mingdao.enumprop.Source" jdbcType="INTEGER" column="custsource" typeHandler="com.mingdao.dao.base.typehandler.SourceEnumTypeHandler"/>
 		<result property="custTypeId" javaType="long" jdbcType="BIGINT" column="custtypeid"/>
 		<result property="lpr" javaType="boolean" jdbcType="BOOLEAN" column="lpr"/>
-		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex" typeHandler="com.mingdao.dao.base.typehandler.SexEnumTypeHandler"/>
+		<result property="sex" javaType="com.mingdao.enumprop.Sex" jdbcType="INTEGER" column="sex" typeHandler="com.mingdao.dao.base.typehandler.SexEnumTypeHandler"/>
 		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -25,7 +25,7 @@
 	    INSERT INTO customer
         (storeid,name,code,wxnickname,birthday,phone,identityid,custsource,custtypeid,lpr,sex,address,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSource},#{custTypeId},#{lpr},#{sex},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSource,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},#{custTypeId},#{lpr},#{sex,typeHandler=com.mingdao.dao.base.typehandler.SexEnumTypeHandler},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Customer">

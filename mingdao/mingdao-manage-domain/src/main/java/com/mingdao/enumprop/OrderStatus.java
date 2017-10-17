@@ -1,4 +1,4 @@
-package com.mingdao.domain;
+package com.mingdao.enumprop;
 
 /**
  * 订单状态，0：未确认，1：处理中，2：已完成，3：驳回
