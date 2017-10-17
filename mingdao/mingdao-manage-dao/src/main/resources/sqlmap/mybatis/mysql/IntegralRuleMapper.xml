@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingdao.domain.IIntegralRuleDao">
+<mapper namespace="com.mingdao.dao.base.IIntegralRuleDao">
 	<resultMap id="intRuleResultMap" type="com.mingdao.domain.IntegralRule">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
