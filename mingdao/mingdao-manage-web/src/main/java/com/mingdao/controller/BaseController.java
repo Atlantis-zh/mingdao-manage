@@ -13,26 +13,23 @@ import com.mingdao.domain.SuperVO;
  */
 public class BaseController {
 
-    public void initTimeStamp(SuperVO vo,HttpServletRequest request){
-        HttpSession session =  request.getSession();
-        long userName = (long) session.getAttribute("userName");
+	private static final String USERID = "userId";
+
+
+	public void setTimeStampWithInsert(SuperVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Long userId = (long) session.getAttribute(USERID);
 		Timestamp date = DateUtil.getCurrentTimestamp();
-        vo.setCreator(userName);
-        vo.setCreateTime(date);
-        vo.setModifier(userName);
-        vo.setModifiedTime(date);
-    }
+		vo.setCreator(userId);
+		vo.setCreateTime(date);
+	}
 
-
-    public void flushTimeStamp(SuperVO vo,HttpServletRequest request){
-        HttpSession session =  request.getSession();
-        long userName = (long) session.getAttribute("userName");
+	public void setTimeStampWithUpdate(SuperVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Long userId = (long) session.getAttribute(USERID);
 		Timestamp date = DateUtil.getCurrentTimestamp();
-        vo.setModifier(userName);
-        vo.setModifiedTime(date);
-    }
-
-
-
+		vo.setModifier(userId);
+		vo.setModifiedTime(date);
+	}
 
 }
