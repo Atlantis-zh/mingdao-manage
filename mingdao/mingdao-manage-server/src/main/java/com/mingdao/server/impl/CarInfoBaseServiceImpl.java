@@ -41,7 +41,7 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 	@Override
 	public CarInfo update(CarInfo t, Long modifier) {
 		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		t.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(t);
 		return t;
 	}

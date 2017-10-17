@@ -40,7 +40,7 @@ public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 	@Override
 	public Permission updatePermission(Permission permission, Long modifyUserId) {
 		//permission.setModifier(modifyUserId);
-		permission.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		permission.setModifiedTime(DateUtil.getCurrentTimestamp());
 		permissionDao.updateVO(permission);
 		return permission;
 	}

@@ -1,5 +1,9 @@
 package com.mingdao.test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mingdao.api.ICustomerBaseService;
+import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.Customer;
 import com.mingdao.enumprop.Sex;
 import com.mingdao.enumprop.Source;
@@ -49,6 +54,19 @@ public class TestCustomerBaseService {
 		c.setStoreId(new Long("1"));
 		service.insert(c);
 		System.out.println(c.getId());
+	}
+
+	@Test
+	@Rollback(false)
+	public void testQueryAndUpdate() {
+		Map<String, Object> param=new HashMap<>();
+		param.put("id", new Long(1));
+		Pager<Customer> result = service.pageQueryByCondition(param);
+		List<Customer> list = result.getDatas();
+		Customer c = list.get(0);
+		c.setName("wushzh");
+		service.update(c, null);
+		System.out.println("done");
 	}
 
 }

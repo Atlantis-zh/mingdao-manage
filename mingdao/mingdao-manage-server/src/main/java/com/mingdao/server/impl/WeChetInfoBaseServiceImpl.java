@@ -41,7 +41,7 @@ public class WeChetInfoBaseServiceImpl implements IWeChetBaseService{
 	@Override
 	public WeChatInfo updateWeChatInfo(WeChatInfo weChatInfo, Long modifyUserId) {
 		weChatInfo.setModifier(modifyUserId);
-		weChatInfo.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		weChatInfo.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(weChatInfo);
 		return weChatInfo;
 	}

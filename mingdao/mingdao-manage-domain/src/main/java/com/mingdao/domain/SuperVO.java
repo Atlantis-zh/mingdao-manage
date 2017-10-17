@@ -3,40 +3,42 @@ package com.mingdao.domain;
 import java.io.Serializable;
 
 public class SuperVO implements Serializable{
-    private long creator;
-    private String createTime;
-    private long modifier;
-    private String modifiedTime;
+	private Long creator;
+	private java.sql.Timestamp createTime;
+	private Long modifier;
+	private java.sql.Timestamp modifiedTime;
 
-    public long getCreator() {
+	public Long getCreator() {
         return creator;
     }
 
-    public void setCreator(long creator) {
+	public void setCreator(Long creator) {
         this.creator = creator;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public long getModifier() {
+	public Long getModifier() {
         return modifier;
     }
 
-    public void setModifier(long modifier) {
+	public void setModifier(Long modifier) {
         this.modifier = modifier;
     }
 
-    public String getModifiedTime() {
-        return modifiedTime;
-    }
+	public java.sql.Timestamp getCreateTime() {
+		return this.createTime;
+	}
 
-    public void setModifiedTime(String modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
+	public void setCreateTime(java.sql.Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
+	public java.sql.Timestamp getModifiedTime() {
+		return this.modifiedTime;
+	}
+
+	public void setModifiedTime(java.sql.Timestamp modifiedTime) {
+		this.modifiedTime = modifiedTime;
+	}
+
+
 }

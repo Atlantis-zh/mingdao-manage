@@ -40,7 +40,7 @@ public class PermRoleRelationBaseServiceItfImpl implements IPermRoleRelationBase
 	@Override
 	public PermRoleRelation updatePermRoleRela(PermRoleRelation relation, Long modifyUserId) {
 		//relation.setModifier(modifyUserId);
-		relation.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		relation.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(relation);
 		return relation;
 	}

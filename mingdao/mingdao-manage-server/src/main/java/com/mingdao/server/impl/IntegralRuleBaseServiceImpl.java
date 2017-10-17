@@ -40,7 +40,7 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 	@Override
 	public IntegralRule update(IntegralRule t, Long modifier) {
 		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		t.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(t);
 		return t;
 	}

@@ -42,7 +42,7 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 	@Override
 	public ExchangeGift update(ExchangeGift t, Long modifier) {
 		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		t.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(t);
 		return t;
 	}

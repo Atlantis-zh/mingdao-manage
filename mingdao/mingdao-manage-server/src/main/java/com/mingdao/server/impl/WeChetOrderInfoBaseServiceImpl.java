@@ -15,17 +15,17 @@ import com.mingdao.dao.base.IWeChatOrderDao;
 import com.mingdao.domain.WeChatOrder;
 
 /**
-*
-* <code>WeChetOrderInfoBaseServiceImpl<code> <strong></strong>
-* <p>
-
-* <li>预约管理</li>
-* </p>
-* 
-* @since
-* @version 
-* @author wushzh
-*/
+ *
+ * <code>WeChetOrderInfoBaseServiceImpl<code> <strong></strong>
+ * <p>
+ * 
+ * <li>预约管理</li>
+ * </p>
+ * 
+ * @since
+ * @version
+ * @author wushzh
+ */
 @Service
 public class WeChetOrderInfoBaseServiceImpl implements IWeChetOrderBaseService{
 
@@ -41,7 +41,7 @@ public class WeChetOrderInfoBaseServiceImpl implements IWeChetOrderBaseService{
 	@Override
 	public WeChatOrder updateWeChatInfo(WeChatOrder order, Long modifyUserId) {
 		order.setModifier(modifyUserId);
-		order.setModifiedTime(DateUtil.getCurrentDateTime().toString());
+		order.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(order);
 		return order;
 	}
