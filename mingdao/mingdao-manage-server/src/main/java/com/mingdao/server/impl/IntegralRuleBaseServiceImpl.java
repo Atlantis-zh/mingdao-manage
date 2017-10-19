@@ -54,4 +54,9 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 		return pages;
 	}
 
+	@Override
+	public IntegralRule singleQryByCondtion(Map<String, Object> param) {
+		return null;
+	}
+
 }

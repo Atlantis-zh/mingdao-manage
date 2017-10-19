@@ -34,6 +34,20 @@ public class Customer extends SuperVO {
 	private Sex sex;
 	private String address;
 
+	public static final String ID = "id";
+	public static final String STOREID = "storeId";
+	public static final String NAME = "name";
+	public static final String CODE = "code";
+	public static final String WXNICKNAME = "wxNickName";
+	public static final String BIRTHDAY = "birthday";
+	public static final String PHONE = "phone";
+	public static final String IDENTITYID = "identityId";
+	public static final String CUSTSOURCE = "custSource";
+	public static final String CUSTTYPEID = "custTypeId";
+	public static final String LPR = "lpr";
+	public static final String SEX = "sex";
+	public static final String ADDRESS = "address";
+
 
 
 	public Long getId() {

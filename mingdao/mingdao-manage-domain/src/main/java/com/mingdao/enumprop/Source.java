@@ -8,7 +8,7 @@ package com.mingdao.enumprop;
  */
 public enum Source {
 
-	WECHET(1), STORE(2);
+	WEIXIN(1), PC(2);
 	private int value;
 	private Source(int value)
 	{

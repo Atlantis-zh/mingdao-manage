@@ -25,4 +25,6 @@ public interface IDocBaseService<T> {
 
 	public Pager<T> pageQueryByCondition(Map<String, Object> param);
 
+	public T singleQryByCondtion(Map<String, Object> param);
+
 }

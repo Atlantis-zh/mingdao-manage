@@ -55,4 +55,9 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 		return pages;
 	}
 
+	@Override
+	public CarInfo singleQryByCondtion(Map<String, Object> param) {
+		return null;
+	}
+
 }

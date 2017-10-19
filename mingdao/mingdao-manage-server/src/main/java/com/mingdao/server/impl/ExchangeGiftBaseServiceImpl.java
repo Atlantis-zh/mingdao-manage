@@ -56,4 +56,9 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 		return pages;
 	}
 
+	@Override
+	public ExchangeGift singleQryByCondtion(Map<String, Object> param) {
+		return null;
+	}
+
 }

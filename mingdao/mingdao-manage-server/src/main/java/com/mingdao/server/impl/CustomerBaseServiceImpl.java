@@ -56,4 +56,10 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
 		return pages;
 	}
 
+	@Override
+	public Customer singleQryByCondtion(Map<String, Object> param) {
+		Customer resutl = dao.singleQueryByCondition(param);
+		return resutl;
+	}
+
 }

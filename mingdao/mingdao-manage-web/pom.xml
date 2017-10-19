@@ -203,6 +203,7 @@
 
 	</dependencies>
 	<build>
+	    <finalName>mingdao</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
