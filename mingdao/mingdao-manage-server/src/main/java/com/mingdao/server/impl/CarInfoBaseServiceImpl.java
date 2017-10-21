@@ -57,7 +57,8 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 
 	@Override
 	public CarInfo singleQryByCondtion(Map<String, Object> param) {
-		return null;
+		CarInfo carInfo = dao.singleQueryByCondition(param);
+		return carInfo;
 	}
 
 }
