@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IWorkTimeClassDao">
+	<resultMap id="wktClassResultMap" type="com.mingdao.domain.WorkTimeClass">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+	    <result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+	    <result property="price" javaType="double" jdbcType="DOUBLE" column="price"/>
+		<result property="minutes" javaType="int" jdbcType="INTEGER" column="minutes"/>
+		<result property="isDefault" javaType="boolean" jdbcType="BOOLEAN" column="isdefault"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.WorkTimeClass" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO worktime_class
+        (code,name,storeid,price,minutes,isdefault,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{storeId},#{minutes},#{isDefault},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.WorkTimeClass">
+	    UPDATE worktime_class SET
+          code=#{code},
+          name=#{name},
+          storeid=#{storeId},
+          price=#{price},
+          minutes=#{minutes},
+          isdefault=#{isDefault},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="wktClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.price,
+          t.minutes,
+          t.isdefault,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  worktime_class t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from worktime_class t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+</mapper>
