@@ -13,6 +13,8 @@
 	    <result property="source" javaType="com.mingdao.enumprop.Source" jdbcType="INTEGER" column="source" typeHandler="com.mingdao.dao.base.typehandler.SourceEnumTypeHandler"/>
 	    <result property="status" javaType="com.mingdao.enumprop.OrderStatus" jdbcType="INTEGER" column="status" typeHandler="com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler"/>
 	    <result property="meno" javaType="string" jdbcType="VARCHAR" column="meno"/>
+	    <result property="linkmanName" javaType="string" jdbcType="VARCHAR" column="linkmanname"/>
+	    <result property="linkTel" javaType="string" jdbcType="VARCHAR" column="linktel"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -21,9 +23,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.OrderProject" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO order_project
-        (storeid,billno,orderuserid,serviceprojectid,ordertime,carno,customerid,source,status,meno,creator,createtime,modifier,modifiedtime)
+        (storeid,billno,orderuserid,serviceprojectid,ordertime,carno,customerid,source,status,meno,linkmanname,linktel,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{billno},#{orderUserId},#{serviceProjectId},#{orderTime},#{carNo},#{customerId},#{source,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{billno},#{orderUserId},#{serviceProjectId},#{orderTime},#{carNo},#{customerId},#{source,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},#{meno},#{linkmanName},#{linkTel},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.OrderProject">
@@ -38,6 +40,8 @@
           source=#{source,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},                 
           status=#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},
           meno=#{meno},
+          linkmanname=#{linkmanName},
+          linktel=#{linkTel},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},
@@ -58,6 +62,8 @@
           t.source,
           t.status,
           t.meno,
+          t.linkmanname,
+          t.linktel,
           t.creator,
           t.createtime,
           t.modifier,

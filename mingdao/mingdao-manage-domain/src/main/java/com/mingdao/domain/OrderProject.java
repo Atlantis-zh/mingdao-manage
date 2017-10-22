@@ -29,6 +29,8 @@ public class OrderProject extends SuperVO {
 	private Source source;
 	private String memo;
 	private OrderStatus status;
+	private String linkmanName;
+	private String linkTel;
 
 	public Long getId() {
 		return this.id;
@@ -116,6 +118,22 @@ public class OrderProject extends SuperVO {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public String getLinkTel() {
+		return this.linkTel;
+	}
+
+	public void setLinkTel(String linkTel) {
+		this.linkTel = linkTel;
+	}
+
+	public String getLinkmanName() {
+		return this.linkmanName;
+	}
+
+	public void setLinkmanName(String linkmanName) {
+		this.linkmanName = linkmanName;
 	}
 
 
