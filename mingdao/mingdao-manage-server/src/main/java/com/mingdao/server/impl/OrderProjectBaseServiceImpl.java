@@ -61,4 +61,9 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 		return null;
 	}
 
+	@Override
+	public List<OrderProject> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

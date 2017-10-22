@@ -58,4 +58,9 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
 		return null;
 	}
 
+	@Override
+	public List<ServiceProductClass> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

@@ -57,4 +57,9 @@ public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 		return null;
 	}
 
+	@Override
+	public List<Measdoc> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

@@ -58,4 +58,9 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 		return null;
 	}
 
+	@Override
+	public List<ServiceProject> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

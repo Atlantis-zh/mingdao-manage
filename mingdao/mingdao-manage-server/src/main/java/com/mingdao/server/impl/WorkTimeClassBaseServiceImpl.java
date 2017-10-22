@@ -58,4 +58,9 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 		return null;
 	}
 
+	@Override
+	public List<WorkTimeClass> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

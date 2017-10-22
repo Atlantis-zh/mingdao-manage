@@ -61,4 +61,9 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 		return carInfo;
 	}
 
+	@Override
+	public List<CarInfo> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

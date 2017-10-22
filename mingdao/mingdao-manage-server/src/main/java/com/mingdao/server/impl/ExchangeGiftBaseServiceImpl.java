@@ -61,4 +61,9 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 		return null;
 	}
 
+	@Override
+	public List<ExchangeGift> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }
