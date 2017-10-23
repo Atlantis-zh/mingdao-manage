@@ -121,7 +121,7 @@ public class CustBaseServiceForWXController extends BaseController {
 	 * @since
 	 */
 	@RequestMapping(value = "/qryCustomerByPhone", method = RequestMethod.GET)
-	public @ResponseBody String qryCustomerByPhone(HttpServletRequest request) {
+	public @ResponseBody ResultMessage qryCustomerByPhone(HttpServletRequest request) {
 		ResultMessage result = new ResultMessage();
 		String phone = request.getParameter(MingDaoHttpRequestConsts.PHONE);
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -130,18 +130,19 @@ public class CustBaseServiceForWXController extends BaseController {
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("手机号[" + phone + "]未注册!");
-			return result.toString();
+			return result;
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			String json = mapper.writeValueAsString(cust);
+
+			//String json = mapper.writeValueAsString(cust);
 			result.setSuccess(true);
-			result.setResult(json);
-		} catch (JsonProcessingException e) {
+			result.setResult(cust);
+		} catch (Exception e) {
 			result.setSuccess(false);
 			result.setResultMsg("数据转换失败，原因：" + e.getMessage());
 		} // 将对象转换成json
-		return result.toString();
+		return result;
 	}
 
 }

@@ -56,7 +56,7 @@ public class CarInfoBaseServiceForWXController extends BaseController {
 	 * @since
 	 */
 	@RequestMapping(value = "/addCarInfo", method = RequestMethod.POST)
-	public @ResponseBody String addCarInfo(HttpServletRequest request, @RequestBody String inputData) {
+	public @ResponseBody ResultMessage addCarInfo(HttpServletRequest request, @RequestBody String inputData) {
 		ResultMessage result = new ResultMessage();
 		JSONObject jsonObj = JSONObject.parseObject(inputData);
 		String phone = jsonObj.getString(MingDaoHttpRequestConsts.PHONE);
@@ -67,21 +67,34 @@ public class CarInfoBaseServiceForWXController extends BaseController {
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("用户暂未注册!");
-			return result.toString();
+			return result;
 		}
 		CarInfo carInfo = new CarInfo();
 		carInfo.setCustomerId(cust.getId());
 		carInfo.setPlatNumber(jsonObj.getString("carNo"));
 		carInfo.setVin(jsonObj.getString("vin"));
 		carInfo = carInfoBaseService.insert(carInfo);
+		JSONObject val = new JSONObject();
+		val.put("phone",phone);
+		val.put("systemLongTime",System.currentTimeMillis());
 		if (carInfo.getId() == null) {
 			result.setSuccess(false);
 			result.setResultMsg("绑定失败，请检查日志！");
 		} else {
 			result.setSuccess(true);
-			result.setResult(carInfo.getId());
+			result.setResult(val);
 		}
-		return result.toString();
+		return result;
+	}
+
+
+	@RequestMapping(value = "/getSystemLongTime", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getSystemLongTime(){
+		long longTime = System.currentTimeMillis();
+		JSONObject result = new JSONObject();
+		result.put("systemTime",longTime);
+		return result;
 	}
 
 }
