@@ -5,12 +5,14 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 /**
  * 再次封装PageBounds分页对象
+ * 
  * @author 邵震
  *
  */
 public class PageBoundsUtil {
 	/**
 	 * 再次封装Mybatis PageBounds分页对象
+	 * 
 	 * @return PageBounds分页对象
 	 */
 	public static PageBounds	PageBoundsExtend() {
@@ -24,6 +26,7 @@ public class PageBoundsUtil {
 	
 	/**
 	 * 再次封装Mybatis PageBounds分页对象
+	 * 
 	 * @return PageBounds分页对象
 	 */
 	public static PageBounds PageBoundsOrderExtend(String order) {
