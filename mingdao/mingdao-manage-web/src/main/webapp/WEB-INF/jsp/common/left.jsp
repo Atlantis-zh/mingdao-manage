@@ -11,179 +11,13 @@
 
 						<b class="arrow"></b>
 					</li>
-					
-					<c:if test="${isAdmin }">
+
+					<!--begin_zhangfx5_增加系统设置菜单-->
 					<li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa glyphicon-user fa-users"></i>
+							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text">
-								用户管理
-							</span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/user/users" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-										用户信息管理
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-							</li>
-
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/group/groups" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									用户组管理
-								</a>
-								<b class="arrow"></b>
-							</li>
-
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/role/roles" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									用户角色管理
-								</a>
-								<b class="arrow"></b>
-							</li>
-						</ul>
-					</li>
-					</c:if>
-					
-					<c:if test="${isAdmin }">
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text"> 信息发布管理 </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/channel/channels" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									栏目管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/topic/audits" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									文章管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-						</ul>
-					</li>
-					</c:if>
-					
-					<c:if test="${isAdmin }">
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-cogs"></i>
-							<span class="menu-text">系统设置 </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/dictionary/dictionarys/0" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									数据字典
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/dept/depts/0" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									部门管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/line/map" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									路线管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							
-							<li class="">
-								<a href="<%=request.getContextPath() %>/druid" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Druid Monitor(监听)
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/system/baseinfo" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									网站信息管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							
-							
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/qr/create" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-									二维码管理
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-						</ul>
-					</li>
-					</c:if>
-
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa glyphicon-user fa-book"></i>
-							<span class="menu-text">
-								日志管理
-							</span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-							<li class="">
-								<a href="<%=request.getContextPath() %>/admin/log/system/list" target="mainFrame">
-									<i class="menu-icon fa fa-caret-right"></i>
-										系统日志
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-							</li>
-						</ul>
-					</li>
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa glyphicon-user fa-leaf "></i>
-							<span class="menu-text">
-								ACE UI实例
+								系统设置
 							</span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -195,12 +29,121 @@
 							<li class="">
 								<a href="#" class="dropdown-toggle">
 									<i class="menu-icon fa fa-caret-right"></i>
-										进入UI界面
+									门店管理
 									<b class="arrow fa fa-angle-down"></b>
 								</a>
+
+								<b class="arrow"></b>
+
+								<ul class="submenu">
+									<li class="">
+										<a href="shopMana.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											门店管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
 							</li>
+
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									服务项目
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="projectType.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											服务产品分类
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="project.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											服务项目
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									权限设置
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/user/users" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											用户管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="roleinfo.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											角色管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="authinfo.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											权限管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="menuinfo.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											菜单管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									微信后台
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="weixinlist.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											关注列表
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+
+							</li>
+
+
 						</ul>
 					</li>
+					<!--end_zhangfx5_增加系统设置菜单-->
 				</ul><!-- /.nav-list -->
 
 				<!-- #section:basics/sidebar.layout.minimize -->

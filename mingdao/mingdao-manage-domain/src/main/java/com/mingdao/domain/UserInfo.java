@@ -27,61 +27,76 @@ public class UserInfo extends  SuperVO{
 	public static final String MODIFIER="modifier";
 	public static final String MODIFIEDTIME="modifiedTime";
 	public static final String SHOPID="shopId";
-	
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getPassWord() {
 		return passWord;
 	}
+
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
 	}
+
 	public String getUserCode() {
 		return userCode;
 	}
+
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getNickName() {
 		return nickName;
 	}
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getShopId() {
 		return shopId;
 	}
+
 	public void setShopId(String shopId) {
 		this.shopId = shopId;
-	}	
-	
+	}
 }

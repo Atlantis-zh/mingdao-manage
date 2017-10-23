@@ -67,7 +67,7 @@
 															<span class="lbl"> 记住我</span>
 														</label>
 
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="submit" onclick="loginCopy();" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">登录</span>
 														</button>
@@ -318,15 +318,29 @@
 		
 		
 		<script type="text/javascript">
-			$(function() {
-				$("#myForm").cmsvalidate();
-			});
+			/*$(function() {
+				("#myForm").cmsvalidate();
+			});*/
 		</script>
 		<title>后台管理登录</title>
 		<script type="text/javascript">
-			function reCheckcode(img) {
+			/*function reCheckcode(img) {
 				img.src = "drawCheckCode?" + Math.random();
+			}*/
+
+			function loginCopy(){
+				alert("fuck");
+				$.ajax({
+					url:'/login_copy',
+					type:'GET', //GET
+					async:true,    //或false,是否异步
+					success:function(result){
+
+					}
+				})
 			}
+
+
 		</script>
 	</body>
 </html>

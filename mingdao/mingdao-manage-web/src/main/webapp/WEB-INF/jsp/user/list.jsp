@@ -51,11 +51,11 @@
 										<td class="hidden-480">
 											<c:if test="${userInfo.status eq '0' }">
 												<span class="emp">停用</span>
-												<a href="updateStatus/${userInfo.id }" class="list_op">启用</a>
+												<a onclick="startUser(${userInfo.id });"  class="list_op">启用</a>
 											</c:if>
 											<c:if test="${userInfo.status eq '1' }">
 												<span>启用</span>
-												<a href="updateStatus/${userInfo.id }" class="list_op">停用</a>
+												<a  onclick="stopUser(${userInfo.id });" class="list_op">停用</a>
 											</c:if>
 										</td>
 										<td>${userInfo.shopId}</td>
@@ -77,7 +77,7 @@
 													</button>
 												</c:if>
 
-												<a class="btn btn-xs btn-info" href="update/${userInfo.id }" title="编辑">
+												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id})" id="editUserInfo"  data-toggle="modal" title="编辑">
 													<i class="ace-icon fa fa-pencil bigger-120"></i>
 												</a>
 
@@ -197,7 +197,7 @@
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 					 style="cursor: move;">
 					<div class="widget-header">
-						<span class="ui-jqdialog-title" style="float: left;">新增用户</span>
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增用户</span>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
@@ -211,6 +211,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户名(必须是英文): </label>
 
 									<div class="col-sm-9">
+										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="userName" placeholder="userName" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
@@ -301,6 +302,7 @@
 	<%--//end_zhangfx--%>
 
 
+
 <%@ include file="../common/common_js.jsp"%>
 
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery.dataTables.js"></script>
@@ -309,9 +311,74 @@
 
 	<script type="text/javascript">
 
+		function startUser(userId){
+			$.ajax({
+				type: 'POST',
+				url: "/user/addUser",
+				data: {"status":1,"id":userId },
+				dataType: "json",
+				success: function (data) {
+					alert("启用成功！");
+					submitForm("/user/users",null);
+				},
+				fail: function (err, status) {
+					console.log(err)
+				}
+
+			});
+		}
+
+		function stopUser(userId){
+			$.ajax({
+				type: 'POST',
+				url: "/user/addUser",
+				data: {"status":0,"id":userId },
+				dataType: "json",
+				success: function (data) {
+					alert("停用成功！");
+					submitForm("/user/users",null);
+				},
+				fail: function (err, status) {
+					console.log(err)
+				}
+
+			});
+		}
+
+
+
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
+				$("#modalTitle").html("新增用户");
 			});
+
+			function editUser(userId){
+				$("#editUserInfo").attr("data-target","#addUser");
+				$("#modalTitle").html("修改用户");
+				$.ajax({
+					type: 'POST',
+					url: "/user/getUserInfoByID",
+					data: { "userId": userId},
+					dataType: "json",
+					success: function (data) {
+						var data_ =  JSON.parse(data);
+						var user = data_.result;
+						$("#id").val(user.id);
+						$("#userName").val(user.userName);
+						$("#nickName").val(user.nickName);
+						$("#passWord").val(user.passWord);
+						$("#userCode").val(user.userCode);
+						$("#phone").val(user.phone);
+						$("#email").val(user.email);
+						$("#status").val(user.status);
+						$("#shopId").val(user.shopId);
+					},
+					fail: function (err) {
+						console.log(err)
+					}
+
+				});
+			}
 
 			$("#search").click(function(){
 				$(this).attr("data-target","#searchUser");
@@ -335,6 +402,7 @@
 				form.submit();
 			}
 
+			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
 				paramsName.name="search_userName";
@@ -349,13 +417,13 @@
 	    	});
 
 		//新增操作
-
 			$("#fbox_grid-table_add").click(function(){
 				var userName = $("#userName").val();
 				var nickName = $("#nickName").val();
 				var passWord = $("#passWord").val();
 				var userCode = $("#userCode").val();
 				var phone =$("#phone").val();
+				var id =$("#id").val();
 				var email = $("#email").val();
 				var status = $("#status").val();
 				var shopId = $("#shopId").val();
@@ -363,7 +431,7 @@
 				$.ajax({
 					type: 'POST',
 					url: "/user/addUser",
-					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId },
+					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
 					dataType: "json",
 					success: function (data, status) {
 						submitForm("/user/users",null);

@@ -3,6 +3,8 @@ package com.mingdao.server.impl;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 import com.mingdao.common.utils.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.Map;
 
 @Service
 public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
+	public static Logger logger = LoggerFactory.getLogger(UserInfoBaseServiceItfImpl.class);
 	
 	
 	@Autowired
@@ -28,6 +31,12 @@ public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
 	@Override
 	public UserInfo insertUserInfo(UserInfo userInfo) {
 		userInfoDao.insertVO(userInfo);
+		return userInfo;
+	}
+
+	@Override
+	public UserInfo updateUserInfo(UserInfo userInfo) {
+		userInfoDao.updateVO(userInfo);
 		return userInfo;
 	}
 

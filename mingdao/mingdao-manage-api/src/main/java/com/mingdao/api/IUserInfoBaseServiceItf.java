@@ -8,6 +8,8 @@ public interface IUserInfoBaseServiceItf {
 	
 	public UserInfo insertUserInfo(UserInfo userInfo);
 
+	public UserInfo updateUserInfo(UserInfo userInfo);
+
 	public Pager<UserInfo> getUserInfo(UserInfo userInfo);
 
 	public int deleteUser(int id);

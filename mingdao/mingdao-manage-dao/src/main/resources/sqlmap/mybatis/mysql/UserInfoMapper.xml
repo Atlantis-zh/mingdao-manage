@@ -3,7 +3,7 @@
 <mapper namespace="com.mingdao.dao.base.IUserInfoDao">
 
 	<resultMap id="userResultMap" type="com.mingdao.domain.UserInfo">
-		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<id property="id" javaType="java.lang.Long" jdbcType="BIGINT" column="id" />
 		<result property="userName" javaType="string" jdbcType="VARCHAR" column="username"/>
 		<result property="passWord" javaType="string" jdbcType="VARCHAR" column="password"/>
 		<result property="nickName" javaType="string" jdbcType="VARCHAR" column="nickname"/>
@@ -12,9 +12,9 @@
 		<result property="status" javaType="string" jdbcType="VARCHAR" column="status"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="email" javaType="string" jdbcType="VARCHAR" column="email"/>
-		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
+		<result property="creator" javaType="java.lang.Long" jdbcType="BIGINT" column="creator"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
-		<result property="long" javaType="string" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifier" javaType="java.lang.Long" jdbcType="BIGINT" column="modifier"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 	</resultMap>
 
@@ -47,6 +47,9 @@
 			<if test="username != '' and username != null">
 				and t.username=#{username}
 			</if>
+			<if test="id != '' and id != null">
+				and t.id=#{id}
+			</if>
 	</select>
 
 	<select id="getCountUser" parameterType="map" resultType="int">
@@ -64,5 +67,24 @@
 	<delete id="deleteUser" parameterType="int">
 		delete from userinfo  where id = #{id}
 	</delete>
+
+	<update id="updateVO"  parameterType="com.mingdao.domain.UserInfo">
+		UPDATE userinfo
+		<trim prefix="set" suffixOverrides=",">
+			<if test="passWord!=null">password=#{passWord},</if>
+			<if test="nickName!=null">nickname=#{nickName},</if>
+			<if test="userCode!=null">usercode=#{userCode},</if>
+			<if test="userName!=null">username=#{userName},</if>
+			<if test="status!=null">status=#{status},</if>
+			<if test="phone!=null">phone=#{phone},</if>
+			<if test="email!=null">email=#{email},</if>
+			<if test="creator!=null">creator=#{creator},</if>
+			<if test="modifiedTime!=null">modifiedtime=#{modifiedTime},</if>
+			<if test="modifier!=null">modifier=#{modifier},</if>
+			<if test="createTime!=null">createtime=#{createTime},</if>
+			<if test="shopId!=null">shopid=#{shopId},</if>
+		</trim>
+		WHERE id=#{id}
+	</update>
 
 </mapper>
