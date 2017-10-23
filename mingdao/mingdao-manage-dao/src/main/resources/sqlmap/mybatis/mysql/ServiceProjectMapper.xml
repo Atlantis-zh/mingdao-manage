@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IServiceProjectDao">
+	<resultMap id="serviceProjectResultMap" type="com.mingdao.domain.ServiceProject">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+		<result property="spec" javaType="string" jdbcType="VARCHAR" column="spec"/>
+		<result property="cost" javaType="double" jdbcType="DOUBLE" column="cost"/>
+		<result property="workHours" javaType="int" jdbcType="INTEGER" column="workhours"/>
+		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
+		<result property="isSelfHelp" javaType="boolean" jdbcType="BOOLEAN" column="isselfhelp"/>
+        <result property="unit" javaType="long" jdbcType="BIGINT" column="unit"/>
+        <result property="serProdClassId" javaType="long" jdbcType="BIGINT" column="serprodclassid"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.ServiceProductClass" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO service_product
+        (storeid,code,name,spec,cost,spec,workhours,saleprice,isselfhelp,unit,serprodclassid,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{storeId},#{code},#{name},#{spec},#{cost},#{workHours},#{salePrice},#{isSelfHelp},#{unit},#{serProdClassId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProductClass">
+	    UPDATE service_product SET
+	      storeid=#{storeId},
+          code=#{code},
+          name=#{name},
+          spec=#{spec},
+          cost=#{cost},
+          workhours=#{workHours},
+          saleprice=#{salePrice},
+          isselfhelp=#{isSelfHelp},
+          unit=#{unit},
+          serprodclassid=#{serProdClassId},    
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="serviceProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.spec,
+          t.cost,
+          t.workhours,
+          t.saleprice,
+          t.isselfhelp,
+          t.unit,
+          t.serprodclassid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  service_product t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from service_product t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+</mapper>

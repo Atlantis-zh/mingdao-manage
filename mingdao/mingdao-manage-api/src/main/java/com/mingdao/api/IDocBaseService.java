@@ -1,5 +1,6 @@
 package com.mingdao.api;
 
+import java.util.List;
 import java.util.Map;
 
 import com.mingdao.common.pageUtil.Pager;
@@ -26,5 +27,7 @@ public interface IDocBaseService<T> {
 	public Pager<T> pageQueryByCondition(Map<String, Object> param);
 
 	public T singleQryByCondtion(Map<String, Object> param);
+
+	public List<T> qryAllDoces(Map<String, Object> param);
 
 }

@@ -59,4 +59,9 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 		return null;
 	}
 
+	@Override
+	public List<IntegralRule> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

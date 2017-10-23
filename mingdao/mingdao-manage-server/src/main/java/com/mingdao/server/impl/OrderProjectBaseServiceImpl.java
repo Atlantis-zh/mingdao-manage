@@ -7,40 +7,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.mingdao.api.IExchangeGiftBaseService;
+import com.mingdao.api.IOrderProjectBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DateUtil;
-import com.mingdao.dao.base.IExchangeGiftDao;
-import com.mingdao.domain.ExchangeGift;
+import com.mingdao.dao.base.IOrderProjectDao;
+import com.mingdao.domain.OrderProject;
 
 /**
  *
- * <code>ExchangeGiftBaseServiceImpl<code> <strong></strong>
+ * <code>WeChetOrderInfoBaseServiceImpl<code> <strong></strong>
  * <p>
- * 说明：
- * <li></li>
+ * 
+ * <li>预约管理</li>
  * </p>
  * 
  * @since
- * @version 2017年10月4日 上午10:33:15
+ * @version
  * @author libinf
  */
-
 @Service
-public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
+public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 
 	@Autowired
-	private IExchangeGiftDao dao;
+	private IOrderProjectDao dao;
+
 
 	@Override
-	public ExchangeGift insert(ExchangeGift t) {
+	public OrderProject insert(OrderProject t) {
 		dao.insertVO(t);
 		return t;
 	}
 
 	@Override
-	public ExchangeGift update(ExchangeGift t, Long modifier) {
+	public OrderProject update(OrderProject t, Long modifier) {
 		t.setModifier(modifier);
 		t.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(t);
@@ -48,21 +48,21 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 	}
 
 	@Override
-	public Pager<ExchangeGift> pageQueryByCondition(Map<String, Object> param) {
+	public Pager<OrderProject> pageQueryByCondition(Map<String, Object> param) {
 		int count = dao.getCountByCondition(param);
 		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<ExchangeGift> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<ExchangeGift> pages = new Pager<ExchangeGift>(count, list);
+		List<OrderProject> list = dao.pageQueryByCondition(param, pageBounds);
+		Pager<OrderProject> pages = new Pager<OrderProject>(count, list);
 		return pages;
 	}
 
 	@Override
-	public ExchangeGift singleQryByCondtion(Map<String, Object> param) {
+	public OrderProject singleQryByCondtion(Map<String, Object> param) {
 		return null;
 	}
 
 	@Override
-	public List<ExchangeGift> qryAllDoces(Map<String, Object> param) {
+	public List<OrderProject> qryAllDoces(Map<String, Object> param) {
 		return null;
 	}
 

@@ -62,4 +62,9 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
 		return resutl;
 	}
 
+	@Override
+	public List<Customer> qryAllDoces(Map<String, Object> param) {
+		return null;
+	}
+
 }

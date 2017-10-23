@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import java.sql.Timestamp;
-
 import com.mingdao.enumprop.MemberShipSource;
 import com.mingdao.enumprop.Status;
 import com.mingdao.enumprop.TimeUnit;

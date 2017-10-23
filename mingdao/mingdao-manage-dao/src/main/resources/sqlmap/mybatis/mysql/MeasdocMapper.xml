@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IMeasdocDao">
+	<resultMap id="measdocResultMap" type="com.mingdao.domain.Measdoc">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.Measdoc" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO measdoc
+        (code,name,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Measdoc">
+	    UPDATE measdoc SET
+          code=#{code},
+          name=#{name},    
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="measdocResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  measdoc t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from measdoc t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+</mapper>

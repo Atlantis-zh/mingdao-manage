@@ -1,6 +1,6 @@
 package com.mingdao.dao.base;
 
-import com.mingdao.domain.WeChatOrder;
+import com.mingdao.domain.OrderProject;
 
 /**
 *
@@ -14,6 +14,6 @@ import com.mingdao.domain.WeChatOrder;
 * @version 
 * @author wushzh
 */
-public interface IWeChatOrderDao extends IBaseDao<WeChatOrder>{
+public interface IOrderProjectDao extends IBaseDao<OrderProject>{
 
 }
