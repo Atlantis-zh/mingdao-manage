@@ -20,6 +20,11 @@ public class ExchangeGift extends SuperVO {
 	private Long storeId;
 	private String name;
 	private Integer points;
+	
+	public static final String ID ="id";
+	public static final String  NAME="name";
+	public static final String  STOREID="storeId";	
+	public static final String  POINTS="points";
 
 	public Long getId() {
 		return this.id;

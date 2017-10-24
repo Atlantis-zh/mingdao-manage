@@ -29,6 +29,17 @@ public class WeChatInfo extends SuperVO {
 	private boolean status;
 	private String relationcust;
 	private Sex sex;
+	
+	public static final String ID ="id";
+	public static final String CODE ="code";
+	public static final String MNNAME ="mnname";
+	public static final String STOREID ="storeId";
+	public static final String TEL ="tel";
+	public static final String ADDRESS ="address";
+	public static final String STATUS ="status";
+	public static final String RELATIONCUST ="relationcust";
+	public static final String SEX ="sex";
+	
 	public String getMnname() {
 		return mnname;
 	}

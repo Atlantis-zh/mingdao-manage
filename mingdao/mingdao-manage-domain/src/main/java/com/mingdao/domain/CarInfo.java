@@ -32,6 +32,20 @@ public class CarInfo extends SuperVO {
 	private String insureCompany;
 	private Timestamp insureExpir;
 	private Double preCyc;
+	
+	public static final String  ID="id";
+	public static final String  CUSTOMERID="customerId";
+	public static final String  PLATNUMBER="platNumber";
+	public static final String  CARPRICE="carPrice";
+	public static final String  ANNUALEXPIRATION="annualExpiration";
+	public static final String  ADDRESSOFPERSON="addressOfPerson";
+	public static final String  NEXTSERVICECYC="nextServiceCyc";
+	public static final String  BUYCARTIME="buyCarTime";
+	public static final String  BRANDID="brandId";
+	public static final String  INSURECOMPANY="insureCompany";
+	public static final String  INSUREEXPIR="insureExpir";
+	public static final String  PRECYC="preCyc";
+	
 
 	public Long getId() {
 		return this.id;

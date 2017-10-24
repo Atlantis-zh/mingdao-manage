@@ -24,6 +24,15 @@ public class WorkTimeClass extends SuperVO {
 	private Integer minutes;
 	private Double price;
 	private Boolean isDefault;
+	
+	public static final String ID="id";
+	public static final String STOREID="storeId";
+	public static final String CODE="code";
+	public static final String NAME="name";
+	public static final String MINUTES="minutes";
+	public static final String PRICE="price";
+	public static final String ISDEFAULT="isDefault";
+
 
 	public Long getId() {
 		return this.id;
