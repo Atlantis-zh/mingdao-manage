@@ -19,4 +19,8 @@ public class MemberShip extends SuperVO {
 
 	private Long id;
 	private String cardId;
+	
+	public static final String ID ="id";
+	
+	public static final String CARID ="cardId";
 }

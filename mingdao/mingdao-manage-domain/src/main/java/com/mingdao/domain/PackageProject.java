@@ -21,6 +21,14 @@ public class PackageProject extends SuperVO{
 	private Long pkgItemId;
 	private Integer serviceCount;
 	private Double price;
+	
+	public static final String ID ="id";
+	public static final String  PKGTYPEID="pkgTypeId";
+	public static final String  PKGITEMID="pkgItemId";
+	public static final String  SERVICECOUNT="serviceCount";
+	
+	public static final String  PRICE="price";
+
 
 	public Long getId() {
 		return this.id;

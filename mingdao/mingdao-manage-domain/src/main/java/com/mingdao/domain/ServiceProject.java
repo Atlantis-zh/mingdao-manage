@@ -27,6 +27,19 @@ public class ServiceProject extends SuperVO {
 	private Boolean isSelfHelp;
 	private Long unit;
 	private Long serProdClassId;
+	
+	public static final String ID ="id";
+	public static final String  STOREID="storeId";
+	public static final String  CODE="code";
+	public static final String  NAME="name";
+	public static final String  SPEC="spec";
+	public static final String  COST="cost";
+	public static final String  WORKHOURS="workHours";
+	public static final String  SALEPRICE="salePrice";
+	public static final String  ISSELFHELP="isSelfHelp";
+	public static final String  UNIT="unit";
+	public static final String  SERPRODCLASSID="serProdClassId";
+	
 
 	public Long getId() {
 		return this.id;

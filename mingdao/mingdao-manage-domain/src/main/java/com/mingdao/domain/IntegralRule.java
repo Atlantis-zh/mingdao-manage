@@ -20,6 +20,13 @@ public class IntegralRule extends SuperVO {
 	private Long cardTypeId;
 	private Double consume;
 	private String memo;
+	
+	public static final String ID ="id";
+	public static final String  CARDTYPEID="cardTypeId";
+	public static final String  CONOSUME="consume";
+	public static final String  MEMO="memo";
+
+	public static final String  STOREID="storeId";
 
 	public Long getId() {
 		return this.id;

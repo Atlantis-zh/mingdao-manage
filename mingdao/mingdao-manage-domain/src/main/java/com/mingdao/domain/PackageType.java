@@ -32,6 +32,17 @@ public class PackageType extends SuperVO {
 	private Status status;
 	private String memo;
 
+	public static final String ID ="id";
+	public static final String  STOREID="storeId";
+	public static final String  NAME="name";
+	public static final String  SALEPRICE="salePrice";
+	public static final String  COUNT="count";
+	public static final String  EXPIRE="expire";
+	public static final String  TIMEUNIT="timeUnit";
+	public static final String  SHARETOBRANCH="shareToBranch";
+	public static final String  SOURCE="source";
+	public static final String  STATUS="status";
+	public static final String  MEMO="memo";
 
 	public Long getId() {
 		return this.id;

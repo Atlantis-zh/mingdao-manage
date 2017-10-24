@@ -31,6 +31,21 @@ public class OrderProject extends SuperVO {
 	private OrderStatus status;
 	private String linkmanName;
 	private String linkTel;
+	
+	public static final String ID ="id";
+	public static final String  STOREID="storeId";
+	public static final String  BILLNO="billno";
+	public static final String  ORDERUSERID="orderUserId";
+	
+	public static final String  SERVICEPROJECTID="serviceProjectId";
+	public static final String  ORDERTIME="orderTime";
+	public static final String  CARNO="carNo";
+	public static final String  CUSTOMERID="customerId";
+	public static final String  SOURCE="source";
+	public static final String  MEMO="memo";
+	public static final String  STATUS="status";
+	public static final String  LINKMANNAME="linkmanName";
+	public static final String  LINKTEL="linkTel";
 
 	public Long getId() {
 		return this.id;

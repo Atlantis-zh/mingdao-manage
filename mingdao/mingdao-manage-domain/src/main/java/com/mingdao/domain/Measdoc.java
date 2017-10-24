@@ -21,6 +21,10 @@ public class Measdoc extends SuperVO {
 	private String code;
 	private String name;
 
+	public static final String ID ="id";
+	public static final String CODE ="code";
+	public static final String NAME ="name";
+	
 	public Long getId() {
 		return this.id;
 	}

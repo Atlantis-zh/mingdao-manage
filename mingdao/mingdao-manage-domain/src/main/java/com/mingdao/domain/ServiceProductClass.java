@@ -22,6 +22,12 @@ public class ServiceProductClass extends SuperVO {
 	private String code;
 	private String name;
 	private Long workTimeClassId;
+	
+	public static final String ID ="id";
+	public static final String  STOREID="storeId";
+	public static final String  CODE="code";
+	public static final String  NAME="name";
+	public static final String  WORKTIMECLASSID="workTimeClassId";
 
 	public Long getId() {
 		return this.id;
