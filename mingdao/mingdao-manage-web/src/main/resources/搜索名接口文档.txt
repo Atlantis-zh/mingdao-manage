@@ -1,0 +1,66 @@
+1、发送短信接口（phone若未注册则新增客户）
+请求URL:http://118.190.207.7:8080/mingdao/weixin/login/sendSMS
+请求方式：GET
+请求头参数：phone="123456788"
+请求体：无
+返回值：
+{
+  "result": "发送成功",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+
+2、短信登录验证接口
+请求URL:http://118.190.207.7:8080/mingdao/weixin/login/verifySMS
+请求方式：GET
+请求头参数：phone="123456788"&verifycode="123456"
+请求体：无
+返回值：
+{
+  "result": "验证成功",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+
+3.预约操作
+请求URL:http://118.190.207.7:8080/mingdao/weixin/orderProjectBaseSer/addOrderProject
+请求方式：POST
+请求头参数：
+请求体：
+{
+  "storeId": 123,
+  "orderUserId": 897,
+  "serviceProjectId": 456,
+  "orderTime": "2013-12-07 00:00:00",
+  "customerId": 7898,
+  "memo": "xxxxx",
+  "carNo": "京PDY945",
+  "linkmanName": "xxx",
+  "linkTel": "xxx"
+}
+storeId:门店
+orderUserId：预约员工
+serviceProjectId:服务项目
+orderTime：预约时间
+customerId：客户主键
+memo：备注
+carNo：车牌号码
+linkmanName：联系人姓名--问吴总，具体业务
+linkTel：联系人电话--问吴总，具体业务
+
+返回值：
+{
+  "result": "123[插入后的主键]",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+
+
+
+
+
+
+
