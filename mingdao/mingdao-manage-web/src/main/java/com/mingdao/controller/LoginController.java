@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,9 +92,14 @@ public class LoginController extends BaseController {
 		}
 		String verifycode = request.getParameter("verifycode");
 		// TODO 加上短信验证的逻辑
+		JSONObject val = new JSONObject();
+		long longTime = System.currentTimeMillis();
+
 		if (verifycode.equals("123456")) {
+			val.put(Customer.PHONE, phone);
+			val.put(Customer.SYSTEMTIME,longTime);
 			result.setSuccess(true);
-			result.setResult("验证成功！");
+			result.setResult(val);
 		} else {
 			result.setSuccess(false);
 			result.setResultMsg("短信验证码错误!");

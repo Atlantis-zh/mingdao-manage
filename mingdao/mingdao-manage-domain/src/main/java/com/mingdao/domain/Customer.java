@@ -47,6 +47,7 @@ public class Customer extends SuperVO {
 	public static final String LPR = "lpr";
 	public static final String SEX = "sex";
 	public static final String ADDRESS = "address";
+	public static final String SYSTEMTIME= "systemTime";
 
 
 
