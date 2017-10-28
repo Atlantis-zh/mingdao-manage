@@ -10,7 +10,7 @@ public interface IRoleBaseServiceItf {
 
 	public Role insertRole(Role role);
 	
-	public Role updateRole(Role role,Long modifyUserId);
+	public Role updateRole(Role role);
 
 	public Pager<Role> pageQueryRolesByCondition(Map<String, Object> param);
 		

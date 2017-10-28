@@ -56,33 +56,32 @@ public class CarInfoBaseServiceForWXController extends BaseController {
 	 * @since
 	 */
 	@RequestMapping(value = "/addCarInfo", method = RequestMethod.POST)
-	public @ResponseBody ResultMessage addCarInfo(HttpServletRequest request, @RequestBody String inputData) {
+	public @ResponseBody ResultMessage addCarInfo(HttpServletRequest request) {
 		ResultMessage result = new ResultMessage();
-		JSONObject jsonObj = JSONObject.parseObject(inputData);
-		String phone = jsonObj.getString(MingDaoHttpRequestConsts.PHONE);
+		CarInfo carInfo = new CarInfo();
+		carInfo.setPhone(request.getParameter("phone"));
+		carInfo.setPlatNumber(request.getParameter("platNumber"));
+		carInfo.setVin(request.getParameter("vin"));
 
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put(Customer.PHONE, phone);
+		param.put(Customer.PHONE, carInfo.getPhone());
 		Customer cust = custBaseService.singleQryByCondtion(param);
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("用户暂未注册!");
 			return result;
 		}
-		CarInfo carInfo = new CarInfo();
 		carInfo.setCustomerId(cust.getId());
-		carInfo.setPlatNumber(jsonObj.getString("carNo"));
-		carInfo.setVin(jsonObj.getString("vin"));
+		carInfo.setPlatNumber(carInfo.getPlatNumber());
+		carInfo.setVin(carInfo.getVin());
 		carInfo = carInfoBaseService.insert(carInfo);
-		JSONObject val = new JSONObject();
-		val.put("phone",phone);
-		val.put("systemLongTime",System.currentTimeMillis());
+
 		if (carInfo.getId() == null) {
 			result.setSuccess(false);
 			result.setResultMsg("绑定失败，请检查日志！");
 		} else {
 			result.setSuccess(true);
-			result.setResult(val);
+			result.setResult("绑定成功！");
 		}
 		return result;
 	}

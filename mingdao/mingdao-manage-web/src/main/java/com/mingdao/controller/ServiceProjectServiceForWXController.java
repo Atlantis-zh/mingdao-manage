@@ -6,6 +6,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.mingdao.common.utils.DataUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,13 +43,13 @@ public class ServiceProjectServiceForWXController {
 	private IServiceProjectBaseService spService;
 
 	@RequestMapping(value = "/qryAllServiceProject", method = RequestMethod.GET)
-	public @ResponseBody String qryAllServiceProject(HttpServletRequest request) {
+	public @ResponseBody JSONObject qryAllServiceProject(HttpServletRequest request) {
 		Long storeId = Long.valueOf(request.getParameter("storeId"));
 		ResultMessage result = new ResultMessage();
 		if (storeId == null) {
 			result.setSuccess(false);
 			result.setResultMsg("获取服务项目失败，门店不能为空！");
-			return result.toString();
+			return result;
 		}
 		try {
 			Map<String, Object> param = new HashMap<String, Object>();
@@ -55,15 +58,15 @@ public class ServiceProjectServiceForWXController {
 			List<ServiceProject> list = pages.getDatas();
 			JSONArray array = new JSONArray();
 			if (!CollectionUtils.isEmpty(list)) {
-				array = JSONArray.parseArray(JacksonUtil.toJSon(list));
+				array = DataUtil.list2JsonArray(list);
 			}
 			result.setSuccess(true);
 			result.setResult(array);
-			return result.toString();
+			return result;
 		} catch (Exception e) {
 			result.setSuccess(false);
 			result.setResultMsg("获取服务项目失败，原因：" + e.getMessage());
-			return result.toString();
+			return result;
 		}
 	}
 

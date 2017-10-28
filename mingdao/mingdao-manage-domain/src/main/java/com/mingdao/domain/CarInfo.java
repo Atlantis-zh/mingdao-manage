@@ -32,6 +32,7 @@ public class CarInfo extends SuperVO {
 	private String insureCompany;
 	private Timestamp insureExpir;
 	private Double preCyc;
+	private String phone;
 	
 	public static final String  ID="id";
 	public static final String  CUSTOMERID="customerId";
@@ -151,6 +152,11 @@ public class CarInfo extends SuperVO {
 		this.preCyc = preCyc;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
 
-
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }
