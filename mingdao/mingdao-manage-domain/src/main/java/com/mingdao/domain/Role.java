@@ -22,6 +22,14 @@ public class Role extends SuperVO {
 	public static final String MODIFIER = "modifier";
 	public static final String MODIFIEDTIME = "modifiedTime";
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getRoleCode() {
 		return roleCode;
 	}

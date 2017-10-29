@@ -93,7 +93,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="roleinfo.html">
+										<a href="<%=request.getContextPath() %>/role/roles" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											角色管理
 										</a>

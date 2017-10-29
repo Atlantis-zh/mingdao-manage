@@ -11,7 +11,9 @@ import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IRoleDao;
 import com.mingdao.domain.Role;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoleBaseServiceItfImpl implements IRoleBaseServiceItf{
 	
 	@Autowired
@@ -40,4 +42,9 @@ public class RoleBaseServiceItfImpl implements IRoleBaseServiceItf{
 		return pages;
 	}
 
+	@Override
+	public int deleteRole(int id) {
+		int i = roleDao.deleteRole(id);
+		return i;
+	}
 }

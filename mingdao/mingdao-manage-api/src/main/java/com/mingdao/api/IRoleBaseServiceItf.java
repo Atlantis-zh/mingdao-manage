@@ -13,5 +13,7 @@ public interface IRoleBaseServiceItf {
 	public Role updateRole(Role role);
 
 	public Pager<Role> pageQueryRolesByCondition(Map<String, Object> param);
+
+	public int deleteRole(int id);
 		
 }

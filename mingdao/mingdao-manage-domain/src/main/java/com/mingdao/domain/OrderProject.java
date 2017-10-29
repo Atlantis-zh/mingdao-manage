@@ -27,7 +27,7 @@ public class OrderProject extends SuperVO {
 	private String carNo;
 	private Long customerId;
 	private Source source;
-	private String memo;
+	private String meno;
 	private OrderStatus status;
 	private String linkmanName;
 	private String linkTel;
@@ -119,12 +119,12 @@ public class OrderProject extends SuperVO {
 		this.source = source;
 	}
 
-	public String getMemo() {
-		return this.memo;
+	public String getMeno() {
+		return meno;
 	}
 
-	public void setMemo(String memo) {
-		this.memo = memo;
+	public void setMeno(String meno) {
+		this.meno = meno;
 	}
 
 	public OrderStatus getStatus() {

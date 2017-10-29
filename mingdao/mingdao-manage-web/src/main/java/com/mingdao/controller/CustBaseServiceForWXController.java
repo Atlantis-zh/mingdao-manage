@@ -71,21 +71,19 @@ public class CustBaseServiceForWXController extends BaseController {
 	}
 
 	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
-	public @ResponseBody String updateCustomer(HttpServletRequest request, @RequestBody String inputData) {
+	public @ResponseBody JSONObject updateCustomer(HttpServletRequest request) {
 		ResultMessage result = new ResultMessage();
-		JSONObject jsonObj = JSONObject.parseObject(inputData);
-		String phone = jsonObj.getString(MingDaoHttpRequestConsts.PHONE);
+		String phone =  request.getParameter(MingDaoHttpRequestConsts.PHONE);
+		String field =  request.getParameter(MingDaoHttpRequestConsts.FIELD);
+		String value =  request.getParameter(MingDaoHttpRequestConsts.VALUE);
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put(Customer.PHONE, phone);
 		Customer cust = custBaseService.singleQryByCondtion(param);
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("手机号[" + phone + "]未注册!");
-			return result.toString();
+			return result;
 		}
-		JSONObject val = jsonObj.getJSONObject(MingDaoHttpRequestConsts.VAL);
-		String field = val.getString(MingDaoHttpRequestConsts.FIELD);
-		String value = val.getString(MingDaoHttpRequestConsts.VALUE);
 		if (field.equals(Customer.ADDRESS)) {
 			cust.setAddress(value);
 		} else if (field.equals(Customer.NAME)) {
@@ -96,16 +94,18 @@ public class CustBaseServiceForWXController extends BaseController {
 			cust.setIdentityId(value);
 		} else if (field.equals(Customer.WXNICKNAME)) {
 			cust.setWxNickName(value);
+		}else  if(field.equals(Customer.PHONE)){
+			cust.setPhone(value);
 		}
 		cust = custBaseService.update(cust, null);
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("修改失败！");
-			return result.toString();
+			return result;
 		}
 		result.setSuccess(true);
 		result.setResult("修改成功！");
-		return result.toString();
+		return result;
 	}
 
 	/**

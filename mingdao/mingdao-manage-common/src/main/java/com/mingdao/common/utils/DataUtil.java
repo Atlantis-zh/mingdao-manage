@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/10/28.
  */
-public class DataUtil {   
+public class DataUtil {
 
     public static JSONArray list2JsonArray(List list){
         JSONArray array = new JSONArray();

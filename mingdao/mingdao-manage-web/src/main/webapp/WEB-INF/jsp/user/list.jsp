@@ -314,12 +314,12 @@
 		function startUser(userId){
 			$.ajax({
 				type: 'POST',
-				url: "/user/addUser",
+				url: "<%=request.getContextPath() %>/user/addUser",
 				data: {"status":1,"id":userId },
 				dataType: "json",
 				success: function (data) {
 					alert("启用成功！");
-					submitForm("/user/users",null);
+					submitForm("<%=request.getContextPath() %>/user/users",null);
 				},
 				fail: function (err, status) {
 					console.log(err)
@@ -336,7 +336,7 @@
 				dataType: "json",
 				success: function (data) {
 					alert("停用成功！");
-					submitForm("/user/users",null);
+					submitForm("<%=request.getContextPath() %>/user/users",null);
 				},
 				fail: function (err, status) {
 					console.log(err)
@@ -357,7 +357,7 @@
 				$("#modalTitle").html("修改用户");
 				$.ajax({
 					type: 'POST',
-					url: "/user/getUserInfoByID",
+					url: "<%=request.getContextPath() %>/user/getUserInfoByID",
 					data: { "userId": userId},
 					dataType: "json",
 					success: function (data) {
@@ -413,7 +413,7 @@
 				paramsCode.val=$("#search_userCode").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("/user/users",paramsArr);
+				submitForm("<%=request.getContextPath() %>/user/users",paramsArr);
 	    	});
 
 		//新增操作
@@ -430,23 +430,17 @@
 
 				$.ajax({
 					type: 'POST',
-					url: "/user/addUser",
+					url: "<%=request.getContextPath() %>/user/addUser",
 					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
 					dataType: "json",
 					success: function (data, status) {
-						submitForm("/user/users",null);
+						submitForm("<%=request.getContextPath() %>/user/users",null);
 					},
 					fail: function (err, status) {
 						console.log(err)
 					}
-
 				});
 			});
-
-
-
-
-
 	</script>
 
 </body>
