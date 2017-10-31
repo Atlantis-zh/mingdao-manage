@@ -71,4 +71,9 @@ public class MenuBaseServiceImpl implements IMenuBaseService {
 		return true;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
+	}
+
 }

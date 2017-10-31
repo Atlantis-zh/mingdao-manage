@@ -21,4 +21,5 @@ public interface IMenuBaseService extends IDocBaseService<Menu> {
 
 	public boolean isDocExist(Map<String, Object> param);
 
+
 }

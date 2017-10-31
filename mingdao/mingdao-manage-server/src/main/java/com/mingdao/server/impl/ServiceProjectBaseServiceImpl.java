@@ -63,4 +63,8 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

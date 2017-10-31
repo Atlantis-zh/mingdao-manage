@@ -64,4 +64,8 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

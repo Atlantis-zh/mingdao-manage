@@ -66,4 +66,8 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

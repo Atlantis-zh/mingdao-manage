@@ -98,4 +98,19 @@ public class MenuBaseServiceController extends BaseController {
 		return result;
 	}
 
+	@RequestMapping(value = "/deleteMenu", method = RequestMethod.GET)
+	public @ResponseBody ResultMessage deleteMenu(HttpServletRequest request) {
+		ResultMessage result = new ResultMessage();
+		Long id = Long.valueOf(request.getParameter(Menu.ID));
+		if (id == null) {
+			result.setSuccess(false);
+			result.setResultMsg("删除主键不可为空!");
+			return result;
+		}
+		baseService.deleteDocById(id);
+		result.setSuccess(true);
+		result.setResult("删除成功！");
+		return result;
+	}
+
 }
