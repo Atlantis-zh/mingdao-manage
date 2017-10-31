@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IMenuDao">
+	<resultMap id="menuResultMap" type="com.mingdao.domain.Menu">
+		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+	    <result property="parentId" javaType="long" jdbcType="INTEGER" column="parentid"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.Menu" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO menu
+        (code,name,parentid,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{parentId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Menu">
+	    UPDATE menu SET
+          code=#{code},
+          name=#{name},
+          parentid=#{parentId},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="menuResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  menu t where 1=1
+           <if test="id !='' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+           <if test="parentid !='' and parentid != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from menu t where 1=1
+           <if test="id !='' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+           <if test="parentid !='' and parentid != null">
+              and t.name=#{name}
+           </if>
+	</select>	
+</mapper>
