@@ -1,5 +1,7 @@
 package com.mingdao.domain;
 
+import com.mingdao.enumprop.Status;
+
 /**
  *
  * <code>Menu<code> <strong></strong>
@@ -21,6 +23,15 @@ public class Menu extends SuperVO {
 	private String code;
 	private String name;
 	private Long parentId;
+	private Boolean isLeafMenu;
+	private Status status;
+
+	public static final String ID = "id";
+	public static final String CODE = "code";
+	public static final String NAME = "name";
+	public static final String PARENTID = "parentId";
+	public static final String ISLEAFMENU = "isLeafMenu";
+	public static final String STATUS = "status";
 
 	public Long getId() {
 		return this.id;
@@ -54,4 +65,19 @@ public class Menu extends SuperVO {
 		this.parentId = parentId;
 	}
 
+	public Boolean getIsLeafMenu() {
+		return this.isLeafMenu;
+	}
+
+	public void setIsLeafMenu(Boolean isLeafMenu) {
+		this.isLeafMenu = isLeafMenu;
+	}
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 }

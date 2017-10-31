@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IMenuBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IMenuDao;
 import com.mingdao.domain.Menu;
 
@@ -39,8 +38,6 @@ public class MenuBaseServiceImpl implements IMenuBaseService {
 
 	@Override
 	public Menu update(Menu t, Long modifier) {
-		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(t);
 		return t;
 	}
@@ -56,12 +53,22 @@ public class MenuBaseServiceImpl implements IMenuBaseService {
 
 	@Override
 	public Menu singleQryByCondtion(Map<String, Object> param) {
-		return null;
+		Menu resutl = dao.singleQueryByCondition(param);
+		return resutl;
 	}
 
 	@Override
 	public List<Menu> qryAllDoces(Map<String, Object> param) {
 		return null;
+	}
+
+	@Override
+	public boolean isDocExist(Map<String, Object> param) {
+		int count = dao.getCountByCondition(param);
+		if (count == 0) {
+			return false;
+		}
+		return true;
 	}
 
 }

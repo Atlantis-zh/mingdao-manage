@@ -1,5 +1,7 @@
 package com.mingdao.api;
 
+import java.util.Map;
+
 import com.mingdao.domain.Menu;
 
 /**
@@ -16,5 +18,7 @@ import com.mingdao.domain.Menu;
  */
 
 public interface IMenuBaseService extends IDocBaseService<Menu> {
+
+	public boolean isDocExist(Map<String, Object> param);
 
 }

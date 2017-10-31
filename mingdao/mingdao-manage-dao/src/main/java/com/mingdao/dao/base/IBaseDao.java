@@ -16,4 +16,5 @@ public interface IBaseDao<E> {
 	public List<E> pageQueryByCondition(Map<String,Object> param,PageBounds pageBounds);
 	public List<E> queryByIds(String[] ids);
 	public int getCountByCondition(Map<String,Object> param);
+	public void deleteDocById(Long id);
 }

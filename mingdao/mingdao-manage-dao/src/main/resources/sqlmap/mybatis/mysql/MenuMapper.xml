@@ -6,6 +6,8 @@
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 	    <result property="parentId" javaType="long" jdbcType="INTEGER" column="parentid"/>
+	    <result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
+	    <result property="isLeafMenu" javaType="boolean" jdbcType="BOOLEAN" column="isleafmenu"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -14,9 +16,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Menu" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO menu
-        (code,name,parentid,creator,createtime,modifier,modifiedtime)
+        (code,name,parentid,isleafmenu,status,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{name},#{parentId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{code},#{name},#{parentId},#{isLeafMenu},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Menu">
@@ -24,6 +26,8 @@
           code=#{code},
           name=#{name},
           parentid=#{parentId},
+          isleafmenu=#{isLeafMenu},
+          status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},
@@ -31,12 +35,36 @@
         WHERE id=#{id}
 	</update>
 	
+	
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="menuResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.parentid,
+          t.isleafmenu,
+          t.status,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  menu t where 1=1
+           <if test="id !='' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+	</select>
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="menuResultMap">
 	    SELECT
           t.id,
           t.code,
           t.name,
           t.parentid,
+          t.isleafmenu,
+          t.status,
           t.creator,
           t.createtime,
           t.modifier,
@@ -72,5 +100,9 @@
            <if test="parentid !='' and parentid != null">
               and t.name=#{name}
            </if>
-	</select>	
+	</select>
+	
+	<delete id="deleteDocById" parameterType="long">
+        delete from user where id=#{id}
+    </delete>	
 </mapper>
