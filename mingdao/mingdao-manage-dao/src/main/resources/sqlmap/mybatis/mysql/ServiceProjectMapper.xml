@@ -89,4 +89,8 @@
               and t.name=#{name}
            </if>
 	</select>
+
+    <delete id="deleteServiceProduct" parameterType="int">
+        delete from service_product  where id = #{id}
+    </delete>
 </mapper>

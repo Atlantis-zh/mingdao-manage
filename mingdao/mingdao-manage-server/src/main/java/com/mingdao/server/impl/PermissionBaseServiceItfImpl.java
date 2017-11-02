@@ -12,6 +12,7 @@ import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IPermissionDao;
 import com.mingdao.domain.Permission;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -25,7 +26,7 @@ import com.mingdao.domain.Permission;
  * @version 2017年9月24日 下午4:50:21
  * @author libinf
  */
-
+@Service
 public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 
 	@Autowired
@@ -38,7 +39,7 @@ public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 	}
 
 	@Override
-	public Permission updatePermission(Permission permission, Long modifyUserId) {
+	public Permission updatePermission(Permission permission) {
 		//permission.setModifier(modifyUserId);
 		permission.setModifiedTime(DateUtil.getCurrentTimestamp());
 		permissionDao.updateVO(permission);
@@ -53,6 +54,11 @@ public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 		List<Permission> list = permissionDao.pageQueryByCondition(param, pageBounds);
 		Pager<Permission> pages = new Pager<Permission>(count, list);
 		return pages;
+	}
+
+	@Override
+	public int deletePermission(int id){
+		return permissionDao.deletePermission(id);
 	}
 
 }

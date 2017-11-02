@@ -39,7 +39,7 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 	}
 
 	@Override
-	public WorkTimeClass update(WorkTimeClass t, Long modifier) {
+	public WorkTimeClass update(WorkTimeClass t) {
 		dao.updateVO(t);
 		return t;
 	}

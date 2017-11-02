@@ -4,4 +4,6 @@ import com.mingdao.domain.Permission;
 
 public interface IPermissionDao extends IBaseDao<Permission>{
 
+    public int deletePermission(int id);
+
 }

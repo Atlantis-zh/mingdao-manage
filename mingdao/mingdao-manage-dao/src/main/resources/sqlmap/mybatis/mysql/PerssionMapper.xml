@@ -46,10 +46,10 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="permissioncode != null">
+           <if test="permissionCode != null">
               and t.permissioncode=#{permissionCode}
            </if>
-           <if test="permissionname != null">
+           <if test="permissionName != null">
               and t.permissionname=#{permissionName}
            </if>
 	</select>
@@ -61,11 +61,15 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="permissioncode != null">
+           <if test="permissionCode != null">
               and t.permissioncode=#{permissionCode}
            </if>
-           <if test="permissionname != null">
+           <if test="permissionName != null">
               and t.permissionname=#{permissionName}
            </if>
-	</select>	
+	</select>
+
+    <delete id="deletePermission" parameterType="int">
+        delete from permission  where id = #{id}
+    </delete>
 </mapper>

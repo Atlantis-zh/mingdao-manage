@@ -22,8 +22,10 @@ public interface IStoreBaseService {
 
 	public Store insertStore(Store store);
 
-	public Store updateStore(Store store, Long modifyUserId);
+	public Store updateStore(Store store);
 
 	public Pager<Store> pageQueryStoreByCondition(Map<String, Object> param);
+
+	public int deleteStore(int id);
 
 }

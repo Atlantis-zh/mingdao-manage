@@ -39,7 +39,7 @@ public class StoreBaseServiceImpl implements IStoreBaseService {
 	}
 
 	@Override
-	public Store updateStore(Store store, Long modifyUserId) {
+	public Store updateStore(Store store) {
 		dao.updateVO(store);
 		return store;
 	}
@@ -53,4 +53,8 @@ public class StoreBaseServiceImpl implements IStoreBaseService {
 		return pages;
 	}
 
+	@Override
+	public int deleteStore(int id) {
+		return dao.deleteStore(id);
+	}
 }

@@ -17,4 +17,5 @@ import com.mingdao.domain.ServiceProductClass;
 
 public interface IServiceProductClassDao extends IBaseDao<ServiceProductClass> {
 
+
 }

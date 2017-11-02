@@ -9,9 +9,11 @@ public interface IPermissionBaseServiceItf {
 
 	public Permission insertPermission(Permission permission);
 	
-	public Permission updatePermission(Permission permission,Long modifyUserId);
+	public Permission updatePermission(Permission permission);
 
 	public Pager<Permission> pageQueryPermissionByCondition(Map<String, Object> param);
+
+	public int deletePermission(int id);
 
 		
 }

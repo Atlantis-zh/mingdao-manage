@@ -38,7 +38,7 @@ public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 	}
 
 	@Override
-	public Measdoc update(Measdoc t, Long modifier) {
+	public Measdoc update(Measdoc t) {
 		dao.updateVO(t);
 		return t;
 	}

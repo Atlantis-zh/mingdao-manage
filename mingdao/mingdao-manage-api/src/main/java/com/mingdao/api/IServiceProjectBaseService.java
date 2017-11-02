@@ -16,5 +16,6 @@ import com.mingdao.domain.ServiceProject;
  */
 
 public interface IServiceProjectBaseService extends IDocBaseService<ServiceProject> {
+    public int deleteServiceProduct(int id);
 
 }

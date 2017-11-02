@@ -40,9 +40,7 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 	}
 
 	@Override
-	public OrderProject update(OrderProject t, Long modifier) {
-		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentTimestamp());
+	public OrderProject update(OrderProject t) {
 		dao.updateVO(t);
 		return t;
 	}
@@ -65,5 +63,7 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 	public List<OrderProject> qryAllDoces(Map<String, Object> param) {
 		return null;
 	}
+
+
 
 }

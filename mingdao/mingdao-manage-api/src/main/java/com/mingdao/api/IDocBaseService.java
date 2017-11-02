@@ -22,7 +22,7 @@ public interface IDocBaseService<T> {
 
 	public T insert(T t);
 
-	public T update(T t, Long modifier);
+	public T update(T t);
 
 	public Pager<T> pageQueryByCondition(Map<String, Object> param);
 

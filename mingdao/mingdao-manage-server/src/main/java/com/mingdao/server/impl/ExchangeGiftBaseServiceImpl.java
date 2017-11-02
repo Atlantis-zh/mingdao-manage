@@ -40,9 +40,7 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 	}
 
 	@Override
-	public ExchangeGift update(ExchangeGift t, Long modifier) {
-		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentTimestamp());
+	public ExchangeGift update(ExchangeGift t) {
 		dao.updateVO(t);
 		return t;
 	}

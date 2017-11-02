@@ -40,9 +40,8 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
 	}
 
 	@Override
-	public Customer update(Customer t, Long modifier) {
-		t.setModifier(modifier);
-		t.setModifiedTime(DateUtil.getCurrentTimestamp());
+	public Customer update(Customer t) {
+
 		dao.updateVO(t);
 		return t;
 	}

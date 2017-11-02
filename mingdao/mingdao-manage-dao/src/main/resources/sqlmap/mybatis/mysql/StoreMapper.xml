@@ -85,4 +85,9 @@
               and t.name=#{name}
            </if>
 	</select>
+
+
+    <delete id="deleteStore" parameterType="int">
+        delete from store  where id = #{id}
+    </delete>
 </mapper>

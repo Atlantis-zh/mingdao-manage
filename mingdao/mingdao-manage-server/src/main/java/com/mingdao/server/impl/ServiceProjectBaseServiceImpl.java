@@ -39,7 +39,7 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 	}
 
 	@Override
-	public ServiceProject update(ServiceProject t, Long modifier) {
+	public ServiceProject update(ServiceProject t) {
 		dao.updateVO(t);
 		return t;
 	}
@@ -63,4 +63,8 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 		return null;
 	}
 
+	@Override
+	public int deleteServiceProduct(int id) {
+		return dao.deleteServiceProduct(id);
+	}
 }

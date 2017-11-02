@@ -37,7 +37,7 @@
 
 								<ul class="submenu">
 									<li class="">
-										<a href="shopMana.html">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											门店管理
 										</a>
@@ -102,7 +102,7 @@
 									</li>
 									<li class="">
 										<a href="authinfo.html">
-											<i class="menu-icon fa fa-caret-right"></i>
+											<a href="<%=request.getContextPath() %>/permission/permissions" target="mainFrame">
 											权限管理
 										</a>
 
