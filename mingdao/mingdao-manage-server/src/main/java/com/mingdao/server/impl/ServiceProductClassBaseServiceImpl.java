@@ -63,4 +63,8 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

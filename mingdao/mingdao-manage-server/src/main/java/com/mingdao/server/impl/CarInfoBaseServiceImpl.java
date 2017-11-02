@@ -64,4 +64,8 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

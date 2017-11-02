@@ -58,6 +58,64 @@ linkTel：联系人电话--问吴总，具体业务
   "success:true 
 }
 
+4、菜单注册
+请求URL:http://118.190.207.7:8080/mingdao/pc/menuBaseSer/addMenu
+请求方式：POST
+请求头参数：无
+请求体：
+{
+  "code": "xxx",
+  "name": "xxxx",
+  "parentId": 1,
+  "isLeafMenu": true,
+  "status": "enable"
+}
+重点参数说明：
+isLeafMenu:布尔值，表示是否是末级菜单
+status：枚举，节点是否启用，有两个值enable或者disable  一个表示启用一个表示停用
+返回值：
+{
+  "result": 2,
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+5、菜单修改
+请求URL:http://118.190.207.7:8080/mingdao/pc/menuBaseSer/updateMenu
+请求方式：POST
+请求头参数：无
+请求体：
+{
+  "id":2
+  "code": "xxx",
+  "name": "xxxx",
+  "parentId": 1,
+  "isLeafMenu": true,
+  "status": "enable"
+}
+重点参数说明：
+isLeafMenu:布尔值，表示是否是末级菜单
+status：枚举，节点是否启用，有两个值enable或者disable  一个表示启用一个表示停用
+返回值：
+{
+  "result": "修改成功",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+
+6、菜单删除
+请求URL:http://118.190.207.7:8080/mingdao/pc/menuBaseSer/deleteMenu
+请求方式：GET
+请求头参数：id=2
+请求体：无
+返回值：
+{
+  "result": "删除成功",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
 
 
 

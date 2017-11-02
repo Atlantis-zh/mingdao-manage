@@ -63,4 +63,8 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

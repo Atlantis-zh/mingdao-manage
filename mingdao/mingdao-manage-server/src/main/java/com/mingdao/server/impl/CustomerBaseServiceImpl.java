@@ -66,4 +66,8 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

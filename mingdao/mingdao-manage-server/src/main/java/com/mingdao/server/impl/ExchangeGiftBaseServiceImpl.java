@@ -64,4 +64,8 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }

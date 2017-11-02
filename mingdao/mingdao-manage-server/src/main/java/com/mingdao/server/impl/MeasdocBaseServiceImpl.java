@@ -62,4 +62,8 @@ public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+	}
+
 }
