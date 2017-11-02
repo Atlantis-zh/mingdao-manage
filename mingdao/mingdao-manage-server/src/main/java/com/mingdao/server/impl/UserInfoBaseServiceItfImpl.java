@@ -47,6 +47,7 @@ public class UserInfoBaseServiceItfImpl implements IUserInfoBaseServiceItf{
 		if(!StringUtils.isEmpty(userInfo)){
 			param.put("usercode",userInfo.getUserCode());
 			param.put("username",userInfo.getUserName());
+			param.put("id",userInfo.getId());
 		}
 		int count =  userInfoDao.getCountUser(param);
 		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");

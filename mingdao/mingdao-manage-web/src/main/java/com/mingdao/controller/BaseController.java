@@ -26,7 +26,7 @@ public class BaseController {
 
 	public void setTimeStampWithUpdate(SuperVO vo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Long userId = (long) session.getAttribute(USERID);
+		long userId = (long) session.getAttribute(USERID);
 		Timestamp date = DateUtil.getCurrentTimestamp();
 		vo.setModifier(userId);
 		vo.setModifiedTime(date);

@@ -39,7 +39,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="login_copy",method = RequestMethod.GET)
     public String login_Copy(HttpServletRequest request){
         HttpSession session = request.getSession();
-        session.setAttribute("userId",1);
+        session.setAttribute("userId",1L);
         return "admin/index";
     }
 

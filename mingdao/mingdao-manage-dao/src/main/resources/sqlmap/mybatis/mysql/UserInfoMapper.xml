@@ -62,6 +62,9 @@
 		<if test="username != '' and username != null">
 			and t.username=#{username}
 		</if>
+		<if test="usercode != '' and usercode != null">
+			and t.usercode=#{usercode}
+		</if>
 	</select>
 
 	<delete id="deleteUser" parameterType="int">

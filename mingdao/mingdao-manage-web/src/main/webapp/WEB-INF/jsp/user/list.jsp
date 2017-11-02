@@ -47,7 +47,7 @@
 										<td>
 											<a href="#">${userInfo.userCode }</a>
 										</td>
-										<td><a href="${userInfo.id }" class="list_link">${userInfo.userName }</a></td>
+										<td>${userInfo.userName } </td>
 										<td class="hidden-480">
 											<c:if test="${userInfo.status eq '0' }">
 												<span class="emp">停用</span>
@@ -60,9 +60,7 @@
 										</td>
 										<td>${userInfo.shopId}</td>
 										<td>${userInfo.phone}</td>
-										<td class="hidden-480">
-											<a href="mailto:${userInfo.email }" class="list_link">${userInfo.email }</a><i class="icon-envelope"/>
-										</td>
+										<td class="hidden-480">	${userInfo.email }</td>
 
 										<td>
 									
@@ -77,7 +75,7 @@
 													</button>
 												</c:if>
 
-												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id})" id="editUserInfo"  data-toggle="modal" title="编辑">
+												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 													<i class="ace-icon fa fa-pencil bigger-120"></i>
 												</a>
 
@@ -350,10 +348,19 @@
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
 				$("#modalTitle").html("新增用户");
+				$("#id").val("");
+				$("#userName").val("");
+				$("#nickName").val("");
+				$("#passWord").val("");
+				$("#userCode").val("");
+				$("#phone").val("");
+				$("#email").val("");
+				$("#status").val("");
+				$("#shopId").val("");
 			});
 
-			function editUser(userId){
-				$("#editUserInfo").attr("data-target","#addUser");
+			function editUser(userId,obj){
+				$(obj).attr("data-target","#addUser");
 				$("#modalTitle").html("修改用户");
 				$.ajax({
 					type: 'POST',
@@ -434,6 +441,11 @@
 					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
 					dataType: "json",
 					success: function (data, status) {
+						if(id==null){
+							alert("保存成功！！");
+						}else{
+							alert("修改成功！！");
+						}
 						submitForm("<%=request.getContextPath() %>/user/users",null);
 					},
 					fail: function (err, status) {
