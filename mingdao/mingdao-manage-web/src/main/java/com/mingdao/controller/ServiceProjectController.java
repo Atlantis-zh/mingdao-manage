@@ -98,8 +98,8 @@ public class ServiceProjectController extends  BaseController {
 
     @RequestMapping(value = "/deleteServiceProject/{id}")
     public String deleteServiceProject(@PathVariable("id") String id) {
-        int pk = Integer.valueOf(id);
-        ServiceProjectBaseServiceImpl.deleteServiceProduct(pk);
+        long pk = Integer.valueOf(id);
+        ServiceProjectBaseServiceImpl.deleteDocById(pk);
         return "redirect:/role/roles";
     }
 

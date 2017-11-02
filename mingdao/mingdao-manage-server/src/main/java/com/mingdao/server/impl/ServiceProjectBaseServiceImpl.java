@@ -63,8 +63,10 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 		return null;
 	}
 
+
+
 	@Override
-	public int deleteServiceProduct(int id) {
-		return dao.deleteServiceProduct(id);
+	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 }

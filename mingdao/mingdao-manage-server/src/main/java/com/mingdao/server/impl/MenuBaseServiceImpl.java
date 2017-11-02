@@ -37,7 +37,7 @@ public class MenuBaseServiceImpl implements IMenuBaseService {
 	}
 
 	@Override
-	public Menu update(Menu t, Long modifier) {
+	public Menu update(Menu t) {
 		dao.updateVO(t);
 		return t;
 	}

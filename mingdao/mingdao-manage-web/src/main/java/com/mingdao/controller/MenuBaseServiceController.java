@@ -87,7 +87,7 @@ public class MenuBaseServiceController extends BaseController {
 		menu.setParentId(jsonObj.getLong(Menu.PARENTID));
 		menu.setStatus(Status.valueOf(jsonObj.getString(Menu.STATUS)));
 		super.setTimeStampWithUpdate(menu, request);
-		menu = baseService.update(menu, null);
+		menu = baseService.update(menu);
 		if (menu == null) {
 			result.setSuccess(false);
 			result.setResultMsg("修改失败！");

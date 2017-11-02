@@ -97,7 +97,7 @@ public class CustBaseServiceForWXController extends BaseController {
 		}else  if(field.equals(Customer.PHONE)){
 			cust.setPhone(value);
 		}
-		cust = custBaseService.update(cust, null);
+		cust = custBaseService.update(cust);
 		if (cust == null) {
 			result.setSuccess(false);
 			result.setResultMsg("修改失败！");
