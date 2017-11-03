@@ -58,7 +58,7 @@ public class RoleController extends  BaseController{
 
     @RequestMapping(value="/getRoleInfoByID")
     @ResponseBody
-    public String getRoleInfoByID(HttpServletRequest request){
+    public JSONObject getRoleInfoByID(HttpServletRequest request){
         String userId = request.getParameter("id");
         Long pk =  Long.valueOf(userId);
         Map<String,Object>  param = new HashMap<>();
@@ -72,7 +72,7 @@ public class RoleController extends  BaseController{
             object=null;
         }
         result.put("result",object);
-        return  result.toString();
+        return  result;
     }
 
 

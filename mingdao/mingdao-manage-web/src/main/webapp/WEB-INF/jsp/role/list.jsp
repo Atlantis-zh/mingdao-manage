@@ -255,8 +255,8 @@
 			data: { "id": userId},
 			dataType: "json",
 			success: function (data) {
-				var data_ =  JSON.parse(data);
-				var user = data_.result;
+				//var data_ =  JSON.parse(data);
+				var user = data.result;
 				$("#id").val(user.id);
 				$("#roleCode").val(user.roleCode);
 				$("#roleName").val(user.roleName);

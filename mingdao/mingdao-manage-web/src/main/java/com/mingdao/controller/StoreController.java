@@ -56,7 +56,7 @@ public class StoreController  extends  BaseController{
 
     @RequestMapping(value="/getStoreInfoByID")
     @ResponseBody
-    public String getStoreInfoByID(HttpServletRequest request){
+    public JSONObject getStoreInfoByID(HttpServletRequest request){
         String userId = request.getParameter("id");
         Long pk =  Long.valueOf(userId);
         Map<String,Object>  param = new HashMap<>();
@@ -70,7 +70,7 @@ public class StoreController  extends  BaseController{
             object=null;
         }
         result.put("result",object);
-        return  result.toString();
+        return  result;
     }
 
 

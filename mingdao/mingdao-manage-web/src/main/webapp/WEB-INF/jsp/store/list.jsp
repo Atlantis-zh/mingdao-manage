@@ -45,12 +45,12 @@
 										<td>
 											<a href="#">${userInfo.code }</a>
 										</td>
-										<td><a href="${userInfo.id }" class="list_link">${userInfo.name }</a></td>
+										<td>${userInfo.name }</td>
 
 										<td>${userInfo.address}</td>
 										<td>${userInfo.tel1}</td>
 										<td>
-											<a class="btn btn-xs btn-info" onclick="editStore(${userInfo.id})" id="editUserInfo"  data-toggle="modal" title="编辑">
+											<a class="btn btn-xs btn-info" onclick="editStore(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</a>
 
@@ -75,7 +75,7 @@
 												<c:if test="${datas.total > 0}">
 														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
-														<jsp:param value="users" name="url"/>
+														<jsp:param value="stores" name="url"/>
 													</jsp:include>
 												</c:if>
 											</td>
@@ -253,10 +253,15 @@
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
 				$("#modalTitle").html("新增门店");
+				$("#id").val("");
+				$("#name").val("");
+				$("#code").val("");
+				$("#address").val("");
+				$("#tel1").val("");
 			});
 
-			function editUser(userId){
-				$("#editUserInfo").attr("data-target","#addUser");
+			function editStore(userId,obj){
+				$(obj).attr("data-target","#addUser");
 				$("#modalTitle").html("修改门店");
 				$.ajax({
 					type: 'POST',
@@ -264,8 +269,8 @@
 					data: { "id": userId},
 					dataType: "json",
 					success: function (data) {
-						var data_ =  JSON.parse(data);
-						var user = data_.result;
+						//var data_ =  JSON.parse(data);
+						var user = data.result;
 						$("#id").val(user.id);
 						$("#name").val(user.name);
 						$("#code").val(user.code);
@@ -322,14 +327,17 @@
 				var tel1 = $("#tel1").val();
 				var address = $("#address").val();
 				var id=$("#id").val();
-
-
 				$.ajax({
 					type: 'POST',
 					url: "<%=request.getContextPath() %>/store/addStore",
 					data: { "name": name, "code": code,"tel1":tel1,"address":address,"id":id },
 					dataType: "json",
 					success: function (data, status) {
+						if(id==null||id==""){
+							alert("保存成功！！");
+						}else{
+							alert("修改成功！！");
+						}
 						submitForm("<%=request.getContextPath() %>/store/stores",null);
 					},
 					fail: function (err, status) {
