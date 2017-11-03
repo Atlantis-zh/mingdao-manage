@@ -50,7 +50,7 @@ public class UserInfoController extends  BaseController{
 
     @RequestMapping(value="/getUserInfoByID")
     @ResponseBody
-    public String getUserInfoByID(HttpServletRequest request){
+    public JSONObject getUserInfoByID(HttpServletRequest request){
         String userId = request.getParameter("userId");
         Long pk =  Long.valueOf(userId);
         UserInfo user = new UserInfo();
@@ -64,7 +64,7 @@ public class UserInfoController extends  BaseController{
             object=null;
         }
         result.put("result",object);
-        return  result.toString();
+        return  result;
     }
 
 

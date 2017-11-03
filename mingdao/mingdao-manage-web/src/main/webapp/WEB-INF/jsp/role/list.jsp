@@ -41,10 +41,10 @@
 									<td>
 										<a href="#">${role.roleCode }</a>
 									</td>
-									<td><a href="${role.id }" class="list_link">${role.roleName }</a></td>
+									<td>${role.roleName }</td>
 									<td>${role.roleMemo}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id})" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
@@ -61,7 +61,7 @@
 								<tbody>
 								<tr>
 									<td style="vertical-align: top;">
-										<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
+										<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加角色"  class="btn btn-info fa"  data-toggle="modal">+</a>
 										<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
 										<a href="<%=request.getContextPath() %>/role/roles" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 									</td>
@@ -69,7 +69,7 @@
 										<c:if test="${datas.total > 0}">
 											<jsp:include page="/jsp/pager.jsp">
 												<jsp:param value="${datas.total }" name="totalRecord"/>
-												<jsp:param value="users" name="url"/>
+												<jsp:param value="roles" name="url"/>
 											</jsp:include>
 										</c:if>
 									</td>
@@ -164,7 +164,7 @@
 			<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 				 style="cursor: move;">
 				<div class="widget-header">
-					<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增用户</span>
+					<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增角色</span>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
 					</button>
@@ -239,12 +239,16 @@
 
 	$("#add").click(function(){
 		$(this).attr("data-target","#addUser");
-		$("#modalTitle").html("新增用户");
+		$("#modalTitle").html("新增角色");
+		$("#id").val("");
+		$("#roleCode").val("");
+		$("#roleName").val("");
+		$("#roleMemo").val("");
 	});
 
-	function editRole(userId){
-		$("#editUserInfo").attr("data-target","#addUser");
-		$("#modalTitle").html("修改用户");
+	function editRole(userId,obj){
+		$(obj).attr("data-target","#addUser");
+		$("#modalTitle").html("修改角色");
 		$.ajax({
 			type: 'POST',
 			url: "<%=request.getContextPath() %>/role/getRoleInfoByID",
@@ -306,12 +310,18 @@
 		var roleCode = $("#roleCode").val();
 		var roleName = $("#roleName").val();
 		var roleMemo = $("#roleMemo").val();
+		var id = $("#id").val();
 		$.ajax({
 			type: 'POST',
 			url: "<%=request.getContextPath() %>/role/addRole",
-			data: { "roleCode": roleCode, "roleName": roleName,"roleMemo":roleMemo},
+			data: { "roleCode": roleCode, "roleName": roleName,"roleMemo":roleMemo,"id":id},
 			dataType: "json",
 			success: function (data, status) {
+				if(id==null||id==""){
+					alert("保存成功！！");
+				}else{
+					alert("修改成功！！");
+				}
 				submitForm("<%=request.getContextPath() %>/role/roles",null);
 			},
 			fail: function (err, status) {

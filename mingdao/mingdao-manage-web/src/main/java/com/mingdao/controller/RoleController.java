@@ -79,7 +79,7 @@ public class RoleController extends  BaseController{
 
     @RequestMapping("addRole")
     @ResponseBody
-    public String goToAddUser(Role role,HttpServletRequest request){
+    public JSONObject goToAddUser(Role role,HttpServletRequest request){
         JSONObject result = new JSONObject();
         if(!StringUtils.isEmpty(role) && !StringUtils.isEmpty(role.getId())){
             super.setTimeStampWithUpdate(role, request);
@@ -94,7 +94,7 @@ public class RoleController extends  BaseController{
         }else{
             result.put("status","1");
         }
-        return result.toString();
+        return result;
     }
 
 
