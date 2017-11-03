@@ -41,10 +41,10 @@
 									<td>
 										<a href="#">${role.permissionCode }</a>
 									</td>
-									<td><a href="${role.id }" class="list_link">${role.permissionName }</a></td>
+									<td>${role.permissionName }</td>
 									<td>${role.permissionMemo}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editPermission(${role.id})" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editPermission(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
@@ -69,7 +69,7 @@
 										<c:if test="${datas.total > 0}">
 											<jsp:include page="/jsp/pager.jsp">
 												<jsp:param value="${datas.total }" name="totalRecord"/>
-												<jsp:param value="users" name="url"/>
+												<jsp:param value="permissions" name="url"/>
 											</jsp:include>
 										</c:if>
 									</td>
@@ -240,14 +240,19 @@
 	$("#add").click(function(){
 		$(this).attr("data-target","#addUser");
 		$("#modalTitle").html("新增权限");
+		$("#id").val("");
+		$("#permissionCode").val("");
+		$("#permissionName").val("");
+		$("#permissionMemo").val("");
 	});
 
-	function editPermission(userId){
-		$("#editUserInfo").attr("data-target","#addUser");
+	function editPermission(userId,obj){
+		$(obj).attr("data-target","#addUser");
 		$("#modalTitle").html("修改权限");
+
 		$.ajax({
 			type: 'POST',
-			url: "<%=request.getContextPath() %>/permission/permissions",
+			url: "<%=request.getContextPath() %>/permission/getPermissionsInfoByID",
 			data: { "id": userId},
 			dataType: "json",
 			success: function (data) {
@@ -313,6 +318,11 @@
 			data: { "permissionCode": permissionCode, "permissionName": permissionName,"permissionMemo":permissionMemo,"id":id},
 			dataType: "json",
 			success: function (data, status) {
+				if(id==null||id==""){
+					alert("保存成功！！");
+				}else{
+					alert("修改成功！！");
+				}
 				submitForm("<%=request.getContextPath() %>/permission/permissions",null);
 			},
 			fail: function (err, status) {

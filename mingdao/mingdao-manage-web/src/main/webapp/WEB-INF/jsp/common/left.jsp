@@ -101,9 +101,9 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="authinfo.html">
-											<a href="<%=request.getContextPath() %>/permission/permissions" target="mainFrame">
-											权限管理
+										<a href="<%=request.getContextPath() %>/permission/permissions" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+										权限管理
 										</a>
 
 										<b class="arrow"></b>

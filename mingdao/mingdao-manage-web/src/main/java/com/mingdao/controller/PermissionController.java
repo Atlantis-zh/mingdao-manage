@@ -43,7 +43,7 @@ public class PermissionController extends  BaseController {
             role.setPermissionName(name);
         }
         if (!StringUtils.isEmpty(code)) {
-            role.setPermissionName(code);
+            role.setPermissionCode(code);
         }
         Map<String, Object> param = new HashMap<>();
         if (!StringUtils.isEmpty(role)) {
@@ -101,7 +101,7 @@ public class PermissionController extends  BaseController {
     public String deletePermission(@PathVariable("id") String id) {
         int pk = Integer.valueOf(id);
         PermissionBaseServiceItfImpl.deletePermission(pk);
-        return "redirect:/store/stores";
+        return "redirect:/permission/permissions";
     }
 
 }
