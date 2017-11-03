@@ -441,7 +441,7 @@
 					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
 					dataType: "json",
 					success: function (data, status) {
-						if(id==null){
+						if(id==null||id==""){
 							alert("保存成功！！");
 						}else{
 							alert("修改成功！！");
