@@ -11,7 +11,7 @@
 		<result property="workHours" javaType="int" jdbcType="INTEGER" column="workhours"/>
 		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
 		<result property="isSelfHelp" javaType="boolean" jdbcType="BOOLEAN" column="isselfhelp"/>
-        <result property="unit" javaType="long" jdbcType="BIGINT" column="unit"/>
+        <result property="unit" javaType="string" jdbcType="VARCHAR" column="unit"/>
         <result property="serProdClassId" javaType="long" jdbcType="BIGINT" column="serprodclassid"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -29,20 +29,20 @@
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProductClass">
 	    UPDATE service_product SET
-	      storeid=#{storeId},
-          code=#{code},
-          name=#{name},
-          spec=#{spec},
-          cost=#{cost},
-          workhours=#{workHours},
-          saleprice=#{salePrice},
-          isselfhelp=#{isSelfHelp},
-          unit=#{unit},
-          serprodclassid=#{serProdClassId},    
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="storeId!=null"> storeid=#{storeId},</if>
+        <if test="code!=null">code=#{code},</if>
+        <if test="name!=null"> name=#{name},</if>
+        <if test="spec!=null">spec=#{spec},</if>
+        <if test="cost!=null">cost=#{cost},</if>
+        <if test="workHours!=null"> workhours=#{workHours},</if>
+        <if test="salePrice!=null">saleprice=#{salePrice},</if>
+        <if test="isSelfHelp!=null">isselfhelp=#{isSelfHelp},</if>
+        <if test="unit!=null">unit=#{unit},</if>
+        <if test="serProdClassId!=null">serprodclassid=#{serProdClassId},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="modifier!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	

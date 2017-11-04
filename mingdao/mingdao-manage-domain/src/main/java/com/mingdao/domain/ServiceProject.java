@@ -25,7 +25,7 @@ public class ServiceProject extends SuperVO {
 	private Integer workHours;
 	private Double salePrice;
 	private Boolean isSelfHelp;
-	private Long unit;
+	private String unit;
 	private Long serProdClassId;
 	
 	public static final String ID ="id";
@@ -113,14 +113,6 @@ public class ServiceProject extends SuperVO {
 		this.isSelfHelp = isSelfHelp;
 	}
 
-	public Long getUnit() {
-		return this.unit;
-	}
-
-	public void setUnit(Long unit) {
-		this.unit = unit;
-	}
-
 	public Long getSerProdClassId() {
 		return this.serProdClassId;
 	}
@@ -129,4 +121,11 @@ public class ServiceProject extends SuperVO {
 		this.serProdClassId = serProdClassId;
 	}
 
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
 }

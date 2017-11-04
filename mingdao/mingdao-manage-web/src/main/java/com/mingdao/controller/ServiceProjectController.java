@@ -35,8 +35,8 @@ public class ServiceProjectController extends  BaseController {
     @RequestMapping("serviceProjects")
     public String getUserInfo(Model model, HttpServletRequest request) {
         ServiceProject role = new ServiceProject();
-        String name = request.getParameter("search_RoleName");
-        String code = request.getParameter("search_RoleCode");
+        String name = request.getParameter("search_Name");
+        String code = request.getParameter("search_Code");
         if (!StringUtils.isEmpty(name)) {
             role.setName(name);
         }
@@ -45,19 +45,19 @@ public class ServiceProjectController extends  BaseController {
         }
         Map<String, Object> param = new HashMap<>();
         if (!StringUtils.isEmpty(role)) {
-            param.put("roleName", role.getName());
-            param.put("roleCode", role.getCode());
+            param.put("name", role.getName());
+            param.put("code", role.getCode());
         }
 
         Pager<ServiceProject> listRole = ServiceProjectBaseServiceImpl.pageQueryByCondition(param);
         model.addAttribute("datas", listRole);
-        return "role/list";
+        return "serviceProject/list";
     }
 
 
     @RequestMapping(value = "/getServiceProjectInfoByID")
     @ResponseBody
-    public String getServiceProjectInfoByID(HttpServletRequest request) {
+    public JSONObject getServiceProjectInfoByID(HttpServletRequest request) {
         String userId = request.getParameter("id");
         Long pk = Long.valueOf(userId);
         Map<String, Object> param = new HashMap<>();
@@ -71,13 +71,13 @@ public class ServiceProjectController extends  BaseController {
             object = null;
         }
         result.put("result", object);
-        return result.toString();
+        return result;
     }
 
 
     @RequestMapping("addServiceProject")
     @ResponseBody
-    public String goToAddUser(ServiceProject role, HttpServletRequest request) {
+    public JSONObject goToAddUser(ServiceProject role, HttpServletRequest request) {
         JSONObject result = new JSONObject();
         if (!StringUtils.isEmpty(role) && !StringUtils.isEmpty(role.getId())) {
             super.setTimeStampWithUpdate(role, request);
@@ -92,7 +92,7 @@ public class ServiceProjectController extends  BaseController {
         } else {
             result.put("status", "1");
         }
-        return result.toString();
+        return result;
     }
 
 
