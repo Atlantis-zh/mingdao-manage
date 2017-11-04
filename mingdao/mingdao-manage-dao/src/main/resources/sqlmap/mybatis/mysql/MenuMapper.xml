@@ -5,10 +5,12 @@
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
-	    <result property="parentId" javaType="long" jdbcType="INTEGER" column="parentid"/>
+        <result property="path" javaType="string" jdbcType="VARCHAR" column="path"/>
+	    <result property="parentCode" javaType="string" jdbcType="VARCHAR" column="parent_code"/>
 	    <result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
 	    <result property="isLeafMenu" javaType="boolean" jdbcType="BOOLEAN" column="isleafmenu"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+        <result property="menuLevel" javaType="long" jdbcType="BIGINT" column="menu_level"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
@@ -16,22 +18,24 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Menu" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO menu
-        (code,name,parentid,isleafmenu,status,creator,createtime,modifier,modifiedtime)
+        (code,name,parent_code,isleafmenu,status,creator,createtime,modifier,modifiedtime,path,menu_level)
         VALUES
-        (#{code},#{name},#{parentId},#{isLeafMenu},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{code},#{name},#{parentCode},#{isLeafMenu},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{creator},#{createTime},#{modifier},#{modifiedTime},#{path},#{menuLevel})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Menu">
 	    UPDATE menu SET
-          code=#{code},
-          name=#{name},
-          parentid=#{parentId},
-          isleafmenu=#{isLeafMenu},
-          status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="code!=null"> code=#{code},</if>
+        <if test="name!=null"> name=#{name},</if>
+        <if test="parentCode!=null"> parent_code=#{parentCode},</if>
+        <if test="isLeafMenu!=null"> isleafmenu=#{isLeafMenu},</if>
+        <if test="status!=null"> status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},</if>
+        <if test="creator!=null"> creator=#{creator},</if>
+        <if test="path!=null"> path=#{path},</if>
+        <if test="menuLevel!=null"> menu_level=#{menuLevel},</if>
+        <if test="createTime!=null"> createtime=#{createTime},</if>
+        <if test="modifier!=null"> modifier=#{modifier},</if>
+        <if test="modifiedTime!=null"> modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	
@@ -41,9 +45,11 @@
           t.id,
           t.code,
           t.name,
-          t.parentid,
+          t.parent_code,
           t.isleafmenu,
           t.status,
+        t.path,
+        t.menu_level,
           t.creator,
           t.createtime,
           t.modifier,
@@ -55,6 +61,12 @@
            <if test="code !='' and code != null">
               and t.code=#{code}
            </if>
+            <if test="name !='' and name != null">
+                and t.name=#{name}
+            </if>
+            <if test="parentCode !='' and parentCode != null">
+                and t.parent_code=#{parentCode}
+            </if>
 	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="menuResultMap">
@@ -62,9 +74,11 @@
           t.id,
           t.code,
           t.name,
-          t.parentid,
+          t.parent_code,
           t.isleafmenu,
           t.status,
+          t.path,
+          t.menu_level,
           t.creator,
           t.createtime,
           t.modifier,
@@ -79,9 +93,9 @@
            <if test="name !='' and name != null">
               and t.name=#{name}
            </if>
-           <if test="parentid !='' and parentid != null">
-              and t.name=#{name}
-           </if>
+            <if test="parentCode !='' and parentCode != null">
+                and t.parent_code=#{parentCode}
+            </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
@@ -97,12 +111,12 @@
            <if test="name !='' and name != null">
               and t.name=#{name}
            </if>
-           <if test="parentid !='' and parentid != null">
-              and t.name=#{name}
-           </if>
+            <if test="parentCode !='' and parentCode != null">
+                and t.parent_code=#{parentCode}
+            </if>
 	</select>
 	
 	<delete id="deleteDocById" parameterType="long">
-        delete from user where id=#{id}
+        delete from menu where id=#{id}
     </delete>	
 </mapper>

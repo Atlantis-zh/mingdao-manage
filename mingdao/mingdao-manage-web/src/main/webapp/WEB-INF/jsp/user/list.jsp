@@ -329,7 +329,7 @@
 		function stopUser(userId){
 			$.ajax({
 				type: 'POST',
-				url: "/user/addUser",
+				url: "<%=request.getContextPath() %>/user/addUser",
 				data: {"status":0,"id":userId },
 				dataType: "json",
 				success: function (data) {

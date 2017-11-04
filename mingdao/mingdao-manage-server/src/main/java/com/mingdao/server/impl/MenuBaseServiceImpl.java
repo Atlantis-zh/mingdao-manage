@@ -25,7 +25,7 @@ import com.mingdao.domain.Menu;
  * @version 2017年10月31日 上午11:28:41
  * @author libinf
  */
-@Service
+@Service("menuBaseService")
 public class MenuBaseServiceImpl implements IMenuBaseService {
 	@Autowired
 	private IMenuDao dao;

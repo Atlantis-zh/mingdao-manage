@@ -109,7 +109,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="menuinfo.html">
+										<a href="<%=request.getContextPath() %>/menu/menus" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											菜单管理
 										</a>

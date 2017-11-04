@@ -22,9 +22,11 @@ public class Menu extends SuperVO {
 	private Long id;
 	private String code;
 	private String name;
-	private Long parentId;
+	private String parentCode;
 	private Boolean isLeafMenu;
 	private Status status;
+	private String path;
+	private Long menuLevel;
 
 	public static final String ID = "id";
 	public static final String CODE = "code";
@@ -57,12 +59,12 @@ public class Menu extends SuperVO {
 		this.name = name;
 	}
 
-	public Long getParentId() {
-		return this.parentId;
+	public String getParentCode() {
+		return parentCode;
 	}
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
 
 	public Boolean getIsLeafMenu() {
@@ -79,5 +81,21 @@ public class Menu extends SuperVO {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Long getMenuLevel() {
+		return menuLevel;
+	}
+
+	public void setMenuLevel(Long menuLevel) {
+		this.menuLevel = menuLevel;
 	}
 }

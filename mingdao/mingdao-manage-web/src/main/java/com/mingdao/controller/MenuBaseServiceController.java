@@ -53,7 +53,7 @@ public class MenuBaseServiceController extends BaseController {
 		Menu menu = new Menu();
 		menu.setCode(code);
 		menu.setName(jsonObj.getString(Menu.NAME));
-		menu.setParentId(jsonObj.getLong(Menu.PARENTID));
+		//menu.setParentId(jsonObj.getLong(Menu.PARENTID));
 		menu.setStatus(Status.valueOf(jsonObj.getString(Menu.STATUS)));
 		menu.setIsLeafMenu(jsonObj.getBoolean(Menu.ISLEAFMENU));
 		super.setTimeStampWithInsert(menu, request);
@@ -84,7 +84,7 @@ public class MenuBaseServiceController extends BaseController {
 		menu.setCode(jsonObj.getString(Menu.CODE));
 		menu.setName(jsonObj.getString(Menu.NAME));
 		menu.setIsLeafMenu(jsonObj.getBoolean(Menu.ISLEAFMENU));
-		menu.setParentId(jsonObj.getLong(Menu.PARENTID));
+		//menu.setParentId(jsonObj.getLong(Menu.PARENTID));
 		menu.setStatus(Status.valueOf(jsonObj.getString(Menu.STATUS)));
 		super.setTimeStampWithUpdate(menu, request);
 		menu = baseService.update(menu);
