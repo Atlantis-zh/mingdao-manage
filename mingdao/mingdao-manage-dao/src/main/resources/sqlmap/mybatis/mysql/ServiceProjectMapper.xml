@@ -90,7 +90,7 @@
            </if>
 	</select>
 
-    <delete id="deleteServiceProduct" parameterType="int">
+    <delete id="deleteDocById" parameterType="int">
         delete from service_product  where id = #{id}
     </delete>
 </mapper>

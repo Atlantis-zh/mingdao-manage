@@ -24,16 +24,16 @@
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.WorkTimeClass">
 	    UPDATE worktime_class SET
-          code=#{code},
-          name=#{name},
-          storeid=#{storeId},
-          price=#{price},
-          minutes=#{minutes},
-          isdefault=#{isDefault},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="code!=null">code=#{code},</if>
+        <if test="name!=null">name=#{name},</if>
+        <if test="storeId!=null">storeid=#{storeId},</if>
+        <if test="price!=null">price=#{price},</if>
+        <if test="minutes!=null">minutes=#{minutes},</if>
+        <if test="isDefault!=null">isdefault=#{isDefault},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="modifier!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	

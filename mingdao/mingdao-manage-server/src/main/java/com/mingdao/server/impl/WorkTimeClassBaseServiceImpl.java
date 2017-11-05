@@ -26,7 +26,7 @@ import com.mingdao.domain.WorkTimeClass;
  * @author libinf
  */
 
-@Service
+@Service("workTimeClassBaseService")
 public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 
 	@Autowired
@@ -65,6 +65,7 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 
 	@Override
 	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 
 }

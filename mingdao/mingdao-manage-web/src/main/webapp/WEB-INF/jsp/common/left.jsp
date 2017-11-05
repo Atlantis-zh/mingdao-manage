@@ -57,11 +57,18 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="projectType.html">
+										<a href="<%=request.getContextPath() %>/workTimeClass/workTimeClasss" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											服务产品分类
 										</a>
 
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/workTimeClass/workTimeClasss" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											工时分类
+										</a>
 										<b class="arrow"></b>
 									</li>
 									<li class="">
