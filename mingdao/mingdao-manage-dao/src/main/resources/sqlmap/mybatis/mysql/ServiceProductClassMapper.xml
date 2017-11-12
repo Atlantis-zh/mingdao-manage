@@ -23,14 +23,14 @@
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProductClass">
 	    UPDATE serviceproduct_class SET
-	      storeid=#{storeId},
-          code=#{code},
-          name=#{name},
-          worktimeclassid=#{workTimeClassId},       
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="storeId!=null"> storeid=#{storeId},</if>
+        <if test="code!=null"> code=#{code},</if>
+        <if test="name!=null">  name=#{name},</if>
+        <if test="workTimeClassId!=null">  worktimeclassid=#{workTimeClassId},       </if>
+        <if test="creator!=null">  creator=#{creator},</if>
+        <if test="createTime!=null">  createtime=#{createTime},</if>
+        <if test="createTime!=null">  modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">  modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	
@@ -71,4 +71,8 @@
               and t.name=#{name}
            </if>
 	</select>
+
+    <delete id="deleteDocById" parameterType="int">
+        delete from serviceproduct_class  where id = #{id}
+    </delete>
 </mapper>

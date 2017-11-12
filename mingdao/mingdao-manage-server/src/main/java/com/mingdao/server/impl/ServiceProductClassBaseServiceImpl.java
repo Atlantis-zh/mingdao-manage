@@ -26,7 +26,7 @@ import com.mingdao.domain.ServiceProductClass;
  * @author libinf
  */
 
-@Service
+@Service("serviceProductClassBaseService")
 public class ServiceProductClassBaseServiceImpl implements IServiceProductClassBaseService {
 
 	@Autowired
@@ -65,6 +65,7 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
 
 	@Override
 	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 
 }
