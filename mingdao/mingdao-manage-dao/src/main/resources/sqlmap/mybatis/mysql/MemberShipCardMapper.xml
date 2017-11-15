@@ -105,6 +105,11 @@
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
            </if>
-	</select>	
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from member_ship_card  where id = #{id}
+    </delete>
 	
 </mapper>

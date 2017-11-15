@@ -27,7 +27,7 @@ import com.mingdao.domain.MemberShipCard;
  * @author libinf
  */
 
-@Service
+@Service("memberShipCardBaseService")
 public class MemberShipCardBaseServiceImpl implements IMemberShipCardBaseService {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class MemberShipCardBaseServiceImpl implements IMemberShipCardBaseService
 	}
 
 	@Override
-	public MemberShipCard updateMemShipCard(MemberShipCard msc, Long modifyUserId) {
+	public MemberShipCard updateMemShipCard(MemberShipCard msc) {
 		dao.updateVO(msc);
 		return null;
 	}
@@ -54,4 +54,8 @@ public class MemberShipCardBaseServiceImpl implements IMemberShipCardBaseService
 		return pages;
 	}
 
+	@Override
+	public void deleteMemShipCard(long id) {
+		dao.deleteDocById(id);
+	}
 }

@@ -22,8 +22,10 @@ public interface IMemberShipCardBaseService {
 
 	public MemberShipCard insertMemShipCard(MemberShipCard msc);
 
-	public MemberShipCard updateMemShipCard(MemberShipCard msc, Long modifyUserId);
+	public MemberShipCard updateMemShipCard(MemberShipCard msc);
 
 	public Pager<MemberShipCard> pageQueryMemShipCardByCondition(Map<String, Object> param);
+
+	public void deleteMemShipCard(long id);
 
 }
