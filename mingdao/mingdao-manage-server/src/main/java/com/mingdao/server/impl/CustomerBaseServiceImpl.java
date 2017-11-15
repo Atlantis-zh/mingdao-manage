@@ -27,7 +27,7 @@ import com.mingdao.domain.Customer;
  * @author libinf
  */
 
-@Service
+@Service("customerBaseService")
 public class CustomerBaseServiceImpl implements ICustomerBaseService {
 
 	@Autowired

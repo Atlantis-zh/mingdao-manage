@@ -78,6 +78,9 @@
            <if test="phone != '' and phone != null">
               and t.phone=#{phone}
            </if>
+           <if test="name != '' and name != null">
+                and t.name=#{name}
+            </if>
 	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="customerResultMap">
@@ -106,6 +109,12 @@
            <if test="code != '' and code != null">
               and t.code=#{code}
            </if>
+            <if test="phone != '' and phone != null">
+                and t.phone=#{phone}
+            </if>
+            <if test="name != '' and name != null">
+                and t.name=#{name}
+            </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
@@ -118,5 +127,11 @@
            <if test="code != '' and code != null">
               and t.code=#{code}
            </if>
+            <if test="phone != '' and phone != null">
+                and t.phone=#{phone}
+            </if>
+            <if test="name != '' and name != null">
+                and t.name=#{name}
+            </if>
 	</select>
 </mapper>
