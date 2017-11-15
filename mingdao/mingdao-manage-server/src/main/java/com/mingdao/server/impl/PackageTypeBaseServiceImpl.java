@@ -27,7 +27,7 @@ import com.mingdao.domain.PackageType;
  * @author libinf
  */
 
-@Service
+@Service("packageTypeBaseService")
 public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 	}
 
 	@Override
-	public PackageType updatePkgType(PackageType packageType, Long modifyUserId) {
+	public PackageType updatePkgType(PackageType packageType) {
 		dao.updateVO(packageType);
 		return packageType;
 	}
@@ -54,4 +54,8 @@ public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 		return pages;
 	}
 
+	@Override
+	public void deletePackageType(Long id) {
+		dao.deleteDocById(id);
+	}
 }

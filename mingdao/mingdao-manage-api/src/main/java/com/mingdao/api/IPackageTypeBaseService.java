@@ -22,8 +22,10 @@ public interface IPackageTypeBaseService {
 
 	public PackageType insertPkgType(PackageType packageType);
 
-	public PackageType updatePkgType(PackageType packageType, Long modifyUserId);
+	public PackageType updatePkgType(PackageType packageType);
 
 	public Pager<PackageType> pageQueryPkgTypeByCondition(Map<String, Object> param);
+
+	public void deletePackageType(Long id);
 
 }

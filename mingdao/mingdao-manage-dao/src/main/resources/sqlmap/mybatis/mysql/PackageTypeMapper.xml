@@ -100,5 +100,9 @@
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
            </if>
-	</select>	
+	</select>
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from packagetype  where id = #{id}
+    </delete>
 </mapper>
