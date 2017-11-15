@@ -25,7 +25,7 @@ import com.mingdao.domain.Measdoc;
  * @version 2017年10月23日 上午12:44:05
  * @author libinf
  */
-@Service
+@Service("measDocService")
 public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 
 	@Autowired
