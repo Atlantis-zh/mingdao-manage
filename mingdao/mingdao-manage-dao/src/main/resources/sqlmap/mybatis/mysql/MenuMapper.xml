@@ -5,12 +5,10 @@
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
-        <result property="path" javaType="string" jdbcType="VARCHAR" column="path"/>
-	    <result property="parentCode" javaType="string" jdbcType="VARCHAR" column="parent_code"/>
+	    <result property="parentId" javaType="long" jdbcType="BIGINT" column="parentid"/>
 	    <result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
 	    <result property="isLeafMenu" javaType="boolean" jdbcType="BOOLEAN" column="isleafmenu"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
-        <result property="menuLevel" javaType="long" jdbcType="BIGINT" column="menu_level"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>

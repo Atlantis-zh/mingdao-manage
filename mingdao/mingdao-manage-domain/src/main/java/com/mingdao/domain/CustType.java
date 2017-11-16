@@ -4,7 +4,7 @@ package com.mingdao.domain;
  *
  * <code>CustType<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：客户类型
  * <li></li>
  * </p>
  * 
@@ -18,19 +18,24 @@ public class CustType extends SuperVO {
 	private static final long serialVersionUID = -5101886125326986669L;
 
 	private Long id;
+	/**
+	 * 编码
+	 */
 	private String code;
+	/**
+	 * 名称
+	 */
 	private String name;
+	/**
+	 * 所属门店
+	 */
 	private Long storeId;
-	
-	public static final String ID ="id";
-	public static final String  CODE="code";
-	public static final String  NAME="name";
 
-	public static final String  STOREID="storeId";
+	public static final String ID = "id";
+	public static final String CODE = "code";
+	public static final String NAME = "name";
 
-
-
-
+	public static final String STOREID = "storeId";
 
 	public Long getId() {
 		return this.id;
@@ -63,7 +68,5 @@ public class CustType extends SuperVO {
 	public void setStoreId(Long storeId) {
 		this.storeId = storeId;
 	}
-
-
 
 }

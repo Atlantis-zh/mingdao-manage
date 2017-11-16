@@ -16,17 +16,29 @@ package com.mingdao.domain;
 public class IntegralRule extends SuperVO {
 	private static final long serialVersionUID = 8776442116494739038L;
 	private Long id;
+	/**
+	 * 所属门店
+	 */
 	private Long storeId;
+	/**
+	 * 卡类型
+	 */
 	private Long cardTypeId;
+	/**
+	 * 赠送1积分所需消费金额
+	 */
 	private Double consume;
+	/**
+	 * 备注
+	 */
 	private String memo;
-	
-	public static final String ID ="id";
-	public static final String  CARDTYPEID="cardTypeId";
-	public static final String  CONOSUME="consume";
-	public static final String  MEMO="memo";
 
-	public static final String  STOREID="storeId";
+	public static final String ID = "id";
+	public static final String CARDTYPEID = "cardTypeId";
+	public static final String CONOSUME = "consume";
+	public static final String MEMO = "memo";
+
+	public static final String STOREID = "storeId";
 
 	public Long getId() {
 		return this.id;

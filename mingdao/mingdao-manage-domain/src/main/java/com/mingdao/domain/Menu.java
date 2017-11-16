@@ -18,15 +18,30 @@ import com.mingdao.enumprop.Status;
 public class Menu extends SuperVO {
 
 	private static final long serialVersionUID = -5977406820543630911L;
-
+	/**
+	 * 主键
+	 */
 	private Long id;
+	/**
+	 * 编码
+	 */
 	private String code;
+	/**
+	 * 名称
+	 */
 	private String name;
-	private String parentCode;
+	/**
+	 * 上级菜单
+	 */
+	private Long parentId;
+	/**
+	 * 是否末节菜单
+	 */
 	private Boolean isLeafMenu;
+	/**
+	 * 启用停用
+	 */
 	private Status status;
-	private String path;
-	private Long menuLevel;
 
 	public static final String ID = "id";
 	public static final String CODE = "code";
@@ -59,14 +74,6 @@ public class Menu extends SuperVO {
 		this.name = name;
 	}
 
-	public String getParentCode() {
-		return parentCode;
-	}
-
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
-	}
-
 	public Boolean getIsLeafMenu() {
 		return this.isLeafMenu;
 	}
@@ -83,19 +90,11 @@ public class Menu extends SuperVO {
 		this.status = status;
 	}
 
-	public String getPath() {
-		return path;
+	public Long getParentId() {
+		return this.parentId;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public Long getMenuLevel() {
-		return menuLevel;
-	}
-
-	public void setMenuLevel(Long menuLevel) {
-		this.menuLevel = menuLevel;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 }
