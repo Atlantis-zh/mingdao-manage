@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mingdao.api.IIntegralRuleBaseService;
 import com.mingdao.api.IRoleBaseServiceItf;
 import com.mingdao.common.pageUtil.Pager;
+import com.mingdao.domain.IntegralRule;
 import com.mingdao.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,35 +38,37 @@ public class IntegralRuleController extends  BaseController{
 
     @RequestMapping("integralRules")
     public String getUserInfo(Model model,HttpServletRequest request){
-        Role role = new Role();
-        String name =  request.getParameter("search_RoleName");
-        String code =  request.getParameter("search_RoleCode");
-        if(!StringUtils.isEmpty(name)){
-            role.setRoleName(name);
+        IntegralRule role = new IntegralRule();
+        String id =  request.getParameter("search_ID");
+        String CardTypeId =  request.getParameter("search_CardTypeId");
+        if(!StringUtils.isEmpty(id)){
+            long pk =  Long.valueOf(id);
+            role.setId(pk);
         }
-        if(!StringUtils.isEmpty(code)){
-            role.setRoleCode(code);
+        if(!StringUtils.isEmpty(CardTypeId)){
+            long typeId =  Long.valueOf(CardTypeId);
+            role.setCardTypeId(typeId);
         }
         Map<String,Object> param = new HashMap<>();
         if(!StringUtils.isEmpty(role)){
-            param.put("roleName",role.getRoleName());
-            param.put("roleCode",role.getRoleCode());
-        }
+            param.put("id",role.getId());
+            param.put("cardtypeid",role.getCardTypeId());
+        }integralRule
 
-        Pager<Role> listRole =  RoleBaseServiceItfImpl.pageQueryRolesByCondition(param);
+        Pager<IntegralRule> listRole =  integralRuleBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listRole);
-        return "role/list";
+        return "integralRule/list";
     }
 
 
-    @RequestMapping(value="/getRoleInfoByID")
+    @RequestMapping(value="/getIntegralRuleByID")
     @ResponseBody
-    public JSONObject getRoleInfoByID(HttpServletRequest request){
+    public JSONObject getIntegralRuleByID(HttpServletRequest request){
         String userId = request.getParameter("id");
         Long pk =  Long.valueOf(userId);
         Map<String,Object>  param = new HashMap<>();
         param.put("id",pk);
-        Pager<Role> listUser =  RoleBaseServiceItfImpl.pageQueryRolesByCondition(param);
+        Pager<IntegralRule> listUser =  integralRuleBaseService.pageQueryByCondition(param);
         JSONObject result = new JSONObject();
         JSONObject object = new JSONObject();
         if(!StringUtils.isEmpty(listUser) && !StringUtils.isEmpty(listUser.getDatas()) && !StringUtils.isEmpty(listUser.getDatas().get(0))){
@@ -79,17 +82,17 @@ public class IntegralRuleController extends  BaseController{
 
 
 
-    @RequestMapping("addRole")
+    @RequestMapping("addIntegralRule")
     @ResponseBody
-    public JSONObject goToAddUser(Role role,HttpServletRequest request){
+    public JSONObject addIntegralRule(IntegralRule role,HttpServletRequest request){
         JSONObject result = new JSONObject();
         if(!StringUtils.isEmpty(role) && !StringUtils.isEmpty(role.getId())){
             super.setTimeStampWithUpdate(role, request);
-            role = RoleBaseServiceItfImpl.updateRole(role);
+            role = integralRuleBaseService.update(role);
 
         }else{
             super.setTimeStampWithInsert(role, request);
-            role = RoleBaseServiceItfImpl.insertRole(role);
+            role = integralRuleBaseService.insert(role);
         }
         if(role==null){
             result.put("status","0");
@@ -101,11 +104,11 @@ public class IntegralRuleController extends  BaseController{
 
 
 
-    @RequestMapping(value="/deleteRole/{id}")
-    public String deleteUser(@PathVariable("id") String id){
-        int pk =  Integer.valueOf(id);
-        RoleBaseServiceItfImpl.deleteRole(pk);
-        return  "redirect:/role/roles";
+    @RequestMapping(value="/deleteIntegralRule/{id}")
+    public String deleteIntegralRule(@PathVariable("id") String id){
+        long pk =  Long.valueOf(id);
+        integralRuleBaseService.deleteDocById(pk);
+        return  "redirect:/integralRule/integralRules";
     }
 
 

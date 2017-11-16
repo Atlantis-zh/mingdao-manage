@@ -64,6 +64,7 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 
 	@Override
 	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 
 }
