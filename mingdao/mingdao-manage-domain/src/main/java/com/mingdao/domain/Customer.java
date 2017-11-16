@@ -21,17 +21,53 @@ public class Customer extends SuperVO {
 	private static final long serialVersionUID = -4687082890840731804L;
 
 	private Long id;
+	/**
+	 * 所属门店
+	 */
 	private Long storeId;
+	/**
+	 * 姓名
+	 */
 	private String name;
+	/**
+	 * 编码
+	 */
 	private String code;
+	/**
+	 * 微信昵称
+	 */
 	private String wxNickName;
+	/**
+	 * 生日
+	 */
 	private String birthday;
+	/**
+	 * 手机
+	 */
 	private String phone;
+	/**
+	 * 身份证
+	 */
 	private String identityId;
+	/**
+	 * 客户来源
+	 */
 	private Source custSource;
+	/**
+	 * 客户类型
+	 */
 	private Long custTypeId;
+	/**
+	 * 车牌识别
+	 */
 	private Boolean lpr;
+	/**
+	 * 性别
+	 */
 	private Sex sex;
+	/**
+	 * 地址
+	 */
 	private String address;
 
 	public static final String ID = "id";
@@ -47,9 +83,7 @@ public class Customer extends SuperVO {
 	public static final String LPR = "lpr";
 	public static final String SEX = "sex";
 	public static final String ADDRESS = "address";
-	public static final String SYSTEMTIME= "systemTime";
-
-
+	public static final String SYSTEMTIME = "systemTime";
 
 	public Long getId() {
 		return this.id;

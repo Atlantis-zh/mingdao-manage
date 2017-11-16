@@ -16,15 +16,23 @@ package com.mingdao.domain;
 public class Measdoc extends SuperVO {
 
 	private static final long serialVersionUID = 3333818191733141503L;
-
+	/**
+	 * 主键
+	 */
 	private Long id;
+	/**
+	 * 编码
+	 */
 	private String code;
+	/**
+	 * 名称
+	 */
 	private String name;
 
-	public static final String ID ="id";
-	public static final String CODE ="code";
-	public static final String NAME ="name";
-	
+	public static final String ID = "id";
+	public static final String CODE = "code";
+	public static final String NAME = "name";
+
 	public Long getId() {
 		return this.id;
 	}
