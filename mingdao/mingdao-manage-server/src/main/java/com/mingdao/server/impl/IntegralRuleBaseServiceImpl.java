@@ -26,7 +26,7 @@ import com.mingdao.domain.IntegralRule;
  * @version 2017年10月4日 上午9:44:33
  * @author libinf
  */
-@Service
+@Service("integralRuleBaseService")
 public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 	@Autowired
 	private IIntegralRuleDao dao;
