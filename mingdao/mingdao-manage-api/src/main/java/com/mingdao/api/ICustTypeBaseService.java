@@ -22,8 +22,11 @@ public interface ICustTypeBaseService {
 
 	public CustType insertCustType(CustType custtype);
 
-	public CustType updateCustType(CustType custtype, Long modifyUserId);
+	public CustType updateCustType(CustType custtype);
 
 	public Pager<CustType> pageQueryCustTypeByCondition(Map<String, Object> param);
+
+
+	public void deleteDocById(Long id);
 
 }

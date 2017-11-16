@@ -39,9 +39,9 @@ public class CustTypeBaseServiceImpl implements ICustTypeBaseService {
 	}
 
 	@Override
-	public CustType updateCustType(CustType custtype, Long modifyUserId) {
-		custtype.setModifier(modifyUserId);
-		custtype.setModifiedTime(DateUtil.getCurrentTimestamp());
+	public CustType updateCustType(CustType custtype) {
+		//custtype.setModifier(modifyUserId);
+		//custtype.setModifiedTime(DateUtil.getCurrentTimestamp());
 		dao.updateVO(custtype);
 		return custtype;
 	}
