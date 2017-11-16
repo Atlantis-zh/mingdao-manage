@@ -53,7 +53,7 @@ public class IntegralRuleController extends  BaseController{
         if(!StringUtils.isEmpty(role)){
             param.put("id",role.getId());
             param.put("cardtypeid",role.getCardTypeId());
-        }integralRule
+        }
 
         Pager<IntegralRule> listRole =  integralRuleBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listRole);
