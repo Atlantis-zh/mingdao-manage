@@ -55,4 +55,8 @@ public class CustTypeBaseServiceImpl implements ICustTypeBaseService {
 		return pages;
 	}
 
+	@Override
+	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
+	}
 }
