@@ -41,15 +41,12 @@ public class MenuController  extends  BaseController {
         String parentCode = request.getParameter("search_ParentCode");
         Map<String,Object> param = new HashMap<String,Object>();
         if (!StringUtils.isEmpty(name)) {
-            user.setName(name);
             param.put("name",name);
         }
         if (!StringUtils.isEmpty(code)) {
-            user.setCode(code);
             param.put("code",code);
         }
         if (!StringUtils.isEmpty(parentCode)) {
-            user.setParentCode(parentCode);
             param.put("parentCode",parentCode);
         }
         Pager<Menu> listUser = menuBaseService.pageQueryByCondition(param);

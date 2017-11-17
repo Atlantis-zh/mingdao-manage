@@ -186,8 +186,213 @@
 								</ul>
 							</li>
 						</ul>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									会员中心
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											设置卡类型
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											设置套餐类型
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											会员卡折扣设置
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											会员卡办理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									积分管理
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											积分规则设置
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											新增积分礼品
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											积分查询
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+						</ul>
 					</li>
 					<!--end_zhangfx5_增加用户管理-->
+
+					<!--begin_zhangfx5_增加预约管理-->
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text">
+								预约管理
+							</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									预约管理
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											未处理预约
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											已处理预约
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<!--end_zhangfx5_增加预约管理-->
+
+					<!--begin_zhangfx5_增加库存管理-->
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text">
+								库存管理
+							</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									商品管理
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											计量单位
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											商品分类
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											商品信息
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+									维护订单
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+
+								<b class="arrow"></b>
+								<ul class="submenu">
+									<li class="">
+										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											维护订单管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<!--end_zhangfx5_增加库存管理-->
+
 				</ul><!-- /.nav-list -->
 
 				<!-- #section:basics/sidebar.layout.minimize -->
