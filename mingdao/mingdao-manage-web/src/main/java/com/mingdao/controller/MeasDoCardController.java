@@ -32,7 +32,7 @@ public class MeasDoCardController extends  BaseController{
     public static Logger logger = LoggerFactory.getLogger(MeasDoCardController.class);
 
     @Autowired
-    @Qualifier("measDocServices")
+    @Qualifier("measDocService")
     IMeasdocBaseService measDocService;
 
 
