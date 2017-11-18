@@ -246,7 +246,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/changeGift/changeGifts" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											积分规则设置
 										</a>
