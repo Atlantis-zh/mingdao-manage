@@ -8,7 +8,7 @@ import com.mingdao.enumprop.Source;
  * <code>WeChatOrder<code> <strong></strong>
  * <p>
  * 
- * <li>预约项目订单实体定义</li>
+ * <li>预约管理</li>
  * </p>
  * 
  * @since
@@ -16,140 +16,164 @@ import com.mingdao.enumprop.Source;
  * @author libinf
  */
 public class OrderProject extends SuperVO {
-	
-	private static final long serialVersionUID = -3005949063603134227L;
-	private Long id;
-	private Long storeId;
-	private String billno;
-	private Long orderUserId;
-	private Long serviceProjectId;
-	private String orderTime;
-	private String carNo;
-	private Long customerId;
-	private Source source;
-	private String meno;
-	private OrderStatus status;
-	private String linkmanName;
-	private String linkTel;
-	
-	public static final String ID ="id";
-	public static final String  STOREID="storeId";
-	public static final String  BILLNO="billno";
-	public static final String  ORDERUSERID="orderUserId";
-	
-	public static final String  SERVICEPROJECTID="serviceProjectId";
-	public static final String  ORDERTIME="orderTime";
-	public static final String  CARNO="carNo";
-	public static final String  CUSTOMERID="customerId";
-	public static final String  SOURCE="source";
-	public static final String  MEMO="memo";
-	public static final String  STATUS="status";
-	public static final String  LINKMANNAME="linkmanName";
-	public static final String  LINKTEL="linkTel";
 
-	public Long getId() {
-		return this.id;
-	}
+  private static final long serialVersionUID = -3005949063603134227L;
+  private Long id;
+  /**
+   * 所属门店
+   */
+  private Long storeId;
+  /**
+   * 订单号
+   */
+  private String billno;
+  /**
+   * 预约员工
+   */
+  private Long orderUserId;
+  /**
+   * 预约项目
+   */
+  private Long serviceProjectId;
+  /**
+   * 预约时间
+   */
+  private String orderTime;
+  /**
+   * 车牌号
+   */
+  private String carNo;
+  /**
+   * 顾客姓名
+   */
+  private Long customerId;
+  /**
+   * 预约类型
+   */
+  private Source source;
+  /**
+   * 备注
+   */
+  private String meno;
+  /**
+   * 处理状态
+   */
+  private OrderStatus status;
+  /**
+   * 联系方式
+   */
+  private String linkTel;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public static final String ID = "id";
+  public static final String STOREID = "storeId";
+  public static final String BILLNO = "billno";
+  public static final String ORDERUSERID = "orderUserId";
 
-	public Long getStoreId() {
-		return this.storeId;
-	}
+  public static final String SERVICEPROJECTID = "serviceProjectId";
+  public static final String ORDERTIME = "orderTime";
+  public static final String CARNO = "carNo";
+  public static final String CUSTOMERID = "customerId";
+  public static final String SOURCE = "source";
+  public static final String MEMO = "memo";
+  public static final String STATUS = "status";
+  public static final String LINKMANNAME = "linkmanName";
+  public static final String LINKTEL = "linkTel";
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
+  public Long getId() {
+    return this.id;
+  }
 
-	public String getBillno() {
-		return this.billno;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public void setBillno(String billno) {
-		this.billno = billno;
-	}
+  public Long getStoreId() {
+    return this.storeId;
+  }
 
-	public Long getOrderUserId() {
-		return this.orderUserId;
-	}
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
+  }
 
-	public void setOrderUserId(Long orderUserId) {
-		this.orderUserId = orderUserId;
-	}
+  public String getBillno() {
+    return this.billno;
+  }
 
-	public Long getServiceProjectId() {
-		return this.serviceProjectId;
-	}
+  public void setBillno(String billno) {
+    this.billno = billno;
+  }
 
-	public void setServiceProjectId(Long serviceProjectId) {
-		this.serviceProjectId = serviceProjectId;
-	}
+  public Long getOrderUserId() {
+    return this.orderUserId;
+  }
 
-	public String getOrderTime() {
-		return this.orderTime;
-	}
+  public void setOrderUserId(Long orderUserId) {
+    this.orderUserId = orderUserId;
+  }
 
-	public void setOrderTime(String orderTime) {
-		this.orderTime = orderTime;
-	}
+  public Long getServiceProjectId() {
+    return this.serviceProjectId;
+  }
 
-	public String getCarNo() {
-		return this.carNo;
-	}
+  public void setServiceProjectId(Long serviceProjectId) {
+    this.serviceProjectId = serviceProjectId;
+  }
 
-	public void setCarNo(String carNo) {
-		this.carNo = carNo;
-	}
+  public String getOrderTime() {
+    return this.orderTime;
+  }
 
-	public Long getCustomerId() {
-		return this.customerId;
-	}
+  public void setOrderTime(String orderTime) {
+    this.orderTime = orderTime;
+  }
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
+  public String getCarNo() {
+    return this.carNo;
+  }
 
-	public Source getSource() {
-		return this.source;
-	}
+  public void setCarNo(String carNo) {
+    this.carNo = carNo;
+  }
 
-	public void setSource(Source source) {
-		this.source = source;
-	}
+  public Long getCustomerId() {
+    return this.customerId;
+  }
 
-	public String getMeno() {
-		return meno;
-	}
+  public void setCustomerId(Long customerId) {
+    this.customerId = customerId;
+  }
 
-	public void setMeno(String meno) {
-		this.meno = meno;
-	}
+  public Source getSource() {
+    return this.source;
+  }
 
-	public OrderStatus getStatus() {
-		return this.status;
-	}
+  public void setSource(Source source) {
+    this.source = source;
+  }
 
-	public void setStatus(OrderStatus status) {
-		this.status = status;
-	}
+  public String getMeno() {
+    return meno;
+  }
 
-	public String getLinkTel() {
-		return this.linkTel;
-	}
+  public void setMeno(String meno) {
+    this.meno = meno;
+  }
 
-	public void setLinkTel(String linkTel) {
-		this.linkTel = linkTel;
-	}
+  public OrderStatus getStatus() {
+    return this.status;
+  }
 
-	public String getLinkmanName() {
-		return this.linkmanName;
-	}
+  public void setStatus(OrderStatus status) {
+    this.status = status;
+  }
 
-	public void setLinkmanName(String linkmanName) {
-		this.linkmanName = linkmanName;
-	}
+  public String getLinkTel() {
+    return this.linkTel;
+  }
+
+  public void setLinkTel(String linkTel) {
+    this.linkTel = linkTel;
+  }
 
 
 

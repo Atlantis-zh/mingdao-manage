@@ -4,7 +4,7 @@ package com.mingdao.domain;
  *
  * <code>ServiceProductClass<code> <strong></strong>
  * <p>
- * 说明：服务产品分类
+ * 说明：服务分类
  * <li></li>
  * </p>
  * 
@@ -15,59 +15,83 @@ package com.mingdao.domain;
 
 public class ServiceProductClass extends SuperVO {
 
-	private static final long serialVersionUID = -861453484901531638L;
+  private static final long serialVersionUID = -861453484901531638L;
 
-	private Long id;
-	private Long storeId;
-	private String code;
-	private String name;
-	private Long workTimeClassId;
-	
-	public static final String ID ="id";
-	public static final String  STOREID="storeId";
-	public static final String  CODE="code";
-	public static final String  NAME="name";
-	public static final String  WORKTIMECLASSID="workTimeClassId";
+  private Long id;
+  /**
+   * 所属门店
+   */
+  private Long storeId;
+  /**
+   * 编码
+   */
+  private String code;
+  /**
+   * 名称
+   */
+  private String name;
+  /**
+   * 所属门店
+   */
+  private Long workTimeClassId;
+  /**
+   * 上级分类
+   */
+  private Long parentId;
 
-	public Long getId() {
-		return this.id;
-	}
+  public static final String ID = "id";
+  public static final String STOREID = "storeId";
+  public static final String CODE = "code";
+  public static final String NAME = "name";
+  public static final String WORKTIMECLASSID = "workTimeClassId";
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Long getId() {
+    return this.id;
+  }
 
-	public Long getStoreId() {
-		return this.storeId;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
+  public Long getStoreId() {
+    return this.storeId;
+  }
 
-	public String getCode() {
-		return this.code;
-	}
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public String getCode() {
+    return this.code;
+  }
 
-	public String getName() {
-		return this.name;
-	}
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return this.name;
+  }
 
-	public Long getWorkTimeClassId() {
-		return this.workTimeClassId;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setWorkTimeClassId(Long workTimeClassId) {
-		this.workTimeClassId = workTimeClassId;
-	}
+  public Long getWorkTimeClassId() {
+    return this.workTimeClassId;
+  }
+
+  public void setWorkTimeClassId(Long workTimeClassId) {
+    this.workTimeClassId = workTimeClassId;
+  }
+
+  public Long getParentId() {
+    return this.parentId;
+  }
+
+  public void setParentId(Long parentId) {
+    this.parentId = parentId;
+  }
 
 
 }

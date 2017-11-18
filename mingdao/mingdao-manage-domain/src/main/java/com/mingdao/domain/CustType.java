@@ -4,7 +4,7 @@ package com.mingdao.domain;
  *
  * <code>CustType<code> <strong></strong>
  * <p>
- * 说明：客户类型
+ * 说明：客户分类
  * <li></li>
  * </p>
  * 
@@ -15,58 +15,58 @@ package com.mingdao.domain;
 
 public class CustType extends SuperVO {
 
-	private static final long serialVersionUID = -5101886125326986669L;
+  private static final long serialVersionUID = -5101886125326986669L;
 
-	private Long id;
-	/**
-	 * 编码
-	 */
-	private String code;
-	/**
-	 * 名称
-	 */
-	private String name;
-	/**
-	 * 所属门店
-	 */
-	private Long storeId;
+  private Long id;
+  /**
+   * 编码
+   */
+  private String code;
+  /**
+   * 名称
+   */
+  private String name;
+  /**
+   * 所属门店
+   */
+  private Long storeId;
 
-	public static final String ID = "id";
-	public static final String CODE = "code";
-	public static final String NAME = "name";
+  public static final String ID = "id";
+  public static final String CODE = "code";
+  public static final String NAME = "name";
 
-	public static final String STOREID = "storeId";
+  public static final String STOREID = "storeId";
 
-	public Long getId() {
-		return this.id;
-	}
+  public Long getId() {
+    return this.id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public String getCode() {
-		return this.code;
-	}
+  public String getCode() {
+    return this.code;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-	public String getName() {
-		return this.name;
-	}
+  public String getName() {
+    return this.name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public Long getStoreId() {
-		return this.storeId;
-	}
+  public Long getStoreId() {
+    return this.storeId;
+  }
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
+  }
 
 }
