@@ -2,30 +2,32 @@ package com.mingdao.domain;
 
 /**
  *
- * <code>OrderFormOfProduct<code> <strong></strong>
+ * <code>OrderFormOfServiceProject<code> <strong></strong>
  * <p>
- * 说明：商品订单
+ * 说明：服务项目订单
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月19日 上午1:55:57
+ * @version 2017年11月19日 上午2:14:51
  * @author libin
  */
 
-public class OrderFormOfProduct extends SuperVO {
+public class OrderFormOfServiceProject extends SuperVO {
 
-  private static final long serialVersionUID = 4703597540765826848L;
+  private static final long serialVersionUID = -3499079387538103863L;
 
   private Long id;
   /**
    * 订单
    */
   private Long orderFormId;
+
   /**
-   * 商品
+   * 服务项目
    */
-  private Long productId;
+  private Long serviceProjectId;
+
   /**
    * 单价
    */
@@ -64,14 +66,13 @@ public class OrderFormOfProduct extends SuperVO {
     this.orderFormId = orderFormId;
   }
 
-  public Long getProductId() {
-    return this.productId;
+  public Long getServiceProjectId() {
+    return this.serviceProjectId;
   }
 
-  public void setProductId(Long productId) {
-    this.productId = productId;
+  public void setServiceProjectId(Long serviceProjectId) {
+    this.serviceProjectId = serviceProjectId;
   }
-
 
   public Integer getNum() {
     return this.num;
