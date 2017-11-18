@@ -4,14 +4,16 @@
 	<resultMap id="ptResultMap" type="com.mingdao.domain.PackageType">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
-		<result property="count" javaType="int" jdbcType="INTEGER" column="count"/>
+		<result property="totalCount" javaType="int" jdbcType="INTEGER" column="totalcount"/>
 		<result property="expire" javaType="int" jdbcType="INTEGER" column="expire"/>
-		<result property="timeUnit" column="timeunit" typeHandler="com.mingdao.dao.base.typehandler.TimeUnitEnumTypeHandler"/>
+		<result property="timeUnit" javaType="int" jdbcType="INTEGER" column="timeunit"/>
+		<result property="cost" javaType="double" jdbcType="DOUBLE" column="cost"/>
 		<result property="shareToBranch" javaType="boolean" jdbcType="BOOLEAN" column="sharetobranch"/>
-		<result property="source" column="source" typeHandler="com.mingdao.dao.base.typehandler.MemberShipSourceEnumTypeHandler"/>
-		<result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
+		<result property="source" javaType="int" jdbcType="INTEGER" column="source"/>
+		<result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
 		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
 		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
@@ -21,22 +23,23 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO packagetype
-		(storeid,name,saleprice,count,expire,timeunit,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
+		(storeid,code,name,saleprice,totalcount,expire,timeunit,cost,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{name},#{salePrice},#{count},#{expire},#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{shareToBranch},#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
 	    UPDATE packagetype SET
           storeid=#{storeId},
+          code=#{code},
           name=#{name},
           saleprice=#{salePrice},
-          count=#{count},
+          totalcount=#{totalCount},
           expire=#{expire},
-          timeunit=#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+          timeunit=#{timeUnit},
           sharetobranch=#{shareToBranch},
-          source=#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
-          status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+          source=#{source},
+          status=#{status},
           memo=#{memo},
           creator=#{creator},
           createtime=#{createTime},
@@ -50,9 +53,10 @@
 	    SELECT
           t.id,
           t.storeid,
+          t.code,
           t.name,
           t.saleprice,
-          t.count,
+          t.totalcount,
           t.expire,
           t.timeunit,
           t.sharetobranch,
@@ -67,14 +71,11 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
+           <if test="code != null and code != ''">
+              and t.code=#{code}
+           </if>
            <if test="name != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="memo != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="status != null and status != ''">
-              and t.status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+              and t.name=#{name}
            </if>
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
@@ -85,21 +86,18 @@
 		select
 		   count(1)
 		from packagetype t where 1=1
-           <if test="id != null">
+           <if test="id != null and id != ''">
               and t.id=#{id}
            </if>
+           <if test="code != null and code != ''">
+              and t.code=#{code}
+           </if>
            <if test="name != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="memo != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="status != null and status != ''">
-              and t.status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+              and t.name=#{name}
            </if>
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
-           </if>
+           </if> 
 	</select>
 
     <delete id="deleteDocById" parameterType="long">

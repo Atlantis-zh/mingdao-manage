@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.MemberShipSource;
-import com.mingdao.enumprop.Status;
 import com.mingdao.enumprop.TimeUnit;
 
 /**
@@ -38,11 +36,11 @@ public class PackageType extends SuperVO {
    */
   private Double salePrice;
   /**
-   * 套餐次数
+   * 总次数
    */
-  private Integer count;
+  private Integer totalCount;
   /**
-   * 有效期
+   * 有效期 年(1)， 月(2)， 日(3);
    */
   private Integer expire;
   /**
@@ -58,13 +56,13 @@ public class PackageType extends SuperVO {
    */
   private Boolean shareToBranch;
   /**
-   * 来源
+   * 来源 自有门店（1），总店共享（2）
    */
-  private MemberShipSource source;
+  private Integer source;
   /**
    * 状态
    */
-  private Status status;
+  private Integer status;
   /**
    * 备注
    */
@@ -114,13 +112,6 @@ public class PackageType extends SuperVO {
     this.salePrice = salePrice;
   }
 
-  public Integer getCount() {
-    return this.count;
-  }
-
-  public void setCount(Integer count) {
-    this.count = count;
-  }
 
   public Integer getExpire() {
     return this.expire;
@@ -146,19 +137,19 @@ public class PackageType extends SuperVO {
     this.shareToBranch = shareToBranch;
   }
 
-  public MemberShipSource getSource() {
+  public Integer getSource() {
     return this.source;
   }
 
-  public void setSource(MemberShipSource source) {
+  public void setSource(Integer source) {
     this.source = source;
   }
 
-  public Status getStatus() {
+  public Integer getStatus() {
     return this.status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(Integer status) {
     this.status = status;
   }
 
@@ -168,6 +159,30 @@ public class PackageType extends SuperVO {
 
   public void setMemo(String memo) {
     this.memo = memo;
+  }
+
+  public Double getCost() {
+    return this.cost;
+  }
+
+  public void setCost(Double cost) {
+    this.cost = cost;
+  }
+
+  public String getCode() {
+    return this.code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public Integer getTotalCount() {
+    return this.totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
   }
 
 
