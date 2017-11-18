@@ -164,7 +164,6 @@
 						</a>
 
 						<b class="arrow"></b>
-
 						<ul class="submenu">
 							<li class="">
 								<a href="#" class="dropdown-toggle">
@@ -185,9 +184,7 @@
 									</li>
 								</ul>
 							</li>
-						</ul>
 
-						<ul class="submenu">
 							<li class="">
 								<a href="#" class="dropdown-toggle">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -231,9 +228,7 @@
 									</li>
 								</ul>
 							</li>
-						</ul>
 
-						<ul class="submenu">
 							<li class="">
 								<a href="#" class="dropdown-toggle">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -367,9 +362,7 @@
 									</li>
 								</ul>
 							</li>
-						</ul>
 
-						<ul class="submenu">
 							<li class="">
 								<a href="#" class="dropdown-toggle">
 									<i class="menu-icon fa fa-caret-right"></i>
