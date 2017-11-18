@@ -22,14 +22,14 @@
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO packagetype
+		INSERT INTO package_type
 		(storeid,code,name,saleprice,totalcount,expire,timeunit,cost,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
 		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
-	    UPDATE packagetype SET
+	    UPDATE package_type SET
           storeid=#{storeId},
           code=#{code},
           name=#{name},
@@ -67,8 +67,8 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  packagetype t where 1=1
-           <if test="id != null">
+        FROM  package_type t where 1=1
+           <if test="id != null and id != ''">
               and t.id=#{id}
            </if>
            <if test="code != null and code != ''">
@@ -85,7 +85,7 @@
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from packagetype t where 1=1
+		from package_type t where 1=1
            <if test="id != null and id != ''">
               and t.id=#{id}
            </if>
@@ -101,6 +101,6 @@
 	</select>
 
     <delete id="deleteDocById" parameterType="long">
-        delete from packagetype  where id = #{id}
+        delete from package_type  where id = #{id}
     </delete>
 </mapper>
