@@ -26,7 +26,7 @@ import com.mingdao.domain.OrderProject;
  * @version
  * @author libinf
  */
-@Service
+@Service("orderProjectBaseService")
 public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 
 	@Autowired
@@ -66,6 +66,7 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService{
 
 	@Override
 	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 
 }
