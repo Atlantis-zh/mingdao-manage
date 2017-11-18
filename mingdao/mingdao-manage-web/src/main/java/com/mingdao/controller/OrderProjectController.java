@@ -40,6 +40,7 @@ public class OrderProjectController extends  BaseController{
         OrderProject user = new OrderProject();
         String orderuserid =  request.getParameter("search_orderuserid");
         String serviceprojectid =  request.getParameter("search_serviceprojectid");
+        String status = request.getParameter("search_status");
         Map<String, Object> param = new HashMap<>();
         if(!StringUtils.isEmpty(orderuserid)){
             long pk_serviceprojectid = Long.valueOf(orderuserid);
@@ -48,6 +49,9 @@ public class OrderProjectController extends  BaseController{
         if(!StringUtils.isEmpty(serviceprojectid)){
             long pk_serviceprojectid = Long.valueOf(serviceprojectid);
             param.put("serviceprojectid", pk_serviceprojectid);
+        }
+        if(!StringUtils.isEmpty(status)){
+            param.put("status",status);
         }
         Pager<OrderProject> listUser =  orderProjectBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listUser);
