@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IMemShipCardDiscountDao">
+	<resultMap id="mscdResultMap" type="com.mingdao.domain.MemShipCardDiscount">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="memberShipCardId" javaType="long" jdbcType="BIGINT" column="membershipcardid"/>
+		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceprojectid"/>
+		<result property="discount" javaType="double" jdbcType="DOUBLE" column="discount"/>
+		<result property="memberShipPrice" javaType="double" jdbcType="DOUBLE" column="membershipprice"/>
+		<result property="productId" javaType="long" jdbcType="BIGINT" column="productid"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
+		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+		<result property="long" javaType="string" jdbcType="BIGINT" column="modifier"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.MemShipCardDiscount" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO membership_card_discount
+		(storeid,membershipcardid,serviceprojectid,discount,membershipprice,productid,memo,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{storeId},#{memberShipCardId},#{serviceProjectId},#{discount},#{memberShipPrice},#{productId},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.MemShipCardDiscount">
+	    UPDATE membership_card_discount SET
+          storeid=#{storeId},
+          membershipcardid=#{memberShipCardId},
+          serviceprojectid=#{serviceProjectId},
+          discount=#{discount},
+          membershipprice=#{memberShipPrice},
+          productid=#{productId},
+          memo=#{memo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mscdResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.membershipcardid,
+          t.serviceprojectid,
+          t.discount,
+          t.membershipprice,
+          t.productid,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  member_ship_card t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>                  
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from membership_card_discount t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>                  
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from membership_card_discount  where id = #{id}
+    </delete>
+	
+</mapper>

@@ -7,7 +7,7 @@ import com.mingdao.enumprop.TimeUnit;
  *
  * <code>MemberShipCard<code> <strong></strong>
  * <p>
- * 说明：会员卡实体
+ * 说明：会员卡卡种
  * <li></li>
  * </p>
  * 
