@@ -39,7 +39,7 @@ public class CustSourceController extends  BaseController{
 
     @RequestMapping("custSources")
     public String getCustTypesInfo(Model model,HttpServletRequest request){
-        CustType role = new CustType();
+        CustSource role = new CustSource();
         String name =  request.getParameter("search_Name");
         String code =  request.getParameter("search_Code");
         if(!StringUtils.isEmpty(name)){
