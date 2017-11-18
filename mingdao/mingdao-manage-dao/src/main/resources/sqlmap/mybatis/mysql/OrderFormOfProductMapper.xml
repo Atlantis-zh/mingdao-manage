@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IOrderFormOfProductDao">
+	<resultMap id="ofopResultMap" type="com.mingdao.domain.OrderFormOfProduct">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="orderFormId" javaType="long" jdbcType="BIGINT" column="orderformid"/>
+		<result property="productId" javaType="long" jdbcType="BIGINT" column="productid"/>
+		<result property="num" javaType="int" jdbcType="INTEGER" column="num"/>
+		<result property="discount" javaType="double" jdbcType="DOUBLE" column="discount"/>
+		<result property="cost" javaType="double" jdbcType="DOUBLE" column="cost"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.OrderFormOfProduct" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO order_form_product
+		(orderformid,productid,num,discount,cost,memo,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{orderFormId},#{productId},#{num},#{discount},#{cost},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.OrderFormOfProduct">
+	    UPDATE order_form_product SET
+          orderformid=#{orderFormId},
+          productid=#{productId},
+          num=#{num},
+          discount=#{discount},
+          cost=#{cost},
+          memo=#{memo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ofopResultMap">
+	    SELECT
+          t.id,
+          t.orderformid,
+          t.productid,
+          t.num,
+          t.discount,
+          t.cost,
+          t.memo,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  order_form_product t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="orderformid != null and orderformid != ''">
+              and t.orderformid=#{orderFormId}
+           </if>               
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from order_form_product t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="orderformid != null and orderformid != ''">
+              and t.orderformid=#{orderFormId}
+           </if>    
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from order_form_product  where id = #{id}
+    </delete>
+	
+</mapper>
