@@ -101,7 +101,7 @@ public class ChangeGiftController extends  BaseController{
 
 
     @RequestMapping(value="/deletePackageType/{id}")
-    public String deleteUser(@PathVariable("id") String id){
+    public String deletePackageType(@PathVariable("id") String id){
         long pk =  Long.valueOf(id);
         packageTypeBaseService.deletePackageType(pk);
         return  "redirect:/packageType/packageTypes";
