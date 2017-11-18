@@ -72,6 +72,13 @@
 									<b class="arrow"></b>
 								</li>
 								<li class="">
+									<a href="<%=request.getContextPath() %>/attachProject/attachProjects" target="mainFrame">
+										<i class="menu-icon fa fa-caret-right"></i>
+										附加项目
+									</a>
+									<b class="arrow"></b>
+								</li>
+								<li class="">
 									<a href="<%=request.getContextPath() %>/serviceProject/serviceProjects" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										服务项目
