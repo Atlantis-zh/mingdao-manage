@@ -27,7 +27,7 @@ import com.mingdao.domain.ExchangeGift;
  * @author libinf
  */
 
-@Service
+@Service("exchangeGiftBaseService")
 public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 
 	@Autowired
@@ -66,6 +66,7 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 
 	@Override
 	public void deleteDocById(Long id) {
+		dao.deleteDocById(id);
 	}
 
 }
