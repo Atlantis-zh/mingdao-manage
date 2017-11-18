@@ -25,7 +25,7 @@ import com.mingdao.domain.CustSource;
  * @version 2017年11月18日 下午5:02:33
  * @author libin
  */
-@Service
+@Service("custSourceBaseService")
 public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
   @Autowired
   private ICustSourceDao dao;

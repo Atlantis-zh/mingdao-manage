@@ -26,7 +26,7 @@ import com.mingdao.domain.AttachProject;
  * @author libin
  */
 
-@Service
+@Service("attachProjectBaseService")
 public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
   @Autowired
   private IAttachProjectDao dao;
