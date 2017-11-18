@@ -7,58 +7,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.mingdao.api.IAttachProjectBaseService;
+import com.mingdao.api.ICustSourceBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.dao.base.IAttachProjectDao;
-import com.mingdao.domain.AttachProject;
+import com.mingdao.dao.base.ICustSourceDao;
+import com.mingdao.domain.CustSource;
 
 /**
  *
- * <code>AttachProjectBaseServiceImpl<code> <strong></strong>
+ * <code>CustSourceBaseServiceImpl<code> <strong></strong>
  * <p>
  * 说明：
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月18日 下午4:32:06
+ * @version 2017年11月18日 下午5:02:33
  * @author libin
  */
-
 @Service
-public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
+public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
   @Autowired
-  private IAttachProjectDao dao;
+  private ICustSourceDao dao;
 
   @Override
-  public AttachProject insert(AttachProject t) {
+  public CustSource insert(CustSource t) {
     dao.insertVO(t);
     return t;
   }
 
   @Override
-  public AttachProject update(AttachProject t) {
+  public CustSource update(CustSource t) {
     dao.updateVO(t);
     return t;
   }
 
   @Override
-  public Pager<AttachProject> pageQueryByCondition(Map<String, Object> param) {
+  public Pager<CustSource> pageQueryByCondition(Map<String, Object> param) {
     int count = dao.getCountByCondition(param);
     PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-    List<AttachProject> list = dao.pageQueryByCondition(param, pageBounds);
-    Pager<AttachProject> pages = new Pager<AttachProject>(count, list);
+    List<CustSource> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<CustSource> pages = new Pager<CustSource>(count, list);
     return pages;
   }
 
   @Override
-  public AttachProject singleQryByCondtion(Map<String, Object> param) {
+  public CustSource singleQryByCondtion(Map<String, Object> param) {
     return null;
   }
 
   @Override
-  public List<AttachProject> qryAllDoces(Map<String, Object> param) {
+  public List<CustSource> qryAllDoces(Map<String, Object> param) {
     return null;
   }
 

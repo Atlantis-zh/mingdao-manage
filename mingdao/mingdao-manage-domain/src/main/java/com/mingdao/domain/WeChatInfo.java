@@ -17,105 +17,123 @@ import com.mingdao.enumprop.Sex;
 
 public class WeChatInfo extends SuperVO {
 
-	private static final long serialVersionUID = -5101886125326986669L;
+  private static final long serialVersionUID = -5101886125326986669L;
 
-	private Long id;
-	private String code;
-	private String mnname;
-	private Long storeId;
-	
-	private String tel;
-	private String address;
-	private boolean status;
-	private String relationcust;
-	private Sex sex;
-	
-	public static final String ID ="id";
-	public static final String CODE ="code";
-	public static final String MNNAME ="mnname";
-	public static final String STOREID ="storeId";
-	public static final String TEL ="tel";
-	public static final String ADDRESS ="address";
-	public static final String STATUS ="status";
-	public static final String RELATIONCUST ="relationcust";
-	public static final String SEX ="sex";
-	
-	public String getMnname() {
-		return mnname;
-	}
+  private Long id;
+  /**
+   * 微信昵称
+   */
+  private String wxNickName;
+  /**
+   * 所属门店
+   */
+  private Long storeId;
+  /**
+   * 手机号
+   */
+  private String phone;
+  /**
+   * 地址
+   */
+  private String address;
+  /**
+   * 关注状态
+   */
+  private boolean followStatus;
+  /**
+   * 关注时间
+   */
+  private String followTime;
+  /**
+   * 关联客户
+   */
+  private String relationCustId;
+  /**
+   * 性别
+   */
+  private Sex sex;
 
-	public void setMnname(String mnname) {
-		this.mnname = mnname;
-	}
+  public static final String ID = "id";
+  public static final String CODE = "code";
+  public static final String MNNAME = "mnname";
+  public static final String STOREID = "storeId";
+  public static final String TEL = "tel";
+  public static final String ADDRESS = "address";
+  public static final String STATUS = "status";
+  public static final String RELATIONCUST = "relationcust";
+  public static final String SEX = "sex";
 
-	public String getTel() {
-		return tel;
-	}
+  public Long getId() {
+    return this.id;
+  }
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getWxNickName() {
+    return this.wxNickName;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setWxNickName(String wxNickName) {
+    this.wxNickName = wxNickName;
+  }
 
-	public boolean isStatus() {
-		return status;
-	}
+  public Long getStoreId() {
+    return this.storeId;
+  }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
+  }
 
-	public String getRelationcust() {
-		return relationcust;
-	}
+  public String getPhone() {
+    return this.phone;
+  }
 
-	public void setRelationcust(String relationcust) {
-		this.relationcust = relationcust;
-	}
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-	public Sex getSex() {
-		return sex;
-	}
+  public String getAddress() {
+    return this.address;
+  }
 
-	public void setSex(Sex sex) {
-		this.sex = sex;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	private Long creator;
-	private String createTime;
-	private Long modifier;
-	private String modifiedTime;
+  public boolean isFollowStatus() {
+    return this.followStatus;
+  }
 
-	public Long getId() {
-		return this.id;
-	}
+  public void setFollowStatus(boolean followStatus) {
+    this.followStatus = followStatus;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public String getFollowTime() {
+    return this.followTime;
+  }
 
-	public String getCode() {
-		return this.code;
-	}
+  public void setFollowTime(String followTime) {
+    this.followTime = followTime;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public String getRelationCustId() {
+    return this.relationCustId;
+  }
 
-	public Long getStoreId() {
-		return this.storeId;
-	}
+  public void setRelationCustId(String relationCustId) {
+    this.relationCustId = relationCustId;
+  }
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
-	}
+  public Sex getSex() {
+    return this.sex;
+  }
+
+  public void setSex(Sex sex) {
+    this.sex = sex;
+  }
 
 
 
