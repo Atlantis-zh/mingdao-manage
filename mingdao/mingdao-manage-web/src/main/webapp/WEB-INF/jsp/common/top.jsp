@@ -295,15 +295,13 @@
 				<!-- #section:basics/navbar.user_menu -->
 				<li class="light-blue">
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-						<img class="nav-user-photo" src="<%=request.getContextPath() %>/resources/ace/assets/avatars/user.jpg" alt="Jason's Photo" />
+						<%--<img class="nav-user-photo" src="<%=request.getContextPath() %>/resources/ace/assets/avatars/user.jpg" alt="Jason's Photo" />--%>
 						<span class="user-info">
-							<small>欢迎,</small>
-							${loginUser.nickname }
+							<i class="icon-user icon-white"></i>
+							<small>欢迎,${loginUser.nickname}</small>
 						</span>
-
 						<i class="ace-icon fa fa-caret-down"></i>
 					</a>
-
 					<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 						<li>
 							<a href="<%=request.getContextPath() %>/admin/system/baseinfo" target="mainFrame">
