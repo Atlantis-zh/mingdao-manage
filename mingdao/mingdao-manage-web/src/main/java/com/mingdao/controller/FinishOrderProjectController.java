@@ -2,10 +2,8 @@ package com.mingdao.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mingdao.api.IOrderProjectBaseService;
-import com.mingdao.api.IUserInfoBaseServiceItf;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.OrderProject;
-import com.mingdao.domain.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,9 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("orderProject")
-public class OrderProjectController extends  BaseController{
-    public static Logger logger = LoggerFactory.getLogger(OrderProjectController.class);
+@RequestMapping("finishOrderProject")
+public class FinishOrderProjectController extends  BaseController{
+    public static Logger logger = LoggerFactory.getLogger(FinishOrderProjectController.class);
 
     @Autowired
     @Qualifier("orderProjectBaseService")
@@ -38,27 +36,28 @@ public class OrderProjectController extends  BaseController{
     @RequestMapping("orderProjects")
     public String getOrderProjects(Model model,HttpServletRequest request){
         OrderProject user = new OrderProject();
-        String search_car =  request.getParameter("search_car");
+        String orderuserid =  request.getParameter("search_orderuserid");
         String serviceprojectid =  request.getParameter("search_serviceprojectid");
         Map<String, Object> param = new HashMap<>();
-        if(!StringUtils.isEmpty(search_car)){
-            param.put("carno",search_car);
+        if(!StringUtils.isEmpty(orderuserid)){
+            long pk_serviceprojectid = Long.valueOf(orderuserid);
+            param.put("serviceprojectid",pk_serviceprojectid);
         }
         if(!StringUtils.isEmpty(serviceprojectid)){
             long pk_serviceprojectid = Long.valueOf(serviceprojectid);
             param.put("serviceprojectid", pk_serviceprojectid);
         }
-        param.put("status",0);
+        param.put("status",1); //已经完成订单
         Pager<OrderProject> listUser =  orderProjectBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listUser);
-        return "orderProject/dealList";
+        return "finishOrderProject/list";
     }
 
 
     @RequestMapping(value="/getOrderProjectByID")
     @ResponseBody
     public JSONObject getOrderProjectByID(HttpServletRequest request){
-        String userId = request.getParameter("id");
+        String userId = request.getParameter("userId");
         Long pk =  Long.valueOf(userId);
         Map<String, Object> param = new HashMap<>();
         param.put("id",pk);
@@ -103,7 +102,7 @@ public class OrderProjectController extends  BaseController{
     public String deleteOrderProject(@PathVariable("id") String id){
         long pk =  Long.valueOf(id);
         orderProjectBaseService.deleteDocById(pk);
-        return  "redirect:/orderProject/orderProjects";
+        return  "redirect:/finishOrderProject/orderProjects";
     }
 
 
