@@ -16,9 +16,9 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="ace-icon fa fa-home home-icon"></i>
-					<a href="#">用户管理</a>
+					<a href="#">客户分类</a>
 				</li>
-				<li class="active">用户信息管理</li>
+				<li class="active">客户分类管理</li>
 			</ul>
 		</div>
 		<div class="page-content">
@@ -31,12 +31,9 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>用户编码</th>
-										<th>用户名称</th>
-										<th>用户状态</th>
 										<th>所属门店</th>
-										<th>手机</th>
-										<th>用户邮箱<i class="icon-envelope"/></th>
+										<th>名称</th>
+										<th>编码</th>
 										<th>用户操作</th>
 									</tr>
 								</thead>
@@ -44,44 +41,17 @@
 								<tbody>
 								<c:forEach items="${datas.datas}" var="userInfo">
 									<tr>
+										<td>${userInfo.storeId }</td>
+										<td>${userInfo.name } </td>
+										<td>${userInfo.code}</td>
 										<td>
-											<a href="#">${userInfo.userCode }</a>
-										</td>
-										<td>${userInfo.userName } </td>
-										<td class="hidden-480">
-											<c:if test="${userInfo.status eq '0' }">
-												<span class="emp">停用</span>
-												<a onclick="startUser(${userInfo.id });"  class="list_op">启用</a>
-											</c:if>
-											<c:if test="${userInfo.status eq '1' }">
-												<span>启用</span>
-												<a  onclick="stopUser(${userInfo.id });" class="list_op">停用</a>
-											</c:if>
-										</td>
-										<td>${userInfo.shopId}</td>
-										<td>${userInfo.phone}</td>
-										<td class="hidden-480">	${userInfo.email }</td>
+											<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+												<i class="ace-icon fa fa-pencil bigger-120"></i>
+											</a>
 
-										<td>
-									
-												<c:if test="${userInfo.status eq '1' }">
-													<button class="btn btn-xs btn-success" title="启用"> 
-														<i class="ace-icon fa fa-check-square-o bigger-120"></i>
-													</button>
-												</c:if>
-												<c:if test="${userInfo.status eq '0' }">
-													<button class="btn btn-xs btn-success" title="停用">
-														<i class="ace-icon fa fa-square-o bigger-120"></i>
-													</button>
-												</c:if>
-
-												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</a>
-
-												<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</a>
+											<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
+												<i class="ace-icon fa fa-trash-o bigger-120"></i>
+											</a>
 										</td>
 									</tr>
 								</c:forEach>
@@ -92,15 +62,15 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加客户分类"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-												<a href="<%=request.getContextPath() %>/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/custType/custTypes" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
 														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
-														<jsp:param value="users" name="url"/>
+														<jsp:param value="custTypes" name="url"/>
 													</jsp:include>
 												</c:if>
 											</td>
@@ -146,17 +116,17 @@
 										<label>姓名：</label>
 									</td>
 
-									<td class="data"><input type="text" id="search_userName" name="search_userName" role="textbox"
+									<td class="data"><input type="text" id="search_Name" name="search_Name" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>编号：</label>
+										<label>编码：</label>
 									</td>
 
-									<td class="data"><input type="text"  id="search_userCode" name="search_userCode" role="textbox"
+									<td class="data"><input type="text"  id="search_Code" name="search_Code" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
@@ -195,7 +165,7 @@
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 					 style="cursor: move;">
 					<div class="widget-header">
-						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增用户</span>
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增客户分类</span>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
@@ -206,72 +176,30 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户名(必须是英文): </label>
+									<label class="col-sm-3 control-label no-padding-right" for="storeId">所属门店: </label>
 
 									<div class="col-sm-9">
 										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="userName" placeholder="userName" class="col-xs-10 col-sm-5" type="text">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  店铺: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="name">  名称: </label>
 
 									<div class="col-sm-9">
-										<input id="shopId" placeholder="shopId" class="col-xs-10 col-sm-5" type="text">
+										<input id="name" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户编码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="code">  编码: </label>
 
 									<div class="col-sm-9">
-										<input id="userCode" placeholder="userCode" class="col-xs-10 col-sm-5" type="text">
+										<input id="code" placeholder="code" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName">  用户名(必须是英文): </label>
-
-									<div class="col-sm-9">
-										<input id="nickName" placeholder="nickName" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="password">  用户密码: </label>
-
-									<div class="col-sm-9">
-										<input id="passWord" placeholder="passWord" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName"> 手机号码:</label>
-
-									<div class="col-sm-9">
-										<input id="phone" placeholder="phone" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email"> 电子邮箱:  </label>
-
-									<div class="col-sm-9">
-										<input id="email" placeholder="email" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email">状态: </label>
-
-									<div class="col-sm-9">
-										<select class="form-control" id="status">
-											<option value="0">停用</option>
-											<option value="1">启用</option>
-										</select>
-									</div>
-								</div>
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -309,76 +237,30 @@
 
 	<script type="text/javascript">
 
-		function startUser(userId){
-			$.ajax({
-				type: 'POST',
-				url: "<%=request.getContextPath() %>/user/addUser",
-				data: {"status":1,"id":userId },
-				dataType: "json",
-				success: function (data) {
-					alert("启用成功！");
-					submitForm("<%=request.getContextPath() %>/user/users",null);
-				},
-				fail: function (err, status) {
-					console.log(err)
-				}
-
-			});
-		}
-
-		function stopUser(userId){
-			$.ajax({
-				type: 'POST',
-				url: "<%=request.getContextPath() %>/user/addUser",
-				data: {"status":0,"id":userId },
-				dataType: "json",
-				success: function (data) {
-					alert("停用成功！");
-					submitForm("<%=request.getContextPath() %>/user/users",null);
-				},
-				fail: function (err, status) {
-					console.log(err)
-				}
-
-			});
-		}
-
-
-
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
-				$("#modalTitle").html("新增用户");
+				$("#modalTitle").html("新增客户分类");
 				$("#id").val("");
-				$("#userName").val("");
-				$("#nickName").val("");
-				$("#passWord").val("");
-				$("#userCode").val("");
-				$("#phone").val("");
-				$("#email").val("");
-				$("#status").val("");
-				$("#shopId").val("");
+				$("#storeId").val("");
+				$("#name").val("");
+				$("#code").val("");
 			});
 
 			function editUser(userId,obj){
 				$(obj).attr("data-target","#addUser");
-				$("#modalTitle").html("修改用户");
+				$("#modalTitle").html("修改客户分类");
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/getUserInfoByID",
-					data: { "userId": userId},
+					url: "<%=request.getContextPath() %>/custType/getCustTypeByID",
+					data: { "id": userId},
 					dataType: "json",
 					success: function (data) {
 						//var data_ =  JSON.parse(data);
 						var user = data.result;
 						$("#id").val(user.id);
-						$("#userName").val(user.userName);
-						$("#nickName").val(user.nickName);
-						$("#passWord").val(user.passWord);
-						$("#userCode").val(user.userCode);
-						$("#phone").val(user.phone);
-						$("#email").val(user.email);
-						$("#status").val(user.status);
-						$("#shopId").val(user.shopId);
+						$("#storeId").val(user.storeId);
+						$("#name").val(user.name);
+						$("#code").val(user.code);
 					},
 					fail: function (err) {
 						console.log(err)
@@ -412,33 +294,28 @@
 			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
-				paramsName.name="search_userName";
-				paramsName.val=$("#search_userName").val();
+				paramsName.name="search_Name";
+				paramsName.val=$("#search_Name").val();
 
 				var paramsCode = new Object();
-				paramsCode.name="search_userCode";
-				paramsCode.val=$("#search_userCode").val();
+				paramsCode.name="search_Code";
+				paramsCode.val=$("#search_Code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/user/users",paramsArr);
+				submitForm("<%=request.getContextPath() %>/custType/custTypes",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
-				var userName = $("#userName").val();
-				var nickName = $("#nickName").val();
-				var passWord = $("#passWord").val();
-				var userCode = $("#userCode").val();
-				var phone =$("#phone").val();
-				var id =$("#id").val();
-				var email = $("#email").val();
-				var status = $("#status").val();
-				var shopId = $("#shopId").val();
+				var storeId = $("#storeId").val();
+				var name = $("#name").val();
+				var code = $("#code").val();
+				var id = $("#id").val();
 
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/addUser",
-					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
+					url: "<%=request.getContextPath() %>/custType/addCustType",
+					data: { "storeId": storeId, "name": name,"code":code,"id":id },
 					dataType: "json",
 					success: function (data, status) {
 						if(id==null||id==""){
@@ -446,7 +323,7 @@
 						}else{
 							alert("修改成功！！");
 						}
-						submitForm("<%=request.getContextPath() %>/user/users",null);
+						submitForm("<%=request.getContextPath() %>/custType/custTypes",null);
 					},
 					fail: function (err, status) {
 						console.log(err)

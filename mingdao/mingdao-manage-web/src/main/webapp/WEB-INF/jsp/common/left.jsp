@@ -189,6 +189,22 @@
 
 										<b class="arrow"></b>
 									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/custType/custTypes" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户分类
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/custSource/custSources" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户来源
+										</a>
+
+										<b class="arrow"></b>
+									</li>
 								</ul>
 							</li>
 
