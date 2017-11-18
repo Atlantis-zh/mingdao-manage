@@ -15,12 +15,19 @@ package com.mingdao.domain;
 
 public class MemberShip extends SuperVO {
 
-	private static final long serialVersionUID = -4889307883072203606L;
+  private static final long serialVersionUID = -4889307883072203606L;
 
-	private Long id;
-	private String cardId;
-	
-	public static final String ID ="id";
-	
-	public static final String CARID ="cardId";
+  private Long id;
+  private String cardId;
+  private Long storeId;
+  private Long customerId;
+  private String carNo;
+  private String phone;
+  private String carType;
+  private Long memberShipCardId;
+  private
+
+  public static final String ID = "id";
+
+  public static final String CARID = "cardId";
 }
