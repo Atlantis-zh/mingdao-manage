@@ -1,8 +1,10 @@
 package com.mingdao.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mingdao.api.IExchangeGiftBaseService;
 import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.pageUtil.Pager;
+import com.mingdao.domain.ExchangeGift;
 import com.mingdao.domain.PackageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +27,17 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("packageType")
+@RequestMapping("changeGift")
 public class ChangeGiftController extends  BaseController{
     public static Logger logger = LoggerFactory.getLogger(ChangeGiftController.class);
 
     @Autowired
-    @Qualifier("packageTypeBaseService")
-    IPackageTypeBaseService packageTypeBaseService;
+    @Qualifier("exchangeGiftBaseService")
+    IExchangeGiftBaseService exchangeGiftBaseService;
 
 
-    @RequestMapping("packageTypes")
-    public String getPackageTypes(Model model,HttpServletRequest request){
+    @RequestMapping("changeGifts")
+    public String getChangeGifts(Model model,HttpServletRequest request){
         PackageType role = new PackageType();
         String id =  request.getParameter("search_ID");
         String name =  request.getParameter("search_Name");
@@ -51,20 +53,20 @@ public class ChangeGiftController extends  BaseController{
             param.put("id",role.getId());
             param.put("name",role.getName());
         }
-        Pager<PackageType> listRole =  packageTypeBaseService.pageQueryPkgTypeByCondition(param);
+        Pager<ExchangeGift> listRole =  exchangeGiftBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listRole);
-        return "packageType/list";
+        return "changeGifts/list";
     }
 
 
-    @RequestMapping(value="/getPackageTypeByID")
+    @RequestMapping(value="/getExchangeGiftByID")
     @ResponseBody
-    public JSONObject getPackageTypeByID(HttpServletRequest request){
+    public JSONObject getExchangeGiftByID(HttpServletRequest request){
         String userId = request.getParameter("id");
         Long pk =  Long.valueOf(userId);
         Map<String,Object>  param = new HashMap<>();
         param.put("id",pk);
-        Pager<PackageType> listUser =  packageTypeBaseService.pageQueryPkgTypeByCondition(param);
+        Pager<ExchangeGift> listUser =  exchangeGiftBaseService.pageQueryByCondition(param);
         JSONObject result = new JSONObject();
         JSONObject object = new JSONObject();
         if(!StringUtils.isEmpty(listUser) && !StringUtils.isEmpty(listUser.getDatas()) && !StringUtils.isEmpty(listUser.getDatas().get(0))){
@@ -78,17 +80,17 @@ public class ChangeGiftController extends  BaseController{
 
 
 
-    @RequestMapping("addPackageType")
+    @RequestMapping("addExchangeGift")
     @ResponseBody
-    public JSONObject goToAddPackageType(PackageType role,HttpServletRequest request){
+    public JSONObject addExchangeGift(ExchangeGift role,HttpServletRequest request){
         JSONObject result = new JSONObject();
         if(!StringUtils.isEmpty(role) && !StringUtils.isEmpty(role.getId())){
             super.setTimeStampWithUpdate(role, request);
-            role = packageTypeBaseService.updatePkgType(role);
+            role = exchangeGiftBaseService.update(role);
 
         }else{
             super.setTimeStampWithInsert(role, request);
-            role = packageTypeBaseService.insertPkgType(role);
+            role = exchangeGiftBaseService.insert(role);
         }
         if(role==null){
             result.put("status","0");
@@ -103,8 +105,8 @@ public class ChangeGiftController extends  BaseController{
     @RequestMapping(value="/deletePackageType/{id}")
     public String deletePackageType(@PathVariable("id") String id){
         long pk =  Long.valueOf(id);
-        packageTypeBaseService.deletePackageType(pk);
-        return  "redirect:/packageType/packageTypes";
+        exchangeGiftBaseService.deleteDocById(pk);
+        return  "redirect:/changeGift/changeGifts";
     }
 
 
