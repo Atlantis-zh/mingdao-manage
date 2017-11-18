@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IOrderFormDao">
+	<resultMap id="orderFormResultMap" type="com.mingdao.domain.OrderForm">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="billNo" javaType="string" jdbcType="VARCHAR" column="billno"/>
+		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
+		<result property="carInfoId" javaType="long" jdbcType="BIGINT" column="carinfoid"/>
+		<result property="maintenancePsnId" javaType="long" jdbcType="BIGINT" column="maintenancepsnid"/>
+		<result property="totalMount" javaType="double" jdbcType="DOUBLE" column="totalmount"/>
+		<result property="isUserCosumerCard" javaType="boolean" jdbcType="BOOLEAN" column="isusercosumercard"/>		
+		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+		<result property="long" javaType="string" jdbcType="BIGINT" column="modifier"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.OrderForm" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO order_form
+		(storeid,billno,customerid,carinfoid,maintenancepsnid,totalmount,isusercosumercard,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{storeId},#{billNo},#{customerId},#{carInfoId},#{maintenancePsnId},#{totalMount},#{isUserCosumerCard},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.OrderForm">
+	    UPDATE order_form SET
+          storeid=#{storeId},
+          billno=#{billNo},
+          customerid=#{customerId},
+          carinfoid=#{carInfoId},
+          maintenancepsnid=#{maintenancePsnId},
+          totalmount=#{totalMount},
+          isusercosumercard=#{isUserCosumerCard},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="orderFormResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.billno,
+          t.customerid,
+          t.carinfoid,
+          t.maintenancepsnid,
+          t.totalmount,
+          t.isusercosumercard,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  order_form t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="billno != null and billno != ''">
+              and t.billno=#{billNo}
+           </if>               
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from order_form t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="billno != null and billno != ''">
+              and t.billno=#{billNo}
+           </if> 
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from order_form  where id = #{id}
+    </delete>
+	
+</mapper>
