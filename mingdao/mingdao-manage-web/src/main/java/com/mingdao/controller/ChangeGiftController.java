@@ -1,10 +1,8 @@
 package com.mingdao.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IExchangeGiftBaseService;
 import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.domain.ExchangeGift;
 import com.mingdao.domain.PackageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,17 +25,17 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("changeGift")
+@RequestMapping("packageType")
 public class ChangeGiftController extends  BaseController{
     public static Logger logger = LoggerFactory.getLogger(ChangeGiftController.class);
 
     @Autowired
-    @Qualifier("exchangeGiftBaseService")
-    IExchangeGiftBaseService exchangeGiftBaseService;
+    @Qualifier("packageTypeBaseService")
+    IPackageTypeBaseService packageTypeBaseService;
 
 
-    @RequestMapping("changeGifts")
-    public String getChangeGifts(Model model,HttpServletRequest request){
+    @RequestMapping("packageTypes")
+    public String getPackageTypes(Model model,HttpServletRequest request){
         PackageType role = new PackageType();
         String id =  request.getParameter("search_ID");
         String name =  request.getParameter("search_Name");
@@ -53,20 +51,20 @@ public class ChangeGiftController extends  BaseController{
             param.put("id",role.getId());
             param.put("name",role.getName());
         }
-        Pager<ExchangeGift> listRole =  exchangeGiftBaseService.pageQueryByCondition(param);
+        Pager<PackageType> listRole =  packageTypeBaseService.pageQueryPkgTypeByCondition(param);
         model.addAttribute("datas", listRole);
-        return "changeGifts/list";
+        return "packageType/list";
     }
 
 
-    @RequestMapping(value="/getChangeGiftByID")
+    @RequestMapping(value="/getPackageTypeByID")
     @ResponseBody
-    public JSONObject getChangeGiftByID(HttpServletRequest request){
+    public JSONObject getPackageTypeByID(HttpServletRequest request){
         String userId = request.getParameter("id");
         Long pk =  Long.valueOf(userId);
         Map<String,Object>  param = new HashMap<>();
         param.put("id",pk);
-        Pager<ExchangeGift> listUser =  exchangeGiftBaseService.pageQueryByCondition(param);
+        Pager<PackageType> listUser =  packageTypeBaseService.pageQueryPkgTypeByCondition(param);
         JSONObject result = new JSONObject();
         JSONObject object = new JSONObject();
         if(!StringUtils.isEmpty(listUser) && !StringUtils.isEmpty(listUser.getDatas()) && !StringUtils.isEmpty(listUser.getDatas().get(0))){
@@ -80,17 +78,17 @@ public class ChangeGiftController extends  BaseController{
 
 
 
-    @RequestMapping("addChangeGift")
+    @RequestMapping("addPackageType")
     @ResponseBody
-    public JSONObject addChangeGift(ExchangeGift role,HttpServletRequest request){
+    public JSONObject goToAddPackageType(PackageType role,HttpServletRequest request){
         JSONObject result = new JSONObject();
         if(!StringUtils.isEmpty(role) && !StringUtils.isEmpty(role.getId())){
             super.setTimeStampWithUpdate(role, request);
-            role = exchangeGiftBaseService.update(role);
+            role = packageTypeBaseService.updatePkgType(role);
 
         }else{
             super.setTimeStampWithInsert(role, request);
-            role = exchangeGiftBaseService.insert(role);
+            role = packageTypeBaseService.insertPkgType(role);
         }
         if(role==null){
             result.put("status","0");
@@ -102,11 +100,11 @@ public class ChangeGiftController extends  BaseController{
 
 
 
-    @RequestMapping(value="/deleteExchangeGift/{id}")
-    public String deleteExchangeGift(@PathVariable("id") String id){
+    @RequestMapping(value="/deletePackageType/{id}")
+    public String deletePackageType(@PathVariable("id") String id){
         long pk =  Long.valueOf(id);
-        exchangeGiftBaseService.deleteDocById(pk);
-        return  "redirect:/changeGift/changeGifts";
+        packageTypeBaseService.deletePackageType(pk);
+        return  "redirect:/packageType/packageTypes";
     }
 
 

@@ -75,18 +75,30 @@
            <if test="customerid != '' and customerid != null">
               and t.customerid=#{customerId}
            </if>
+           <if test="orderuserid != '' and orderuserid != null">
+                and t.orderuserid=#{orderuserid}
+           </if>
+           <if test="serviceprojectid != '' and serviceprojectid != null">
+                and t.serviceprojectid=#{serviceprojectid}
+           </if>
+           <if test="status != '' and status != null">
+                and t.status=#{status}
+           </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
 		from order_project t where 1=1
-           <if test="id != '' and id != null">
-              and t.id=#{id}
-           </if>
-           <if test="customerid != '' and customerid != null">
-              and t.customerid=#{customerId}
-           </if>
+        <if test="orderuserid != '' and orderuserid != null">
+            and t.orderuserid=#{orderuserid}
+        </if>
+        <if test="serviceprojectid != '' and serviceprojectid != null">
+            and t.serviceprojectid=#{serviceprojectid}
+        </if>
+        <if test="status != '' and status != null">
+            and t.status=#{status}
+        </if>
 	</select>
 	
 	
