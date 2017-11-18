@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IMemShipPackageConsumerDetailDao">
+	<resultMap id="mspcdResultMap" type="com.mingdao.domain.MemShipPackageConsumerDetail">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="memberShipId" javaType="long" jdbcType="BIGINT" column="membershipid"/>
+		<result property="orderFormId" javaType="long" jdbcType="BIGINT" column="orderformid"/>
+		<result property="cost" javaType="double" jdbcType="DOUBLE" column="cost"/>
+		<result property="isPackagePay" javaType="boolean" jdbcType="BOOLEAN" column="ispackagepay"/>
+		<result property="serviceType" javaType="int" jdbcType="INTEGER" column="servicetype"/>	
+		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+		<result property="long" javaType="string" jdbcType="BIGINT" column="modifier"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.MemShipPackageConsumerDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO memship_packagecom_detail
+		(membershipid,orderformid,cost,ispackagepay,servicetype,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{memberShipId},#{orderFormId},#{cost},#{isPackagePay},#{serviceType},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.MemShipPackageConsumerDetail">
+	    UPDATE memship_packagecom_detail SET
+          membershipid=#{memberShipId},
+          orderformid=#{orderFormId},
+          cost=#{cost},
+          ispackagepay=#{isPackagePay},
+          servicetype=#{serviceType},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mspcdResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.orderformid,
+          t.cost,
+          t.ispackagepay, 
+          t.servicetype,                
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  memship_packagecom_detail t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="membershipid != null and membershipid != ''">
+              and t.membershipid=#{memberShipId}
+           </if>                             
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from memship_packagecom_detail t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="membershipid != null and membershipid != ''">
+              and t.membershipid=#{memberShipId}
+           </if>                 
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from memship_packagecom_detail  where id = #{id}
+    </delete>
+	
+</mapper>
