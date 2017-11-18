@@ -292,7 +292,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/orderProject/orderProjects" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											未处理预约
 										</a>
@@ -300,7 +300,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/finishOrderProject/orderProjects" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											已处理预约
 										</a>
