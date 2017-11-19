@@ -45,6 +45,27 @@
         WHERE id=#{id}
 	</update>
 	
+	
+	<select id="queryById" parameterType="long" resultMap="orderProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.billno,
+          t.orderpsnid,
+          t.serviceprojectid,
+          t.ordertime,
+          t.carinfoid,
+          t.customerid,         
+          t.source,
+          t.status,
+          t.meno,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  order_project t where 1=1 and t.id=#{id}
+	</select>
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
 	    SELECT
           t.id,
@@ -63,13 +84,13 @@
           t.modifier,
           t.modifiedtime
         FROM  order_project t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != '' and customerid != null">
+           <if test="customerid != null">
               and t.customerid=#{customerId}
            </if>
-           <if test="status != '' and status != null">
+           <if test="status != null">
                 and t.status=#{status}
            </if>
            <if test="billno != '' and billno != null">
@@ -81,18 +102,18 @@
 		select
 		   count(1)
 		from order_project t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != '' and customerid != null">
+           <if test="customerid != null">
               and t.customerid=#{customerId}
            </if>
-           <if test="status != '' and status != null">
+           <if test="status != null">
                 and t.status=#{status}
            </if>
            <if test="billno != '' and billno != null">
                 and t.billno=#{billno}
-           </if>
+           </if>  
 	</select>
 	
     <delete id="deleteDocById" parameterType="long">

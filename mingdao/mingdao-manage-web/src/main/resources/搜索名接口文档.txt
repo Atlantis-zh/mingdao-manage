@@ -24,10 +24,10 @@
   "success:true 
 }
 
-3.预约操作
-请求URL:http://118.190.207.7:8080/mingdao/weixin/orderProjectBaseSer/addOrderProject
+3.预约新增操作
+请求URL:http://118.190.207.7:8080/mingdao/orderProjectBaseSer/addOrderProject
 请求方式：POST
-请求头参数：
+请求头参数：无
 请求体：
 {
   "storeId": 123,
