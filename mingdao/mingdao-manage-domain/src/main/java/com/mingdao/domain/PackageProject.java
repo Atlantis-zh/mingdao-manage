@@ -21,7 +21,17 @@ public class PackageProject extends SuperVO {
    * 套餐类型
    */
   private Long pkgTypeId;
-  /**
+  
+  private Long serviceid;
+  public Long getServiceid() {
+	return serviceid;
+}
+
+public void setServiceid(Long serviceid) {
+	this.serviceid = serviceid;
+}
+
+/**
    * 服务次数
    */
   private Integer serviceCount;
@@ -36,6 +46,7 @@ public class PackageProject extends SuperVO {
 
   public static final String ID = "id";
   public static final String PKGTYPEID = "pkgTypeId";
+  public static final String SERVICEID="serviceid";
   public static final String PKGITEMID = "pkgItemId";
   public static final String SERVICECOUNT = "serviceCount";
 

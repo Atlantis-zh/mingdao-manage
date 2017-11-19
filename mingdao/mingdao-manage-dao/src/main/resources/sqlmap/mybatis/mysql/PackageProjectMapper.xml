@@ -4,6 +4,7 @@
 	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageProject">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="pkgTypeId" javaType="long" jdbcType="BIGINT" column="pkgtypeid"/>
+		<result property="serviceid" javaType="long" jdbcType="BIGINT" column="serviceid"/>
 		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
 		<result property="price" javaType="double" jdbcType="DOUBLE" column="price"/>
 		<result property="totalPrice" javaType="double" jdbcType="DOUBLE" column="totalprice"/>
@@ -15,15 +16,16 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageProject" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO package_project
-		(pkgtypeid,servicecount,price,totalprice,creator,createtime,modifier,modifiedtime)
+		(pkgtypeid,serviceid,servicecount,price,totalprice,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{pkgTypeId},#{serviceCount},#{price},#{totalPrice},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{pkgTypeId},#{serviceid},#{serviceCount},#{price},#{totalPrice},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.PackageProject">
 	    UPDATE package_project SET
-          pkgtypeid=#{pkgTypeId},          
+          pkgtypeid=#{pkgTypeId}, 
+          serviceid=#{serviceid},           
           servicecount=#{serviceCount},
           price=#{price},
           totalprice=#{totalPrice},
@@ -39,6 +41,7 @@
 	    SELECT
           t.id,          
           t.pkgitemid,
+          t.serviceid,
           t.servicecount,
           t.price,
           t.totalprice,
