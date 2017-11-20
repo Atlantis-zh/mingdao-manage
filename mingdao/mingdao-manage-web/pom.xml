@@ -110,11 +110,6 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		<!-- JSTL标签类 -->
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
 		<!-- 日志文件管理包 -->
 		<!-- log start -->
 		<!--<dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
