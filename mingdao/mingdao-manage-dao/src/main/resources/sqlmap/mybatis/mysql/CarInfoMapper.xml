@@ -4,7 +4,7 @@
 	<resultMap id="carInfoResultMap" type="com.mingdao.domain.CarInfo">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
-		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="plannumber"/>
+		<result property="platNumber" javaType="string" jdbcType="VARCHAR" column="platnumber"/>
 		<result property="carPrice" javaType="double" jdbcType="DOUBLE" column="carprice"/>
 		<result property="annualExpiration" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="annualexpiration"/>
 		<result property="addressOfPerson" javaType="string" jdbcType="VARCHAR" column="addressofperson"/>
@@ -31,7 +31,7 @@
 	<update id="updateVO" parameterType="com.mingdao.domain.CarInfo">
 	    UPDATE car_info SET
           customerid=#{customerId},
-          plannumber=#{platNumber},
+          platnumber=#{platNumber},
           carprice=#{carPrice},
           annualexpiration=#{annualExpiration},
           addressofperson=#{addressOfPerson},
@@ -54,7 +54,7 @@
 	    SELECT
           t.id,
           t.customerid,
-          t.plannumber,
+          t.platnumber,
           t.carprice,
           t.annualexpiration,
           t.addressofperson,
@@ -74,7 +74,7 @@
               and t.id=#{id}
            </if>
            <if test="customerid != '' and customerid != null">
-              and t.customerid=#{customerid}
+              and t.customerid=#{customerId}
            </if>
 	</select>
 	
@@ -102,7 +102,7 @@
               and t.id=#{id}
            </if>
            <if test="customerid != '' and customerid != null">
-              and t.customerid=#{customerid}
+              and t.customerid=#{customerId}
            </if>
 	</select>
 	
@@ -114,7 +114,7 @@
               and t.id=#{id}
            </if>
            <if test="customerid != '' and customerid != null">
-              and t.customerid=#{customerid}
+              and t.customerid=#{customerId}
            </if>
 	</select>
 </mapper>

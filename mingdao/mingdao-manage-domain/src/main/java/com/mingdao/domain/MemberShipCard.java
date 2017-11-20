@@ -1,7 +1,6 @@
 package com.mingdao.domain;
 
 import com.mingdao.enumprop.MemberShipSource;
-import com.mingdao.enumprop.TimeUnit;
 
 /**
  *
@@ -46,9 +45,9 @@ public class MemberShipCard extends SuperVO {
    */
   private Integer expire;
   /**
-   * 有效期单位
+   * 有效期单位 1年 2月 3天
    */
-  private TimeUnit timeUnit;
+  private Integer timeUnit;
   /**
    * 会员卡图片
    */
@@ -137,11 +136,11 @@ public class MemberShipCard extends SuperVO {
     this.expire = expire;
   }
 
-  public TimeUnit getTimeUnit() {
+  public Integer getTimeUnit() {
     return this.timeUnit;
   }
 
-  public void setTimeUnit(TimeUnit timeUnit) {
+  public void setTimeUnit(Integer timeUnit) {
     this.timeUnit = timeUnit;
   }
 
