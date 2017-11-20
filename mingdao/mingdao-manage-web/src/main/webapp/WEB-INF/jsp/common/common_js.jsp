@@ -22,6 +22,7 @@
 <!--[if lte IE 8]>
   <script src="<%=request.getContextPath() %>/resources/ace/assets/js/excanvas.js"></script>
 <![endif]-->
+<script src="<%=request.getContextPath() %>/resources/ace/assets/js/date-time/bootstrap-datetimepicker.js"></script>
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery-ui.custom.js"></script>
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery.ui.touch-punch.js"></script>
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/jquery.easypiechart.js"></script>

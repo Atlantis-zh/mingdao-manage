@@ -297,7 +297,6 @@
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<%--<img class="nav-user-photo" src="<%=request.getContextPath() %>/resources/ace/assets/avatars/user.jpg" alt="Jason's Photo" />--%>
 						<span class="user-info">
-							<i class="icon-user icon-white"></i>
 							<small>欢迎,${loginUser.nickname}</small>
 						</span>
 						<i class="ace-icon fa fa-caret-down"></i>

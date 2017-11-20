@@ -1547,7 +1547,7 @@ pre.prettyprint {
   vertical-align: top;
   line-height: 15px;
   position: relative;
-  top: 6px;
+  top: 13px;
 }
 .user-info small {
   display: block;
@@ -8249,7 +8249,9 @@ label {
   font-size: 14px;
 }
 .form-group > label[class*="col-"] {
-  margin-bottom: 4px;
+  /*margin-bottom: 4px;*/
+  margin-top: 3%;
+/*  line-height: 34px;*/
 }
 td > label,
 th > label {
@@ -10225,7 +10227,7 @@ td .lbl:only-child {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   position: relative;
-  min-height: 38px;
+  min-height: 30px;
   background: #f7f7f7;
   background-image: -webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
   background-image: -o-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
@@ -16088,6 +16090,7 @@ img.editable-click:hover {
 .ui-dialog .widget-header .ui-jqdialog-titlebar-close,
 .ui-jqdialog .widget-header .ui-jqdialog-titlebar-close {
   right: 10px !important;
+  margin-top: 1%;
 }
 /* accordion */
 .ui-accordion .ui-accordion-header {
@@ -16694,7 +16697,7 @@ th[aria-selected=true] .ui-jqgrid-sortable {
   width: auto;
 }
 .ui-jqdialog-content td.EditButton {
-  padding: 8px;
+  /*padding: 8px;*/
 }
 .EditTable {
   background-color: #eff3f8;
@@ -16779,7 +16782,7 @@ th[aria-selected=true] .ui-jqgrid-sortable {
   margin-left: 4px;
 }
 .ui-jqdialog-content .searchFilter tr td {
-  padding: 5px 0;
+  padding: 10px 0;
 }
 .ui-jqdialog-content .searchFilter .add-group,
 .ui-jqdialog-content .searchFilter .add-rule,
@@ -16853,6 +16856,7 @@ th[aria-selected=true] .ui-jqgrid-sortable {
 .widget-header .ui-jqdialog-title {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  margin-top: 1%;
 }
 .ui-jqdialog .ui-widget-header .widget-header {
   border-bottom: none;

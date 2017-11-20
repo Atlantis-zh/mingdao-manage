@@ -180,7 +180,7 @@
 				</div>
 			</div>
 			<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
-				<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
+				<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="form-group">
@@ -202,9 +202,8 @@
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="orderTime">  预约时间: </label>
-
 								<div class="col-sm-9">
-									<input id="orderTime" placeholder="orderTime" class="col-xs-10 col-sm-5" type="text">
+									<input id="orderTime" placeholder="请选择日期" value="2017-11-19" data-date-format="yyyy-mm-dd" class="col-xs-10 col-sm-5 form_datetime" type="text">
 								</div>
 							</div>
 
@@ -259,7 +258,17 @@
 
 
 <script type="text/javascript">
-
+	$('.form_datetime').datetimepicker({
+		weekStart: 0, //一周从哪一天开始
+		todayBtn:  1, //
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+		showMeridian: 1
+	});
+	$('.form_datetime').datetimepicker('setStartDate', '2017-11-19');
+	$('.form_datetime').datetimepicker('setEndDate', '2012-12-19');
 
 
 	$("#add").click(function(){

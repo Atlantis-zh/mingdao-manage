@@ -210,7 +210,7 @@
 					</div>
 				</div>
 				<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
-					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
+					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">

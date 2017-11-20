@@ -102,7 +102,7 @@
 			</div>
 			<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
 				<div>
-					<div id="fbox_grid-table" class="searchFilter" style="overflow:auto">
+					<div id="fbox_grid-table" class="searchFilter" style="overflow:hidden">
 						<table class="group ui-widget ui-widget-content ui-search-table" style="border:0px none;">
 							<tbody>
 							<tr class="error" style="display:none;">
@@ -171,7 +171,7 @@
 				</div>
 			</div>
 			<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
-				<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
+				<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="form-group">

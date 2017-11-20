@@ -8,6 +8,7 @@
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/ace/assets/css/bootstrap.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/ace/assets/css/font-awesome.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/ace/assets/css/bootstrap-datetimepicker.css" />
 
 <!-- page specific plugin styles -->
 
