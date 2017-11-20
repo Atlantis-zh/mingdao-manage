@@ -50,7 +50,7 @@ public class FinishOrderProjectController extends  BaseController{
         param.put("status",1); //已经完成订单
         Pager<OrderProject> listUser =  orderProjectBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listUser);
-        return "finishOrderProject/list";
+        return "orderProject/unDealList";
     }
 
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IOrderFormOfServiceProjectDao">
+	<resultMap id="ofospResultMap" type="com.mingdao.domain.OrderFormOfServiceProject">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="orderFormId" javaType="long" jdbcType="BIGINT" column="orderformid"/>
+		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceprojectid"/>
+		<result property="price" javaType="double" jdbcType="DOUBLE" column="price"/>
+		<result property="num" javaType="int" jdbcType="INTEGER" column="num"/>
+		<result property="discount" javaType="double" jdbcType="DOUBLE" column="discount"/>
+		<result property="cost" javaType="double" jdbcType="DOUBLE" column="cost"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.OrderFormOfServiceProject" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO order_form_serproject
+		(orderformid,serviceprojectid,price,num,discount,cost,memo,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{orderFormId},#{serviceProjectId},#{price},#{num},#{discount},#{cost},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.OrderFormOfServiceProject">
+	    UPDATE order_form_serproject SET
+          orderformid=#{orderFormId},
+          serviceprojectid=#{serviceProjectId},
+          price=#{price},
+          num=#{num},
+          discount=#{discount},
+          cost=#{cost},
+          memo=#{memo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ofospResultMap">
+	    SELECT
+          t.id,
+          t.orderformid,
+          t.serviceprojectid,
+          t.price,
+          t.num,
+          t.discount,
+          t.cost,
+          t.memo,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  order_form_serproject t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="orderformid != null and orderformid != ''">
+              and t.orderformid=#{orderFormId}
+           </if>               
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from order_form_serproject t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="orderformid != null and orderformid != ''">
+              and t.orderformid=#{orderFormId}
+           </if>    
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from order_form_serproject  where id = #{id}
+    </delete>
+	
+</mapper>

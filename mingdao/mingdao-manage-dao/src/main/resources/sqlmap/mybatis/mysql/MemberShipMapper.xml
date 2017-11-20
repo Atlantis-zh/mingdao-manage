@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IMemberShipDao">
+	<resultMap id="memberShipResultMap" type="com.mingdao.domain.MemberShip">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="cardNo" javaType="string" jdbcType="VARCHAR" column="cardno"/>
+		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
+		<result property="carInfoId" javaType="long" jdbcType="BIGINT" column="carinfoid"/>
+		<result property="memberShipCardId" javaType="long" jdbcType="BIGINT" column="membershipcardid"/>
+		<result property="packageTypeId" javaType="long" jdbcType="BIGINT" column="packagetypeid"/>
+		<result property="crash" javaType="double" jdbcType="DOUBLE" column="crash"/>
+		<result property="points" javaType="int" jdbcType="INTEGER" column="points"/>
+		<result property="remaining" javaType="double" jdbcType="DOUBLE" column="remaining"/>
+		<result property="totalRemainCount" javaType="int" jdbcType="INTEGER" column="totalremaincount"/>
+		<result property="percentagePsnId" javaType="long" jdbcType="BIGINT" column="percentagepsnid"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
+		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+		<result property="long" javaType="string" jdbcType="BIGINT" column="modifier"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.MemberShip" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO membership
+		(storeid,cardno,customerid,carinfoid,membershipcardid,packagetypeid,crash,points,remaining,totalremaincount,percentagepsnid,memo,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{storeId},#{cardNo},#{customerId},#{carInfoId},#{memberShipCardId},#{packageTypeId},#{crash},#{points},#{remaining},#{totalRemainCount},#{percentagePsnId},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.MemberShip">
+	    UPDATE membership SET
+          storeid=#{storeId},
+          cardno=#{cardNo},
+          customerid=#{customerId},
+          carinfoid=#{carInfoId},
+          membershipcardid=#{memberShipCardId},
+          packagetypeid=#{packageTypeId},
+          crash=#{crash},
+          points=#{points},
+          remaining=#{remaining},
+          totalremaincount=#{totalRemainCount},
+          percentagepsnid=#{percentagePsnId},
+          memo=#{memo},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="memberShipResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.cardno,
+          t.customerid,
+          t.carinfoid,
+          t.membershipcardid,
+          t.packagetypeid,
+          t.crash,
+          t.points,
+          t.remaining,
+          t.totalremaincount,
+          t.percentagepsnid,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  membership t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>           
+           <if test="cardno != null and cardno != ''">
+              and t.cardno=#{cardNo}
+           </if>
+           <if test="customerid != null and customerid != ''">
+              and t.customerid=#{customerId}
+           </if>                 
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from membership t where 1=1
+           <if test="id != null and id != ''">
+              and t.id=#{id}
+           </if>
+           <if test="storeid != null and storeid != ''">
+              and t.storeid=#{storeId}
+           </if>           
+           <if test="cardno != null and cardno != ''">
+              and t.cardno=#{cardNo}
+           </if>
+           <if test="customerid != null and customerid != ''">
+              and t.customerid=#{customerId}
+           </if> 
+	</select>
+
+
+    <delete id="deleteDocById" parameterType="long">
+        delete from membership  where id = #{id}
+    </delete>
+	
+</mapper>

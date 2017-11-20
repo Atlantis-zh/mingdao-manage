@@ -1,8 +1,5 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.OrderStatus;
-import com.mingdao.enumprop.Source;
-
 /**
  *
  * <code>WeChatOrder<code> <strong></strong>
@@ -30,7 +27,7 @@ public class OrderProject extends SuperVO {
   /**
    * 预约员工
    */
-  private Long orderUserId;
+  private Long orderPsnId;
   /**
    * 预约项目
    */
@@ -42,27 +39,23 @@ public class OrderProject extends SuperVO {
   /**
    * 车牌号
    */
-  private String carNo;
+  private Long carInfoId;
   /**
    * 顾客姓名
    */
   private Long customerId;
   /**
-   * 预约类型
+   * 预约类型 1：微信，2：电脑
    */
-  private Source source;
+  private Integer source;
   /**
    * 备注
    */
   private String meno;
   /**
-   * 处理状态
+   * 0：未确认，1：处理中，2：已完成，3：驳回
    */
-  private OrderStatus status;
-  /**
-   * 联系方式
-   */
-  private String linkTel;
+  private Integer status;
 
   public static final String ID = "id";
   public static final String STOREID = "storeId";
@@ -103,12 +96,12 @@ public class OrderProject extends SuperVO {
     this.billno = billno;
   }
 
-  public Long getOrderUserId() {
-    return this.orderUserId;
+  public Long getOrderPsnId() {
+    return this.orderPsnId;
   }
 
-  public void setOrderUserId(Long orderUserId) {
-    this.orderUserId = orderUserId;
+  public void setOrderPsnId(Long orderPsnId) {
+    this.orderPsnId = orderPsnId;
   }
 
   public Long getServiceProjectId() {
@@ -127,12 +120,12 @@ public class OrderProject extends SuperVO {
     this.orderTime = orderTime;
   }
 
-  public String getCarNo() {
-    return this.carNo;
+  public Long getCarInfoId() {
+    return this.carInfoId;
   }
 
-  public void setCarNo(String carNo) {
-    this.carNo = carNo;
+  public void setCarInfoId(Long carInfoId) {
+    this.carInfoId = carInfoId;
   }
 
   public Long getCustomerId() {
@@ -143,36 +136,28 @@ public class OrderProject extends SuperVO {
     this.customerId = customerId;
   }
 
-  public Source getSource() {
+  public Integer getSource() {
     return this.source;
   }
 
-  public void setSource(Source source) {
+  public void setSource(Integer source) {
     this.source = source;
   }
 
   public String getMeno() {
-    return meno;
+    return this.meno;
   }
 
   public void setMeno(String meno) {
     this.meno = meno;
   }
 
-  public OrderStatus getStatus() {
+  public Integer getStatus() {
     return this.status;
   }
 
-  public void setStatus(OrderStatus status) {
+  public void setStatus(Integer status) {
     this.status = status;
-  }
-
-  public String getLinkTel() {
-    return this.linkTel;
-  }
-
-  public void setLinkTel(String linkTel) {
-    this.linkTel = linkTel;
   }
 
 

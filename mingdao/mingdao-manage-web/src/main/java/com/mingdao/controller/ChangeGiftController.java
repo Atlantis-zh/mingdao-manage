@@ -38,9 +38,10 @@ public class ChangeGiftController extends  BaseController{
 
     @RequestMapping("changeGifts")
     public String getChangeGifts(Model model,HttpServletRequest request){
-        PackageType role = new PackageType();
+        ExchangeGift role = new ExchangeGift();
         String id =  request.getParameter("search_ID");
         String name =  request.getParameter("search_Name");
+        String points =  request.getParameter("search_points");
         if(!StringUtils.isEmpty(id)){
             long pk = Long.valueOf(id);
             role.setId(pk);
@@ -48,14 +49,19 @@ public class ChangeGiftController extends  BaseController{
         if(!StringUtils.isEmpty(name)){
             role.setName(name);
         }
+        if(!StringUtils.isEmpty(points)){
+            int pointss = Integer.valueOf(points);
+            role.setPoints(pointss);
+        }
         Map<String,Object> param = new HashMap<>();
         if(!StringUtils.isEmpty(role)){
             param.put("id",role.getId());
             param.put("name",role.getName());
+            param.put("points",role.getPoints());
         }
         Pager<ExchangeGift> listRole =  exchangeGiftBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listRole);
-        return "changeGifts/list";
+        return "exchangeGift/list";
     }
 
 

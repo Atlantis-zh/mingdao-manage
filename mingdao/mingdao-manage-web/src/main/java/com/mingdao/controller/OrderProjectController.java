@@ -2,10 +2,8 @@ package com.mingdao.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mingdao.api.IOrderProjectBaseService;
-import com.mingdao.api.IUserInfoBaseServiceItf;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.OrderProject;
-import com.mingdao.domain.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,27 +36,31 @@ public class OrderProjectController extends  BaseController{
     @RequestMapping("orderProjects")
     public String getOrderProjects(Model model,HttpServletRequest request){
         OrderProject user = new OrderProject();
-        String search_car =  request.getParameter("search_car");
+        String orderuserid =  request.getParameter("search_orderuserid");
         String serviceprojectid =  request.getParameter("search_serviceprojectid");
+        String status = request.getParameter("search_status");
         Map<String, Object> param = new HashMap<>();
-        if(!StringUtils.isEmpty(search_car)){
-            param.put("carno",search_car);
+        if(!StringUtils.isEmpty(orderuserid)){
+            long pk_serviceprojectid = Long.valueOf(orderuserid);
+            param.put("serviceprojectid",pk_serviceprojectid);
         }
         if(!StringUtils.isEmpty(serviceprojectid)){
             long pk_serviceprojectid = Long.valueOf(serviceprojectid);
             param.put("serviceprojectid", pk_serviceprojectid);
         }
-        param.put("status",0);
+        if(!StringUtils.isEmpty(status)){
+            param.put("status",status);
+        }
         Pager<OrderProject> listUser =  orderProjectBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listUser);
-        return "orderProject/dealList";
+        return "orderProject/list";
     }
 
 
     @RequestMapping(value="/getOrderProjectByID")
     @ResponseBody
     public JSONObject getOrderProjectByID(HttpServletRequest request){
-        String userId = request.getParameter("id");
+        String userId = request.getParameter("userId");
         Long pk =  Long.valueOf(userId);
         Map<String, Object> param = new HashMap<>();
         param.put("id",pk);
@@ -89,7 +91,7 @@ public class OrderProjectController extends  BaseController{
             super.setTimeStampWithInsert(userInfo, request);
             user = orderProjectBaseService.insert(userInfo);
         }
-		  if(user==null){
+        if(user==null){
             result.put("status","0");
         }else{
             result.put("status","1");

@@ -1,0 +1,112 @@
+controller类：OrderProjectServiceController
+1.预约新增操作
+请求URL:http://118.190.207.7:8080/mingdao/orderProjectBaseSer/addOrderProject
+请求方式：POST
+请求头参数：无
+请求体：
+{
+  "storeId": 123,
+  "orderPsnId": 897,
+  "serviceProjectId": 456,
+  "orderTime": "2013-12-07 00:00:00",
+  "customerId": 7898,
+  "carInfoId": 1234,
+  "memo": "xxxxx",
+  "source": 1,
+}
+storeId:门店
+orderPsnId：预约员工
+serviceProjectId:服务项目
+orderTime：预约时间
+customerId：客户主键
+carInfoId：车辆信息主键
+memo：备注
+source：来源  1：微信，2：电脑
+
+返回值：
+{
+  "result": "100[插入后的主键]",
+  "resultMsg": "",
+  "code:"",
+  "success:true 
+}
+2、预约修改操作
+请求URL:http://118.190.207.7:8080/mingdao/orderProjectBaseSer/updateOrderProject
+请求方式：POST
+请求头参数：无
+请求体：
+{
+  "id":789
+  "storeId": 123,
+  "orderPsnId": 897,
+  "serviceProjectId": 456,
+  "carInfoId": 1234,
+  "memo": "xxxxx",
+}
+id:主键
+storeId:门店
+orderPsnId：预约员工
+serviceProjectId:服务项目
+carInfoId：车辆信息主键
+memo：备注
+
+返回值：
+{
+    "result": {
+	    "id":
+        "storeId": 123,
+        "orderPsnId": 897,
+        "serviceProjectId": 456,
+        "orderTime": "2013-12-07 00:00:00",
+        "customerId": 7898,
+        "carInfoId": 1234,
+        "memo": "xxxxx",
+        "source": 1
+		......
+        
+    },
+    "resultMsg": "",
+    "code:"",
+  "success: true
+}
+result:存放更新后的整个实体的json
+3、预约项目查询
+请求URL:http://118.190.207.7:8080/mingdao/orderProjectBaseSer/qryOrderProjects?storeId=123&status=1&customerId=456
+请求方式：POST
+请求头参数：
+storeId：所属门店 必须要传
+status：预约状态 0：未确认，1：处理中，2：已完成，3：驳回  这个值可以不传  只是会影响结果集
+customerId：客户主键 可不传 不传则影响查询结果  
+三个参数之间是and关系  如有其它特殊需求 请提接口
+请求体：无
+
+返回值：
+{
+    "result": {
+        "page": 0,
+        "pageSize": 20,
+        "totalCount": 30,
+        "datas": [
+            {
+                "id": 89,
+                "storeId": 123,
+                "orderPsnId": 897,
+                "serviceProjectId": 456,
+                "orderTime": "2013-12-07 00:00:00",
+                "customerId": 7898,
+                "carInfoId": 1234,
+                "memo": "xxxxx",
+                "source": 1
+            }
+        ]
+    },
+    "resultMsg": "",
+    "code": "",
+    "success": true
+}
+result：结果集
+page：分页页号
+pageSize：分页大小
+totalCount：总共满足条件多少条
+datas：jsonarray数组  存放具体的数据，部分字段可以直接看接口返回值，示例字段不齐全
+这里是否需要对carInfoId进行一次转换，比如我可以把carInfoId变更为{"id":1234,"carNo":"京PXY987"}这样你前台就不用再查了，目前是还未做处理 这里你确认一下 

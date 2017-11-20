@@ -72,6 +72,13 @@
 									<b class="arrow"></b>
 								</li>
 								<li class="">
+									<a href="<%=request.getContextPath() %>/attachProject/attachProjects" target="mainFrame">
+										<i class="menu-icon fa fa-caret-right"></i>
+										附加项目
+									</a>
+									<b class="arrow"></b>
+								</li>
+								<li class="">
 									<a href="<%=request.getContextPath() %>/serviceProject/serviceProjects" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										服务项目
@@ -182,6 +189,22 @@
 
 										<b class="arrow"></b>
 									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/custType/custTypes" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户分类
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/custSource/custSources" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户来源
+										</a>
+
+										<b class="arrow"></b>
+									</li>
 								</ul>
 							</li>
 
@@ -239,7 +262,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/changeGift/changeGifts" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											积分规则设置
 										</a>

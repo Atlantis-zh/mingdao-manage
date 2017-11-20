@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.IProductDao">
+	<resultMap id="productResultMap" type="com.mingdao.domain.Product">
+		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
+		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+	    <result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+	    <result property="mncode" javaType="string" jdbcType="VARCHAR" column="mncode"/>
+	    <result property="spec" javaType="string" jdbcType="VARCHAR" column="spec"/>	    	    
+	    <result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
+	    <result property="measdocId" javaType="long" jdbcType="BIGINT" column="measdocid"/>
+	    <result property="productClassId" javaType="long" jdbcType="BIGINT" column="productclassid"/>
+	    <result property="adapteCarType" javaType="string" jdbcType="VARCHAR" column="adaptecartype"/>
+	    <result property="shareToBranch" javaType="boolean" jdbcType="BOOLEAN" column="sharetobranch"/>
+	    <result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>
+	    <result property="status" javaType="int" jdbcType="INTEGER" column="status"/>	    	    
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.Product" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO product
+        (code,name,storeid,mncode,spec,saleprice,measdocid,productclassid,adaptecartype,sharetobranch,memo,status,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{code},#{name},#{storeId},#{mncode},#{spec},#{salePrice},#{measdocId},#{productClassId},#{adapteCarType},#{shareToBranch},#{memo},#{status},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.Product">
+	    UPDATE product SET
+          code=#{code},
+          name=#{name},
+          storeid=#{storeId},
+          mncode=#{mncode},
+          spec=#{spec},
+          saleprice=#{salePrice},
+          measdocid=#{measdocId},
+          productclassid=#{productClassId},
+          adaptecartype=#{adapteCarType},
+          sharetobranch=#{shareToBranch},
+          memo=#{memo},
+          status=#{status},
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="productResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.mncode,
+          t.spec,
+          t.saleprice,
+          t.measdocid,
+          t.productclassid,
+          t.adaptecartype,
+          t.sharetobranch,
+          t.memo,
+          t.status,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  product t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from product t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	
+</mapper>

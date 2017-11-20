@@ -13,7 +13,7 @@ package com.mingdao.domain;
  * @author libin
  */
 
-public class AttachProject extends SuperVO {
+  public class AttachProject extends SuperVO {
 
   private static final long serialVersionUID = 3488754347753977156L;
   private Long id;

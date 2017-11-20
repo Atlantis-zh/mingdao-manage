@@ -5,16 +5,14 @@
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 	    <result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
 	    <result property="billno" javaType="string" jdbcType="VARCHAR" column="billno"/>
-		<result property="orderUserId" javaType="long" jdbcType="BIGINT" column="orderuserid"/>
+		<result property="orderPsnId" javaType="long" jdbcType="BIGINT" column="orderpsnid"/>
 	    <result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceprojectid"/>
 	    <result property="orderTime" javaType="string" jdbcType="VARCHAR" column="ordertime"/>
-	    <result property="carNo" javaType="string" jdbcType="VARCHAR" column="carno"/>
+	    <result property="carInfoId" javaType="long" jdbcType="BIGINT" column="carinfoid"/>
 	    <result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
-	    <result property="source" javaType="com.mingdao.enumprop.Source" jdbcType="INTEGER" column="source" typeHandler="com.mingdao.dao.base.typehandler.SourceEnumTypeHandler"/>
-	    <result property="status" javaType="com.mingdao.enumprop.OrderStatus" jdbcType="INTEGER" column="status" typeHandler="com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler"/>
+	    <result property="source" javaType="int" jdbcType="INTEGER" column="source"/>
+	    <result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
 	    <result property="meno" javaType="string" jdbcType="VARCHAR" column="meno"/>
-	    <result property="linkmanName" javaType="string" jdbcType="VARCHAR" column="linkmanname"/>
-	    <result property="linkTel" javaType="string" jdbcType="VARCHAR" column="linktel"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -23,25 +21,23 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.OrderProject" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO order_project
-        (storeid,billno,orderuserid,serviceprojectid,ordertime,carno,customerid,source,status,meno,linkmanname,linktel,creator,createtime,modifier,modifiedtime)
+        (storeid,billno,orderpsnid,serviceprojectid,ordertime,carinfoid,customerid,source,status,meno,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{billno},#{orderUserId},#{serviceProjectId},#{orderTime},#{carNo},#{customerId},#{source,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},#{meno},#{linkmanName},#{linkTel},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{billno},#{orderPsnId},#{serviceProjectId},#{orderTime},#{carInfoId},#{customerId},#{source},#{statusr},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.OrderProject">
 	    UPDATE order_project SET
           storeid=#{storeId},
           billno=#{billno},
-          orderuserid=#{orderUserId},
+          orderpsnid=#{orderPsnId},
           serviceprojectid=#{serviceProjectId},
           ordertime=#{orderTime},
-          carno=#{carNo},
+          carinfoid=#{carInfoId},
           customerid=#{customerId},          
-          source=#{source,typeHandler=com.mingdao.dao.base.typehandler.SourceEnumTypeHandler},                 
-          status=#{status,typeHandler=com.mingdao.dao.base.typehandler.OrderStatusEnumTypeHandler},
+          source=#{source},                 
+          status=#{status},
           meno=#{meno},
-          linkmanname=#{linkmanName},
-          linktel=#{linkTel},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},
@@ -49,57 +45,78 @@
         WHERE id=#{id}
 	</update>
 	
+	
+	<select id="queryById" parameterType="long" resultMap="orderProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.billno,
+          t.orderpsnid,
+          t.serviceprojectid,
+          t.ordertime,
+          t.carinfoid,
+          t.customerid,         
+          t.source,
+          t.status,
+          t.meno,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  order_project t where 1=1 and t.id=#{id}
+	</select>
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
 	    SELECT
           t.id,
           t.storeid,
           t.billno,
-          t.orderuserid,
+          t.orderpsnid,
           t.serviceprojectid,
           t.ordertime,
-          t.carno,
+          t.carinfoid,
           t.customerid,         
           t.source,
           t.status,
           t.meno,
-          t.linkmanname,
-          t.linktel,
           t.creator,
           t.createtime,
           t.modifier,
           t.modifiedtime
         FROM  order_project t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != '' and customerid != null">
+           <if test="customerid != null">
               and t.customerid=#{customerId}
            </if>
-           <if test="orderuserid != '' and orderuserid != null">
-                and t.orderuserid=#{orderuserid}
-           </if>
-           <if test="serviceprojectid != '' and serviceprojectid != null">
-                and t.serviceprojectid=#{serviceprojectid}
-           </if>
-           <if test="status != '' and status != null">
+           <if test="status != null">
                 and t.status=#{status}
            </if>
+           <if test="billno != '' and billno != null">
+                and t.billno=#{billno}
+           </if>          
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
 		from order_project t where 1=1
-        <if test="orderuserid != '' and orderuserid != null">
-            and t.orderuserid=#{orderuserid}
-        </if>
-        <if test="serviceprojectid != '' and serviceprojectid != null">
-            and t.serviceprojectid=#{serviceprojectid}
-        </if>
-        <if test="status != '' and status != null">
-            and t.status=#{status}
-        </if>
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="status != null">
+                and t.status=#{status}
+           </if>
+           <if test="billno != '' and billno != null">
+                and t.billno=#{billno}
+           </if>  
 	</select>
 	
-	
+    <delete id="deleteDocById" parameterType="long">
+        delete from order_project  where id = #{id}
+    </delete>	
 </mapper>

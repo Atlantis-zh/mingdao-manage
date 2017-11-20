@@ -6,7 +6,7 @@
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 	    <result property="parentId" javaType="long" jdbcType="BIGINT" column="parentid"/>
-	    <result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
+	    <result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
 	    <result property="isLeafMenu" javaType="boolean" jdbcType="BOOLEAN" column="isleafmenu"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -18,7 +18,7 @@
 	    INSERT INTO menu
         (code,name,parent_code,isleafmenu,status,creator,createtime,modifier,modifiedtime,path,menu_level)
         VALUES
-        (#{code},#{name},#{parentCode},#{isLeafMenu},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{creator},#{createTime},#{modifier},#{modifiedTime},#{path},#{menuLevel})
+        (#{code},#{name},#{parentCode},#{isLeafMenu},#{status},#{creator},#{createTime},#{modifier},#{modifiedTime},#{path},#{menuLevel})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Menu">
@@ -27,7 +27,7 @@
         <if test="name!=null"> name=#{name},</if>
         <if test="parentCode!=null"> parent_code=#{parentCode},</if>
         <if test="isLeafMenu!=null"> isleafmenu=#{isLeafMenu},</if>
-        <if test="status!=null"> status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},</if>
+        <if test="status!=null"> #{status}</if>
         <if test="creator!=null"> creator=#{creator},</if>
         <if test="path!=null"> path=#{path},</if>
         <if test="menuLevel!=null"> menu_level=#{menuLevel},</if>

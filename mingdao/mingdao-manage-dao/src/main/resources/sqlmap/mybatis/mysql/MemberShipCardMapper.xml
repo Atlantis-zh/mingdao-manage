@@ -8,12 +8,12 @@
 		<result property="cardRecharge" javaType="double" jdbcType="DOUBLE" column="cardrecharge"/>
 		<result property="cardDonate" javaType="double" jdbcType="DOUBLE" column="carddonate"/>
 		<result property="expire" javaType="int" jdbcType="INTEGER" column="expire"/>
-		<result property="timeUnit" column="timeunit" typeHandler="com.mingdao.dao.base.typehandler.TimeUnitEnumTypeHandler"/>
+		<result property="timeUnit" javaType="int" jdbcType="INTEGER" column="timeunit"/>				
 		<result property="cardPicture" javaType="string" jdbcType="VARCHAR" column="cardpicture"/>
-		<result property="shareToBranch" javaType="boolean" jdbcType="BOOLEAN" column="sharetobranch"/>
-		<result property="source" column="source" typeHandler="com.mingdao.dao.base.typehandler.MemberShipSourceEnumTypeHandler"/>
-		<result property="bindPackage" javaType="long" jdbcType="BIGINT" column="bindpackage"/>
-		<result property="status" column="status" typeHandler="com.mingdao.dao.base.typehandler.StatusEnumTypeHandler"/>
+		<result property="shareToBranch" javaType="boolean" jdbcType="BOOLEAN" column="sharetobranch"/>				
+		<result property="source" javaType="int" jdbcType="INTEGER" column="source"/>
+		<result property="bindPackage" javaType="long" jdbcType="BIGINT" column="bindpackage"/>		
+		<result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
 		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
 		<result property="long" javaType="string" jdbcType="BIGINT" column="creator"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
@@ -22,25 +22,25 @@
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.MemberShipCard" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO member_ship_card
+		INSERT INTO membership_card
 		(storeid,name,cardrecharge,carddonate,expire,timeunit,cardpicture,sharetobranch,source,bindpackage,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{cardPicture},#{shareToBranch},#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{bindPackage},#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit},#{cardPicture},#{shareToBranch},#{source},#{bindPackage},#{status,typeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.MemberShipCard">
-	    UPDATE member_ship_card SET
+	    UPDATE membership_card SET
           storeid=#{storeId},
           name=#{name},
           cardrecharge=#{cardRecharge},
           carddonate=#{cardDonate},
           expire=#{expire},
-          timeunit=#{timeUnit,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+          timeunit=#{timeUnit},
           cardpicture=#{cardPicture},
           sharetobranch=#{shareToBranch},
-          source=#{source,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+          source=#{source},
           bindpackage=#{bindPackage},
-          status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+          status=#{status},
           memo=#{memo},
           creator=#{creator},
           createtime=#{createTime},
@@ -68,48 +68,42 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  member_ship_card t where 1=1
-           <if test="id != null">
+        FROM  membership_card t where 1=1
+           <if test="id != null and id != ''">
               and t.id=#{id}
-           </if>
-           <if test="name != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="memo != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="status != null and status != ''">
-              and t.status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
            </if>
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
-           </if>                  
+           </if>
+           <if test="name != null and name != ''">
+              and t.name=#{name}
+           </if>
+           <if test="status != null and status != ''">
+              and t.status=#{status}
+           </if>                 
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from member_ship_card t where 1=1
-           <if test="id != null">
+		from membership_card t where 1=1
+           <if test="id != null and id != ''">
               and t.id=#{id}
-           </if>
-           <if test="name != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="memo != null and name != ''">
-              and t.code=#{code}
-           </if>
-           <if test="status != null and status != ''">
-              and t.status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
            </if>
            <if test="storeid != null and storeid != ''">
               and t.storeid=#{storeId}
            </if>
+           <if test="name != null and name != ''">
+              and t.name=#{name}
+           </if>
+           <if test="status != null and status != ''">
+              and t.status=#{status}
+           </if> 
 	</select>
 
 
     <delete id="deleteDocById" parameterType="long">
-        delete from member_ship_card  where id = #{id}
+        delete from membership_card  where id = #{id}
     </delete>
 	
 </mapper>
