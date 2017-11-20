@@ -25,7 +25,7 @@
 		INSERT INTO membership_card
 		(storeid,name,cardrecharge,carddonate,expire,timeunit,cardpicture,sharetobranch,source,bindpackage,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit},#{cardPicture},#{shareToBranch},#{source},#{bindPackage},#{status,typeHandler},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit},#{cardPicture},#{shareToBranch},#{source},#{bindPackage},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.MemberShipCard">
