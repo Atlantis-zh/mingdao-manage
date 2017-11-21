@@ -53,7 +53,7 @@ public class OrderProjectController extends  BaseController{
         }
         Pager<OrderProject> listUser =  orderProjectBaseService.pageQueryByCondition(param);
         model.addAttribute("datas", listUser);
-        return "orderProject/list";
+        return "orderProject/dealList";
     }
 
 

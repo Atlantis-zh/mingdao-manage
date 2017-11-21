@@ -33,7 +33,6 @@
 								<th>预约时间</th>
 								<th>车牌号</th>
 								<th>预约联系人</th>
-								<th>联系方式</th>
 								<th>用户操作</th>
 							</tr>
 							</thead>
@@ -46,9 +45,8 @@
 									</td>
 									<td>${role.serviceProjectId }</td>
 									<td>${role.orderTime}</td>
-									<td>${role.carNo}</td>
-									<td>${role.linkmanName}</td>
-									<td>${role.linkTel}</td>
+									<td>${role.carInfoId}</td>
+									<td>${role.customerId}</td>
 									<td>
 										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
