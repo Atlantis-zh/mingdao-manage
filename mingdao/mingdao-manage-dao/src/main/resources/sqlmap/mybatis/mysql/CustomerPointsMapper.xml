@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.ICustomerPointsDao">
+	<resultMap id="custPointsResultMap" type="com.mingdao.domain.CustomerPoints">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
+		<result property="points" javaType="int" jdbcType="INTEGER" column="points"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.CustomerPoints" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO cust_points
+        (storeid,customerid,points,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{storeId},#{customerId},#{points},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.CustomerPoints">
+	    UPDATE cust_points SET
+	      storeid=#{storeId},
+          customerid=#{customerId},
+          points=#{points},    
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="custPointsResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.customerid,
+          t.points,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_points t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid !='' and customerid != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="storeid !='' and storeid != null">
+              and t.storeid=#{storeId}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from cust_points t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid !='' and customerid != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="storeid !='' and storeid != null">
+              and t.storeid=#{storeId}
+           </if>
+	</select>
+</mapper>
