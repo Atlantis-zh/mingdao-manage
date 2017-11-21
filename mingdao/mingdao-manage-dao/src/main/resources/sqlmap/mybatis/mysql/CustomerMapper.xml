@@ -10,7 +10,7 @@
 		<result property="birthday" javaType="string" jdbcType="VARCHAR" column="birthday"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="identityId" javaType="string" jdbcType="VARCHAR" column="identityid"/>
-		<result property="custSource" javaType="int" jdbcType="INTEGER" column="custsource"/>
+		<result property="custSourceId" javaType="int" jdbcType="INTEGER" column="custsourceid"/>
 		<result property="custTypeId" javaType="long" jdbcType="BIGINT" column="custtypeid"/>
 		<result property="lpr" javaType="boolean" jdbcType="BOOLEAN" column="lpr"/>
 		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex"/>
@@ -23,9 +23,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Customer" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO customer
-        (storeid,name,code,wxnickname,birthday,phone,identityid,custsource,custtypeid,lpr,sex,address,creator,createtime,modifier,modifiedtime)
+        (storeid,name,code,wxnickname,birthday,phone,identityid,custsourceid,custtypeid,lpr,sex,address,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSource},#{custTypeId},#{lpr},#{sex},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSourceId},#{custTypeId},#{lpr},#{sex},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Customer">
@@ -37,7 +37,7 @@
           birthday=#{birthday},
           phone=#{phone},
           identityid=#{identityId},
-          custsource=#{custSource},
+          custsourceid=#{custSourceId},
           custtypeid=#{custTypeId},
           lpr=#{lpr},
           sex=#{sex},
@@ -59,7 +59,7 @@
           t.birthday,
           t.phone,
           t.identityid,
-          t.custsource,
+          t.custsourceid,
           t.custtypeid,
           t.lpr,
           t.sex,
