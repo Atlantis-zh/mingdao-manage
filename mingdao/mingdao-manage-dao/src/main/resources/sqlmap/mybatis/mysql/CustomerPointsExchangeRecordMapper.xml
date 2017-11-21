@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingdao.dao.base.ICustomerPointsExchangeRecordDao">
+	<resultMap id="cperResultMap" type="com.mingdao.domain.CustomerPointsExchangeRecord">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="custPointsId" javaType="long" jdbcType="BIGINT" column="custpointsid"/>		
+		<result property="memberShipId" javaType="long" jdbcType="BIGINT" column="membershipid"/>
+		<result property="exchangeGiftId" javaType="long" jdbcType="BIGINT" column="exchangegiftid"/>
+		<result property="exchangePoints" javaType="int" jdbcType="INTEGER" column="exchangepoints"/>
+		<result property="time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="time"/>
+		<result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.CustomerPointsExchangeRecord" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO cust_points_exrecord
+        (storeid,custpointsid,membershipid,exchangegiftid,exchangepoints,time,status,memo,creator,createtime,modifier,modifiedtime)
+        VALUES
+        (#{storeId},#{custPointsId},#{memberShipId},#{exchangeGiftId},#{exchangePoints},#{time},#{status},#{memo},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+	<update id="updateVO" parameterType="com.mingdao.domain.CustomerPointsObtainRecord">
+	    UPDATE cust_points_exrecord SET
+	      storeid=#{storeId},
+          custpointsid=#{custPointsId},
+          membershipid=#{memberShipId},
+          exchangegiftid=#{exchangeGiftId},
+          exchangepoints=#{exchangePoints},
+          time=#{time},
+          status=#{status},
+          memo=#{memo},   
+          creator=#{creator},
+          createtime=#{createTime},
+          modifier=#{modifier},
+          modifiedtime=#{modifiedTime}
+        WHERE id=#{id}
+	</update>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="cperResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.custpointsid,
+          t.membershipid,
+          t.exchangegiftid,
+          t.exchangepoints,
+          t.time,
+          t.status,
+          t.memo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_points_exrecord t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="custpointsid !='' and custpointsid != null">
+              and t.custpointsid=#{custPointsId}
+           </if>
+           <if test="membershipid !='' and membershipid != null">
+              and t.membershipid=#{memberShipId}
+           </if>
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from cust_points_exrecord t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="custpointsid !='' and custpointsid != null">
+              and t.custpointsid=#{custPointsId}
+           </if>
+           <if test="membershipid !='' and membershipid != null">
+              and t.membershipid=#{memberShipId}
+           </if>
+	</select>
+</mapper>
