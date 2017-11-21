@@ -93,7 +93,7 @@
           t.birthday,
           t.phone,
           t.identityid,
-          t.custsource,
+          t.custsourceid,
           t.custtypeid,
           t.lpr,
           t.sex,
