@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.MemberShipSource;
-
 /**
  *
  * <code>MemberShipCard<code> <strong></strong>
@@ -59,7 +57,7 @@ public class MemberShipCard extends SuperVO {
   /**
    * 来源
    */
-  private MemberShipSource source;
+  private Integer source;
   /**
    * 绑定套餐
    */
@@ -160,11 +158,11 @@ public class MemberShipCard extends SuperVO {
     this.shareToBranch = shareToBranch;
   }
 
-  public MemberShipSource getSource() {
+  public Integer getSource() {
     return this.source;
   }
 
-  public void setSource(MemberShipSource source) {
+  public void setSource(Integer source) {
     this.source = source;
   }
 
