@@ -67,5 +67,13 @@ public class ProductClass extends SuperVO {
     this.parentId = parentId;
   }
 
+  public Long getStoreId() {
+    return this.storeId;
+  }
+
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
+  }
+
 
 }

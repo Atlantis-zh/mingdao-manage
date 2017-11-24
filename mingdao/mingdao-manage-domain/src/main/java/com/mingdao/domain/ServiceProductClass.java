@@ -31,7 +31,7 @@ public class ServiceProductClass extends SuperVO {
    */
   private String name;
   /**
-   * 所属门店
+   * 所属工时分类
    */
   private Long workTimeClassId;
   /**

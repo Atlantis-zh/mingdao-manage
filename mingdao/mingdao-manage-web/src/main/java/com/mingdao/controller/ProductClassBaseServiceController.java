@@ -16,38 +16,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IWorkTimeClassBaseService;
+import com.mingdao.api.IProductClassBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
+import com.mingdao.domain.ProductClass;
 import com.mingdao.domain.ResultMessage;
-import com.mingdao.domain.WorkTimeClass;
 
 /**
  *
- * <code>WorkTimeClassBaseServiceController<code> <strong></strong>
+ * <code>ProductClassBaseServiceController<code> <strong></strong>
  * <p>
- * 说明：工时分类的controller
+ * 说明：
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月25日 上午1:51:06
+ * @version 2017年11月25日 上午2:17:26
  * @author libin
  */
-
 @Controller
-@RequestMapping("/wktBaseSer")
-public class WorkTimeClassBaseServiceController extends BaseController {
+@RequestMapping("/orderProductClassBaseSer")
+public class ProductClassBaseServiceController extends BaseController {
 
   @Autowired
-  private IWorkTimeClassBaseService wktBaseService;
+  private IProductClassBaseService pcBaseService;
 
 
   /**
    * 
    * <p>
-   * 说明：新增工时分类
+   * 说明：新增
    * <li></li>
    * </p>
    * 
@@ -57,27 +56,24 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
-  @RequestMapping(value = "/addWorkTimeClass", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addWorkTimeClass(HttpServletRequest request,
+  @RequestMapping(value = "/addProductClass", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addProductClass(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-
-    WorkTimeClass newWkt = new WorkTimeClass();
-    newWkt.setStoreId(jsonObj.getLong("storeId"));
-    newWkt.setCode(jsonObj.getString("code"));
-    newWkt.setName(jsonObj.getString("name"));
-    newWkt.setMinutes(jsonObj.getInteger("minutes"));
-    newWkt.setPrice(jsonObj.getDouble("price"));
-    newWkt.setIsDefault(jsonObj.getBoolean("isDefault"));
-    super.setTimeStampWithInsert(newWkt, request);
-    newWkt = wktBaseService.insert(newWkt);
-    if (newWkt.getId() != null) {
+    ProductClass newPc = new ProductClass();
+    newPc.setStoreId(jsonObj.getLong("storeId"));
+    newPc.setCode(jsonObj.getString("code"));
+    newPc.setName(jsonObj.getString("name"));
+    newPc.setParentId(jsonObj.getLong("parentId"));
+    super.setTimeStampWithInsert(newPc, request);
+    newPc = pcBaseService.insert(newPc);
+    if (newPc.getId() != null) {
       result.setSuccess(true);
-      result.setResult(newWkt.getId());
+      result.setResult(newPc.getId());
     } else {
       result.setSuccess(false);
-      result.setResultMsg("新增工时分类失败，请检查日志！");
+      result.setResultMsg("新增失败，请检查日志！");
     }
     return result;
   }
@@ -95,31 +91,29 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
-  @RequestMapping(value = "/updateWorkTimeClass", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateWorkTimeClass(HttpServletRequest request,
+  @RequestMapping(value = "/updateProductClass", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateProductClass(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    WorkTimeClass oldWkt = wktBaseService.queryDocById(jsonObj.getLong("id"));
-    if (oldWkt == null) {
+    ProductClass oldPc = pcBaseService.queryDocById(jsonObj.getLong("id"));
+    if (oldPc == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldWkt.setStoreId(jsonObj.getLong("storeId"));
-    oldWkt.setCode(jsonObj.getString("code"));
-    oldWkt.setName(jsonObj.getString("name"));
-    oldWkt.setMinutes(jsonObj.getInteger("minutes"));
-    oldWkt.setPrice(jsonObj.getDouble("price"));
-    oldWkt.setIsDefault(jsonObj.getBoolean("isDefault"));
-    super.setTimeStampWithUpdate(oldWkt, request);
-    int updateRet = wktBaseService.update(oldWkt);
+    oldPc.setStoreId(jsonObj.getLong("storeId"));
+    oldPc.setCode(jsonObj.getString("code"));
+    oldPc.setName(jsonObj.getString("name"));
+    oldPc.setParentId(jsonObj.getLong("parentId"));
+    super.setTimeStampWithUpdate(oldPc, request);
+    int updateRet = pcBaseService.update(oldPc);
     if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("更新失败，请稍后重新尝试！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(oldWkt));
+      result.setResult(DataUtil.superVOToJsonObject(oldPc));
     }
     return result;
   }
@@ -136,11 +130,11 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:00
    * @since NC6.5
    */
-  @RequestMapping(value = "/deleteWorkTimeClass", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage deleteWorkTimeClass(HttpServletRequest request) {
+  @RequestMapping(value = "/deleteProductClassById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteProductClassById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    int updateRet = wktBaseService.deleteDocById(id);
+    int updateRet = pcBaseService.deleteDocById(id);
     if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("删除数据不存在！");
@@ -163,8 +157,8 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryWorkTimeClasses", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryWorkTimeClasses(HttpServletRequest request) {
+  @RequestMapping(value = "/pageQryProductClasses", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage pageQryProductClasses(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long storeId = Long.valueOf(request.getParameter("storeId"));
     if (storeId == null) {
@@ -173,17 +167,21 @@ public class WorkTimeClassBaseServiceController extends BaseController {
     }
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("storeId", storeId);
-    Pager<WorkTimeClass> opPager = wktBaseService.pageQueryByCondition(param);
+    Long parentId = Long.valueOf(request.getParameter("parentId"));
+    if (parentId != null) {
+      param.put("parentId", parentId);
+    }
+    Pager<ProductClass> opPager = pcBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);
-      result.setResultMsg("查询工时分类失败，请稍后重试！");
+      result.setResultMsg("查询失败，请稍后重试！");
       return result;
     }
     JSONObject obj = new JSONObject();
     obj.put(PageResultConst.PAGE, opPager.getOffset());
     obj.put(PageResultConst.PAGESIZE, opPager.getSize());
     obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<WorkTimeClass> list = opPager.getDatas();
+    List<ProductClass> list = opPager.getDatas();
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
@@ -206,17 +204,17 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:30
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryWorkTimeClassById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage qryWorkTimeClassById(HttpServletRequest request) {
+  @RequestMapping(value = "/qryProductClassById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryProductClassById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    WorkTimeClass wkt = wktBaseService.queryDocById(id);
-    if (wkt == null) {
+    ProductClass pc = pcBaseService.queryDocById(id);
+    if (pc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(wkt));
+      result.setResult(DataUtil.superVOToJsonObject(pc));
     }
     return result;
   }

@@ -48,6 +48,9 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
+           <if test="storeid != null">
+              and t.storeid=#{storeId}
+           </if>           
            <if test="code != null">
               and t.code=#{code}
            </if>
@@ -63,6 +66,9 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
+           <if test="storeid != null">
+              and t.storeid=#{storeId}
+           </if>           
            <if test="code != null">
               and t.code=#{code}
            </if>
@@ -71,5 +77,45 @@
            </if>
 	</select>
 	
+    <delete id="deleteDocById" parameterType="long">
+        delete from product_class  where id = #{id}
+    </delete>
+
+	<select id="queryById" parameterType="long" resultMap="productClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  product_class t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="productClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM product_class t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
 	
 </mapper>

@@ -53,7 +53,7 @@ public class ProductClassBaseServiceImpl implements IProductClassBaseService {
 
   @Override
   public ProductClass singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -68,7 +68,7 @@ public class ProductClassBaseServiceImpl implements IProductClassBaseService {
 
   @Override
   public ProductClass queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
