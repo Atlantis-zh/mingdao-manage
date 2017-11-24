@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.ICustomerBaseService;
 import com.mingdao.api.IOrderProjectBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
@@ -45,8 +44,7 @@ public class OrderProjectServiceController extends BaseController {
   @Autowired
   private IOrderProjectBaseService orderProjectService;
 
-  @Autowired
-  private ICustomerBaseService custBaseService;
+
 
   /**
    * 
