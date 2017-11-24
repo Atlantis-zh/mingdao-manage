@@ -34,7 +34,7 @@ import com.mingdao.web.consts.MingDaoHttpRequestConsts;
  */
 @Controller
 @RequestMapping("/weixin/customerBaseSer")
-public class CustBaseServiceForWXController extends BaseController {
+public class CustBaseServiceController extends BaseController {
 
   @Autowired
   private ICustomerBaseService custBaseService;

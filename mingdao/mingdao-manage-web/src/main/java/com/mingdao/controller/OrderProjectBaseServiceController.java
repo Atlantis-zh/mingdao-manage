@@ -39,7 +39,7 @@ import com.mingdao.domain.ResultMessage;
 
 @Controller
 @RequestMapping("/orderProjectBaseSer")
-public class OrderProjectServiceController extends BaseController {
+public class OrderProjectBaseServiceController extends BaseController {
 
   @Autowired
   private IOrderProjectBaseService orderProjectService;

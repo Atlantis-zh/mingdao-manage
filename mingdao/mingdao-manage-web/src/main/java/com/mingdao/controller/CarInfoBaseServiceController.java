@@ -34,7 +34,7 @@ import com.mingdao.web.consts.MingDaoHttpRequestConsts;
  */
 @Controller
 @RequestMapping("/weixin/carInfoBaseSer")
-public class CarInfoBaseServiceForWXController extends BaseController {
+public class CarInfoBaseServiceController extends BaseController {
 
 	@Autowired
 	private ICarInfoBaseService carInfoBaseService;
