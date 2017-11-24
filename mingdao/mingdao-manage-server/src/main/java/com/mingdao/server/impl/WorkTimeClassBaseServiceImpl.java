@@ -54,7 +54,7 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 
   @Override
   public WorkTimeClass singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 
   @Override
   public WorkTimeClass queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
