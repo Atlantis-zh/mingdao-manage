@@ -53,7 +53,7 @@ public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
 
   @Override
   public AttachProject singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -68,7 +68,7 @@ public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
 
   @Override
   public AttachProject queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

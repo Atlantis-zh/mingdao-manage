@@ -23,14 +23,14 @@
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.AttachProject">
 	    UPDATE attach_project SET
-        <if test="storeId!=null"> storeid=#{storeId},</if>
-        <if test="code!=null"> code=#{code},</if>
-        <if test="name!=null">  name=#{name},</if>
-        <if test="price!=null">  price=#{price},       </if>
-        <if test="creator!=null">  creator=#{creator},</if>
-        <if test="createTime!=null">  createtime=#{createTime},</if>
-        <if test="createTime!=null">  modifier=#{modifier},</if>
-        <if test="modifiedTime!=null">  modifiedtime=#{modifiedTime}</if>
+        <if test="storeId!=null">storeid=#{storeId},</if>
+        <if test="code!=null">code=#{code},</if>
+        <if test="name!=null">name=#{name},</if>
+        <if test="price!=null">price=#{price},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="createTime!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	
@@ -46,13 +46,16 @@
           t.modifier,
           t.modifiedtime
         FROM  attach_project t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="code != null">
               and t.code=#{code}
-           </if>
-           <if test="name !='' and name != null">
+           </if>           
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -61,13 +64,16 @@
 		select
 		   count(1)
 		from attach_project t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="code != null">
               and t.code=#{code}
-           </if>
-           <if test="name !='' and name != null">
+           </if>           
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -75,4 +81,42 @@
     <delete id="deleteDocById" parameterType="int">
         delete from attach_project  where id = #{id}
     </delete>
+    
+
+	<select id="queryById" parameterType="long" resultMap="attProjectResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.price,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  attach_project t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="attProjectResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.price,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM attach_project t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>    
 </mapper>
