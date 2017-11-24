@@ -54,7 +54,7 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 
   @Override
   public ServiceProject singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -71,6 +71,6 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 
   @Override
   public ServiceProject queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 }

@@ -32,6 +32,35 @@
           modifiedtime=#{modifiedTime}
         WHERE id=#{id}
 	</update>
+
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="productClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  product_class t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="productClassResultMap">
 	    SELECT

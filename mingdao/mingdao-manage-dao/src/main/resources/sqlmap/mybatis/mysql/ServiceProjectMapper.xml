@@ -67,6 +67,12 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="serProdClassId != null">
+              and t.serprodclassid=#{serProdClassId}
+           </if>                        
            <if test="code != null">
               and t.code=#{code}
            </if>
@@ -79,13 +85,19 @@
 		select
 		   count(1)
 		from service_product t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="serProdClassId != null">
+              and t.serprodclassid=#{serProdClassId}
+           </if>                        
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -93,4 +105,53 @@
     <delete id="deleteDocById" parameterType="int">
         delete from service_product  where id = #{id}
     </delete>
+    
+	<select id="queryById" parameterType="long" resultMap="serviceProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.spec,
+          t.cost,
+          t.workhours,
+          t.saleprice,
+          t.isselfhelp,
+          t.unit,
+          t.serprodclassid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  service_product t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="serviceProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.spec,
+          t.cost,
+          t.workhours,
+          t.saleprice,
+          t.isselfhelp,
+          t.unit,
+          t.serprodclassid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM service_product t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>    
 </mapper>
