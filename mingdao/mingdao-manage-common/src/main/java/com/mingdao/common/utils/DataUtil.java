@@ -15,7 +15,6 @@ public class DataUtil {
     if (list == null || list.size() == 0) {
       return array;
     }
-
     for (int i = 0; i < list.size(); i++) {
       JSONObject object = (JSONObject) JSONObject.toJSON(list.get(i));
       array.add(object);
@@ -23,7 +22,7 @@ public class DataUtil {
     return array;
   }
 
-  public static JSONObject ObjectToJsonObject(Object obj) {
+  public static JSONObject superVOToJsonObject(Object obj) {
     JSONObject object = (JSONObject) JSONObject.toJSON(obj);
     return object;
   }

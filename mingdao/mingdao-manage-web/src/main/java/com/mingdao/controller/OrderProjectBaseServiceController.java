@@ -153,13 +153,13 @@ public class OrderProjectBaseServiceController extends BaseController {
     oldOP.setCarInfoId(jsonObj.getLong("carInfoId"));
     oldOP.setMeno(jsonObj.getString("meno"));
     super.setTimeStampWithUpdate(oldOP, request);
-    OrderProject newOP = orderProjectService.update(oldOP);
-    if (newOP == null) {
+    int updateRet = orderProjectService.update(oldOP);
+    if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("更新失败，请稍后重新尝试！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.ObjectToJsonObject(newOP));
+      result.setResult(DataUtil.superVOToJsonObject(oldOP));
     }
     return result;
   }
