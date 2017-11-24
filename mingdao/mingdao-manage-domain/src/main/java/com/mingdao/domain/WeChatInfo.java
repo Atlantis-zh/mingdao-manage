@@ -1,13 +1,11 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.Sex;
-
 /**
  *
  * <code>IWeChetInfoDao<code> <strong></strong>
  * <p>
  * 
- * <li>微信关注列表</li>
+ * <li>关注列表</li>
  * </p>
  * 
  * @since
@@ -25,21 +23,9 @@ public class WeChatInfo extends SuperVO {
    */
   private String wxNickName;
   /**
-   * 所属门店
-   */
-  private Long storeId;
-  /**
-   * 手机号
-   */
-  private String phone;
-  /**
-   * 地址
-   */
-  private String address;
-  /**
    * 关注状态
    */
-  private boolean followStatus;
+  private Boolean followStatus;
   /**
    * 关注时间
    */
@@ -47,21 +33,8 @@ public class WeChatInfo extends SuperVO {
   /**
    * 关联客户
    */
-  private String relationCustId;
-  /**
-   * 性别
-   */
-  private Sex sex;
+  private Long customerId;
 
-  public static final String ID = "id";
-  public static final String CODE = "code";
-  public static final String MNNAME = "mnname";
-  public static final String STOREID = "storeId";
-  public static final String TEL = "tel";
-  public static final String ADDRESS = "address";
-  public static final String STATUS = "status";
-  public static final String RELATIONCUST = "relationcust";
-  public static final String SEX = "sex";
 
   public Long getId() {
     return this.id;
@@ -79,35 +52,11 @@ public class WeChatInfo extends SuperVO {
     this.wxNickName = wxNickName;
   }
 
-  public Long getStoreId() {
-    return this.storeId;
-  }
-
-  public void setStoreId(Long storeId) {
-    this.storeId = storeId;
-  }
-
-  public String getPhone() {
-    return this.phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public String getAddress() {
-    return this.address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public boolean isFollowStatus() {
+  public Boolean getFollowStatus() {
     return this.followStatus;
   }
 
-  public void setFollowStatus(boolean followStatus) {
+  public void setFollowStatus(Boolean followStatus) {
     this.followStatus = followStatus;
   }
 
@@ -119,20 +68,12 @@ public class WeChatInfo extends SuperVO {
     this.followTime = followTime;
   }
 
-  public String getRelationCustId() {
-    return this.relationCustId;
+  public Long getCustomerId() {
+    return this.customerId;
   }
 
-  public void setRelationCustId(String relationCustId) {
-    this.relationCustId = relationCustId;
-  }
-
-  public Sex getSex() {
-    return this.sex;
-  }
-
-  public void setSex(Sex sex) {
-    this.sex = sex;
+  public void setCustomerId(Long customerId) {
+    this.customerId = customerId;
   }
 
 

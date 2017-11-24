@@ -28,24 +28,25 @@
         (#{storeId},#{name},#{code},#{wxNickName},#{birthday},#{phone},#{identityId},#{custSourceId},#{custTypeId},#{lpr},#{sex},#{address},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
+	
 	<update id="updateVO" parameterType="com.mingdao.domain.Customer">
 	    UPDATE customer SET
-          storeid=#{storeId},
-          name=#{name},
-          code=#{code},
-          wxnickname=#{wxNickName},
-          birthday=#{birthday},
-          phone=#{phone},
-          identityid=#{identityId},
-          custsourceid=#{custSourceId},
-          custtypeid=#{custTypeId},
-          lpr=#{lpr},
-          sex=#{sex},
-          address=#{address},                    
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="storeId!=null"> storeid=#{storeId},</if>
+        <if test="code!=null">code=#{code},</if>
+        <if test="name!=null">name=#{name},</if>
+        <if test="wxNickName!=null">wxnickname=#{wxNickName},</if>
+        <if test="birthday!=null">birthday=#{birthday},</if>
+        <if test="phone!=null"> phone=#{phone},</if>
+        <if test="identityId!=null">identityid=#{identityId},</if>
+        <if test="custSourceId!=null">custsourceid=#{custSourceId},</if>
+        <if test="custTypeId!=null">custtypeid=#{custTypeId},</if>
+        <if test="lpr!=null">lpr=#{lpr},</if>
+        <if test="sex!=null">sex=#{sex},</if>
+        <if test="address!=null">address=#{address},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="modifier!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
 	</update>
 	
@@ -69,18 +70,18 @@
           t.modifier,
           t.modifiedtime
         FROM  customer t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != '' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="phone != '' and phone != null">
+           <if test="phone != null">
               and t.phone=#{phone}
            </if>
-           <if test="name != '' and name != null">
+           <if test="name != null">
                 and t.name=#{name}
-            </if>
+           </if>
 	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="customerResultMap">
@@ -103,35 +104,61 @@
           t.modifier,
           t.modifiedtime
         FROM  customer t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != '' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-            <if test="phone != '' and phone != null">
-                and t.phone=#{phone}
-            </if>
-            <if test="name != '' and name != null">
+           <if test="phone != null">
+              and t.phone=#{phone}
+           </if>
+           <if test="name != null">
                 and t.name=#{name}
-            </if>
+           </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
 		from customer t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != '' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-            <if test="phone != '' and phone != null">
-                and t.phone=#{phone}
-            </if>
-            <if test="name != '' and name != null">
+           <if test="phone != null">
+              and t.phone=#{phone}
+           </if>
+           <if test="name != null">
                 and t.name=#{name}
-            </if>
+           </if>
 	</select>
+	
+    <delete id="deleteDocById" parameterType="int">
+        delete from customer  where id = #{id}
+    </delete>
+    
+	<select id="queryById" parameterType="long" resultMap="customerResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.name,
+          t.code,
+          t.wxnickname,
+          t.birthday,
+          t.phone,
+          t.identityid,
+          t.custsourceid,
+          t.custtypeid,
+          t.lpr,
+          t.sex,
+          t.address,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  customer t where id=#{id}
+	</select>	
 </mapper>

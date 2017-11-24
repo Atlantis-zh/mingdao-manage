@@ -70,7 +70,7 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
 
   @Override
   public Customer queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

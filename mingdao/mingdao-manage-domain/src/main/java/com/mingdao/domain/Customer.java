@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.Sex;
-
 /**
  *
  * <code>Customer<code> <strong></strong>
@@ -63,7 +61,7 @@ public class Customer extends SuperVO {
   /**
    * 性别
    */
-  private Sex sex;
+  private Integer sex;
   /**
    * 地址
    */
@@ -164,11 +162,11 @@ public class Customer extends SuperVO {
     this.lpr = lpr;
   }
 
-  public Sex getSex() {
+  public Integer getSex() {
     return this.sex;
   }
 
-  public void setSex(Sex sex) {
+  public void setSex(Integer sex) {
     this.sex = sex;
   }
 

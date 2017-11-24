@@ -3,15 +3,10 @@
 <mapper namespace="com.mingdao.dao.base.IWeChetInfoDao">
 	<resultMap id="weChetInfoResultMap" type="com.mingdao.domain.WeChatInfo">
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
-		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
-		<result property="mnname" javaType="string" jdbcType="VARCHAR" column="mnname"/>
-	    <result property="storeId" javaType="long" jdbcType="INTEGER" column="storeid"/>
-	    <result property="tel" javaType="string" jdbcType="VARCHAR" column="tel"/>
-		<result property="address" javaType="string" jdbcType="VARCHAR" column="address"/>
-	    <result property="relationcust" javaType="long" jdbcType="INTEGER" column="relationcust"/>
-		<result property="creator" javaType="long" jdbcType="INTEGER" column="creator"/>
-		<result property="sex" javaType="int" jdbcType="INTEGER" column="sex"/>
-		<result property="status" javaType="boolean" jdbcType="BOOLEAN" column="status"/>
+		<result property="wxNickName" javaType="string" jdbcType="VARCHAR" column="wxnickname"/>
+		<result property="followTime" javaType="string" jdbcType="VARCHAR" column="followtime"/>
+	    <result property="customerId" javaType="long" jdbcType="INTEGER" column="customerid"/>
+		<result property="followStatus" javaType="boolean" jdbcType="BOOLEAN" column="followstatus"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -20,39 +15,34 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.WeChatInfo" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO wechatinfo
-        (code,mnname,storeid,tel,address,relationcust,sex,status,creator,createtime,modifier,modifiedtime)
+        (wxnickname,followtime,followstatus,customerid,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{mnname},#{storeId},#{tel},#{address},#{relationcust},#{sex},#{status},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{wxNickName},#{followTime},#{followStatus},#{customerId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
+		
 	<update id="updateVO" parameterType="com.mingdao.domain.WeChatInfo">
 	    UPDATE wechatinfo SET
-          code=#{code},
-          mnname=#{mnname},
-          storeid=#{storeId},
-          tel=#{tel},
-          address=#{address},
-          relationcust=#{relationcust},
-          sex=#{sex},
-          status=#{status},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+        <if test="wxNickName!=null">  wxnickname=#{wxNickName},</if>
+        <if test="followTime!=null">followtime=#{followTime},</if>
+        <if test="followStatus!=null"> followstatus=#{followStatus},</if>
+        <if test="customerId!=null">customerid=#{customerId},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="modifier!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}  </if>
         WHERE id=#{id}
 	</update>
+	
+	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="weChetInfoResultMap">
 	    SELECT
           t.id,
-          t.code,
-          t.mnname,
-          t.storeid,
-          t.tel,
-          t.address,
-          t.relationcust,
-          t.sex,
-          t.status,
+          t.wxnickname,
+          t.followtime,
+          t.followstatus,
+          t.customerid,
           t.creator,
           t.createtime,
           t.modifier,
@@ -61,28 +51,66 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null">
-              and t.code=#{code}
+           <if test="wxNickName != null">
+              and t.wxnickname=#{wxNickName}
            </if>
-           <if test="mnname != null">
-              and t.mnname=#{mnname}
+           <if test="followStatus != null">
+              and t.followstatus=#{followStatus!=null}
            </if>
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from role t where 1=1
+		from wechatinfo t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null">
-              and t.code=#{code}
+           <if test="wxNickName != null">
+              and t.wxnickname=#{wxNickName}
            </if>
-           <if test="mnname != null">
-              and t.mnname=#{mnname}
+           <if test="followStatus != null">
+              and t.followstatus=#{followStatus!=null}
            </if>
 	</select>
+    <delete id="deleteDocById" parameterType="int">
+        delete from wechatinfo  where id = #{id}
+    </delete>
+    
+	<select id="queryById" parameterType="long" resultMap="weChetInfoResultMap">
+	    SELECT
+          t.id,
+          t.wxnickname,
+          t.followtime,
+          t.followstatus,
+          t.customerid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  wechatinfo t where id=#{id}
+	</select>
 	
-	
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="weChetInfoResultMap">
+	    SELECT
+          t.id,
+          t.wxnickname,
+          t.followtime,
+          t.followstatus,
+          t.customerid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM wechatinfo t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="wxNickName != null">
+              and t.wxnickname=#{wxNickName}
+           </if>
+           <if test="followStatus != null">
+              and t.followstatus=#{followStatus!=null}
+           </if>
+	</select>	
 </mapper>

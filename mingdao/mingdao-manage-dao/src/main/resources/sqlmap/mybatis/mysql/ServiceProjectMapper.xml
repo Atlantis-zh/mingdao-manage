@@ -42,7 +42,7 @@
         <if test="creator!=null">creator=#{creator},</if>
         <if test="createTime!=null">createtime=#{createTime},</if>
         <if test="modifier!=null">modifier=#{modifier},</if>
-        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
 	</update>
 	
