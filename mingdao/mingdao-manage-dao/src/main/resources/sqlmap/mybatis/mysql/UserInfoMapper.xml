@@ -9,7 +9,7 @@
 		<result property="nickName" javaType="string" jdbcType="VARCHAR" column="nickname"/>
 		<result property="userCode" javaType="string" jdbcType="VARCHAR" column="usercode"/>
 		<result property="shopId" javaType="string" jdbcType="VARCHAR" column="shopid"/>
-		<result property="status" javaType="string" jdbcType="VARCHAR" column="status"/>
+		<result property="status" javaType="int" jdbcType="SMALLINT" column="status"/>
 		<result property="phone" javaType="string" jdbcType="VARCHAR" column="phone"/>
 		<result property="email" javaType="string" jdbcType="VARCHAR" column="email"/>
 		<result property="creator" javaType="java.lang.Long" jdbcType="BIGINT" column="creator"/>
