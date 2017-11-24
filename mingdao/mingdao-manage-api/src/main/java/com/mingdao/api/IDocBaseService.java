@@ -20,16 +20,18 @@ import com.mingdao.common.pageUtil.Pager;
 
 public interface IDocBaseService<T> {
 
-	public T insert(T t);
+  public T insert(T t);
 
-	public T update(T t);
+  public T update(T t);
 
-	public Pager<T> pageQueryByCondition(Map<String, Object> param);
+  public Pager<T> pageQueryByCondition(Map<String, Object> param);
 
-	public T singleQryByCondtion(Map<String, Object> param);
+  public T singleQryByCondtion(Map<String, Object> param);
 
-	public List<T> qryAllDoces(Map<String, Object> param);
+  public List<T> qryAllDoces(Map<String, Object> param);
 
-	public void deleteDocById(Long id);
+  public void deleteDocById(Long id);
+
+  public T queryDocById(Long id);
 
 }

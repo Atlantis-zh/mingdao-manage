@@ -29,44 +29,49 @@ import com.mingdao.domain.ServiceProject;
 @Service
 public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService {
 
-	@Autowired
-	private IServiceProjectDao dao;
+  @Autowired
+  private IServiceProjectDao dao;
 
-	@Override
-	public ServiceProject insert(ServiceProject t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public ServiceProject insert(ServiceProject t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public ServiceProject update(ServiceProject t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public ServiceProject update(ServiceProject t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<ServiceProject> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<ServiceProject> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<ServiceProject> pages = new Pager<ServiceProject>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<ServiceProject> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<ServiceProject> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<ServiceProject> pages = new Pager<ServiceProject>(count, list);
+    return pages;
+  }
 
-	@Override
-	public ServiceProject singleQryByCondtion(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public ServiceProject singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public List<ServiceProject> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<ServiceProject> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
 
 
-	@Override
-	public void deleteDocById(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public ServiceProject queryDocById(Long id) {
+    return null;
+  }
 }

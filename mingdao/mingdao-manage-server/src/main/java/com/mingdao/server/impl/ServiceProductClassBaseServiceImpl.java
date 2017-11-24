@@ -29,43 +29,48 @@ import com.mingdao.domain.ServiceProductClass;
 @Service("serviceProductClassBaseService")
 public class ServiceProductClassBaseServiceImpl implements IServiceProductClassBaseService {
 
-	@Autowired
-	private IServiceProductClassDao dao;
+  @Autowired
+  private IServiceProductClassDao dao;
 
-	@Override
-	public ServiceProductClass insert(ServiceProductClass t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public ServiceProductClass insert(ServiceProductClass t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public ServiceProductClass update(ServiceProductClass t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public ServiceProductClass update(ServiceProductClass t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<ServiceProductClass> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<ServiceProductClass> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<ServiceProductClass> pages = new Pager<ServiceProductClass>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<ServiceProductClass> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<ServiceProductClass> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<ServiceProductClass> pages = new Pager<ServiceProductClass>(count, list);
+    return pages;
+  }
 
-	@Override
-	public ServiceProductClass singleQryByCondtion(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public ServiceProductClass singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public List<ServiceProductClass> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<ServiceProductClass> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public ServiceProductClass queryDocById(Long id) {
+    return null;
+  }
 
 }

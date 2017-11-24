@@ -64,4 +64,9 @@ public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public CustSource queryDocById(Long id) {
+    return null;
+  }
+
 }

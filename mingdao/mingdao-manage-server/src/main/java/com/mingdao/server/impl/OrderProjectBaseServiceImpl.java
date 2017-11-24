@@ -73,4 +73,9 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService {
     return dao.queryById(id);
   }
 
+  @Override
+  public OrderProject queryDocById(Long id) {
+    return null;
+  }
+
 }

@@ -29,43 +29,48 @@ import com.mingdao.domain.WorkTimeClass;
 @Service("workTimeClassBaseService")
 public class WorkTimeClassBaseServiceImpl implements IWorkTimeClassBaseService {
 
-	@Autowired
-	private IWorkTimeClassDao dao;
+  @Autowired
+  private IWorkTimeClassDao dao;
 
-	@Override
-	public WorkTimeClass insert(WorkTimeClass t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public WorkTimeClass insert(WorkTimeClass t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public WorkTimeClass update(WorkTimeClass t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public WorkTimeClass update(WorkTimeClass t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<WorkTimeClass> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<WorkTimeClass> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<WorkTimeClass> pages = new Pager<WorkTimeClass>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<WorkTimeClass> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<WorkTimeClass> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<WorkTimeClass> pages = new Pager<WorkTimeClass>(count, list);
+    return pages;
+  }
 
-	@Override
-	public WorkTimeClass singleQryByCondtion(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public WorkTimeClass singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public List<WorkTimeClass> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<WorkTimeClass> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public WorkTimeClass queryDocById(Long id) {
+    return null;
+  }
 
 }

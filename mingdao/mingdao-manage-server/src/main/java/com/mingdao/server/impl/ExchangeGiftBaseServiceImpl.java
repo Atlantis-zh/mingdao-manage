@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IExchangeGiftBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IExchangeGiftDao;
 import com.mingdao.domain.ExchangeGift;
 
@@ -30,43 +29,48 @@ import com.mingdao.domain.ExchangeGift;
 @Service("exchangeGiftBaseService")
 public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 
-	@Autowired
-	private IExchangeGiftDao dao;
+  @Autowired
+  private IExchangeGiftDao dao;
 
-	@Override
-	public ExchangeGift insert(ExchangeGift t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public ExchangeGift insert(ExchangeGift t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public ExchangeGift update(ExchangeGift t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public ExchangeGift update(ExchangeGift t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<ExchangeGift> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<ExchangeGift> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<ExchangeGift> pages = new Pager<ExchangeGift>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<ExchangeGift> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<ExchangeGift> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<ExchangeGift> pages = new Pager<ExchangeGift>(count, list);
+    return pages;
+  }
 
-	@Override
-	public ExchangeGift singleQryByCondtion(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public ExchangeGift singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public List<ExchangeGift> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<ExchangeGift> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public ExchangeGift queryDocById(Long id) {
+    return null;
+  }
 
 }

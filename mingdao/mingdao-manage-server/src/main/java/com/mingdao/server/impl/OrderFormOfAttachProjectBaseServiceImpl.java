@@ -65,4 +65,9 @@ public class OrderFormOfAttachProjectBaseServiceImpl
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public OrderFormOfAttachProject queryDocById(Long id) {
+    return null;
+  }
+
 }

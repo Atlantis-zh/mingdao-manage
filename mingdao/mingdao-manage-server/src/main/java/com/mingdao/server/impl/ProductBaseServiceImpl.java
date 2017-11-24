@@ -65,4 +65,9 @@ public class ProductBaseServiceImpl implements IProductBaseService {
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public Product queryDocById(Long id) {
+    return null;
+  }
+
 }

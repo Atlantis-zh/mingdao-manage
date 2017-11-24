@@ -26,5 +26,5 @@ public interface IBaseDao<E> {
 
   public int getCountByCondition(Map<String, Object> param);
 
-  public void deleteDocById(Long id);
+  public int deleteDocById(Long id);
 }

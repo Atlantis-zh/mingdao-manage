@@ -66,4 +66,9 @@ public class MemberShipReChargeCardComDetailBaseServiceImpl
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public MemberShipReChargeCardComDetail queryDocById(Long id) {
+    return null;
+  }
+
 }

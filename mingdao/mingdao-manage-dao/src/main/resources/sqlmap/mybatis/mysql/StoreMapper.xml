@@ -12,6 +12,7 @@
 		<result property="isWxShow" javaType="boolean" jdbcType="BOOLEAN" column="iswxshow"/>
 		<result property="isWxDefault" javaType="boolean" jdbcType="BOOLEAN" column="iswxdefault"/>
 		<result property="isHeadStore" javaType="boolean" jdbcType="BOOLEAN" column="isheadstore"/>
+		<result property="wxPubAccId" javaType="string" jdbcType="VARCHAR" column="wxpubaccid"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -20,9 +21,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Store" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO store
-        (code,name,tel1,tel2,tel3,address,iswxshow,iswxdefault,isheadstore,creator,createtime,modifier,modifiedtime)
+        (code,name,tel1,tel2,tel3,address,iswxshow,iswxdefault,isheadstore,wxpubaccid,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{name},#{tel1},#{tel2},#{tel3},#{address},#{isWxShow},#{isWxDefault},#{isHeadStore},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{code},#{name},#{tel1},#{tel2},#{tel3},#{address},#{isWxShow},#{isWxDefault},#{isHeadStore},#{wxPubAccId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Store">
@@ -36,6 +37,7 @@
           iswxshow=#{isWxShow},
           iswxdefault=#{isWxDefault},
           isheadstore=#{isHeadStore},
+          wxpubaccid=#{wxPubAccId},
           creator=#{creator},
           createtime=#{createTime},
           modifier=#{modifier},
@@ -55,6 +57,7 @@
           t.iswxshow,
           t.iswxdefault,
           t.isheadstore,
+          t.wxpubaccid,
           t.creator,
           t.createtime,
           t.modifier,
@@ -63,12 +66,33 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null">
-              and t.code=#{code}
-           </if>
-           <if test="name != null">
-              and t.name=#{name}
-           </if>
+			<if test="code != '' and code != null">
+				and t.code=#{code}
+			</if>
+			<if test="name != '' and name != null">
+				and t.name=#{name}
+			</if>
+	</select>
+	
+	
+	<select id="queryById" parameterType="long" resultMap="storeResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.tel1,
+          t.tel2,
+          t.tel3,
+          t.address,
+          t.iswxshow,
+          t.iswxdefault,
+          t.isheadstore,
+          t.wxpubaccid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  store t where id=#{id}
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
@@ -78,16 +102,16 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null">
-              and t.code=#{code}
-           </if>
-           <if test="name != null">
-              and t.name=#{name}
-           </if>
+			<if test="code != '' and code != null">
+				and t.code=#{code}
+			</if>
+			<if test="name != '' and name != null">
+				and t.name=#{name}
+			</if>
 	</select>
 
 
-    <delete id="deleteStore" parameterType="int">
+    <delete id="deleteDocById" parameterType="long">
         delete from store  where id = #{id}
     </delete>
 </mapper>

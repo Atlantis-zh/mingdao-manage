@@ -65,4 +65,9 @@ public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public AttachProject queryDocById(Long id) {
+    return null;
+  }
+
 }

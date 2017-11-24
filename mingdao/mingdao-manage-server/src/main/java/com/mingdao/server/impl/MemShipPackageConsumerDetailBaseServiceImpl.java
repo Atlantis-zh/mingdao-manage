@@ -67,4 +67,9 @@ public class MemShipPackageConsumerDetailBaseServiceImpl
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public MemShipPackageConsumerDetail queryDocById(Long id) {
+    return null;
+  }
+
 }

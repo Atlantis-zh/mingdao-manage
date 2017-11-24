@@ -27,53 +27,58 @@ import com.mingdao.domain.Menu;
  */
 @Service("menuBaseService")
 public class MenuBaseServiceImpl implements IMenuBaseService {
-	@Autowired
-	private IMenuDao dao;
+  @Autowired
+  private IMenuDao dao;
 
-	@Override
-	public Menu insert(Menu t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public Menu insert(Menu t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Menu update(Menu t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public Menu update(Menu t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<Menu> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Menu> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<Menu> pages = new Pager<Menu>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<Menu> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Menu> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Menu> pages = new Pager<Menu>(count, list);
+    return pages;
+  }
 
-	@Override
-	public Menu singleQryByCondtion(Map<String, Object> param) {
-		Menu resutl = dao.singleQueryByCondition(param);
-		return resutl;
-	}
+  @Override
+  public Menu singleQryByCondtion(Map<String, Object> param) {
+    Menu resutl = dao.singleQueryByCondition(param);
+    return resutl;
+  }
 
-	@Override
-	public List<Menu> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<Menu> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public boolean isDocExist(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		if (count == 0) {
-			return false;
-		}
-		return true;
-	}
+  @Override
+  public boolean isDocExist(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    if (count == 0) {
+      return false;
+    }
+    return true;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public Menu queryDocById(Long id) {
+    return null;
+  }
 
 }

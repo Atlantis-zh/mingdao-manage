@@ -1,8 +1,5 @@
 package com.mingdao.api;
 
-import java.util.Map;
-
-import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.Store;
 
 /**
@@ -18,14 +15,7 @@ import com.mingdao.domain.Store;
  * @author libinf
  */
 
-public interface IStoreBaseService {
+public interface IStoreBaseService extends IDocBaseService<Store> {
 
-	public Store insertStore(Store store);
-
-	public Store updateStore(Store store);
-
-	public Pager<Store> pageQueryStoreByCondition(Map<String, Object> param);
-
-	public int deleteStore(int id);
 
 }

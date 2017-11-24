@@ -65,4 +65,9 @@ public class CustomerPointsBaseServiceImpl implements ICustomerPointsBaseService
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public CustomerPoints queryDocById(Long id) {
+    return null;
+  }
+
 }

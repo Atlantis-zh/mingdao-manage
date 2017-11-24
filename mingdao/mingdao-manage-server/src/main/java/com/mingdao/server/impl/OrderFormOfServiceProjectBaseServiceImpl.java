@@ -65,4 +65,9 @@ public class OrderFormOfServiceProjectBaseServiceImpl
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public OrderFormOfServiceProject queryDocById(Long id) {
+    return null;
+  }
+
 }

@@ -16,6 +16,5 @@ import com.mingdao.domain.Store;
  */
 
 public interface IStoreDao extends IBaseDao<Store> {
-    public int deleteStore(int id);
 
 }

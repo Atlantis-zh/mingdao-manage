@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.ICustomerBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.ICustomerDao;
 import com.mingdao.domain.Customer;
 
@@ -30,44 +29,48 @@ import com.mingdao.domain.Customer;
 @Service("customerBaseService")
 public class CustomerBaseServiceImpl implements ICustomerBaseService {
 
-	@Autowired
-	private ICustomerDao dao;
+  @Autowired
+  private ICustomerDao dao;
 
-	@Override
-	public Customer insert(Customer t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public Customer insert(Customer t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Customer update(Customer t) {
+  @Override
+  public Customer update(Customer t) {
 
-		dao.updateVO(t);
-		return t;
-	}
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<Customer> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Customer> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<Customer> pages = new Pager<Customer>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<Customer> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Customer> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Customer> pages = new Pager<Customer>(count, list);
+    return pages;
+  }
 
-	@Override
-	public Customer singleQryByCondtion(Map<String, Object> param) {
-		Customer resutl = dao.singleQueryByCondition(param);
-		return resutl;
-	}
+  @Override
+  public Customer singleQryByCondtion(Map<String, Object> param) {
+    Customer resutl = dao.singleQueryByCondition(param);
+    return resutl;
+  }
 
-	@Override
-	public List<Customer> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<Customer> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-	}
+  @Override
+  public void deleteDocById(Long id) {}
+
+  @Override
+  public Customer queryDocById(Long id) {
+    return null;
+  }
 
 }

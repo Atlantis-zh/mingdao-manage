@@ -64,4 +64,9 @@ public class MemShipCardDiscountBaseServiceImpl implements IMemShipCardDiscountB
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public MemShipCardDiscount queryDocById(Long id) {
+    return null;
+  }
+
 }

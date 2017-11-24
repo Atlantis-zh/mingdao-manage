@@ -27,15 +27,11 @@ public class BaseController {
    * @since NC6.5
    */
   public void setTimeStampWithInsert(SuperVO vo, HttpServletRequest request) {
-    // HttpSession session = request.getSession();
-    // Long userId = (Long) session.getAttribute(USERID);
     Timestamp date = DateUtil.getCurrentTimestamp();
     vo.setCreateTime(date);
   }
 
   public void setTimeStampWithUpdate(SuperVO vo, HttpServletRequest request) {
-    // HttpSession session = request.getSession();
-    // long userId = (long) session.getAttribute(USERID);
     Timestamp date = DateUtil.getCurrentTimestamp();
     vo.setModifiedTime(date);
   }

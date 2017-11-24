@@ -66,4 +66,9 @@ public class CustomerPointsExchangeRecordBaseServiceImpl
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public CustomerPointsExchangeRecord queryDocById(Long id) {
+    return null;
+  }
+
 }

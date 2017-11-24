@@ -64,4 +64,9 @@ public class MemberShipBaseServiceImpl implements IMemberShipBaseService {
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public MemberShip queryDocById(Long id) {
+    return null;
+  }
+
 }

@@ -28,42 +28,46 @@ import com.mingdao.domain.Measdoc;
 @Service("measDocService")
 public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 
-	@Autowired
-	private IMeasdocDao dao;
+  @Autowired
+  private IMeasdocDao dao;
 
-	@Override
-	public Measdoc insert(Measdoc t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public Measdoc insert(Measdoc t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Measdoc update(Measdoc t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public Measdoc update(Measdoc t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<Measdoc> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Measdoc> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<Measdoc> pages = new Pager<Measdoc>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<Measdoc> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Measdoc> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Measdoc> pages = new Pager<Measdoc>(count, list);
+    return pages;
+  }
 
-	@Override
-	public Measdoc singleQryByCondtion(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public Measdoc singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public List<Measdoc> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<Measdoc> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-	}
+  @Override
+  public void deleteDocById(Long id) {}
+
+  @Override
+  public Measdoc queryDocById(Long id) {
+    return null;
+  }
 
 }

@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.ICarInfoBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.ICarInfoDao;
 import com.mingdao.domain.CarInfo;
 
@@ -29,43 +28,47 @@ import com.mingdao.domain.CarInfo;
 @Service
 public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
 
-	@Autowired
-	private ICarInfoDao dao;
+  @Autowired
+  private ICarInfoDao dao;
 
-	@Override
-	public CarInfo insert(CarInfo t) {
-		dao.insertVO(t);
-		return t;
-	}
+  @Override
+  public CarInfo insert(CarInfo t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public CarInfo update(CarInfo t) {
-		dao.updateVO(t);
-		return t;
-	}
+  @Override
+  public CarInfo update(CarInfo t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<CarInfo> pageQueryByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<CarInfo> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<CarInfo> pages = new Pager<CarInfo>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<CarInfo> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<CarInfo> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<CarInfo> pages = new Pager<CarInfo>(count, list);
+    return pages;
+  }
 
-	@Override
-	public CarInfo singleQryByCondtion(Map<String, Object> param) {
-		CarInfo carInfo = dao.singleQueryByCondition(param);
-		return carInfo;
-	}
+  @Override
+  public CarInfo singleQryByCondtion(Map<String, Object> param) {
+    CarInfo carInfo = dao.singleQueryByCondition(param);
+    return carInfo;
+  }
 
-	@Override
-	public List<CarInfo> qryAllDoces(Map<String, Object> param) {
-		return null;
-	}
+  @Override
+  public List<CarInfo> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
 
-	@Override
-	public void deleteDocById(Long id) {
-	}
+  @Override
+  public void deleteDocById(Long id) {}
+
+  @Override
+  public CarInfo queryDocById(Long id) {
+    return null;
+  }
 
 }

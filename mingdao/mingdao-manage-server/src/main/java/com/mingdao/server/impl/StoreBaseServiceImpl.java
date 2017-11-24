@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IStoreBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IStoreDao;
 import com.mingdao.domain.Store;
 
@@ -29,32 +28,47 @@ import com.mingdao.domain.Store;
 @Service
 public class StoreBaseServiceImpl implements IStoreBaseService {
 
-	@Autowired
-	private IStoreDao dao;
+  @Autowired
+  private IStoreDao dao;
 
-	@Override
-	public Store insertStore(Store store) {
-		dao.insertVO(store);
-		return store;
-	}
+  @Override
+  public Store insert(Store t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Store updateStore(Store store) {
-		dao.updateVO(store);
-		return store;
-	}
+  @Override
+  public Store update(Store t) {
+    dao.updateVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<Store> pageQueryStoreByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Store> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<Store> pages = new Pager<Store>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<Store> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Store> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Store> pages = new Pager<Store>(count, list);
+    return pages;
+  }
 
-	@Override
-	public int deleteStore(int id) {
-		return dao.deleteStore(id);
-	}
+  @Override
+  public Store singleQryByCondtion(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public List<Store> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public void deleteDocById(Long id) {
+    dao.deleteDocById(id);
+  }
+
+  @Override
+  public Store queryDocById(Long id) {
+    return dao.queryById(id);
+  }
 }

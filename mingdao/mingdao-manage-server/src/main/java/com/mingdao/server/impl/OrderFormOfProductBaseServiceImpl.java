@@ -64,4 +64,9 @@ public class OrderFormOfProductBaseServiceImpl implements IOrderFormOfProductBas
   @Override
   public void deleteDocById(Long id) {}
 
+  @Override
+  public OrderFormOfProduct queryDocById(Long id) {
+    return null;
+  }
+
 }
