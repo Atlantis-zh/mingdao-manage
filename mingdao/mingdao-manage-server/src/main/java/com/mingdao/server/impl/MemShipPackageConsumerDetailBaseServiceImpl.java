@@ -39,9 +39,8 @@ public class MemShipPackageConsumerDetailBaseServiceImpl
   }
 
   @Override
-  public MemShipPackageConsumerDetail update(MemShipPackageConsumerDetail t) {
-    dao.updateVO(t);
-    return t;
+  public int update(MemShipPackageConsumerDetail t) {
+    return dao.updateVO(t);
   }
 
   @Override

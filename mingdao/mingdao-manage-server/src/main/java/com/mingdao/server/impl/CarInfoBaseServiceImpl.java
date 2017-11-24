@@ -38,9 +38,8 @@ public class CarInfoBaseServiceImpl implements ICarInfoBaseService {
   }
 
   @Override
-  public CarInfo update(CarInfo t) {
-    dao.updateVO(t);
-    return t;
+  public int update(CarInfo t) {
+    return dao.updateVO(t);
   }
 
   @Override

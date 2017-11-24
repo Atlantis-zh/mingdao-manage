@@ -37,9 +37,8 @@ public class MemberShipBaseServiceImpl implements IMemberShipBaseService {
   }
 
   @Override
-  public MemberShip update(MemberShip t) {
-    dao.updateVO(t);
-    return t;
+  public int update(MemberShip t) {
+    return dao.updateVO(t);
   }
 
   @Override

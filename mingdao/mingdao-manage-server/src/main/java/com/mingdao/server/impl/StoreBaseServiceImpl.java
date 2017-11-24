@@ -38,9 +38,8 @@ public class StoreBaseServiceImpl implements IStoreBaseService {
   }
 
   @Override
-  public Store update(Store t) {
-    dao.updateVO(t);
-    return t;
+  public int update(Store t) {
+    return dao.updateVO(t);
   }
 
   @Override

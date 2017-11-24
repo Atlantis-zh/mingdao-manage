@@ -38,9 +38,8 @@ public class MemShipPackageProjectDetailBaseServiceImpl
   }
 
   @Override
-  public MemShipPackageProjectDetail update(MemShipPackageProjectDetail t) {
-    dao.updateVO(t);
-    return t;
+  public int update(MemShipPackageProjectDetail t) {
+    return dao.updateVO(t);
   }
 
   @Override

@@ -39,9 +39,8 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
   }
 
   @Override
-  public ExchangeGift update(ExchangeGift t) {
-    dao.updateVO(t);
-    return t;
+  public int update(ExchangeGift t) {
+    return dao.updateVO(t);
   }
 
   @Override

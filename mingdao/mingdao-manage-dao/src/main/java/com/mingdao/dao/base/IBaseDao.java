@@ -8,9 +8,19 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 public interface IBaseDao<E> {
   public Long insertVO(E vo);
 
-  public int insertVOs(E[] vos);
-
-  public Long updateVO(E vo);
+  /**
+   * 
+   * <p>
+   * 说明：返回受影响的行数
+   * <li></li>
+   * </p>
+   * 
+   * @param vo
+   * @return
+   * @date 2017年11月25日 上午12:35:35
+   * @since NC6.5
+   */
+  public int updateVO(E vo);
 
   public void deleteByIds(Long[] ids);
 
@@ -26,5 +36,17 @@ public interface IBaseDao<E> {
 
   public int getCountByCondition(Map<String, Object> param);
 
+  /**
+   * 
+   * <p>
+   * 说明：返回受影响的行数
+   * <li></li>
+   * </p>
+   * 
+   * @param vo
+   * @return
+   * @date 2017年11月25日 上午12:35:35
+   * @since NC6.5
+   */
   public int deleteDocById(Long id);
 }

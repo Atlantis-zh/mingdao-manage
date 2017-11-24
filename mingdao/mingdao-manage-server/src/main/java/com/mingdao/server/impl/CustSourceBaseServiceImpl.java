@@ -37,9 +37,8 @@ public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
   }
 
   @Override
-  public CustSource update(CustSource t) {
-    dao.updateVO(t);
-    return t;
+  public int update(CustSource t) {
+    return dao.updateVO(t);
   }
 
   @Override

@@ -38,9 +38,8 @@ public class OrderFormOfServiceProjectBaseServiceImpl
   }
 
   @Override
-  public OrderFormOfServiceProject update(OrderFormOfServiceProject t) {
-    dao.updateVO(t);
-    return t;
+  public int update(OrderFormOfServiceProject t) {
+    return dao.updateVO(t);
   }
 
   @Override

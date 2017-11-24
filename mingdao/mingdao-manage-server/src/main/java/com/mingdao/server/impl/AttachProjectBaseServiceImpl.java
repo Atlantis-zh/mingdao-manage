@@ -29,25 +29,24 @@ import com.mingdao.domain.AttachProject;
 @Service("attachProjectBaseService")
 public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
   @Autowired
-  private IAttachProjectDao attachProjectDao;
+  private IAttachProjectDao dao;
 
   @Override
   public AttachProject insert(AttachProject t) {
-    attachProjectDao.insertVO(t);
+    dao.insertVO(t);
     return t;
   }
 
   @Override
-  public AttachProject update(AttachProject t) {
-    attachProjectDao.updateVO(t);
-    return t;
+  public int update(AttachProject t) {
+    return dao.updateVO(t);
   }
 
   @Override
   public Pager<AttachProject> pageQueryByCondition(Map<String, Object> param) {
-    int count = attachProjectDao.getCountByCondition(param);
+    int count = dao.getCountByCondition(param);
     PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-    List<AttachProject> list = attachProjectDao.pageQueryByCondition(param, pageBounds);
+    List<AttachProject> list = dao.pageQueryByCondition(param, pageBounds);
     Pager<AttachProject> pages = new Pager<AttachProject>(count, list);
     return pages;
   }

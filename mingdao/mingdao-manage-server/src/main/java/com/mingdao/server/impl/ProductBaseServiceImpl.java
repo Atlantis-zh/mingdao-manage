@@ -38,9 +38,8 @@ public class ProductBaseServiceImpl implements IProductBaseService {
   }
 
   @Override
-  public Product update(Product t) {
-    dao.updateVO(t);
-    return t;
+  public int update(Product t) {
+    return dao.updateVO(t);
   }
 
   @Override

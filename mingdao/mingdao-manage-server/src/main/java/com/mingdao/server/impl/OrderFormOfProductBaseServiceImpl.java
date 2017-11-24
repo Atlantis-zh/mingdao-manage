@@ -37,9 +37,8 @@ public class OrderFormOfProductBaseServiceImpl implements IOrderFormOfProductBas
   }
 
   @Override
-  public OrderFormOfProduct update(OrderFormOfProduct t) {
-    dao.updateVO(t);
-    return t;
+  public int update(OrderFormOfProduct t) {
+    return dao.updateVO(t);
   }
 
   @Override

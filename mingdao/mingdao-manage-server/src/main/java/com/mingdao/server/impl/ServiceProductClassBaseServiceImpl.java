@@ -39,9 +39,8 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
   }
 
   @Override
-  public ServiceProductClass update(ServiceProductClass t) {
-    dao.updateVO(t);
-    return t;
+  public int update(ServiceProductClass t) {
+    return dao.updateVO(t);
   }
 
   @Override

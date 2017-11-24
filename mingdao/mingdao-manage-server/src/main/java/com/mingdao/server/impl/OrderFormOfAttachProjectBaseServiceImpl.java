@@ -38,9 +38,8 @@ public class OrderFormOfAttachProjectBaseServiceImpl
   }
 
   @Override
-  public OrderFormOfAttachProject update(OrderFormOfAttachProject t) {
-    dao.updateVO(t);
-    return t;
+  public int update(OrderFormOfAttachProject t) {
+    return dao.updateVO(t);
   }
 
   @Override

@@ -38,9 +38,8 @@ public class MemberShipReChargeCardComDetailBaseServiceImpl
   }
 
   @Override
-  public MemberShipReChargeCardComDetail update(MemberShipReChargeCardComDetail t) {
-    dao.updateVO(t);
-    return t;
+  public int update(MemberShipReChargeCardComDetail t) {
+    return dao.updateVO(t);
   }
 
   @Override

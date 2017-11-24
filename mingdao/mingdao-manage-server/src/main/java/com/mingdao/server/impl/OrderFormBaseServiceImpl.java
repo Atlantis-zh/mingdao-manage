@@ -37,9 +37,8 @@ public class OrderFormBaseServiceImpl implements IOrderFormBaseService {
   }
 
   @Override
-  public OrderForm update(OrderForm t) {
-    dao.updateVO(t);
-    return t;
+  public int update(OrderForm t) {
+    return dao.updateVO(t);
   }
 
   @Override

@@ -85,18 +85,23 @@ public class StoreBaseServiceController extends BaseController {
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    OrderProject oldOP = storeBaseService.queryOrderProjectById(jsonObj.getLong("id"));
-    if (oldOP == null) {
+    Store oldStore = storeBaseService.queryDocById(jsonObj.getLong("id"));
+    if (oldStore == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldOP.setStoreId(jsonObj.getLong("storeId"));
-    oldOP.setOrderPsnId(jsonObj.getLong("orderPsnId"));
-    oldOP.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
-    oldOP.setCarInfoId(jsonObj.getLong("carInfoId"));
-    oldOP.setMeno(jsonObj.getString("meno"));
-    super.setTimeStampWithUpdate(oldOP, request);
+    oldStore.setCode(jsonObj.getString("code"));
+    oldStore.setName(jsonObj.getString("name"));
+    oldStore.setTel1(jsonObj.getString("tel1"));
+    oldStore.setTel2(jsonObj.getString("tel2"));
+    oldStore.setTel3(jsonObj.getString("tel3"));
+    oldStore.setAddress(jsonObj.getString("address"));
+    oldStore.setWxPubAccId(jsonObj.getString("wxPubAccId"));
+    oldStore.setIsWxShow(jsonObj.getBoolean("isWxShow"));
+    oldStore.setIsWxDefault(jsonObj.getBoolean("isWxDefault"));
+    oldStore.setIsHeadStore(jsonObj.getBoolean("isHeadStore"));
+    super.setTimeStampWithUpdate(oldStore, request);
     OrderProject newOP = orderProjectService.update(oldOP);
     if (newOP == null) {
       result.setSuccess(false);

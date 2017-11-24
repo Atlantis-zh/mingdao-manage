@@ -39,9 +39,8 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
   }
 
   @Override
-  public ServiceProject update(ServiceProject t) {
-    dao.updateVO(t);
-    return t;
+  public int update(ServiceProject t) {
+    return dao.updateVO(t);
   }
 
   @Override

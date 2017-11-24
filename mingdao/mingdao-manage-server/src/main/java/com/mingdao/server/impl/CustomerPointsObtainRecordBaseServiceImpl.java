@@ -39,9 +39,8 @@ public class CustomerPointsObtainRecordBaseServiceImpl
   }
 
   @Override
-  public CustomerPointsObtainRecord update(CustomerPointsObtainRecord t) {
-    dao.updateVO(t);
-    return t;
+  public int update(CustomerPointsObtainRecord t) {
+    return dao.updateVO(t);
   }
 
   @Override

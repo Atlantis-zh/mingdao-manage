@@ -39,9 +39,8 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService {
   }
 
   @Override
-  public OrderProject update(OrderProject t) {
-    dao.updateVO(t);
-    return t;
+  public int update(OrderProject t) {
+    return dao.updateVO(t);
   }
 
   @Override

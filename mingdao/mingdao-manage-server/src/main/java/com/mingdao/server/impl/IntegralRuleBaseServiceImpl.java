@@ -37,9 +37,8 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
   }
 
   @Override
-  public IntegralRule update(IntegralRule t) {
-    dao.updateVO(t);
-    return t;
+  public int update(IntegralRule t) {
+    return dao.updateVO(t);
   }
 
   @Override

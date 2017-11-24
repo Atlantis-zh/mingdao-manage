@@ -39,10 +39,8 @@ public class CustomerBaseServiceImpl implements ICustomerBaseService {
   }
 
   @Override
-  public Customer update(Customer t) {
-
-    dao.updateVO(t);
-    return t;
+  public int update(Customer t) {
+    return dao.updateVO(t);
   }
 
   @Override

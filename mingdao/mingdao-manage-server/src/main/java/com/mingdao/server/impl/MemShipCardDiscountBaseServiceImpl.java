@@ -37,9 +37,8 @@ public class MemShipCardDiscountBaseServiceImpl implements IMemShipCardDiscountB
   }
 
   @Override
-  public MemShipCardDiscount update(MemShipCardDiscount t) {
-    dao.updateVO(t);
-    return t;
+  public int update(MemShipCardDiscount t) {
+    return dao.updateVO(t);
   }
 
   @Override
