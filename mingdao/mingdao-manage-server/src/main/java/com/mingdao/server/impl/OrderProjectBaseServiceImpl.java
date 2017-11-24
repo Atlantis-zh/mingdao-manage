@@ -54,7 +54,7 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService {
 
   @Override
   public OrderProject singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -67,14 +67,10 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService {
     return dao.deleteDocById(id);
   }
 
-  @Override
-  public OrderProject queryOrderProjectById(Long id) {
-    return dao.queryById(id);
-  }
 
   @Override
   public OrderProject queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

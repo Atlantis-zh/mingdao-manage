@@ -23,7 +23,7 @@
 	    INSERT INTO order_project
         (storeid,billno,orderpsnid,serviceprojectid,ordertime,carinfoid,customerid,source,status,meno,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{billno},#{orderPsnId},#{serviceProjectId},#{orderTime},#{carInfoId},#{customerId},#{source},#{statusr},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{billno},#{orderPsnId},#{serviceProjectId},#{orderTime},#{carInfoId},#{customerId},#{source},#{status},#{meno},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.OrderProject">
@@ -44,7 +44,26 @@
           modifiedtime=#{modifiedTime}
         WHERE id=#{id}
 	</update>
-	
+
+
+	<update id="updateVO" parameterType="com.mingdao.domain.OrderProject">
+	    UPDATE order_project SET
+        <if test="storeId!=null">  storeid=#{storeId},</if>
+        <if test="billno!=null">billno=#{billno},</if>
+        <if test="orderPsnId!=null"> orderpsnid=#{orderPsnId},</if>
+        <if test="serviceProjectId!=null">serviceprojectid=#{serviceProjectId},</if>
+        <if test="orderTime!=null">ordertime=#{orderTime},</if>
+        <if test="carInfoId!=null">carinfoid=#{carInfoId},</if>
+        <if test="customerId!=null">customerid=#{customerId},</if>
+        <if test="source!=null">source=#{source},</if>
+        <if test="status!=null">status=#{status},</if>
+        <if test="meno!=null">meno=#{meno},</if>
+        <if test="creator!=null">creator=#{creator},</if>
+        <if test="createTime!=null">createtime=#{createTime},</if>
+        <if test="modifier!=null">modifier=#{modifier},</if>
+        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}  </if>
+        WHERE id=#{id}
+	</update>	
 	
 	<select id="queryById" parameterType="long" resultMap="orderProjectResultMap">
 	    SELECT
@@ -63,7 +82,7 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  order_project t where 1=1 and t.id=#{id}
+        FROM  order_project t where t.id=#{id}
 	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
@@ -87,15 +106,18 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != null">
+           <if test="customerId != null">
               and t.customerid=#{customerId}
            </if>
            <if test="status != null">
                 and t.status=#{status}
            </if>
-           <if test="billno != '' and billno != null">
+           <if test="billno != null">
                 and t.billno=#{billno}
-           </if>          
+           </if>
+           <if test="carInfoId != null">
+                and t.carinfoid=#{carInfoId}
+           </if>                      
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
@@ -105,18 +127,56 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != null">
+           <if test="customerId != null">
               and t.customerid=#{customerId}
            </if>
            <if test="status != null">
                 and t.status=#{status}
            </if>
-           <if test="billno != '' and billno != null">
+           <if test="billno != null">
                 and t.billno=#{billno}
-           </if>  
+           </if>
+           <if test="carInfoId != null">
+                and t.carinfoid=#{carInfoId}
+           </if>
 	</select>
 	
     <delete id="deleteDocById" parameterType="long">
         delete from order_project  where id = #{id}
     </delete>	
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.billno,
+          t.orderpsnid,
+          t.serviceprojectid,
+          t.ordertime,
+          t.carinfoid,
+          t.customerid,         
+          t.source,
+          t.status,
+          t.meno,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM order_project t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerId != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="status != null">
+                and t.status=#{status}
+           </if>
+           <if test="billno != null">
+                and t.billno=#{billno}
+           </if>
+           <if test="carInfoId != null">
+                and t.carinfoid=#{carInfoId}
+           </if>
+	</select>   
 </mapper>

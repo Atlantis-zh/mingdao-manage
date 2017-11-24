@@ -141,7 +141,7 @@ public class OrderProjectBaseServiceController extends BaseController {
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    OrderProject oldOP = orderProjectService.queryOrderProjectById(jsonObj.getLong("id"));
+    OrderProject oldOP = orderProjectService.queryDocById(jsonObj.getLong("id"));
     if (oldOP == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
@@ -160,6 +160,34 @@ public class OrderProjectBaseServiceController extends BaseController {
     } else {
       result.setSuccess(true);
       result.setResult(DataUtil.superVOToJsonObject(oldOP));
+    }
+    return result;
+  }
+
+
+  /**
+   * 
+   * <p>
+   * 说明：根据主键删除
+   * <li></li>
+   * </p>
+   * 
+   * @param request
+   * @return
+   * @date 2017年11月25日 上午1:42:00
+   * @since NC6.5
+   */
+  @RequestMapping(value = "/deleteOrderProjectById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteOrderProjectById(HttpServletRequest request) {
+    ResultMessage result = new ResultMessage();
+    Long id = Long.valueOf(request.getParameter("id"));
+    int updateRet = orderProjectService.deleteDocById(id);
+    if (updateRet == 0) {
+      result.setSuccess(false);
+      result.setResultMsg("删除数据不存在！");
+    } else {
+      result.setSuccess(true);
+      result.setResult("删除成功！");
     }
     return result;
   }

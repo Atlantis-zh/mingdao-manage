@@ -12,11 +12,8 @@ import com.mingdao.domain.OrderProject;
  * 
  * @since
  * @version
- * @author wushzh
+ * @author libin
  */
 public interface IOrderProjectBaseService extends IDocBaseService<OrderProject> {
-
-  public OrderProject queryOrderProjectById(Long id);
-
 
 }
