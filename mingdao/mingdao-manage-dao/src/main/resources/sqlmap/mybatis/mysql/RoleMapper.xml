@@ -21,19 +21,19 @@
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.Role">
 	    UPDATE role SET
-          rolecode=#{roleCode},
-          rolename=#{roleName},
-          rolememo=#{roleMemo},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+            <if test="roleCode!=null"> rolecode=#{roleCode},</if>
+            <if test="roleName!=null">rolename=#{roleName},</if>
+            <if test="roleMemo!=null"> rolememo=#{roleMemo},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}</if>
         WHERE id=#{id}
 	</update>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
 	    SELECT
-        t.id,
+          t.id,
           t.rolecode,
           t.rolename,
           t.rolememo,
@@ -68,8 +68,43 @@
            </if>
 	</select>
 
-    <delete id="deleteRole" parameterType="int">
+    <delete id="deleteDocById" parameterType="long">
         delete from role  where id = #{id}
     </delete>
+
+	<select id="queryById" parameterType="long" resultMap="roleResultMap">
+	    SELECT
+          t.id,
+          t.rolecode,
+          t.rolename,
+          t.rolememo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  role t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="roleResultMap">
+	    SELECT
+          t.id,
+          t.rolecode,
+          t.rolename,
+          t.rolememo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM role t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="roleName != null">
+              and t.rolename=#{roleName}
+           </if>
+           <if test="roleCode != null">
+              and t.rolecode=#{roleCode}
+           </if>
+	</select>
 		
 </mapper>

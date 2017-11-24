@@ -4,47 +4,59 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IRoleBaseServiceItf;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IRoleDao;
 import com.mingdao.domain.Role;
-import org.springframework.stereotype.Service;
 
 @Service
-public class RoleBaseServiceItfImpl implements IRoleBaseServiceItf{
-	
-	@Autowired
-	private IRoleDao roleDao;
+public class RoleBaseServiceItfImpl implements IRoleBaseServiceItf {
 
-	@Override
-	public Role insertRole(Role role) {
-		roleDao.insertVO(role);
-		return role;
-	}
+  @Autowired
+  private IRoleDao dao;
 
-	@Override
-	public Role updateRole(Role role) {
-		//role.setModifier(modifyUserId);
-	//	role.setModifiedTime(DateUtil.getCurrentDateTime().toString());
-		roleDao.updateVO(role);
-		return role;
-	}
+  @Override
+  public Role insert(Role t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Pager<Role> pageQueryRolesByCondition(Map<String, Object> param) {
-		int count =  roleDao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Role> list=roleDao.pageQueryByCondition(param, pageBounds);
-		Pager<Role> pages = new Pager<Role>(count,list);
-		return pages;
-	}
+  @Override
+  public int update(Role t) {
+    return dao.updateVO(t);
+  }
 
-	@Override
-	public int deleteRole(int id) {
-		int i = roleDao.deleteRole(id);
-		return i;
-	}
+  @Override
+  public Pager<Role> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Role> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Role> pages = new Pager<Role>(count, list);
+    return pages;
+  }
+
+  @Override
+  public Role singleQryByCondtion(Map<String, Object> param) {
+    return dao.singleQueryByCondition(param);
+  }
+
+  @Override
+  public List<Role> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
+
+  @Override
+  public Role queryDocById(Long id) {
+    return dao.queryById(id);
+  }
+
 }
