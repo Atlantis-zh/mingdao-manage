@@ -62,7 +62,9 @@ public class ProductClassBaseServiceImpl implements IProductClassBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public ProductClass queryDocById(Long id) {

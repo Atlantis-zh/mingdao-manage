@@ -61,7 +61,9 @@ public class OrderFormBaseServiceImpl implements IOrderFormBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public OrderForm queryDocById(Long id) {

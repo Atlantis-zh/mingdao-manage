@@ -63,7 +63,9 @@ public class CustomerPointsObtainRecordBaseServiceImpl
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public CustomerPointsObtainRecord queryDocById(Long id) {

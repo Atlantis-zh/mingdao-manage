@@ -30,7 +30,7 @@ public interface IDocBaseService<T> {
 
   public List<T> qryAllDoces(Map<String, Object> param);
 
-  public void deleteDocById(Long id);
+  public int deleteDocById(Long id);
 
   public T queryDocById(Long id);
 

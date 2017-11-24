@@ -63,8 +63,8 @@ public class OrderProjectBaseServiceImpl implements IOrderProjectBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {
-    dao.deleteDocById(id);
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
   }
 
   @Override

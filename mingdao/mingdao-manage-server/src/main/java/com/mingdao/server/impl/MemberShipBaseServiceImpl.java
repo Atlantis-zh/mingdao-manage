@@ -61,7 +61,9 @@ public class MemberShipBaseServiceImpl implements IMemberShipBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public MemberShip queryDocById(Long id) {

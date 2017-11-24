@@ -62,7 +62,9 @@ public class AttachProjectBaseServiceImpl implements IAttachProjectBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public AttachProject queryDocById(Long id) {

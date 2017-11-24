@@ -95,8 +95,8 @@ public class CustBaseServiceController extends BaseController {
     } else if (field.equals(Customer.PHONE)) {
       cust.setPhone(value);
     }
-    cust = custBaseService.update(cust);
-    if (cust == null) {
+    int updateRet = custBaseService.update(cust);
+    if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("修改失败！");
       return result;

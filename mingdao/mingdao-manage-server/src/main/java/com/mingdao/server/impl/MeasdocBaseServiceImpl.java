@@ -62,7 +62,9 @@ public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
   }
 
   @Override
-  public void deleteDocById(Long id) {}
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
 
   @Override
   public Measdoc queryDocById(Long id) {
