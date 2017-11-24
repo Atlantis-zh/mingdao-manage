@@ -54,12 +54,12 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
 
   @Override
   public ServiceProductClass singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
   public List<ServiceProductClass> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class ServiceProductClassBaseServiceImpl implements IServiceProductClassB
 
   @Override
   public ServiceProductClass queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

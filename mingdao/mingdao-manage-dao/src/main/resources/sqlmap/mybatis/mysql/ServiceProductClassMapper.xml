@@ -7,6 +7,7 @@
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
         <result property="workTimeClassId" javaType="long" jdbcType="BIGINT" column="worktimeclassid"/>
+        <result property="parentId" javaType="long" jdbcType="BIGINT" column="parentid"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -16,23 +17,73 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.ServiceProductClass" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO serviceproduct_class
-        (storeid,code,name,worktimeclassid,creator,createtime,modifier,modifiedtime)
+        (storeid,code,name,worktimeclassid,parentid,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{storeId},#{code},#{name},#{workTimeClassId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{storeId},#{code},#{name},#{workTimeClassId},#{parentId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProductClass">
 	    UPDATE serviceproduct_class SET
-        <if test="storeId!=null"> storeid=#{storeId},</if>
-        <if test="code!=null"> code=#{code},</if>
-        <if test="name!=null">  name=#{name},</if>
-        <if test="workTimeClassId!=null">  worktimeclassid=#{workTimeClassId},       </if>
-        <if test="creator!=null">  creator=#{creator},</if>
-        <if test="createTime!=null">  createtime=#{createTime},</if>
-        <if test="createTime!=null">  modifier=#{modifier},</if>
-        <if test="modifiedTime!=null">  modifiedtime=#{modifiedTime}</if>
+        <if test="storeId!=null">
+            storeid=#{storeId},
+        </if>        
+        <if test="code!=null"> 
+            code=#{code},
+        </if>
+        <if test="name!=null">  
+            name=#{name},
+        </if>
+        <if test="workTimeClassId!=null"> 
+            worktimeclassid=#{workTimeClassId},
+        </if>
+        <if test="parentId"> 
+            parentid=#{parentId},
+        </if>        
+        <if test="creator!=null">  
+            creator=#{creator},
+        </if>
+        <if test="createTime!=null">  
+            createtime=#{createTime},
+        </if>
+        <if test="createTime!=null">  
+            modifier=#{modifier},
+        </if>
+        <if test="modifiedTime!=null">  
+            modifiedtime=#{modifiedTime}
+        </if>
         WHERE id=#{id}
 	</update>
+	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="serProdClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.worktimeclassid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  serviceproduct_class t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
+	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="serProdClassResultMap">
 	    SELECT
@@ -41,18 +92,25 @@
           t.name,
           t.storeid,
           t.worktimeclassid,
+          t.parentid,
           t.creator,
           t.createtime,
           t.modifier,
           t.modifiedtime
         FROM  serviceproduct_class t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -61,13 +119,19 @@
 		select
 		   count(1)
 		from serviceproduct_class t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -75,4 +139,43 @@
     <delete id="deleteDocById" parameterType="int">
         delete from serviceproduct_class  where id = #{id}
     </delete>
+
+	<select id="queryById" parameterType="long" resultMap="serProdClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.worktimeclassid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  serviceproduct_class t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="serProdClassResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.worktimeclassid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM serviceproduct_class t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	    
 </mapper>

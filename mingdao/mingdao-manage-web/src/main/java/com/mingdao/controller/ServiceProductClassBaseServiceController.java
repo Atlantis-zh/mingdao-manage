@@ -16,31 +16,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IProductClassBaseService;
+import com.mingdao.api.IServiceProductClassBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
-import com.mingdao.domain.ProductClass;
 import com.mingdao.domain.ResultMessage;
+import com.mingdao.domain.ServiceProductClass;
 
 /**
  *
- * <code>ProductClassBaseServiceController<code> <strong></strong>
+ * <code>ServiceProductClassBaseServiceController<code> <strong></strong>
  * <p>
  * 说明：
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月25日 上午2:17:26
+ * @version 2017年11月25日 上午2:46:11
  * @author libin
  */
 @Controller
-@RequestMapping("/productClassBaseSer")
-public class ProductClassBaseServiceController extends BaseController {
+@RequestMapping("/serProdClassBaseSer")
+public class ServiceProductClassBaseServiceController extends BaseController {
 
   @Autowired
-  private IProductClassBaseService pcBaseService;
+  private IServiceProductClassBaseService spcBaseService;
 
 
   /**
@@ -56,21 +56,22 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
-  @RequestMapping(value = "/addProductClass", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addProductClass(HttpServletRequest request,
+  @RequestMapping(value = "/addServiceProductClass", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addServiceProductClass(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ProductClass newPc = new ProductClass();
-    newPc.setStoreId(jsonObj.getLong("storeId"));
-    newPc.setCode(jsonObj.getString("code"));
-    newPc.setName(jsonObj.getString("name"));
-    newPc.setParentId(jsonObj.getLong("parentId"));
-    super.setTimeStampWithInsert(newPc, request);
-    newPc = pcBaseService.insert(newPc);
-    if (newPc.getId() != null) {
+    ServiceProductClass neSpc = new ServiceProductClass();
+    neSpc.setStoreId(jsonObj.getLong("storeId"));
+    neSpc.setCode(jsonObj.getString("code"));
+    neSpc.setName(jsonObj.getString("name"));
+    neSpc.setWorkTimeClassId(jsonObj.getLong("workTimeClassId"));
+    neSpc.setParentId(jsonObj.getLong("parentId"));
+    super.setTimeStampWithInsert(neSpc, request);
+    neSpc = spcBaseService.insert(neSpc);
+    if (neSpc.getId() != null) {
       result.setSuccess(true);
-      result.setResult(newPc.getId());
+      result.setResult(neSpc.getId());
     } else {
       result.setSuccess(false);
       result.setResultMsg("新增失败，请检查日志！");
@@ -91,29 +92,30 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
-  @RequestMapping(value = "/updateProductClass", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateProductClass(HttpServletRequest request,
+  @RequestMapping(value = "/updateServiceProductClass", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateServiceProductClass(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ProductClass oldPc = pcBaseService.queryDocById(jsonObj.getLong("id"));
-    if (oldPc == null) {
+    ServiceProductClass oldSpc = spcBaseService.queryDocById(jsonObj.getLong("id"));
+    if (oldSpc == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldPc.setStoreId(jsonObj.getLong("storeId"));
-    oldPc.setCode(jsonObj.getString("code"));
-    oldPc.setName(jsonObj.getString("name"));
-    oldPc.setParentId(jsonObj.getLong("parentId"));
-    super.setTimeStampWithUpdate(oldPc, request);
-    int updateRet = pcBaseService.update(oldPc);
+    oldSpc.setStoreId(jsonObj.getLong("storeId"));
+    oldSpc.setCode(jsonObj.getString("code"));
+    oldSpc.setName(jsonObj.getString("name"));
+    oldSpc.setWorkTimeClassId(jsonObj.getLong("workTimeClassId"));
+    oldSpc.setParentId(jsonObj.getLong("parentId"));
+    super.setTimeStampWithUpdate(oldSpc, request);
+    int updateRet = spcBaseService.update(oldSpc);
     if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("更新失败，请稍后重新尝试！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(oldPc));
+      result.setResult(DataUtil.superVOToJsonObject(oldSpc));
     }
     return result;
   }
@@ -130,11 +132,11 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:00
    * @since NC6.5
    */
-  @RequestMapping(value = "/deleteProductClassById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage deleteProductClassById(HttpServletRequest request) {
+  @RequestMapping(value = "/deleteServiceProductClassById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteServiceProductClassById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    int updateRet = pcBaseService.deleteDocById(id);
+    int updateRet = spcBaseService.deleteDocById(id);
     if (updateRet == 0) {
       result.setSuccess(false);
       result.setResultMsg("删除数据不存在！");
@@ -144,6 +146,7 @@ public class ProductClassBaseServiceController extends BaseController {
     }
     return result;
   }
+
 
 
   /**
@@ -158,8 +161,8 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryProductClasses", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage qryProductClasses(HttpServletRequest request) {
+  @RequestMapping(value = "/qryServiceProductClasses", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryServiceProductClasses(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long storeId = Long.valueOf(request.getParameter("storeId"));
     if (storeId == null) {
@@ -172,7 +175,7 @@ public class ProductClassBaseServiceController extends BaseController {
     if (parentId != null) {
       param.put("parentId", parentId);
     }
-    List<ProductClass> list = pcBaseService.qryAllDoces(param);
+    List<ServiceProductClass> list = spcBaseService.qryAllDoces(param);
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
@@ -194,8 +197,8 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryProductClasses", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryProductClasses(HttpServletRequest request) {
+  @RequestMapping(value = "/pageQryServiceProductClasses", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage pageQryServiceProductClasses(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long storeId = Long.valueOf(request.getParameter("storeId"));
     if (storeId == null) {
@@ -208,7 +211,7 @@ public class ProductClassBaseServiceController extends BaseController {
     if (parentId != null) {
       param.put("parentId", parentId);
     }
-    Pager<ProductClass> opPager = pcBaseService.pageQueryByCondition(param);
+    Pager<ServiceProductClass> opPager = spcBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);
       result.setResultMsg("查询失败，请稍后重试！");
@@ -218,7 +221,7 @@ public class ProductClassBaseServiceController extends BaseController {
     obj.put(PageResultConst.PAGE, opPager.getOffset());
     obj.put(PageResultConst.PAGESIZE, opPager.getSize());
     obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<ProductClass> list = opPager.getDatas();
+    List<ServiceProductClass> list = opPager.getDatas();
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
@@ -241,17 +244,17 @@ public class ProductClassBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:30
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryProductClassById", method = RequestMethod.GET)
+  @RequestMapping(value = "/qryServiceProductClassById", method = RequestMethod.GET)
   public @ResponseBody ResultMessage qryProductClassById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    ProductClass pc = pcBaseService.queryDocById(id);
-    if (pc == null) {
+    ServiceProductClass spc = spcBaseService.queryDocById(id);
+    if (spc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(pc));
+      result.setResult(DataUtil.superVOToJsonObject(spc));
     }
     return result;
   }

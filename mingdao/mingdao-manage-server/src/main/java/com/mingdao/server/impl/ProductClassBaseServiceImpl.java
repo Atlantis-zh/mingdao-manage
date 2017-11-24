@@ -58,7 +58,7 @@ public class ProductClassBaseServiceImpl implements IProductClassBaseService {
 
   @Override
   public List<ProductClass> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override

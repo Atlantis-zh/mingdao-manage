@@ -20,14 +20,14 @@
 	</resultMap>
 
 	
-	<insert id="insertVO" parameterType="com.mingdao.domain.ServiceProductClass" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertVO" parameterType="com.mingdao.domain.ServiceProject" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO service_product
         (storeid,code,name,spec,cost,spec,workhours,saleprice,isselfhelp,unit,serprodclassid,creator,createtime,modifier,modifiedtime)
         VALUES
         (#{storeId},#{code},#{name},#{spec},#{cost},#{workHours},#{salePrice},#{isSelfHelp},#{unit},#{serProdClassId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
-	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProductClass">
+	<update id="updateVO" parameterType="com.mingdao.domain.ServiceProject">
 	    UPDATE service_product SET
         <if test="storeId!=null"> storeid=#{storeId},</if>
         <if test="code!=null">code=#{code},</if>
@@ -64,13 +64,13 @@
           t.modifier,
           t.modifiedtime
         FROM  service_product t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
