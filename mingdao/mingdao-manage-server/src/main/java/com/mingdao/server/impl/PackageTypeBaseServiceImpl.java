@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IPackageTypeDao;
 import com.mingdao.domain.PackageType;
 
@@ -30,32 +29,47 @@ import com.mingdao.domain.PackageType;
 @Service("packageTypeBaseService")
 public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 
-	@Autowired
-	private IPackageTypeDao dao;
+  @Autowired
+  private IPackageTypeDao dao;
 
-	@Override
-	public PackageType insertPkgType(PackageType packageType) {
-		dao.insertVO(packageType);
-		return packageType;
-	}
+  @Override
+  public PackageType insert(PackageType t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public PackageType updatePkgType(PackageType packageType) {
-		dao.updateVO(packageType);
-		return packageType;
-	}
+  @Override
+  public int update(PackageType t) {
+    return dao.updateVO(t);
+  }
 
-	@Override
-	public Pager<PackageType> pageQueryPkgTypeByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<PackageType> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<PackageType> pages = new Pager<PackageType>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<PackageType> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<PackageType> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<PackageType> pages = new Pager<PackageType>(count, list);
+    return pages;
+  }
 
-	@Override
-	public void deletePackageType(Long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public PackageType singleQryByCondtion(Map<String, Object> param) {
+    return dao.singleQueryByCondition(param);
+  }
+
+  @Override
+  public List<PackageType> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
+
+  @Override
+  public PackageType queryDocById(Long id) {
+    return dao.queryById(id);
+  }
+
 }

@@ -28,23 +28,24 @@
 		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
+
 	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
-	    UPDATE package_type SET
-          storeid=#{storeId},
-          code=#{code},
-          name=#{name},
-          saleprice=#{salePrice},
-          totalcount=#{totalCount},
-          expire=#{expire},
-          timeunit=#{timeUnit},
-          sharetobranch=#{shareToBranch},
-          source=#{source},
-          status=#{status},
-          memo=#{memo},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+	    UPDATE custtype SET
+	        <if test="storeId!=null"> storeid=#{storeId},</if>
+            <if test="code!=null">code=#{code},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="salePrice!=null">saleprice=#{salePrice},</if>
+            <if test="totalCount!=null">totalcount=#{totalCount},</if>
+            <if test="expire!=null">expire=#{expire},</if>
+            <if test="timeUnit!=null">timeunit=#{timeUnit},</if>
+            <if test="shareToBranch!=null">sharetobranch=#{shareToBranch},</if>
+            <if test="source!=null">source=#{source},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="memo!=null">memo=#{memo},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
 	</update>
 
@@ -68,39 +69,111 @@
           t.modifier,
           t.modifiedtime
         FROM  package_type t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null and code != ''">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name != null and name != ''">
+           <if test="name != null">
               and t.name=#{name}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
-           </if>                  
+           </if>
+           <if test="status != null">
+              and t.status=#{status}
+           </if>
+           <if test="source != null">
+              and t.source=#{source}
+           </if>                                        
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
 		from package_type t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code != null and code != ''">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name != null and name != ''">
+           <if test="name != null">
               and t.name=#{name}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
-           </if> 
+           </if>
+           <if test="status != null">
+              and t.status=#{status}
+           </if>
+           <if test="source != null">
+              and t.source=#{source}
+           </if>
 	</select>
 
     <delete id="deleteDocById" parameterType="long">
         delete from package_type  where id = #{id}
     </delete>
+
+	<select id="queryById" parameterType="long" resultMap="ptResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.saleprice,
+          t.totalcount,
+          t.expire,
+          t.timeunit,
+          t.sharetobranch,
+          t.source,
+          t.status,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  package_type t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="ptResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.saleprice,
+          t.totalcount,
+          t.expire,
+          t.timeunit,
+          t.sharetobranch,
+          t.source,
+          t.status,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM package_type t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="status != null">
+              and t.status=#{status}
+           </if>
+           <if test="source != null">
+              and t.source=#{source}
+           </if>
+	</select>
 </mapper>

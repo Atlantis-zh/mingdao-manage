@@ -1,7 +1,5 @@
 package com.mingdao.domain;
 
-import com.mingdao.enumprop.TimeUnit;
-
 /**
  *
  * <code>PackageType<code> <strong></strong>
@@ -40,13 +38,13 @@ public class PackageType extends SuperVO {
    */
   private Integer totalCount;
   /**
-   * 有效期 年(1)， 月(2)， 日(3);
+   * 有效期
    */
   private Integer expire;
   /**
-   * 有效期单位
+   * 有效期单位 年(1)， 月(2)， 日(3);
    */
-  private TimeUnit timeUnit;
+  private Integer timeUnit;
   /**
    * 成本
    */
@@ -60,7 +58,7 @@ public class PackageType extends SuperVO {
    */
   private Integer source;
   /**
-   * 状态
+   * 状态 正常（1）、停用（2）
    */
   private Integer status;
   /**
@@ -121,11 +119,11 @@ public class PackageType extends SuperVO {
     this.expire = expire;
   }
 
-  public TimeUnit getTimeUnit() {
+  public Integer getTimeUnit() {
     return this.timeUnit;
   }
 
-  public void setTimeUnit(TimeUnit timeUnit) {
+  public void setTimeUnit(Integer timeUnit) {
     this.timeUnit = timeUnit;
   }
 

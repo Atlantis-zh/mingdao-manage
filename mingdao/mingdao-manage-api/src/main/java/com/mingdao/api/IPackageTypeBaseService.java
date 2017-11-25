@@ -1,8 +1,5 @@
 package com.mingdao.api;
 
-import java.util.Map;
-
-import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.PackageType;
 
 /**
@@ -18,14 +15,6 @@ import com.mingdao.domain.PackageType;
  * @author libinf
  */
 
-public interface IPackageTypeBaseService {
-
-	public PackageType insertPkgType(PackageType packageType);
-
-	public PackageType updatePkgType(PackageType packageType);
-
-	public Pager<PackageType> pageQueryPkgTypeByCondition(Map<String, Object> param);
-
-	public void deletePackageType(Long id);
+public interface IPackageTypeBaseService extends IDocBaseService<PackageType> {
 
 }
