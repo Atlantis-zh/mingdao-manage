@@ -5,6 +5,7 @@
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
+		<result property="parentId" javaType="string" jdbcType="VARCHAR" column="parentid"/>
 	    <result property="storeId" javaType="long" jdbcType="INTEGER" column="storeid"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -19,17 +20,18 @@
         (#{code},#{name},#{storeId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
+	
 	<update id="updateVO" parameterType="com.mingdao.domain.CustType">
 	    UPDATE custtype SET
-          code=#{code},
-          name=#{name},
-          storeid=#{storeId},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+            <if test="code!=null"> code=#{code},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="storeId!=null"> storeid=#{storeId},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
-	</update>
+	</update>	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="custTypeResultMap">
 	    SELECT
