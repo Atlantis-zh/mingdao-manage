@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mingdao.api.ICustomerBaseService;
 import com.mingdao.domain.Customer;
-import com.mingdao.enumprop.Sex;
 
 /**
  *
@@ -44,7 +43,6 @@ public class TestCustomerBaseService {
     c.setIdentityId("123456789");
     // c.setCustSource(Source.STORE);
     c.setPhone("13800138000");
-    c.setSex(Sex.MEN);
     c.setStoreId(new Long("1"));
     service.insert(c);
     System.out.println(c.getId());

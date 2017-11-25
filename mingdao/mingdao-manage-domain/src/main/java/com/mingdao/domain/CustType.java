@@ -30,6 +30,10 @@ public class CustType extends SuperVO {
    * 所属门店
    */
   private Long storeId;
+  /**
+   * 上级分类
+   */
+  private Long parentId;
 
   public static final String ID = "id";
   public static final String CODE = "code";
@@ -67,6 +71,14 @@ public class CustType extends SuperVO {
 
   public void setStoreId(Long storeId) {
     this.storeId = storeId;
+  }
+
+  public Long getParentId() {
+    return this.parentId;
+  }
+
+  public void setParentId(Long parentId) {
+    this.parentId = parentId;
   }
 
 }

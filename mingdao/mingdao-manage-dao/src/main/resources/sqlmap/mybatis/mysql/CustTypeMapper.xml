@@ -5,7 +5,7 @@
 		<id property="id" javaType="long" jdbcType="INTEGER" column="id" />
 		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
-		<result property="parentId" javaType="string" jdbcType="VARCHAR" column="parentid"/>
+		<result property="parentId" javaType="long" jdbcType="INTEGER" column="parentid"/>
 	    <result property="storeId" javaType="long" jdbcType="INTEGER" column="storeid"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
@@ -15,9 +15,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.CustType" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO custtype
-        (code,name,storeid,creator,createtime,modifier,modifiedtime)
+        (code,name,storeid,parentid,creator,createtime,modifier,modifiedtime)
         VALUES
-        (#{code},#{name},#{storeId},#{creator},#{createTime},#{modifier},#{modifiedTime})
+        (#{code},#{name},#{storeId},#{parentId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 	
@@ -26,6 +26,7 @@
             <if test="code!=null"> code=#{code},</if>
             <if test="name!=null">name=#{name},</if>
             <if test="storeId!=null"> storeid=#{storeId},</if>
+            <if test="parentId!=null"> parentid=#{parentId},</if>
             <if test="creator!=null">creator=#{creator},</if>
             <if test="createTime!=null">createtime=#{createTime},</if>
             <if test="modifier!=null">modifier=#{modifier},</if>
@@ -33,12 +34,43 @@
         WHERE id=#{id}
 	</update>	
 	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="custTypeResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  product_class t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
+	
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="custTypeResultMap">
 	    SELECT
           t.id,
           t.code,
           t.name,
           t.storeid,
+          t.parentid,
           t.creator,
           t.createtime,
           t.modifier,
@@ -50,25 +82,82 @@
            <if test="code != null">
               and t.code=#{code}
            </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
            <if test="name != null">
               and t.name=#{name}
-           </if>
+           </if>          
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from role t where 1=1
+		from custtype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
            <if test="code != null">
               and t.code=#{code}
            </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
            <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
 	
-	
+    <delete id="deleteDocById" parameterType="long">
+        delete from custtype  where id = #{id}
+    </delete>
+
+	<select id="queryById" parameterType="long" resultMap="custTypeResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  custtype t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="custTypeResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.parentid,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM custtype t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>            
+           <if test="parentId != null">
+              and t.parentid=#{parentId}
+           </if>           
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
 </mapper>

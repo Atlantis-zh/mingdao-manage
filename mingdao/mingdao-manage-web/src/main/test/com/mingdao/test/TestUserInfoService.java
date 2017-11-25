@@ -13,21 +13,20 @@ import com.mingdao.domain.UserInfo;
 
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/spring-config.xml" })
+@ContextConfiguration(locations = {"classpath:/spring-config.xml"})
 public class TestUserInfoService {
-	
-	@Autowired
-	private IUserInfoBaseServiceItf service;
 
-	@Test
-	@Rollback(false)
-	public void testInsert()
-	{
-		UserInfo userInfo=new UserInfo();
-		userInfo.setUserCode("0002");
-		userInfo.setUserName("libinf");
-		userInfo.setPassWord("123456");
-		// userInfo.setCreateTime(DateUtil.getCurrentTimestamp());
-		service.insertUserInfo(userInfo);
-	}
+  @Autowired
+  private IUserInfoBaseServiceItf service;
+
+  @Test
+  @Rollback(false)
+  public void testInsert() {
+    UserInfo userInfo = new UserInfo();
+    userInfo.setUserCode("0002");
+    userInfo.setUserName("libinf");
+    userInfo.setPassWord("123456");
+    // userInfo.setCreateTime(DateUtil.getCurrentTimestamp());
+    // service.insertUserInfo(userInfo);
+  }
 }
