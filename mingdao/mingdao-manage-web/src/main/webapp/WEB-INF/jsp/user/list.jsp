@@ -58,7 +58,7 @@
 												<a  onclick="stopUser(${userInfo.id });" class="list_op">停用</a>
 											</c:if>
 										</td>
-										<td>${userInfo.shopId}</td>
+										<td>${userInfo.storeId}</td>
 										<td>${userInfo.phone}</td>
 										<td class="hidden-480">	${userInfo.email }</td>
 
@@ -218,7 +218,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="userName">  店铺: </label>
 
 									<div class="col-sm-9">
-										<input id="shopId" placeholder="shopId" class="col-xs-10 col-sm-5" type="text">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
@@ -356,7 +356,7 @@
 				$("#phone").val("");
 				$("#email").val("");
 				$("#status").val("");
-				$("#shopId").val("");
+				$("#storeId").val("");
 			});
 
 			function editUser(userId,obj){
@@ -378,7 +378,7 @@
 						$("#phone").val(user.phone);
 						$("#email").val(user.email);
 						$("#status").val(user.status);
-						$("#shopId").val(user.shopId);
+						$("#storeId").val(user.storeId);
 					},
 					fail: function (err) {
 						console.log(err)
@@ -433,12 +433,12 @@
 				var id =$("#id").val();
 				var email = $("#email").val();
 				var status = $("#status").val();
-				var shopId = $("#shopId").val();
+				var storeId = $("#storeId").val();
 
 				$.ajax({
 					type: 'POST',
 					url: "<%=request.getContextPath() %>/user/addUser",
-					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
+					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"storeId":storeId,"id":id },
 					dataType: "json",
 					success: function (data, status) {
 						if(id==null||id==""){

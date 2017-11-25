@@ -3,9 +3,9 @@ package com.mingdao.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.ui.Model;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +41,29 @@ public class UserInfoBaseServiceController extends BaseController {
 
   @Autowired
   private IUserInfoBaseServiceItf uiBaseService;
+
+  
+  @RequestMapping("users")
+  public String getUserInfo(Model model,HttpServletRequest request){
+      UserInfo user = new UserInfo();
+      String name =  request.getParameter("search_userName");
+      String code =  request.getParameter("search_userCode");
+
+      Map<String, Object> param = new HashMap<String, Object>();
+      
+
+      if(!StringUtils.isEmpty(name)){
+
+          param.put("userName", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("userCode", code);
+      }
+      
+      Pager<UserInfo> opPager = uiBaseService.pageQueryByCondition(param);
+      model.addAttribute("datas", opPager);
+      return "user/list";
+  }
 
 
   /**

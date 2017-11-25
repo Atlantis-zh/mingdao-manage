@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,25 @@ public class StoreBaseServiceController extends BaseController {
   @Autowired
   private IStoreBaseService storeBaseService;
 
+  
+  @RequestMapping("stores")
+  public String getStoreInfo(Model model,HttpServletRequest request){
+      Store role = new Store();
+      String name =  request.getParameter("search_StoreName");
+      String code =  request.getParameter("search_StoreCode");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<Store> opPager = storeBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "store/list";
+  }
 
   /**
    * 
