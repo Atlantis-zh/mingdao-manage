@@ -4,6 +4,7 @@
 	<resultMap id="mscResultMap" type="com.mingdao.domain.MemberShipCard">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="code" javaType="string" jdbcType="VARCHAR" column=""code""/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="cardRecharge" javaType="double" jdbcType="DOUBLE" column="cardrecharge"/>
 		<result property="cardDonate" javaType="double" jdbcType="DOUBLE" column="carddonate"/>
@@ -23,36 +24,40 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.MemberShipCard" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO membership_card
-		(storeid,name,cardrecharge,carddonate,expire,timeunit,cardpicture,sharetobranch,source,bindpackage,status,memo,creator,createtime,modifier,modifiedtime)
+		(storeid,code,name,cardrecharge,carddonate,expire,timeunit,cardpicture,sharetobranch,source,bindpackage,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit},#{cardPicture},#{shareToBranch},#{source},#{bindPackage},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{code},#{name},#{cardRecharge},#{cardDonate},#{expire},#{timeUnit},#{cardPicture},#{shareToBranch},#{source},#{bindPackage},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
+
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.MemberShipCard">
 	    UPDATE membership_card SET
-          storeid=#{storeId},
-          name=#{name},
-          cardrecharge=#{cardRecharge},
-          carddonate=#{cardDonate},
-          expire=#{expire},
-          timeunit=#{timeUnit},
-          cardpicture=#{cardPicture},
-          sharetobranch=#{shareToBranch},
-          source=#{source},
-          bindpackage=#{bindPackage},
-          status=#{status},
-          memo=#{memo},
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+            <if test="storeId!=null"> pkgtypeid=#{storeId},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="code!=null">code=#{code},</if>
+            <if test="cardRecharge!=null">cardrecharge=#{cardRecharge},</if>
+            <if test="cardDonate!=null">carddonate=#{cardDonate},</if>
+            <if test="expire!=null">expire=#{expire},</if>
+            <if test="timeUnit!=null">timeunit=#{timeUnit},</if>
+            <if test="cardPicture!=null">cardpicture=#{cardPicture},</if>
+            <if test="shareToBranch!=null">sharetobranch=#{shareToBranch},</if>
+            <if test="source!=null">source=#{source},</if>
+            <if test="bindPackage!=null">bindpackage=#{bindPackage},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="memo!=null">memo=#{memo},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
-	</update>
+	</update>	
+	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
 	    SELECT
           t.id,
           t.storeid,
+          t.code,
           t.name,
           t.cardrecharge,
           t.carddonate,
@@ -69,16 +74,16 @@
           t.modifier,
           t.modifiedtime
         FROM  membership_card t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
            </if>
-           <if test="name != null and name != ''">
+           <if test="name != null">
               and t.name=#{name}
            </if>
-           <if test="status != null and status != ''">
+           <if test="status != null">
               and t.status=#{status}
            </if>                 
 	</select>
@@ -87,16 +92,16 @@
 		select
 		   count(1)
 		from membership_card t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
            </if>
-           <if test="name != null and name != ''">
+           <if test="name != null">
               and t.name=#{name}
            </if>
-           <if test="status != null and status != ''">
+           <if test="status != null">
               and t.status=#{status}
            </if> 
 	</select>
@@ -105,5 +110,64 @@
     <delete id="deleteDocById" parameterType="long">
         delete from membership_card  where id = #{id}
     </delete>
+	
+	<select id="queryById" parameterType="long" resultMap="mscResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.cardrecharge,
+          t.carddonate,
+          t.expire,
+          t.timeunit,
+          t.cardpicture,
+          t.sharetobranch,
+          t.source,
+          t.bindpackage,
+          t.status,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime  
+        FROM  membership_card t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.cardrecharge,
+          t.carddonate,
+          t.expire,
+          t.timeunit,
+          t.cardpicture,
+          t.sharetobranch,
+          t.source,
+          t.bindpackage,
+          t.status,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime   
+		FROM membership_card t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+           <if test="status != null">
+              and t.status=#{status}
+           </if>  
+	</select>	
+	
 	
 </mapper>

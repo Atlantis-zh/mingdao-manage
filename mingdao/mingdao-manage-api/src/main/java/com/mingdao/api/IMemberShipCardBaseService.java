@@ -1,8 +1,5 @@
 package com.mingdao.api;
 
-import java.util.Map;
-
-import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.MemberShipCard;
 
 /**
@@ -18,14 +15,7 @@ import com.mingdao.domain.MemberShipCard;
  * @author libinf
  */
 
-public interface IMemberShipCardBaseService {
+public interface IMemberShipCardBaseService extends IDocBaseService<MemberShipCard> {
 
-	public MemberShipCard insertMemShipCard(MemberShipCard msc);
-
-	public MemberShipCard updateMemShipCard(MemberShipCard msc);
-
-	public Pager<MemberShipCard> pageQueryMemShipCardByCondition(Map<String, Object> param);
-
-	public void deleteMemShipCard(long id);
 
 }

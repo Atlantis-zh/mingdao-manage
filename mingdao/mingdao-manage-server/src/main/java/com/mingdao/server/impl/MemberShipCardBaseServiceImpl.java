@@ -10,7 +10,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IMemberShipCardBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IMemberShipCardDao;
 import com.mingdao.domain.MemberShipCard;
 
@@ -30,32 +29,47 @@ import com.mingdao.domain.MemberShipCard;
 @Service("memberShipCardBaseService")
 public class MemberShipCardBaseServiceImpl implements IMemberShipCardBaseService {
 
-	@Autowired
-	private IMemberShipCardDao dao;
+  @Autowired
+  private IMemberShipCardDao dao;
 
-	@Override
-	public MemberShipCard insertMemShipCard(MemberShipCard msc) {
-		dao.insertVO(msc);
-		return msc;
-	}
+  @Override
+  public MemberShipCard insert(MemberShipCard t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public MemberShipCard updateMemShipCard(MemberShipCard msc) {
-		dao.updateVO(msc);
-		return null;
-	}
+  @Override
+  public int update(MemberShipCard t) {
+    return dao.updateVO(t);
+  }
 
-	@Override
-	public Pager<MemberShipCard> pageQueryMemShipCardByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<MemberShipCard> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<MemberShipCard> pages = new Pager<MemberShipCard>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<MemberShipCard> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<MemberShipCard> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<MemberShipCard> pages = new Pager<MemberShipCard>(count, list);
+    return pages;
+  }
 
-	@Override
-	public void deleteMemShipCard(long id) {
-		dao.deleteDocById(id);
-	}
+  @Override
+  public MemberShipCard singleQryByCondtion(Map<String, Object> param) {
+    return dao.singleQueryByCondition(param);
+  }
+
+  @Override
+  public List<MemberShipCard> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
+
+  @Override
+  public MemberShipCard queryDocById(Long id) {
+    return dao.queryById(id);
+  }
+
 }

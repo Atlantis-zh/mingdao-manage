@@ -65,7 +65,7 @@ public class MemberShipCard extends SuperVO {
   /**
    * 卡状态
    */
-  private Integer cardStatus;
+  private Integer status;
   /**
    * 备注
    */
@@ -191,12 +191,13 @@ public class MemberShipCard extends SuperVO {
     this.code = code;
   }
 
-  public Integer getCardStatus() {
-    return this.cardStatus;
+
+  public Integer getStatus() {
+    return this.status;
   }
 
-  public void setCardStatus(Integer cardStatus) {
-    this.cardStatus = cardStatus;
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
 
