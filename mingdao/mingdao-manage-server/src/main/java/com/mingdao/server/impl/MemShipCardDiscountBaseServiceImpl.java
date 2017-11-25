@@ -52,7 +52,7 @@ public class MemShipCardDiscountBaseServiceImpl implements IMemShipCardDiscountB
 
   @Override
   public MemShipCardDiscount singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class MemShipCardDiscountBaseServiceImpl implements IMemShipCardDiscountB
 
   @Override
   public MemShipCardDiscount queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

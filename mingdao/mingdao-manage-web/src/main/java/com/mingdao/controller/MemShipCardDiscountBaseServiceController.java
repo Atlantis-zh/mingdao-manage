@@ -16,30 +16,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IMemberShipCardBaseService;
+import com.mingdao.api.IMemShipCardDiscountBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
-import com.mingdao.domain.MemberShipCard;
+import com.mingdao.domain.MemShipCardDiscount;
 import com.mingdao.domain.ResultMessage;
 
 /**
  *
- * <code>MemberShipCardBaseServiceController<code> <strong></strong>
+ * <code>MemShipCardDiscountBaseServiceController<code> <strong></strong>
  * <p>
  * 说明：
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月25日 下午10:05:10
+ * @version 2017年11月26日 上午1:20:09
  * @author libin
  */
 @Controller
-@RequestMapping("/memberShipBaseSer")
-public class MemberShipCardBaseServiceController extends BaseController {
+@RequestMapping("/memShipDiscountBaseSer")
+public class MemShipCardDiscountBaseServiceController extends BaseController {
   @Autowired
-  private IMemberShipCardBaseService spBaseService;
+  private IMemShipCardDiscountBaseService spBaseService;
 
   /**
    * 
@@ -54,24 +54,19 @@ public class MemberShipCardBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
-  @RequestMapping(value = "/addMemberShipCard", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addMemberShipCard(HttpServletRequest request,
+  @RequestMapping(value = "/addMemShipCardDiscount", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addMemShipCardDiscount(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    MemberShipCard newsp = new MemberShipCard();
+    MemShipCardDiscount newsp = new MemShipCardDiscount();
     newsp.setStoreId(jsonObj.getLong("storeId"));
-    newsp.setCode(jsonObj.getString("code"));
-    newsp.setName(jsonObj.getString("name"));
-    newsp.setCardRecharge(jsonObj.getDouble("cardRecharge"));
-    newsp.setCardDonate(jsonObj.getDouble("cardDonate"));
-    newsp.setExpire(jsonObj.getInteger("expire"));
-    newsp.setTimeUnit(jsonObj.getInteger("timeUnit"));
-    newsp.setCardPicture(jsonObj.getString("cardPicture"));
-    newsp.setShareToBranch(jsonObj.getBoolean("shareToBranch"));
-    newsp.setSource(jsonObj.getInteger("source"));
-    newsp.setBindPackage(jsonObj.getLong("bindPackage"));
-    newsp.setStatus(jsonObj.getInteger("status"));
+    newsp.setMemberShipCardId(jsonObj.getLong("memberShipCardId"));
+    newsp.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
+    newsp.setDiscount(jsonObj.getDouble("discount"));
+    newsp.setMemberShipPrice(jsonObj.getDouble("memberShipPrice"));
+    newsp.setProductId(jsonObj.getLong("productId"));
+    newsp.setMemo(jsonObj.getString("memo"));
     super.setTimeStampWithInsert(newsp, request);
     newsp = spBaseService.insert(newsp);
     if (newsp.getId() != null) {
@@ -97,29 +92,25 @@ public class MemberShipCardBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
-  @RequestMapping(value = "/updateMemberShipCard", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateMemberShipCard(HttpServletRequest request,
+  @RequestMapping(value = "/updateMemShipCardDiscount", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateMemShipCardDiscount(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    MemberShipCard oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
+    MemShipCardDiscount oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
     if (oldSp == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
     oldSp.setStoreId(jsonObj.getLong("storeId"));
-    oldSp.setCode(jsonObj.getString("code"));
-    oldSp.setName(jsonObj.getString("name"));
-    oldSp.setCardRecharge(jsonObj.getDouble("cardRecharge"));
-    oldSp.setCardDonate(jsonObj.getDouble("cardDonate"));
-    oldSp.setExpire(jsonObj.getInteger("expire"));
-    oldSp.setTimeUnit(jsonObj.getInteger("timeUnit"));
-    oldSp.setCardPicture(jsonObj.getString("cardPicture"));
-    oldSp.setShareToBranch(jsonObj.getBoolean("shareToBranch"));
-    oldSp.setSource(jsonObj.getInteger("source"));
-    oldSp.setBindPackage(jsonObj.getLong("bindPackage"));
-    oldSp.setStatus(jsonObj.getInteger("status"));
+    oldSp.setStoreId(jsonObj.getLong("storeId"));
+    oldSp.setMemberShipCardId(jsonObj.getLong("memberShipCardId"));
+    oldSp.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
+    oldSp.setDiscount(jsonObj.getDouble("discount"));
+    oldSp.setMemberShipPrice(jsonObj.getDouble("memberShipPrice"));
+    oldSp.setProductId(jsonObj.getLong("productId"));
+    oldSp.setMemo(jsonObj.getString("memo"));
     super.setTimeStampWithUpdate(oldSp, request);
     int updateRet = spBaseService.update(oldSp);
     if (updateRet == 0) {
@@ -144,8 +135,8 @@ public class MemberShipCardBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:00
    * @since NC6.5
    */
-  @RequestMapping(value = "/deleteMemberShipCardById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage deleteMemberShipCardById(HttpServletRequest request) {
+  @RequestMapping(value = "/deleteMemShipCardDiscountById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteMemShipCardDiscountById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
     int updateRet = spBaseService.deleteDocById(id);
@@ -173,8 +164,8 @@ public class MemberShipCardBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryMemberShipCards", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryMemberShipCards(HttpServletRequest request) {
+  @RequestMapping(value = "/pageQryMemShipCardDiscounts", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage pageQryMemShipCardDiscounts(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long storeId = Long.valueOf(request.getParameter("storeId"));
     if (storeId == null) {
@@ -183,7 +174,7 @@ public class MemberShipCardBaseServiceController extends BaseController {
     }
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("storeId", storeId);
-    Pager<MemberShipCard> opPager = spBaseService.pageQueryByCondition(param);
+    Pager<MemShipCardDiscount> opPager = spBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);
       result.setResultMsg("查询失败，请稍后重试！");
@@ -193,7 +184,7 @@ public class MemberShipCardBaseServiceController extends BaseController {
     obj.put(PageResultConst.PAGE, opPager.getOffset());
     obj.put(PageResultConst.PAGESIZE, opPager.getSize());
     obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<MemberShipCard> list = opPager.getDatas();
+    List<MemShipCardDiscount> list = opPager.getDatas();
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
@@ -216,11 +207,11 @@ public class MemberShipCardBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:30
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryMemberShipCardById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage qryMemberShipCardById(HttpServletRequest request) {
+  @RequestMapping(value = "/qryMemShipCardDiscountById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryMemShipCardDiscountById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    MemberShipCard spc = spBaseService.queryDocById(id);
+    MemShipCardDiscount spc = spBaseService.queryDocById(id);
     if (spc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");

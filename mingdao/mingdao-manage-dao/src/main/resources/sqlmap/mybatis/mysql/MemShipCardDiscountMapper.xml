@@ -38,6 +38,7 @@
           modifiedtime=#{modifiedTime}
         WHERE id=#{id}
 	</update>
+
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mscdResultMap">
 	    SELECT
@@ -54,29 +55,97 @@
           t.modifier,
           t.modifiedtime
         FROM  member_ship_card t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
-           </if>                  
+           </if>
+           <if test="memberShipCardId != null">
+              and t.membershipcardid=#{memberShipCardId}
+           </if>
+           <if test="serviceProjectId != null">
+              and t.serviceprojectid=#{serviceProjectId}
+           </if>
+           <if test="productId != null">
+              and t.productid=#{productId}
+           </if>                                                              
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
 		from membership_card_discount t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null and storeid != ''">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
+           </if>
+           <if test="memberShipCardId != null">
+              and t.membershipcardid=#{memberShipCardId}
+           </if>
+           <if test="serviceProjectId != null">
+              and t.serviceprojectid=#{serviceProjectId}
+           </if>
+           <if test="productId != null">
+              and t.productid=#{productId}
            </if>                  
 	</select>
 
 
+
     <delete id="deleteDocById" parameterType="long">
-        delete from membership_card_discount  where id = #{id}
+        delete from member_ship_card  where id = #{id}
     </delete>
+	
+	<select id="queryById" parameterType="long" resultMap="mscResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.membershipcardid,
+          t.serviceprojectid,
+          t.discount,
+          t.membershipprice,
+          t.productid,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime 
+        FROM  member_ship_card t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.membershipcardid,
+          t.serviceprojectid,
+          t.discount,
+          t.membershipprice,
+          t.productid,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM member_ship_card t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="memberShipCardId != null">
+              and t.membershipcardid=#{memberShipCardId}
+           </if>
+           <if test="serviceProjectId != null">
+              and t.serviceprojectid=#{serviceProjectId}
+           </if>
+           <if test="productId != null">
+              and t.productid=#{productId}
+           </if>
+	</select>	
 	
 </mapper>
