@@ -29,28 +29,49 @@ import com.mingdao.domain.PackageProject;
 @Service("packageProjectBaseService")
 public class PackageProjectBaseServiceImpl implements IPackageProjectBaseService {
 
-	@Autowired
-	private IPackageProjectDao dao;
+  @Autowired
+  private IPackageProjectDao dao;
 
-	@Override
-	public PackageProject insertPackageProject(PackageProject pp) {
-		dao.insertVO(pp);
-		return pp;
-	}
+  @Override
+  public PackageProject insert(PackageProject t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public PackageProject updatePackageProject(PackageProject pp) {
-		dao.updateVO(pp);
-		return pp;
-	}
+  @Override
+  public int update(PackageProject t) {
+    return dao.updateVO(t);
+  }
 
-	@Override
-	public Pager<PackageProject> pageQueryPkgProjectByCondition(Map<String, Object> param) {
-		int count = dao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<PackageProject> list = dao.pageQueryByCondition(param, pageBounds);
-		Pager<PackageProject> pages = new Pager<PackageProject>(count, list);
-		return pages;
-	}
+  @Override
+  public Pager<PackageProject> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<PackageProject> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<PackageProject> pages = new Pager<PackageProject>(count, list);
+    return pages;
+  }
+
+  @Override
+  public PackageProject singleQryByCondtion(Map<String, Object> param) {
+    return dao.singleQueryByCondition(param);
+  }
+
+  @Override
+  public List<PackageProject> qryAllDoces(Map<String, Object> param) {
+    return dao.batchQueryByCondition(param);
+  }
+
+  @Override
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
+
+  @Override
+  public PackageProject queryDocById(Long id) {
+    return dao.queryById(id);
+  }
+
+
 
 }

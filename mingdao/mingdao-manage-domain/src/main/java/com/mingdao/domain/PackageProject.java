@@ -22,7 +22,7 @@ public class PackageProject extends SuperVO {
    */
   private Long pkgTypeId;
   /**
-   * 服务项目
+   * 套餐项目 参照服务项目
    */
   private Long serviceProjectId;
 
@@ -30,14 +30,6 @@ public class PackageProject extends SuperVO {
    * 服务次数
    */
   private Integer serviceCount;
-  /**
-   * 单价
-   */
-  private Double price;
-  /**
-   * 总价
-   */
-  private Double totalPrice;
 
   public static final String ID = "id";
   public static final String PKGTYPEID = "pkgTypeId";
@@ -73,21 +65,6 @@ public class PackageProject extends SuperVO {
     this.serviceCount = serviceCount;
   }
 
-  public Double getPrice() {
-    return this.price;
-  }
-
-  public void setPrice(Double price) {
-    this.price = price;
-  }
-
-  public Double getTotalPrice() {
-    return this.totalPrice;
-  }
-
-  public void setTotalPrice(Double totalPrice) {
-    this.totalPrice = totalPrice;
-  }
 
   public Long getServiceProjectId() {
     return this.serviceProjectId;

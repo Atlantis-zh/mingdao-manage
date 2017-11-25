@@ -1,8 +1,5 @@
 package com.mingdao.api;
 
-import java.util.Map;
-
-import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.PackageProject;
 
 /**
@@ -18,12 +15,7 @@ import com.mingdao.domain.PackageProject;
  * @author libinf
  */
 
-public interface IPackageProjectBaseService {
+public interface IPackageProjectBaseService extends IDocBaseService<PackageProject> {
 
-	public PackageProject insertPackageProject(PackageProject pp);
-
-	public PackageProject updatePackageProject(PackageProject pp);
-
-	public Pager<PackageProject> pageQueryPkgProjectByCondition(Map<String, Object> param);
 
 }
