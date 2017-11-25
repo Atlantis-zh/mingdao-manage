@@ -52,7 +52,7 @@ public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
 
   @Override
   public CustSource singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class CustSourceBaseServiceImpl implements ICustSourceBaseService {
 
   @Override
   public CustSource queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

@@ -20,17 +20,19 @@
         (#{storeId},#{code},#{name},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
+	
 	<update id="updateVO" parameterType="com.mingdao.domain.CustSource">
-	    UPDATE cust_source SET
-	      storeid=#{storeId},
-          code=#{code},
-          name=#{name},    
-          creator=#{creator},
-          createtime=#{createTime},
-          modifier=#{modifier},
-          modifiedtime=#{modifiedTime}
+	    UPDATE custtype SET
+            <if test="code!=null"> code=#{code},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="storeId!=null">storeid=#{storeId},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
         WHERE id=#{id}
-	</update>
+	</update>		
+	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="custSourceResultMap">
 	    SELECT
@@ -43,13 +45,16 @@
           t.modifier,
           t.modifiedtime
         FROM  cust_source t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>                      
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
@@ -58,14 +63,59 @@
 		select
 		   count(1)
 		from cust_source t where 1=1
-           <if test="id != '' and id != null">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="code !='' and code != null">
+           <if test="code != null">
               and t.code=#{code}
            </if>
-           <if test="name !='' and name != null">
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>                      
+           <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
+	
+    <delete id="deleteDocById" parameterType="long">
+        delete from cust_source  where id = #{id}
+    </delete>
+
+	<select id="queryById" parameterType="long" resultMap="custSourceResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_source t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="custSourceResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM cust_source t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>                      
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
 </mapper>
