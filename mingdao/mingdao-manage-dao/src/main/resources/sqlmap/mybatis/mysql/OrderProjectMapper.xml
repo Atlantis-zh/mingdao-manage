@@ -44,26 +44,6 @@
           modifiedtime=#{modifiedTime}
         WHERE id=#{id}
 	</update>
-
-
-	<update id="updateVO" parameterType="com.mingdao.domain.OrderProject">
-	    UPDATE order_project SET
-        <if test="storeId!=null">  storeid=#{storeId},</if>
-        <if test="billno!=null">billno=#{billno},</if>
-        <if test="orderPsnId!=null"> orderpsnid=#{orderPsnId},</if>
-        <if test="serviceProjectId!=null">serviceprojectid=#{serviceProjectId},</if>
-        <if test="orderTime!=null">ordertime=#{orderTime},</if>
-        <if test="carInfoId!=null">carinfoid=#{carInfoId},</if>
-        <if test="customerId!=null">customerid=#{customerId},</if>
-        <if test="source!=null">source=#{source},</if>
-        <if test="status!=null">status=#{status},</if>
-        <if test="meno!=null">meno=#{meno},</if>
-        <if test="creator!=null">creator=#{creator},</if>
-        <if test="createTime!=null">createtime=#{createTime},</if>
-        <if test="modifier!=null">modifier=#{modifier},</if>
-        <if test="modifiedTime!=null">modifiedtime=#{modifiedTime}  </if>
-        WHERE id=#{id}
-	</update>	
 	
 	<select id="queryById" parameterType="long" resultMap="orderProjectResultMap">
 	    SELECT
