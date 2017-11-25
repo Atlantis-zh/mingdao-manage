@@ -4,7 +4,7 @@
 	<resultMap id="mscResultMap" type="com.mingdao.domain.MemberShipCard">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
 		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
-		<result property="code" javaType="string" jdbcType="VARCHAR" column=""code""/>
+		<result property="code" javaType="string" jdbcType="VARCHAR" column="code"/>
 		<result property="name" javaType="string" jdbcType="VARCHAR" column="name"/>
 		<result property="cardRecharge" javaType="double" jdbcType="DOUBLE" column="cardrecharge"/>
 		<result property="cardDonate" javaType="double" jdbcType="DOUBLE" column="carddonate"/>

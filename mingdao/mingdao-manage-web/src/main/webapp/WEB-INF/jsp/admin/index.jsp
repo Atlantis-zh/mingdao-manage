@@ -14,7 +14,7 @@
 		</script>
 		<jsp:include page="../common/left.jsp"></jsp:include>
 		<div class="main-content">
-		    <iframe name="mainFrame" id="mainFrame" frameborder="0" src="<%=request.getContextPath() %>/user/users" style="margin:0 auto;width:100%;height:100%;"></iframe>
+		    <iframe name="mainFrame" id="mainFrame" frameborder="0" src="<%=request.getContextPath() %>/userInfoBaseSer/users" style="margin:0 auto;width:100%;height:100%;"></iframe>
 		</div>
 	</div>
 	<jsp:include page="../common/foot.jsp"></jsp:include>
