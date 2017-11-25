@@ -33,7 +33,7 @@ public class MemberShip extends SuperVO {
   /**
    * 车辆信息
    */
-  private String carInfoId;
+  private Long carInfoId;
   /**
    * 会员卡种
    */
@@ -92,11 +92,11 @@ public class MemberShip extends SuperVO {
     this.customerId = customerId;
   }
 
-  public String getCarInfoId() {
+  public Long getCarInfoId() {
     return this.carInfoId;
   }
 
-  public void setCarInfoId(String carInfoId) {
+  public void setCarInfoId(Long carInfoId) {
     this.carInfoId = carInfoId;
   }
 

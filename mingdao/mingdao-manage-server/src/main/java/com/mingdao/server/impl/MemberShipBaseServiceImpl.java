@@ -52,7 +52,7 @@ public class MemberShipBaseServiceImpl implements IMemberShipBaseService {
 
   @Override
   public MemberShip singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class MemberShipBaseServiceImpl implements IMemberShipBaseService {
 
   @Override
   public MemberShip queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
