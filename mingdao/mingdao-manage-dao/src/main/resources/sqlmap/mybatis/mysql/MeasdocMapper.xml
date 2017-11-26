@@ -65,4 +65,20 @@
               and t.name=#{name}
            </if>
 	</select>
+
+	<select id="queryById" parameterType="long" resultMap="measdocResultMap">	
+		    SELECT
+          t.id,
+          t.code,
+          t.name,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  measdoc t where id=#{id}
+	</select>
+	
+	<delete id="deleteDocById" parameterType="long">
+        delete from measdoc  where id = #{id}
+    </delete>
 </mapper>

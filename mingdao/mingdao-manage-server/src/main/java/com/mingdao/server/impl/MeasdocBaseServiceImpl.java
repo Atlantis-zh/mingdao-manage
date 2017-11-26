@@ -68,7 +68,7 @@ public class MeasdocBaseServiceImpl implements IMeasdocBaseService {
 
   @Override
   public Measdoc queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }

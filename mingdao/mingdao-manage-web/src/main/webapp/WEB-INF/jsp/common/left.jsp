@@ -360,7 +360,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/measdocBaseSer/measdoc" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											计量单位
 										</a>
