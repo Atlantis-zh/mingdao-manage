@@ -128,7 +128,7 @@
 			}
 		 })
 	 }
-	 drawPieChart(placeholder, data);
+	 //drawPieChart(placeholder, data);
 	
 	 /**
 	 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
@@ -182,7 +182,7 @@
 		
 	
 		var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});
-		$.plot("#sales-charts", [
+		/* $.plot("#sales-charts", [
 			{ label: "Domains", data: d1 },
 			{ label: "Hosting", data: d2 },
 			{ label: "Services", data: d3 }
@@ -207,7 +207,7 @@
 				borderWidth: 1,
 				borderColor:'#555'
 			}
-		});
+		}); */
 	
 	
 		$('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
