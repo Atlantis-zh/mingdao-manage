@@ -45,10 +45,10 @@
           t.modifier,
           t.modifiedtime
         FROM  memship_packagepro_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
            </if>                  
 	</select>
@@ -57,17 +57,52 @@
 		select
 		   count(1)
 		from memship_packagepro_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
            </if>                 
 	</select>
 
-
     <delete id="deleteDocById" parameterType="long">
         delete from memship_packagepro_detail  where id = #{id}
     </delete>
+    
+
+	<select id="queryById" parameterType="long" resultMap="mscpiResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.packageprojectid,
+          t.packagetypeid,
+          t.remainsercount,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  memship_packagepro_detail t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mscpiResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.packageprojectid,
+          t.packagetypeid,
+          t.remainsercount,         
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM memship_packagepro_detail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="memberShipId != null">
+              and t.membershipid=#{memberShipId}
+           </if>
+	</select>    
+    
 	
 </mapper>

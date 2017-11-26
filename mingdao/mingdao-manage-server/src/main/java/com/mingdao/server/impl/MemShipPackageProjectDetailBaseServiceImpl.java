@@ -53,12 +53,12 @@ public class MemShipPackageProjectDetailBaseServiceImpl
 
   @Override
   public MemShipPackageProjectDetail singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
   public List<MemShipPackageProjectDetail> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override
@@ -68,7 +68,7 @@ public class MemShipPackageProjectDetailBaseServiceImpl
 
   @Override
   public MemShipPackageProjectDetail queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
