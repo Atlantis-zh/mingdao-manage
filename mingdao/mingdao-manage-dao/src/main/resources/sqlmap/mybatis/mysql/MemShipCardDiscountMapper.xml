@@ -99,7 +99,7 @@
         delete from member_ship_card  where id = #{id}
     </delete>
 	
-	<select id="queryById" parameterType="long" resultMap="mscResultMap">
+	<select id="queryById" parameterType="long" resultMap="mscdResultMap">
 	    SELECT
           t.id,
           t.storeid,
@@ -116,7 +116,7 @@
         FROM  member_ship_card t where id=#{id}
 	</select>
 
-	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mscResultMap">
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mscdResultMap">
 	    SELECT
           t.id,
           t.storeid,
