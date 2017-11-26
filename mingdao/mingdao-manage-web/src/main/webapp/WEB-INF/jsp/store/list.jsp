@@ -69,7 +69,7 @@
 											<td style="vertical-align: top;">
 												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-												<a href="<%=request.getContextPath() %>/store/stores" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/storeBaseSer/stores" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
@@ -265,7 +265,7 @@
 				$("#modalTitle").html("修改门店");
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/store/getStoreInfoByID",
+					url: "<%=request.getContextPath() %>/storeBaseSer/qryStoreById",
 					data: { "id": userId},
 					dataType: "json",
 					success: function (data) {
@@ -317,7 +317,7 @@
 				paramsCode.val=$("#search_StoreCode").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/store/stores",paramsArr);
+				submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",paramsArr);
 	    	});
 
 		//新增操作
@@ -329,7 +329,7 @@
 				var id=$("#id").val();
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/store/addStore",
+					url: "<%=request.getContextPath() %>/storeBaseSer/addStore",
 					data: { "name": name, "code": code,"tel1":tel1,"address":address,"id":id },
 					dataType: "json",
 					success: function (data, status) {
@@ -338,7 +338,7 @@
 						}else{
 							alert("修改成功！！");
 						}
-						submitForm("<%=request.getContextPath() %>/store/stores",null);
+						submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
 					},
 					fail: function (err, status) {
 						console.log(err)
