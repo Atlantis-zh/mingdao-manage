@@ -16,7 +16,7 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.Menu" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO menu
-        (code,name,parent_code,isleafmenu,status,creator,createtime,modifier,modifiedtime,path,menu_level)
+        (code,name,parentid,isleafmenu,status,creator,createtime,modifier,modifiedtime,path,menu_level)
         VALUES
         (#{code},#{name},#{parentCode},#{isLeafMenu},#{status},#{creator},#{createTime},#{modifier},#{modifiedTime},#{path},#{menuLevel})
 	</insert>
@@ -43,7 +43,7 @@
           t.id,
           t.code,
           t.name,
-          t.parent_code,
+          t.parentid,
           t.isleafmenu,
           t.status,
         t.path,
@@ -72,7 +72,7 @@
           t.id,
           t.code,
           t.name,
-          t.parent_code,
+          t.parentid,
           t.isleafmenu,
           t.status,
           t.path,

@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mingdao.api.IMenuBaseService;
+import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.Menu;
 import com.mingdao.domain.ResultMessage;
 import com.mingdao.enumprop.Status;
@@ -38,6 +40,27 @@ public class MenuBaseServiceController extends BaseController {
   @Autowired
   private IMenuBaseService baseService;
 
+  @RequestMapping("menus")
+  public String getMenusInfo(Model model, HttpServletRequest request) {
+
+      String name = request.getParameter("search_Name");
+      String code = request.getParameter("search_Code");
+      String parentCode = request.getParameter("search_ParentCode");
+      Map<String,Object> param = new HashMap<String,Object>();
+      if (!StringUtils.isEmpty(name)) {
+          param.put("name",name);
+      }
+      if (!StringUtils.isEmpty(code)) {
+          param.put("code",code);
+      }
+      if (!StringUtils.isEmpty(parentCode)) {
+          param.put("parentCode",parentCode);
+      }
+      Pager<Menu> listUser = baseService.pageQueryByCondition(param);
+      model.addAttribute("datas", listUser);
+      return "menu/list";
+  }
+  
   @RequestMapping(value = "/addMenu", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addMenu(HttpServletRequest request,
       @RequestBody String inputData) {

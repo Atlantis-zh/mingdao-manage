@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,29 @@ public class WorkTimeClassBaseServiceController extends BaseController {
 
   @Autowired
   private IWorkTimeClassBaseService wktBaseService;
+
+  
+  @RequestMapping("workTimeClasss")
+  public String getWorkTimeClasss(Model model, HttpServletRequest request) {
+
+      String name = request.getParameter("search_Name");
+      String code = request.getParameter("search_Code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if (!StringUtils.isEmpty(name)) {
+         
+          param.put("name",name);
+      }
+      if (!StringUtils.isEmpty(code)) {
+         
+          param.put("code",code);
+      }
+
+      
+      Pager<WorkTimeClass> opPager = wktBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "worktimeclass/list";
+  }
 
 
   /**

@@ -65,7 +65,7 @@
 									<b class="arrow"></b>
 								</li>
 								<li class="">
-									<a href="<%=request.getContextPath() %>/workTimeClass/workTimeClasss" target="mainFrame">
+									<a href="<%=request.getContextPath() %>/wktBaseSer/workTimeClasss" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										工时分类
 									</a>
@@ -107,7 +107,7 @@
 									<b class="arrow"></b>
 								</li>
 								<li class="">
-									<a href="<%=request.getContextPath() %>/role/roles" target="mainFrame">
+									<a href="<%=request.getContextPath() %>/roleBaseSer/roles" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										角色管理
 									</a>
@@ -123,7 +123,7 @@
 									<b class="arrow"></b>
 								</li>
 								<li class="">
-									<a href="<%=request.getContextPath() %>/menu/menus" target="mainFrame">
+									<a href="<%=request.getContextPath() %>/pc/menuBaseSer/menus" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										菜单管理
 									</a>

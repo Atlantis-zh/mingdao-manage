@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,24 @@ public class RoleBaseServiceController extends BaseController {
   @Autowired
   private IRoleBaseServiceItf roleBaseService;
 
+  @RequestMapping("roles")
+  public String getUserInfo(Model model,HttpServletRequest request){
+      Role role = new Role();
+      String name =  request.getParameter("search_RoleName");
+      String code =  request.getParameter("search_RoleCode");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+        param.put("roleName", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+          param.put("roleCode", code);
+      }
+
+      Pager<Role> opPager = roleBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "role/list";
+  }
 
   /**
    * 
