@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,20 +81,8 @@ public class StoreBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addStore", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addStore(HttpServletRequest request,
-      @RequestBody String inputData) {
+			@RequestBody Store store) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    Store store = new Store();
-    store.setCode(jsonObj.getString("code"));
-    store.setName(jsonObj.getString("name"));
-    store.setTel1(jsonObj.getString("tel1"));
-    store.setTel2(jsonObj.getString("tel2"));
-    store.setTel3(jsonObj.getString("tel3"));
-    store.setAddress(jsonObj.getString("address"));
-    store.setWxPubAccId(jsonObj.getString("wxPubAccId"));
-    store.setIsWxShow(jsonObj.getBoolean("isWxShow"));
-    store.setIsWxDefault(jsonObj.getBoolean("isWxDefault"));
-    store.setIsHeadStore(jsonObj.getBoolean("isHeadStore"));
     super.setTimeStampWithInsert(store, request);
     store = storeBaseService.insert(store);
     if (store.getId() != null) {
@@ -121,9 +110,8 @@ public class StoreBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateStore", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateStore(HttpServletRequest request,
-      @RequestBody String inputData) {
+			@RequestBody JSONObject jsonObj) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
     Store oldStore = storeBaseService.queryDocById(jsonObj.getLong("id"));
     if (oldStore == null) {
       result.setSuccess(false);

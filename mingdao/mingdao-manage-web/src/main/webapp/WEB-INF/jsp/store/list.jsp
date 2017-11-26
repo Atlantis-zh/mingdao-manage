@@ -35,6 +35,10 @@
 										<th>门店名称</th>
 										<th>门店地址</th>
 										<th>联系方式</th>
+										<th>微信上显示门店</th>
+										<th>微信默认门店</th>
+										<th>是否总店</th>
+										<th>微信公众号id</th>
 										<th>用户操作</th>
 									</tr>
 								</thead>
@@ -46,15 +50,45 @@
 											<a href="#">${userInfo.code }</a>
 										</td>
 										<td>${userInfo.name }</td>
-
 										<td>${userInfo.address}</td>
 										<td>${userInfo.tel1}</td>
+										<td>
+											<c:choose>
+												<c:when test="${userInfo.isWxShow}">
+													是
+												</c:when>
+												<c:otherwise>
+													否
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${userInfo.isWxDefault}">
+													是
+												</c:when>
+												<c:otherwise>
+													否
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${userInfo.isHeadStore}">
+													是
+												</c:when>
+												<c:otherwise>
+													否
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>${userInfo.wxPubAccId}</td>
 										<td>
 											<a class="btn btn-xs btn-info" onclick="editStore(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</a>
 
-											<a class="btn btn-xs btn-danger" href="deleteStore/${userInfo.id }" title="删除">
+											<a class="btn btn-xs btn-danger" onclick="deleteStore(${userInfo.id})" title="删除">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</a>
 										</td>
@@ -67,7 +101,7 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加门店"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
 												<a href="<%=request.getContextPath() %>/storeBaseSer/stores" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
@@ -212,7 +246,34 @@
 										<input id="address" placeholder="address" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
-
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="isWxShow"></label>
+	
+										<div class="col-sm-9">
+											<input id="isWxShow" type="checkbox" style="margin-top:5%;margin-right:5px;">微信上显示门店
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="isWxDefault"></label>
+	
+										<div class="col-sm-9">
+											<input id="isWxDefault" type="checkbox" style="margin-top:5%;margin-right:5px">微信默认门店
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="isHeadStore"></label>
+	
+										<div class="col-sm-9">
+											<input id="isHeadStore" type="checkbox" style="margin-top:5%;margin-right:5px">是否总店
+										</div>
+								</div>
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="address"> 微信公众号id: </label>
+	
+										<div class="col-sm-9">
+											<input id="wxPubAccId" placeholder="" class="col-xs-10 col-sm-5" type="text">
+										</div>
+								</div>
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -258,29 +319,37 @@
 				$("#code").val("");
 				$("#address").val("");
 				$("#tel1").val("");
+				$("#wxPubAccId").val("");
+				$("#isWxShow").prop("checked",false);
+				$("#isWxDefault").prop("checked",false);
+				$("#isHeadStore").prop("checked",false);
+				$("#code").prop("disabled",false);
+				$("#isHeadStore").prop("disabled",false);
 			});
 
 			function editStore(userId,obj){
 				$(obj).attr("data-target","#addUser");
 				$("#modalTitle").html("修改门店");
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/storeBaseSer/qryStoreById",
-					data: { "id": userId},
-					dataType: "json",
-					success: function (data) {
-						//var data_ =  JSON.parse(data);
-						var user = data.result;
+				$.get("<%=request.getContextPath() %>/storeBaseSer/qryStoreById",{"id":userId},function(resultStr){
+					var result = JSON.parse(resultStr);
+					if(result.success){
+						var user = result.result;
 						$("#id").val(user.id);
 						$("#name").val(user.name);
 						$("#code").val(user.code);
 						$("#address").val(user.address);
 						$("#tel1").val(user.tel1);
-					},
-					fail: function (err) {
-						console.log(err)
+						$("#wxPubAccId").val(user.wxPubAccId);
+						$("#isWxShow").prop("checked",user.isWxShow);
+						$("#isWxDefault").prop("checked",user.isWxDefault);
+						$("#isHeadStore").prop("checked",user.isHeadStore);
+						$("#code").prop("disabled",true);
+						if(user.isHeadStore){
+							$("#isHeadStore").prop("disabled",true);
+						}
+					}else{
+						alert(result.resultMsg);
 					}
-
 				});
 			}
 
@@ -327,24 +396,60 @@
 				var tel1 = $("#tel1").val();
 				var address = $("#address").val();
 				var id=$("#id").val();
+				var isWxShow = $("#isWxShow").prop("checked");
+				var isWxDefault = $("#isWxShow").prop("checked");
+				var isHeadStore = $("#isHeadStore").prop("checked");
+				var wxPubAccId = $("#wxPubAccId").val();
+				var postData={
+					name:name,
+					code:code,
+					tel1:tel1,
+					address:address,
+					id:id,
+					isWxShow:isWxShow,
+					isWxDefault:isWxDefault,
+					isHeadStore:isHeadStore,
+					wxPubAccId:wxPubAccId
+				}
+				var url = "<%=request.getContextPath() %>/storeBaseSer/addStore";
+				if(id!=""){
+					url = "<%=request.getContextPath() %>/storeBaseSer/updateStore"
+				}
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/storeBaseSer/addStore",
-					data: { "name": name, "code": code,"tel1":tel1,"address":address,"id":id },
+					url: url,
+					data: JSON.stringify(postData),
 					dataType: "json",
+					contentType: "application/json;charest=UTF-8",
 					success: function (data, status) {
-						if(id==null||id==""){
-							alert("保存成功！！");
+						if(data.success){
+							if(id==null||id==""){
+								alert("保存成功！！");
+							}else{
+								alert("修改成功！！");
+							}
+							submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
 						}else{
-							alert("修改成功！！");
+							alert(data.resultMsg);
 						}
-						submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
+						
 					},
 					fail: function (err, status) {
 						console.log(err)
 					}
 				});
 			});
+		function deleteStore(id){
+			$.get("<%=request.getContextPath() %>/storeBaseSer/deleteStore",{id:id},function(resultStr){
+				var result = JSON.parse(resultStr);
+				if(result.success){
+					alert("删除成功！")
+					submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
+				}else{
+					alert(result.resultMsg);
+				}
+			});
+		}
 	</script>
 
 </body>
