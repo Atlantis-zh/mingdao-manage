@@ -48,22 +48,41 @@ public class StoreBaseServiceController extends BaseController {
 
   
   @RequestMapping("stores")
-  public String getStoreInfo(Model model,HttpServletRequest request){
-      Store role = new Store();
-      String name =  request.getParameter("search_StoreName");
-      String code =  request.getParameter("search_StoreCode");
-      Map<String, Object> param = new HashMap<String, Object>();
-      if(!StringUtils.isEmpty(name)){
-    	  param.put("name", name);
-      }
-      if(!StringUtils.isEmpty(code)){
-    	  param.put("code", code);
-      }
+   public String getStoreInfo(Model model,HttpServletRequest request){
+    Store role = new Store();
+    String name =  request.getParameter("search_StoreName");
+    String code =  request.getParameter("search_StoreCode");
+    Map<String, Object> param = new HashMap<String, Object>();
+    if(!StringUtils.isEmpty(name)){
+      param.put("name", name);
+    }
+    if(!StringUtils.isEmpty(code)){
+      param.put("code", code);
+    }
 
-      Pager<Store> opPager = storeBaseService.pageQueryByCondition(param);
+    Pager<Store> opPager = storeBaseService.pageQueryByCondition(param);
 
-      model.addAttribute("datas", opPager);
-      return "store/list";
+    model.addAttribute("datas", opPager);
+    return "store/list";
+  }
+
+  @RequestMapping("refStores")
+  public String refStores(Model model,HttpServletRequest request){
+    Store role = new Store();
+    String name =  request.getParameter("search_StoreName");
+    String code =  request.getParameter("search_StoreCode");
+    Map<String, Object> param = new HashMap<String, Object>();
+    if(!StringUtils.isEmpty(name)){
+      param.put("name", name);
+    }
+    if(!StringUtils.isEmpty(code)){
+      param.put("code", code);
+    }
+
+    Pager<Store> opPager = storeBaseService.pageQueryByCondition(param);
+
+    model.addAttribute("datas", opPager);
+    return "store/refList";
   }
 
   /**

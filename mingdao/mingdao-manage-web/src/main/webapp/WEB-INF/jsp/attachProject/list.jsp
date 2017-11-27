@@ -160,6 +160,11 @@
 	</div>
 
 
+	<%--begin_zhangfx_查询框--%>
+
+
+
+
 	<%--  新增框--%>
 	<div class="modal fade" id="addUser" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -181,8 +186,9 @@
 									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
 
 									<div class="col-sm-9">
-										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
 									</div>
 								</div>
 
@@ -207,6 +213,15 @@
 
 									<div class="col-sm-9">
 										<input id="price" placeholder="price" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<%--门店参照--%>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
 									</div>
 								</div>
 						</div>
@@ -341,6 +356,11 @@
 					}
 				});
 			});
+
+		//参照门店
+		function refStores(obj){
+			$(obj).attr("data-target","#storeList");
+		}
 	</script>
 
 </body>

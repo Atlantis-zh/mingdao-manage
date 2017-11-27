@@ -6,6 +6,7 @@
 <html>
 <head>
 	<%@ include file="../common/common_css.jsp"%>
+	<%@ include file="../reference/Store.html" %>
 </head>
 <body class="no-skin">
 <div class="main-content-inner">
@@ -260,7 +261,7 @@
 	$('.form_datetime').datetimepicker({
 		weekStart: 0, //一周从哪一天开始
 		todayBtn:  1, //
-		autoclose: 1,
+		autoClose: 1,
 		todayHighlight: 1,
 		startView: 2,
 		forceParse: 0,
@@ -372,6 +373,10 @@
 
 		});
 	});
+
+
+	//门店参照
+	$("")
 
 
 
