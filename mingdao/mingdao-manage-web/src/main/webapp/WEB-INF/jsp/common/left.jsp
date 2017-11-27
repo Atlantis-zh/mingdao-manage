@@ -368,7 +368,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/productClassBaseSer/productclass" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											商品分类
 										</a>

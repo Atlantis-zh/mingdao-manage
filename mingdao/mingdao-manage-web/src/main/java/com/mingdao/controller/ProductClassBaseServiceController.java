@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +45,25 @@ public class ProductClassBaseServiceController extends BaseController {
   private IProductClassBaseService pcBaseService;
 
 
+  @RequestMapping("productclass")
+  public String getProductClass(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_StoreName");
+      String code =  request.getParameter("search_StoreCode");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<ProductClass> opPager = pcBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "product/productclass";
+  }
+  
   /**
    * 
    * <p>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,13 +24,14 @@ import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.MemberShipCard;
 import com.mingdao.domain.ResultMessage;
+import com.mingdao.domain.Store;
 
 /**
  *
  * <code>MemberShipCardBaseServiceController<code> <strong></strong>
  * <p>
  * 说明：
- * <li></li>
+ * <li>会员卡种control</li>
  * </p>
  * 
  * @since NC6.5
@@ -41,6 +44,25 @@ public class MemberShipCardBaseServiceController extends BaseController {
   @Autowired
   private IMemberShipCardBaseService spBaseService;
 
+  @RequestMapping("membership")
+  public String getStoreInfo(Model model,HttpServletRequest request){
+	  
+      String name =  request.getParameter("search_StoreName");
+      String code =  request.getParameter("search_StoreCode");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<MemberShipCard> opPager = spBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "membership/list";
+  }
+  
   /**
    * 
    * <p>
