@@ -186,6 +186,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
 
 									<div class="col-sm-9">
+									    <input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
 										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
