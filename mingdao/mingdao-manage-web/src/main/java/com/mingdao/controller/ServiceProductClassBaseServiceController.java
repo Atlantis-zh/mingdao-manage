@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,9 +57,7 @@ public class ServiceProductClassBaseServiceController extends BaseController {
     	  param.put("code", code);
       }
 
-
-      List<ServiceProductClass> list = spcBaseService.qryAllDoces(param);
-
+		Pager<ServiceProductClass> list = spcBaseService.pageQueryByCondition(param);
       model.addAttribute("datas", list);
       return "servieProjectClass/list";
   }
@@ -79,15 +78,8 @@ public class ServiceProductClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addServiceProductClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addServiceProductClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+			@RequestBody ServiceProductClass neSpc) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ServiceProductClass neSpc = new ServiceProductClass();
-    neSpc.setStoreId(jsonObj.getLong("storeId"));
-    neSpc.setCode(jsonObj.getString("code"));
-    neSpc.setName(jsonObj.getString("name"));
-    neSpc.setWorkTimeClassId(jsonObj.getLong("workTimeClassId"));
-    neSpc.setParentId(jsonObj.getLong("parentId"));
     super.setTimeStampWithInsert(neSpc, request);
     neSpc = spcBaseService.insert(neSpc);
     if (neSpc.getId() != null) {
@@ -115,9 +107,8 @@ public class ServiceProductClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateServiceProductClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateServiceProductClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+			@RequestBody JSONObject jsonObj) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
     ServiceProductClass oldSpc = spcBaseService.queryDocById(jsonObj.getLong("id"));
     if (oldSpc == null) {
       result.setSuccess(false);
