@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.AttachProject;
+import com.mingdao.domain.AttachProjectDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -56,8 +58,15 @@ public class AttachProjectBaseServiceController extends BaseController {
       }
 
       Pager<AttachProject> opPager = apBaseService.pageQueryByCondition(param);
+      
+      List<AttachProject> list = opPager.getDatas();
+      List<AttachProjectDTO> dtos = new ArrayList<AttachProjectDTO>();
+      for(AttachProject vo:list){
+    	  dtos.add(vo.getDto());
+      }
+      Pager<AttachProjectDTO> pages = new Pager<AttachProjectDTO>(list.size(), dtos);
 
-      model.addAttribute("datas", opPager);
+      model.addAttribute("datas", pages);
       return "attachProject/list";
   }
   /**
@@ -75,14 +84,12 @@ public class AttachProjectBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addAttachProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addAttachProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody AttachProject newap) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    AttachProject newap = new AttachProject();
-    newap.setStoreId(jsonObj.getLong("storeId"));
-    newap.setCode(jsonObj.getString("code"));
-    newap.setName(jsonObj.getString("name"));
-    newap.setPrice(jsonObj.getDouble("price"));
+//    newap.setStoreId(jsonObj.getLong("storeId"));
+//    newap.setCode(jsonObj.getString("code"));
+//    newap.setName(jsonObj.getString("name"));
+//    newap.setPrice(jsonObj.getDouble("price"));
     super.setTimeStampWithInsert(newap, request);
     newap = apBaseService.insert(newap);
     if (newap.getId() != null) {
@@ -110,19 +117,19 @@ public class AttachProjectBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateAttachProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateAttachProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody AttachProject newap) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    AttachProject oldap = apBaseService.queryDocById(jsonObj.getLong("id"));
+//    JSONObject jsonObj = JSONObject.parseObject(inputData);
+    AttachProject oldap = apBaseService.queryDocById(newap.getId());
     if (oldap == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldap.setStoreId(jsonObj.getLong("storeId"));
-    oldap.setCode(jsonObj.getString("code"));
-    oldap.setName(jsonObj.getString("name"));
-    oldap.setPrice(jsonObj.getDouble("price"));
+    oldap.setStoreId(newap.getStoreId());
+    oldap.setCode(newap.getCode());
+    oldap.setName(newap.getName());
+    oldap.setPrice(newap.getPrice());
     super.setTimeStampWithUpdate(oldap, request);
     int updateRet = apBaseService.update(oldap);
     if (updateRet == 0) {
@@ -229,7 +236,7 @@ public class AttachProjectBaseServiceController extends BaseController {
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(spc));
+      result.setResult(DataUtil.superVOToJsonObject(spc.getDto()));
     }
     return result;
   }
