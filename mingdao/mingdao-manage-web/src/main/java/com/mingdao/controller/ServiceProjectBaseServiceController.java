@@ -62,6 +62,26 @@ public class ServiceProjectBaseServiceController extends BaseController {
       return "serviceProject/list";
   }
   
+  @RequestMapping("refserviceProjects")
+  public String getRefServiceProject(Model model, HttpServletRequest request) {
+
+      String name = request.getParameter("search_Name");
+      String code = request.getParameter("search_Code");
+      Map<String, Object> param = new HashMap<String, Object>();
+
+      if (!StringUtils.isEmpty(name)) {
+    	  param.put("name", name);
+      }
+      if (!StringUtils.isEmpty(code)) {
+    	  param.put("code", code);
+      }
+      Pager<ServiceProject> opPager = spBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "serviceProject/refServiceproject";
+  }
+  
+  
   /**
    * 
    * <p>
