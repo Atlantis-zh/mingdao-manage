@@ -404,7 +404,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/orderFormBaseSer/orderForm" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											维护订单管理
 										</a>

@@ -84,6 +84,40 @@
            </if>
 	</select>
 	
+		<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="customerResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.name,
+          t.code,
+          t.wxnickname,
+          t.birthday,
+          t.phone,
+          t.identityid,
+          t.custsourceid,
+          t.custtypeid,
+          t.lpr,
+          t.sex,
+          t.address,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  customer t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="phone != null">
+              and t.phone=#{phone}
+           </if>
+           <if test="name != null">
+                and t.name=#{name}
+           </if>
+	</select>
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="customerResultMap">
 	    SELECT
           t.id,
