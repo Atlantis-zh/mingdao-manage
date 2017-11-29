@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mingdao.dao.base.IPackageTypeDetailDao">
+	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageTypeDetail">
+		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
+		<result property="pkgTypeId" javaType="long" jdbcType="BIGINT" column="pkgtypeid"/>
+		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
+		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceProjectId"/>
+		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
+		<result property="total" javaType="double" jdbcType="DOUBLE" column="total"/>		
+		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
+		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
+		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
+		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
+	</resultMap>
+	
+	<insert id="insertVO" parameterType="com.mingdao.domain.PackageTypeDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO package_typedetail
+		(pkgtypeid,serviceprojectid,servicecount,saleprice,total,creator,createtime,modifier,modifiedtime)
+		VALUES
+		(#{pkgtypeid},#{serviceProjectId},#{serviceCount},#{salePrice},#{total},#{creator},#{createTime},#{modifier},#{modifiedTime})
+	</insert>
+	
+
+	<update id="updateVO" parameterType="com.mingdao.domain.PackageTypeDetail">
+	    UPDATE package_typedetail SET
+            <if test="pkgTypeId!=null"> pkgtypeid=#{pkgTypeId},</if>
+            <if test="serviceProjectId!=null">serviceprojectid=#{serviceProjectId},</if>
+            <if test="serviceCount!=null">servicecount=#{serviceCount},</if>
+            <if test="creator!=null">creator=#{creator},</if>
+            <if test="createTime!=null">createtime=#{createTime},</if>
+            <if test="modifier!=null">modifier=#{modifier},</if>
+            <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
+        WHERE id=#{id}
+	</update>
+	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
+	    SELECT
+          t.id,
+          t.pkgtypeid,          
+          t.serviceprojectid,
+          t.servicecount,
+          saleprice,
+          total,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  package_typedetail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if>
+	</select>
+	
+	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
+	    SELECT
+          t.id,
+          t.pkgtypeid,          
+          t.serviceprojectid,
+          t.servicecount,
+          saleprice,
+          total,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime         
+        FROM  package_typedetail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if>                
+	</select>
+	
+	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
+		select
+		   count(1)
+		from package_typedetail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if> 
+	</select>
+	
+    <delete id="deleteDocById" parameterType="long">
+        delete from package_typedetail  where id = #{id}
+    </delete>
+
+	<select id="queryById" parameterType="long" resultMap="ppResultMap">
+	    SELECT
+          t.id,
+          t.pkgtypeid,          
+          t.serviceprojectid,
+          t.servicecount,
+          saleprice,
+          total,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime 
+        FROM  package_typedetail t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
+	    SELECT
+          t.id,
+          t.pkgtypeid,          
+          t.serviceprojectid,
+          t.servicecount,
+          saleprice,
+          total,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime    
+		FROM package_typedetail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="pkgtypeid != null">
+              and t.pkgtypeid=#{pkgTypeId}
+           </if> 
+	</select>	
+		
+</mapper>
