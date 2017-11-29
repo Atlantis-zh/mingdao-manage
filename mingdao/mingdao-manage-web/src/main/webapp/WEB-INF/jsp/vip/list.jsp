@@ -6,7 +6,24 @@
 <html>
 <head>
 <%@ include file="../common/common_css.jsp"%>
-
+<style type="text/css" media="screen">
+	.select{
+		height:34px !important;
+		margin-top: 4px;
+		line-height: 34px !important;
+	}
+	.clear{
+		content: '';
+		height: 0;
+		clear: both;
+	}
+	.form-group{
+		margin-bottom: 0px !important;
+	}
+	.setradio{
+		margin-top: 18px;
+	}
+</style>
 
 
 </head>
@@ -22,8 +39,6 @@
 			</ul>
 		</div>
 		<div class="page-content">
-
-
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="row">
@@ -40,6 +55,7 @@
 										<th>共享到分店</th>
 										<th>来源</th>
 										<th>卡状态</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 
@@ -54,7 +70,7 @@
 											${MemberShip.cardRecharge}
 										</td>
 										<td>${MemberShip.cardDonate}</td>
-										<td>${MemberShip.expire} + ${MemberShip.timeUnit}</td>
+										<td>${MemberShip.expire + MemberShip.timeUnit}</td>
 										<td><a href="#">${cardPicture}</a></td>
 										<td>
 											<c:if test="${shareToBranch}">
@@ -80,27 +96,10 @@
 												<span style="color: red">不正常</span>
 											</c:if>
 										</td>
-										<!--<td>
-									
-												<c:if test="${userInfo.status eq '1' }">
-													<button class="btn btn-xs btn-success" title="启用"> 
-														<i class="ace-icon fa fa-check-square-o bigger-120"></i>
-													</button>
-												</c:if>
-												<c:if test="${userInfo.status eq '0' }">
-													<button class="btn btn-xs btn-success" title="停用">
-														<i class="ace-icon fa fa-square-o bigger-120"></i>
-													</button>
-												</c:if>
-
-												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</a>
-
-												<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</a>
-										</td>-->
+										<td>
+										    <a class="btn btn-xs btn-info" onclick="editUser(${MemberShip.id},this)" id="editInfo"  data-toggle="modal" title="修改">修改</a>
+											<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="停用">停用</a>
+										</td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -131,10 +130,7 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
-
-
 	<%--begin_zhangfx_查询框--%>
 	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -161,21 +157,19 @@
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>姓名：</label>
+										<label>卡名称：</label>
 									</td>
 
-									<td class="data"><input type="text" id="search_userName" name="search_userName" role="textbox"
-															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+									<td class="data"><input type="text" id="search_userName" name="search_userName" role="textbox" class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>编号：</label>
+										<label>卡编码：</label>
 									</td>
 
-									<td class="data"><input type="text"  id="search_userCode" name="search_userCode" role="textbox"
-															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+									<td class="data"><input type="text"  id="search_userCode" name="search_userCode" role="textbox" class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								</tbody>
@@ -189,12 +183,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset"
-																				  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
-										class="ace-icon fa fa-retweet"></span>重置</a></td>
-								<td class="EditButton"><a id="fbox_grid-table_search"
-														  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
-										class="ace-icon fa fa-search"></span>查询</a></td>
+								<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset" class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span class="ace-icon fa fa-retweet"></span>重置</a></td>
+								<td class="EditButton"><a id="fbox_grid-table_search" class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span class="ace-icon fa fa-search"></span>查询</a></td>
 							</tr>
 							</tbody>
 						</table>
@@ -204,8 +194,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<%--  新增框--%>
 	<div class="modal fade" id="addUser" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -213,7 +201,7 @@
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 					 style="cursor: move;">
 					<div class="widget-header">
-						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增用户</span>
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增会员</span>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
@@ -224,70 +212,176 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户名(必须是英文): </label>
+									<label class="col-sm-3 control-label no-padding-right" for="name"> 卡名称: </label>
 
 									<div class="col-sm-9">
-										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="userName" placeholder="userName" class="col-xs-10 col-sm-5" type="text">
+										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden" >
+										<input id="name" placeholder="卡名称" class="col-xs-10 col-sm-5" type="text">
 									</div>
+									<div class="clear"></div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  店铺: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="code">卡编码: </label>
 
 									<div class="col-sm-9">
-										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
+										<input id="code" placeholder="卡编码" class="col-xs-10 col-sm-5" type="text">
 									</div>
+									<div class="clear"></div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户编码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="cardRecharge"> 开卡充值: </label>
 
 									<div class="col-sm-9">
-										<input id="userCode" placeholder="userCode" class="col-xs-10 col-sm-5" type="text">
+										<input id="cardRecharge" placeholder="开卡充值" class="col-xs-10 col-sm-5" type="text">
 									</div>
+									<div class="clear"></div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName">  用户名(必须是英文): </label>
+									<label class="col-sm-3 control-label no-padding-right" for="cardDonate">  开卡赠送: </label>
 
 									<div class="col-sm-9">
-										<input id="nickName" placeholder="nickName" class="col-xs-10 col-sm-5" type="text">
+										<input id="cardDonate" placeholder="开卡赠送" class="col-xs-10 col-sm-5" type="text">
 									</div>
+									<div class="clear"></div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="password">  用户密码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="expire">  有效期: </label>
 
 									<div class="col-sm-9">
-										<input id="passWord" placeholder="passWord" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName"> 手机号码:</label>
-
-									<div class="col-sm-9">
-										<input id="phone" placeholder="phone" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email"> 电子邮箱:  </label>
-
-									<div class="col-sm-9">
-										<input id="email" placeholder="email" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email">状态: </label>
-
-									<div class="col-sm-9">
-										<select class="form-control" id="status">
-											<option value="0">停用</option>
-											<option value="1">启用</option>
+										<input id="expire" placeholder="有效期" class="col-xs-6 col-sm-5" type="text">
+										<select id="timeUnit" class="select">
+										  <option value="1" selected>年</option>
+										  <option value="2">月</option>
+										  <option value="3">日</option>
 										</select>
+									</div>
+									<div class="clear"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="shareToBranch"> 共享到分店:</label>
+
+									<div class="col-sm-9 setradio">
+										<input type="radio" name="shareToBranch" value="0" />否
+										<input type="radio" name="shareToBranch" value="1" />是
+									</div>
+									<div class="clear"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="source"> 来源:  </label>
+
+									<div class="col-sm-9 setradio">
+										<input name="source" value="0" type="radio" />总店共享
+										<input name="source" value="1" type="radio" />本店
+									</div>
+									<div class="clear"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="status">状态: </label>
+
+									<div class="col-sm-9 setradio">
+										<input name="status" value="1" type="radio" checked />正常
+										<input name="status" value="0" type="radio" checked />不正常
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+						</div>
+						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
+							<tbody>
+							<tr>
+								<td colspan="2">
+									<hr class="ui-widget-content" style="margin:1px">
+								</td>
+							</tr>
+							<tr>
+								<td class="EditButton" style="text-align:left">
+									<a id="fbox_grid-table_reset_add" class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info">
+									   <span class="ace-icon fa fa-retweet"></span>
+									   重置
+									</a>
+								</td>
+								<td class="EditButton">
+								   <a id="fbox_grid-table_add" class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple">
+								      <span class="ace-icon fa fa-search"></span>
+								      添加
+								    </a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
+			</div>
+		</div>
+	</div>
+	<%--修改框--%>
+	<div class="modal fade" id="changeInfor" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
+					 style="cursor: move;">
+					<div class="widget-header">
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">修改信息</span>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+					</div>
+				</div>
+				<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
+					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="changName"> 卡名称: </label>
+
+									<div class="col-sm-9">
+										<input id="changename" placeholder="卡名称" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="changecardRecharge"> 开卡充值: </label>
+
+									<div class="col-sm-9">
+										<input id="changecardRecharge" placeholder="开卡充值" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="changecardDonate">  开卡赠送: </label>
+
+									<div class="col-sm-9">
+										<input id="changecardDonate" placeholder="开卡赠送" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="changeexpire">  有效期: </label>
+
+									<div class="col-sm-9">
+										<input id="changeexpire" placeholder="有效期" class="col-xs-6 col-sm-5" type="text">
+										<select id="changetimeUnit" class="select">
+										  <option value="1" selected>年</option>
+										  <option value="2">月</option>
+										  <option value="3">日</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="changeshareToBranch"> 共享到分店:</label>
+
+									<div class="col-sm-9 setradio">
+										<input type="radio" name="changeshareToBranch" value="0" />否
+										<input type="radio" name="changeshareToBranch" value="1" />是
 									</div>
 								</div>
 							</div>
@@ -300,12 +394,18 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset_add"
-																				  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
-										class="ace-icon fa fa-retweet"></span>重置</a></td>
-								<td class="EditButton"><a id="fbox_grid-table_add"
-														  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
-										class="ace-icon fa fa-search"></span>添加</a></td>
+								<td class="EditButton" style="text-align:left">
+									<a id="fbox_grid-table_reset_add" class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info">
+									   <span class="ace-icon fa fa-retweet"></span>
+									   确定
+									</a>
+								</td>
+								<td class="EditButton">
+								   <a id="fbox_grid-table_add" class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple">
+								      <span class="ace-icon fa fa-search"></span>
+								      返回
+								    </a>
+								</td>
 							</tr>
 							</tbody>
 						</table>
@@ -365,38 +465,31 @@
 
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
-				$("#modalTitle").html("新增用户");
-				$("#id").val("");
-				$("#userName").val("");
-				$("#nickName").val("");
-				$("#passWord").val("");
-				$("#userCode").val("");
-				$("#phone").val("");
-				$("#email").val("");
-				$("#status").val("");
-				$("#storeId").val("");
+				$("#modalTitle").html("新增会员");
+				$("#name").val("");
+				$("#code").val("");
+				$("#cardRecharge").val("");
+				$("#cardDonate").val("");
+				$("#expire").val("");
 			});
 
 			function editUser(userId,obj){
-				$(obj).attr("data-target","#addUser");
-				$("#modalTitle").html("修改用户");
+				$(obj).attr("data-target","#changeInfor");
+				debugger;
 				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/getUserInfoByID",
-					data: { "userId": userId},
+					type: 'GET',
+					url: "<%=request.getContextPath() %>/memberShipCardBaseSer/qryMemberShipCardById",
+					data: { "id": userId},
 					dataType: "json",
 					success: function (data) {
 						//var data_ =  JSON.parse(data);
 						var user = data.result;
-						$("#id").val(user.id);
-						$("#userName").val(user.userName);
-						$("#nickName").val(user.nickName);
-						$("#passWord").val(user.passWord);
-						$("#userCode").val(user.userCode);
-						$("#phone").val(user.phone);
-						$("#email").val(user.email);
-						$("#status").val(user.status);
-						$("#storeId").val(user.storeId);
+						$("#changename").val(user.name);
+						$("#changecardRecharge").val(user.cardRecharge);
+						$("#changecardDonate").val(user.cardDonate);
+						$("#changeexpire").val(user.expire);
+						$("#changetimeUnit").val(user.changetimeUnit);
+						$("input[name='changeshareToBranch']:checked").val(user.shareToBranch)
 					},
 					fail: function (err) {
 						console.log(err)
@@ -438,25 +531,26 @@
 				paramsCode.val=$("#search_userCode").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/user/users",paramsArr);
+				submitForm("<%=request.getContextPath() %>/memberShipCardBaseSer/refcardtype",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
-				var userName = $("#userName").val();
-				var nickName = $("#nickName").val();
-				var passWord = $("#passWord").val();
-				var userCode = $("#userCode").val();
-				var phone =$("#phone").val();
-				var id =$("#id").val();
-				var email = $("#email").val();
-				var status = $("#status").val();
-				var storeId = $("#storeId").val();
-
+				var obj = {};
+				obj.name = $("#name").val();
+				obj.code = $("#code").val();
+				obj.cardRecharge = $("#cardRecharge").val();
+				obj.cardDonate = $("#cardDonate").val();
+				obj.expire =$("#expire").val();
+				obj.id =$("#id").val();
+				obj.timeUnit = $("#timeUnit").val();
+				obj.shareToBranch = $("input[name='shareToBranch']:checked").val();
+				obj.source = $("input[name='source']:checked").val();
+				obj.status = $("input[name='status']:checked").val();
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/addUser",
-					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"storeId":storeId,"id":id },
+					url: "<%=request.getContextPath() %>/memberShipCardBaseSer/addMemberShipCard",
+					data: obj,
 					dataType: "json",
 					success: function (data, status) {
 						if(id==null||id==""){
@@ -464,7 +558,7 @@
 						}else{
 							alert("修改成功！！");
 						}
-						submitForm("<%=request.getContextPath() %>/user/users",null);
+						submitForm("<%=request.getContextPath() %>/memberShipCardBaseSer/refcardtype",null);
 					},
 					fail: function (err, status) {
 						console.log(err)
