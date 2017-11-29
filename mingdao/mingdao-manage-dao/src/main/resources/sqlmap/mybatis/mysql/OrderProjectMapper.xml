@@ -13,6 +13,9 @@
 	    <result property="source" javaType="int" jdbcType="INTEGER" column="source"/>
 	    <result property="status" javaType="int" jdbcType="INTEGER" column="status"/>
 	    <result property="meno" javaType="string" jdbcType="VARCHAR" column="meno"/>
+        <result property="serviceName" javaType="string" jdbcType="VARCHAR" column="service_name"/>
+        <result property="carNo" javaType="string" jdbcType="VARCHAR" column="car_no"/>
+        <result property="customerName" javaType="string" jdbcType="VARCHAR" column="customer_name"/>
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -46,43 +49,56 @@
 	</update>
 	
 	<select id="queryById" parameterType="long" resultMap="orderProjectResultMap">
-	    SELECT
-          t.id,
-          t.storeid,
-          t.billno,
-          t.orderpsnid,
-          t.serviceprojectid,
-          t.ordertime,
-          t.carinfoid,
-          t.customerid,         
-          t.source,
-          t.status,
-          t.meno,
-          t.creator,
-          t.createtime,
-          t.modifier,
-          t.modifiedtime
+	     SELECT
+        t.id,
+        t.storeid,
+        t.billno,
+        t.orderpsnid,
+        t.serviceprojectid,
+        c.name service_name,
+        t.ordertime,
+        t.carinfoid,
+        b.platnumber car_no,
+        t.customerid,
+        a.name customer_name,
+        t.source,
+        t.status,
+        t.meno,
+        t.creator,
+        t.createtime,
+        t.modifier,
+        t.modifiedtime
+        FROM  order_project t left join customer a on t.customerid=a.id
+        left join car_info b on t.carinfoid=b.id
+        left join service_product c on t.serviceprojectid=c.id
         FROM  order_project t where t.id=#{id}
 	</select>
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
-	    SELECT
-          t.id,
-          t.storeid,
-          t.billno,
-          t.orderpsnid,
-          t.serviceprojectid,
-          t.ordertime,
-          t.carinfoid,
-          t.customerid,         
-          t.source,
-          t.status,
-          t.meno,
-          t.creator,
-          t.createtime,
-          t.modifier,
-          t.modifiedtime
-        FROM  order_project t where 1=1
+        SELECT
+        t.id,
+        t.storeid,
+        t.billno,
+        t.orderpsnid,
+        t.serviceprojectid,
+        c.name service_name,
+        t.ordertime,
+        t.carinfoid,
+        b.platnumber car_no,
+        t.customerid,
+        a.name customer_name,
+        t.source,
+        t.status,
+        t.meno,
+        t.creator,
+        t.createtime,
+        t.modifier,
+        t.modifiedtime
+        FROM  order_project t left join customer a on t.customerid=a.id
+        left join car_info b on t.carinfoid=b.id
+        left join service_product c on t.serviceprojectid=c.id
+
+        where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -126,23 +142,29 @@
     </delete>	
 
 	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="orderProjectResultMap">
-	    SELECT
-          t.id,
-          t.storeid,
-          t.billno,
-          t.orderpsnid,
-          t.serviceprojectid,
-          t.ordertime,
-          t.carinfoid,
-          t.customerid,         
-          t.source,
-          t.status,
-          t.meno,
-          t.creator,
-          t.createtime,
-          t.modifier,
-          t.modifiedtime
-		FROM order_project t where 1=1
+        SELECT
+        t.id,
+        t.storeid,
+        t.billno,
+        t.orderpsnid,
+        t.serviceprojectid,
+        c.name service_name,
+        t.ordertime,
+        t.carinfoid,
+        b.platnumber car_no,
+        t.customerid,
+        a.name customer_name,
+        t.source,
+        t.status,
+        t.meno,
+        t.creator,
+        t.createtime,
+        t.modifier,
+        t.modifiedtime
+        FROM  order_project t left join customer a on t.customerid=a.id
+        left join car_info b on t.carinfoid=b.id
+        left join service_product c on t.serviceprojectid=c.id
+        where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>

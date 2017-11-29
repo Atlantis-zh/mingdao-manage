@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mingdao.api.ICustomerBaseService;
+import com.mingdao.domain.Customer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class OrderProjectBaseServiceController extends BaseController {
   @Autowired
   private IOrderProjectBaseService orderProjectService;
 
+  @Autowired
+  private ICustomerBaseService custBaseService;
+
 
 
   /**
@@ -60,20 +65,24 @@ public class OrderProjectBaseServiceController extends BaseController {
    * @since NC6.5
    */
   @RequestMapping(value = "/addOrderProject", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addOrderProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage addOrderProject(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
+    String storeIdStr =  request.getParameter("storeId");
+    String serviceProjectIdStr =  request.getParameter("serviceProjectId");
+    String orderTimeStr =  request.getParameter("orderTime");
+    String customerIdStr =  request.getParameter("customerId");
+    String carInfoIdStr =  request.getParameter("carInfoId");
+
     OrderProject op = new OrderProject();
-    op.setStoreId(jsonObj.getLong("storeId"));
-    op.setOrderPsnId(jsonObj.getLong("orderPsnId"));
-    op.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
-    op.setOrderTime(jsonObj.getString("orderTime"));
-    op.setCustomerId(jsonObj.getLong("customerId"));
-    op.setCarInfoId(jsonObj.getLong("carInfoId"));
+    op.setStoreId(Long.valueOf(storeIdStr));
+    //op.setOrderPsnId(jsonObj.getLong("orderPsnId"));
+    op.setServiceProjectId(Long.valueOf(serviceProjectIdStr));
+    op.setOrderTime(orderTimeStr);
+    op.setCustomerId(Long.valueOf(customerIdStr));
+    op.setCarInfoId(Long.valueOf(carInfoIdStr));
     op.setStatus(0);// 新增默认都是未确认
-    op.setSource(jsonObj.getInteger("source"));
-    op.setMeno(jsonObj.getString("meno"));
+   /* op.setSource(jsonObj.getInteger("source"));
+    op.setMeno(jsonObj.getString("meno"));*/
     super.setTimeStampWithInsert(op, request);
     op = orderProjectService.insert(op);
     if (op.getId() != null) {
@@ -101,20 +110,27 @@ public class OrderProjectBaseServiceController extends BaseController {
   @RequestMapping(value = "/qryOrderProjects", method = RequestMethod.GET)
   public @ResponseBody ResultMessage queryOrderProjects(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    if (StringUtils.isEmpty(request.getParameter("storeId"))) {
+    String phone = request.getParameter("phone");
+    if (StringUtils.isEmpty(phone)) {
       result.setSuccess(false);
-      result.setResultMsg("请选择所属门店！");
+      result.setResultMsg("传入手机号码！！");
       return result;
     }
-    Long storeId = Long.valueOf(request.getParameter("storeId"));
+    Map<String, Object> param1 = new HashMap<String, Object>();
+    param1.put("phone", phone);
+    Pager<Customer> data = custBaseService.pageQueryByCondition(param1);
+    Customer customer = new Customer();
+    if(data!=null && data.getDatas()!=null ){
+      List<Customer> list = data.getDatas();
+      customer =  list.get(0);
+    }else{
+      result.setSuccess(false);
+      result.setResultMsg("传入手机号码！！");
+      return result;
+    }
     Map<String, Object> param = new HashMap<String, Object>();
-    param.put("storeId", storeId);
-    if (!StringUtils.isEmpty(request.getParameter("status"))) {
-      param.put("status", Integer.valueOf(request.getParameter("status")));
-    }
-    if (!StringUtils.isEmpty(request.getParameter("customerId"))) {
-      param.put("customerId", Integer.valueOf(request.getParameter("customerId")));
-    }
+    param.put("storeId", customer.getStoreId());
+    param.put("customerId", customer.getId());
     Pager<OrderProject> opPager = orderProjectService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);
@@ -137,21 +153,29 @@ public class OrderProjectBaseServiceController extends BaseController {
   }
 
   @RequestMapping(value = "/updateOrderProject", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateOrderProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage updateOrderProject(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    OrderProject oldOP = orderProjectService.queryDocById(jsonObj.getLong("id"));
+    String idStr =  request.getParameter("id");
+    String storeIdStr =  request.getParameter("storeId");
+    String serviceProjectIdStr =  request.getParameter("serviceProjectId");
+    String orderTimeStr =  request.getParameter("orderTime");
+    String customerIdStr =  request.getParameter("customerId");
+    String carInfoIdStr =  request.getParameter("carInfoId");
+
+    OrderProject oldOP = orderProjectService.queryDocById(Long.valueOf(idStr));
     if (oldOP == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldOP.setStoreId(jsonObj.getLong("storeId"));
-    oldOP.setOrderPsnId(jsonObj.getLong("orderPsnId"));
-    oldOP.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
-    oldOP.setCarInfoId(jsonObj.getLong("carInfoId"));
-    oldOP.setMeno(jsonObj.getString("meno"));
+
+    oldOP.setId(Long.valueOf(idStr));
+    oldOP.setStoreId(Long.valueOf(storeIdStr));
+    oldOP.setServiceProjectId(Long.valueOf(serviceProjectIdStr));
+    oldOP.setOrderTime(orderTimeStr);
+    oldOP.setCustomerId(Long.valueOf(customerIdStr));
+    oldOP.setCarInfoId(Long.valueOf(carInfoIdStr));
+    //oldOP.setMeno(jsonObj.getString("meno"));
     super.setTimeStampWithUpdate(oldOP, request);
     int updateRet = orderProjectService.update(oldOP);
     if (updateRet == 0) {

@@ -52,6 +52,10 @@ public class OrderProject extends SuperVO {
    * 备注
    */
   private String meno;
+
+  private String    serviceName;
+  private String       carNo;
+  private String customerName;
   /**
    * 0：未确认，1：处理中，2：已完成，3：驳回
    */
@@ -160,6 +164,27 @@ public class OrderProject extends SuperVO {
     this.status = status;
   }
 
+  public String getCarNo() {
+    return carNo;
+  }
 
+  public void setCarNo(String carNo) {
+    this.carNo = carNo;
+  }
 
+  public String getServiceName() {
+    return serviceName;
+  }
+
+  public void setServiceName(String serviceName) {
+    this.serviceName = serviceName;
+  }
+
+  public String getCustomerName() {
+    return customerName;
+  }
+
+  public void setCustomerName(String customerName) {
+    this.customerName = customerName;
+  }
 }
