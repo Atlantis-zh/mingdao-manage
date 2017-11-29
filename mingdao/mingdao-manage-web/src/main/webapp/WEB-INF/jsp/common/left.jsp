@@ -226,7 +226,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/packageTypeBaseSer/packagetype" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											设置套餐类型
 										</a>
@@ -242,9 +242,17 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/memberShipBaseSer/member" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											会员卡办理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									<li class="">
+										<a href="<%=request.getContextPath() %>/packageProjectBaseSer/packageproject" target="mainFrame">
+											<i class="menu-icon fa fa-caret-right"></i>
+											套餐办理
 										</a>
 
 										<b class="arrow"></b>

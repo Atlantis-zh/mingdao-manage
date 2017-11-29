@@ -3,9 +3,20 @@
 <mapper namespace="com.mingdao.dao.base.IPackageProjectDao">
 	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageProject">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
-		<result property="pkgTypeId" javaType="long" jdbcType="BIGINT" column="pkgtypeid"/>
 		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceprojectid"/>
 		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
+		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
+		<result property="cardNo" javaType="string" jdbcType="VARCHAR" column="cardno"/>
+		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
+		<result property="carInfoId" javaType="long" jdbcType="BIGINT" column="carinfoid"/>
+		<result property="memberShipCardId" javaType="long" jdbcType="BIGINT" column="membershipcardid"/>
+		<result property="packageTypeId" javaType="long" jdbcType="BIGINT" column="packagetypeid"/>
+		<result property="crash" javaType="double" jdbcType="DOUBLE" column="crash"/>
+		<result property="points" javaType="int" jdbcType="INTEGER" column="points"/>
+		<result property="remaining" javaType="double" jdbcType="DOUBLE" column="remaining"/>
+		<result property="totalRemainCount" javaType="int" jdbcType="INTEGER" column="totalremaincount"/>
+		<result property="percentagePsnId" javaType="long" jdbcType="BIGINT" column="percentagePsnId"/>
+		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
@@ -14,9 +25,9 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageProject" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO package_project
-		(pkgtypeid,serviceprojectid,servicecount,creator,createtime,modifier,modifiedtime)
+		(packagetypeid,serviceprojectid,servicecount,storeid,cardno,customerid,carinfoid,membershipcardid,crash,points,remaining,totalremaincount,,percentagepsnid,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{pkgTypeId},#{serviceProjectId},#{serviceCount},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{packagetypeid},#{serviceProjectId},#{serviceCount},#{storeid},#{cardno},#{customerid},#{carinfoid},#{membershipcardid},#{crash},#{points},#{remaining},#{totalremaincount},#{percentagepsnid},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 
@@ -35,7 +46,6 @@
 	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
           t.id,          
-          t.pkgitemid,
           t.serviceprojectid,
           t.servicecount,
           t.creator,
@@ -54,7 +64,6 @@
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
           t.id,          
-          t.pkgitemid,
           t.serviceprojectid,
           t.servicecount,
           t.creator,
@@ -89,7 +98,6 @@
 	<select id="queryById" parameterType="long" resultMap="ppResultMap">
 	    SELECT
           t.id,          
-          t.pkgitemid,
           t.serviceprojectid,
           t.servicecount,
           t.creator,
@@ -102,7 +110,6 @@
 	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
           t.id,          
-          t.pkgitemid,
           t.serviceprojectid,
           t.servicecount,
           t.creator,

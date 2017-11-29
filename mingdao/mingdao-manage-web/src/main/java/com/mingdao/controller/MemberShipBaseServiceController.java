@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +23,8 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.MemberShip;
+import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -42,6 +46,28 @@ public class MemberShipBaseServiceController extends BaseController {
   @Autowired
   private IMemberShipBaseService spBaseService;
 
+  
+  @RequestMapping("member")
+  public String getProductClass(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<MemberShip> opPager = spBaseService.pageQueryByCondition(param);
+//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", opPager);
+      return "member/list";
+  }
+  
   /**
    * 
    * <p>
