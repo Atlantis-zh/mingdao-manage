@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -177,13 +178,15 @@ public class CustBaseServiceController extends BaseController {
   @RequestMapping(value = "/pageQryCustomers", method = RequestMethod.GET)
   public @ResponseBody ResultMessage pageQryCustomers(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    Long storeId = Long.valueOf(request.getParameter("storeId"));
-    if (storeId == null) {
-      result.setSuccess(false);
-      result.setResultMsg("所属门店不能为空！");
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(request.getParameter("storeId"))) {
+			Long storeId = Long.valueOf(request.getParameter("storeId"));
+			if (storeId == null) {
+				result.setSuccess(false);
+				result.setResultMsg("所属门店不能为空！");
+			}
+			param.put("storeId", storeId);
     }
-    Map<String, Object> param = new HashMap<String, Object>();
-    param.put("storeId", storeId);
     Pager<Customer> opPager = custBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);

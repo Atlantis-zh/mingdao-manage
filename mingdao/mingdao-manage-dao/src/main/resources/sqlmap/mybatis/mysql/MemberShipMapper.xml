@@ -83,6 +83,40 @@
            </if>                 
 	</select>
 	
+		<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="memberShipResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.cardno,
+          t.customerid,
+          t.carinfoid,
+          t.membershipcardid,
+          t.packagetypeid,
+          t.crash,
+          t.points,
+          t.remaining,
+          t.totalremaincount,
+          t.percentagepsnid,
+          t.memo,          
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  membership t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>           
+           <if test="cardNo != null">
+              and t.cardno=#{cardNo}
+           </if>
+           <if test="customerId != null">
+              and t.customerid=#{customerId}
+           </if> 
+	</select>
+	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)

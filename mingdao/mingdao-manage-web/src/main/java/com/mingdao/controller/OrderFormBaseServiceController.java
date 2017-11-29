@@ -8,10 +8,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,6 +56,11 @@ public class OrderFormBaseServiceController extends BaseController {
 	      return "orderForm/list";
 	  }
 	  
+	@RequestMapping(value = "addOrderForm", method = RequestMethod.GET)
+	public String addPage(Model model, HttpServletRequest request) {
+		return "orderForm/add";
+	}
+
 	  @RequestMapping("refOrderForm")
 	  public String getRefOrderForm(Model model,HttpServletRequest request){
 
@@ -239,17 +244,9 @@ public class OrderFormBaseServiceController extends BaseController {
 	  @RequestMapping(value = "/pageQryOrderFormes", method = RequestMethod.GET)
 	  public @ResponseBody ResultMessage pageQryOrderFormes(HttpServletRequest request) {
 	    ResultMessage result = new ResultMessage();
-	    Long storeId = Long.valueOf(request.getParameter("storeId"));
-	    if (storeId == null) {
-	      result.setSuccess(false);
-	      result.setResultMsg("所属门店不能为空！");
-	    }
+		Long storeId = 1L;
 	    Map<String, Object> param = new HashMap<String, Object>();
 	    param.put("storeId", storeId);
-	    Long parentId = Long.valueOf(request.getParameter("parentId"));
-	    if (parentId != null) {
-	      param.put("parentId", parentId);
-	    }
 	    Pager<OrderForm> opPager = pcBaseService.pageQueryByCondition(param);
 	    if (opPager == null) {
 	      result.setSuccess(false);
