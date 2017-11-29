@@ -26,7 +26,7 @@ import com.mingdao.domain.ServiceProject;
  * @author libinf
  */
 
-@Service
+@Service("ServiceProjectBaseService")
 public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService {
 
   @Autowired

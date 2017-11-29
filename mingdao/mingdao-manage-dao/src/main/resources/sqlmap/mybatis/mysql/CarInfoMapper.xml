@@ -23,7 +23,7 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.CarInfo" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO car_info
-        (customerid,plannumber,carprice,annualexpiration,addressofperson,nextservicecyc,vin,buycartime,brandid,insurecompany,insureexpir,precyc,creator,createtime,modifier,modifiedtime)
+        (customerid,platnumber,carprice,annualexpiration,addressofperson,nextservicecyc,vin,buycartime,brandid,insurecompany,insureexpir,precyc,creator,createtime,modifier,modifiedtime)
         VALUES
         (#{customerId},#{platNumber},#{carPrice},#{annualExpiration},#{addressOfPerson},#{nextServiceCyc},#{vin},#{buyCarTime},#{brandId},#{insureCompany},#{insureExpir},#{preCyc},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
@@ -73,7 +73,7 @@
            <if test="id != '' and id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != '' and customerid != null">
+           <if test="customerId != '' and customerId != null">
               and t.customerid=#{customerId}
            </if>
 	</select>
@@ -82,7 +82,7 @@
 	    SELECT
           t.id,
           t.customerid,
-          t.plannumber,
+          t.platnumber,
           t.carprice,
           t.annualexpiration,
           t.addressofperson,
@@ -101,7 +101,7 @@
            <if test="id != '' and id != null">
               and t.id=#{id}
            </if>
-           <if test="customerid != '' and customerid != null">
+           <if test="customerId != '' and customerId != null">
               and t.customerid=#{customerId}
            </if>
 	</select>

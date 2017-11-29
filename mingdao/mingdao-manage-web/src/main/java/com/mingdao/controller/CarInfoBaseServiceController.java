@@ -1,10 +1,16 @@
 package com.mingdao.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSONArray;
+import com.mingdao.api.IServiceProjectBaseService;
+import com.mingdao.common.pageUtil.Pager;
+import com.mingdao.domain.ServiceProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +47,9 @@ public class CarInfoBaseServiceController extends BaseController {
 
 	@Autowired
 	private ICustomerBaseService custBaseService;
+
+	@Autowired
+	private IServiceProjectBaseService ServiceProjectBaseService;
 
 	/**
 	 * 
@@ -87,6 +96,35 @@ public class CarInfoBaseServiceController extends BaseController {
 	}
 
 
+	@RequestMapping(value = "/qryAllServiceProject", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject qryAllServiceProject(HttpServletRequest request){
+		String storeId =  request.getParameter("storeId");
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("storeId",storeId);
+		JSONObject result = new JSONObject();
+		JSONArray array = new JSONArray();
+		try{
+			Pager<ServiceProject> data = ServiceProjectBaseService.pageQueryByCondition(param);
+			List<ServiceProject> list =  data.getDatas();
+			for(int i=0;i<list.size();i++){
+				ServiceProject project = list.get(i);
+				JSONObject obj = new JSONObject();
+				obj.put("id",project.getId());
+				obj.put("name",project.getName());
+				array.add(obj);
+			}
+			result.put("projrcts",array);
+			result.put("success",true);
+		}catch (Exception e){
+			result.put("projrcts",null);
+			result.put("success",false);
+		}
+		return result;
+	}
+
+
+
 	@RequestMapping(value = "/getSystemLongTime", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject getSystemLongTime(){
@@ -95,5 +133,63 @@ public class CarInfoBaseServiceController extends BaseController {
 		result.put("systemTime",longTime);
 		return result;
 	}
+
+
+	@RequestMapping(value = "/getCarsByCustId", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getCarsByCustId(HttpServletRequest request){
+		String phone =  request.getParameter(Customer.PHONE);
+		Map<String, Object> custParam = new HashMap<String, Object>();
+		custParam.put(Customer.PHONE, phone);
+		Customer cust = custBaseService.singleQryByCondtion(custParam);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("customerId",cust.getId());
+		JSONObject result = new JSONObject();
+		try{
+			Pager<CarInfo> data = carInfoBaseService.pageQueryByCondition(param);
+			List<CarInfo> list = data.getDatas();
+
+			JSONArray array = new JSONArray();
+			for(int i=0;i<list.size();i++){
+				CarInfo carInfo = list.get(i);
+				JSONObject obj = new JSONObject();
+				obj.put("id",carInfo.getId());
+				obj.put("platnumber",carInfo.getPlatNumber());
+				array.add(obj);
+			}
+			result.put("cars",array);
+			result.put("success",true);
+		}catch(Exception e){
+			result.put("cars",null);
+			result.put("success",false);
+		}
+
+		return result;
+	}
+
+
+	@RequestMapping(value = "/getCustomerInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getCustomerInfo(HttpServletRequest request){
+		String phone =  request.getParameter(Customer.PHONE);
+		Map<String, Object> custParam = new HashMap<String, Object>();
+		custParam.put(Customer.PHONE, phone);
+		JSONObject result = new JSONObject();
+		try{
+			Customer cust = custBaseService.singleQryByCondtion(custParam);
+			result.put("id",cust.getId());
+			result.put("name",cust.getName());
+			result.put("storeId",cust.getStoreId());
+			result.put("code",cust.getCode());
+			result.put("phone",cust.getPhone());
+			result.put("success",true);
+		}catch (Exception e){
+			result.put("success",false);
+		}
+		return result;
+	}
+
+
+
 
 }
