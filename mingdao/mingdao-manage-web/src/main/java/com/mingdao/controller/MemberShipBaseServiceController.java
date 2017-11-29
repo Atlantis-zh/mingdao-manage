@@ -48,7 +48,7 @@ public class MemberShipBaseServiceController extends BaseController {
 
   
   @RequestMapping("member")
-  public String getProductClass(Model model,HttpServletRequest request){
+  public String getMemberShip(Model model,HttpServletRequest request){
 
       String name =  request.getParameter("search_name");
       String code =  request.getParameter("search_code");

@@ -120,6 +120,19 @@ public Long getId() {
   public void setIsUserCosumerCard(Boolean isUserCosumerCard) {
     this.isUserCosumerCard = isUserCosumerCard;
   }
+  
+  public OrderFormDTO createDTO(){
+	  OrderFormDTO dto = new OrderFormDTO();
+	  dto.setBillNo(this.getBillNo());
+	  dto.setCarInfoId(this.getCarInfoId());
+	  dto.setId(this.getId());
+	  dto.setIsUserCosumerCard(this.getIsUserCosumerCard());
+	  dto.setMaintenancePsnId(this.getMaintenancePsnId());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setTotalMount(this.getTotalMount());
+	  return dto;
+	  
+  }
 
 
 
