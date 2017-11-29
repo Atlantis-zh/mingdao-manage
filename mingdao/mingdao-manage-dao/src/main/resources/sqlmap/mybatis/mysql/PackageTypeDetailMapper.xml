@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mingdao.dao.base.IPackageProjectDao">
-	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageProject">
+<mapper namespace="com.mingdao.dao.base.IPackageTypeDetailDao">
+	<resultMap id="ppResultMap" type="com.mingdao.domain.PackageTypeDetail">
 		<id property="id" javaType="long" jdbcType="BIGINT" column="id" />
-		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceprojectid"/>
+		<result property="pkgTypeId" javaType="long" jdbcType="BIGINT" column="pkgtypeid"/>
 		<result property="serviceCount" javaType="int" jdbcType="INTEGER" column="servicecount"/>
-		<result property="storeId" javaType="long" jdbcType="BIGINT" column="storeid"/>
-		<result property="cardNo" javaType="string" jdbcType="VARCHAR" column="cardno"/>
-		<result property="customerId" javaType="long" jdbcType="BIGINT" column="customerid"/>
-		<result property="carInfoId" javaType="long" jdbcType="BIGINT" column="carinfoid"/>
-		<result property="memberShipCardId" javaType="long" jdbcType="BIGINT" column="membershipcardid"/>
-		<result property="packageTypeId" javaType="long" jdbcType="BIGINT" column="packagetypeid"/>
-		<result property="crash" javaType="double" jdbcType="DOUBLE" column="crash"/>
-		<result property="points" javaType="int" jdbcType="INTEGER" column="points"/>
-		<result property="remaining" javaType="double" jdbcType="DOUBLE" column="remaining"/>
-		<result property="totalRemainCount" javaType="int" jdbcType="INTEGER" column="totalremaincount"/>
-		<result property="percentagePsnId" javaType="long" jdbcType="BIGINT" column="percentagePsnId"/>
-		<result property="memo" javaType="string" jdbcType="VARCHAR" column="memo"/>	
+		<result property="serviceProjectId" javaType="long" jdbcType="BIGINT" column="serviceProjectId"/>
+		<result property="salePrice" javaType="double" jdbcType="DOUBLE" column="saleprice"/>
+		<result property="total" javaType="double" jdbcType="DOUBLE" column="total"/>		
 		<result property="creator" javaType="long" jdbcType="BIGINT" column="creator"/>
 		<result property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="createtime"/>
 		<result property="modifier" javaType="long" jdbcType="BIGINT" column="modifier"/>
 		<result property="modifiedTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" column="modifiedtime"/>
 	</resultMap>
 	
-	<insert id="insertVO" parameterType="com.mingdao.domain.PackageProject" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO package_project
-		(packagetypeid,serviceprojectid,servicecount,storeid,cardno,customerid,carinfoid,membershipcardid,crash,points,remaining,totalremaincount,,percentagepsnid,memo,creator,createtime,modifier,modifiedtime)
+	<insert id="insertVO" parameterType="com.mingdao.domain.PackageTypeDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO package_typedetail
+		(pkgtypeid,serviceprojectid,servicecount,saleprice,total,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{packagetypeid},#{serviceProjectId},#{serviceCount},#{storeid},#{cardno},#{customerid},#{carinfoid},#{membershipcardid},#{crash},#{points},#{remaining},#{totalremaincount},#{percentagepsnid},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{pkgtypeid},#{serviceProjectId},#{serviceCount},#{salePrice},#{total},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 
-	<update id="updateVO" parameterType="com.mingdao.domain.PackageProject">
-	    UPDATE package_project SET
+	<update id="updateVO" parameterType="com.mingdao.domain.PackageTypeDetail">
+	    UPDATE package_typedetail SET
             <if test="pkgTypeId!=null"> pkgtypeid=#{pkgTypeId},</if>
             <if test="serviceProjectId!=null">serviceprojectid=#{serviceProjectId},</if>
             <if test="serviceCount!=null">servicecount=#{serviceCount},</if>
@@ -45,14 +36,17 @@
 	
 	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
-          t.id,          
+          t.id,
+          t.pkgtypeid,          
           t.serviceprojectid,
           t.servicecount,
+          saleprice,
+          total,
           t.creator,
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  package_project t where 1=1
+        FROM  package_typedetail t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -63,14 +57,17 @@
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
-          t.id,          
+          t.id,
+          t.pkgtypeid,          
           t.serviceprojectid,
           t.servicecount,
+          saleprice,
+          total,
           t.creator,
           t.createtime,
           t.modifier,
-          t.modifiedtime          
-        FROM  package_project t where 1=1
+          t.modifiedtime         
+        FROM  package_typedetail t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -82,7 +79,7 @@
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from package_project t where 1=1
+		from package_typedetail t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -92,31 +89,37 @@
 	</select>
 	
     <delete id="deleteDocById" parameterType="long">
-        delete from package_project  where id = #{id}
+        delete from package_typedetail  where id = #{id}
     </delete>
 
 	<select id="queryById" parameterType="long" resultMap="ppResultMap">
 	    SELECT
-          t.id,          
+          t.id,
+          t.pkgtypeid,          
           t.serviceprojectid,
           t.servicecount,
+          saleprice,
+          total,
           t.creator,
           t.createtime,
           t.modifier,
-          t.modifiedtime   
-        FROM  package_project t where id=#{id}
+          t.modifiedtime 
+        FROM  package_typedetail t where id=#{id}
 	</select>
 
 	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="ppResultMap">
 	    SELECT
-          t.id,          
+          t.id,
+          t.pkgtypeid,          
           t.serviceprojectid,
           t.servicecount,
+          saleprice,
+          total,
           t.creator,
           t.createtime,
           t.modifier,
-          t.modifiedtime   
-		FROM package_project t where 1=1
+          t.modifiedtime    
+		FROM package_typedetail t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>

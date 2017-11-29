@@ -1,5 +1,6 @@
 package com.mingdao.server.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,10 @@ import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.dao.base.IPackageTypeDao;
+import com.mingdao.dao.base.IPackageTypeDetailDao;
 import com.mingdao.domain.PackageType;
+import com.mingdao.domain.PackageTypeDetail;
+import com.mingdao.domain.Store;
 
 /**
  *
@@ -31,6 +35,9 @@ public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 
   @Autowired
   private IPackageTypeDao dao;
+  
+  @Autowired
+  private IPackageTypeDetailDao detaildao;
 
   @Override
   public PackageType insert(PackageType t) {
@@ -69,6 +76,10 @@ public class PackageTypeBaseServiceImpl implements IPackageTypeBaseService {
 
   @Override
   public PackageType queryDocById(Long id) {
+	  Map<String, Object>  param = new HashMap<String, Object>();
+	  int count = detaildao.getCountByCondition(param);
+	  PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+	  List<PackageTypeDetail> body = detaildao.pageQueryByCondition(param, pageBounds);
     return dao.queryById(id);
   }
 

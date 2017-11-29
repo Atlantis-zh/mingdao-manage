@@ -34,8 +34,18 @@ public class ProductClass extends SuperVO {
    * 上级分类
    */
   private Long parentId;
+  
+  private ProductClassDTO dto;
 
-  public Long getId() {
+  public ProductClassDTO getDto() {
+	return dto;
+}
+
+public void setDto(ProductClassDTO dto) {
+	this.dto = dto;
+}
+
+public Long getId() {
     return this.id;
   }
 
@@ -74,6 +84,16 @@ public class ProductClass extends SuperVO {
   public void setStoreId(Long storeId) {
     this.storeId = storeId;
   }
+  
+  public ProductClassDTO createDto() {
+	  dto = new ProductClassDTO();
+	  dto.setId(this.getId());
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setParentId(this.getParentId());
+	return dto;
+ }
 
 
 }

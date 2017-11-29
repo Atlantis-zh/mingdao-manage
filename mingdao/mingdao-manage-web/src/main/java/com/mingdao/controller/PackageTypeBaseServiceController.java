@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
+import com.mingdao.domain.MemberShip;
 import com.mingdao.domain.PackageType;
 import com.mingdao.domain.ResultMessage;
 
@@ -46,6 +48,27 @@ public class PackageTypeBaseServiceController extends BaseController {
 
 
 
+  @RequestMapping("packagetype")
+  public String getProductClass(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
+//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", opPager);
+      return "packagetype/list";
+  }
+  
   /**
    * 
    * <p>

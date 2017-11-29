@@ -49,6 +49,10 @@
         WHERE id=#{id}
 	</update>
 	
+	<delete id="deleteDocById" parameterType="long">
+        delete from product where id = #{id}
+    </delete>
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="productResultMap">
 	    SELECT
           t.id,
@@ -78,6 +82,28 @@
            <if test="name != null">
               and t.name=#{name}
            </if>
+	</select>
+	
+	<select id="queryById" parameterType="long" resultMap="productResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.storeid,
+          t.mncode,
+          t.spec,
+          t.saleprice,
+          t.measdocid,
+          t.productclassid,
+          t.adaptecartype,
+          t.sharetobranch,
+          t.memo,
+          t.status,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  product t where id=#{id}
 	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">

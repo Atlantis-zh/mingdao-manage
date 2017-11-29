@@ -31,24 +31,26 @@
 								<th>编码</th>
 								<th>名称</th>
 								<th>门店</th>
+								<th>上级分类</th>
 								<th>工时分类</th>
 								<th>用户操作</th>
 							</tr>
 							</thead>
 
 							<tbody>
-							<c:forEach items="${datas.datas}" var="role">
+							<c:forEach items="${datas.datas}" var="servicetype">
 								<tr>
-									<td>${role.code }</td>
-									<td>${role.name }</td>
-									<td>${role.storeId}</td>
-									<td>${role.workTimeClassId}</td>
+									<td>${servicetype.code }</td>
+									<td>${servicetype.name }</td>
+									<td>${servicetype.storeName}</td>
+									<td>${servicetype.parentName}</td>
+									<td>${servicetype.workTimeClassName}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editServicetype(${servicetype.id},this)" id="editservicetype"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
-										<a class="btn btn-xs btn-danger" href="deleteServiceProject/${role.id }" title="删除">
+										<a class="btn btn-xs btn-danger" onclick="deleteClass(${servicetype.id})" title="删除">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</a>
 									</td>
@@ -63,7 +65,7 @@
 									<td style="vertical-align: top;">
 										<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加角色"  class="btn btn-info fa"  data-toggle="modal">+</a>
 										<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-										<a href="<%=request.getContextPath() %>/serviceProjectClass/serviceProjectClasss" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+										<a href="<%=request.getContextPath() %>/serProdClassBaseSer/serviceProjectClasss" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 									</td>
 									<td style="vertical-align: top;">
 										<c:if test="${datas.total > 0}">
@@ -195,17 +197,56 @@
 								<label class="col-sm-3 control-label no-padding-right" for="storeId">门店: </label>
 
 								<div class="col-sm-9">
-									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
+									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="parentId">上级分类: </label>
 
+								<div class="col-sm-9">
+									<input id="serProdClassId" placeholder="serProdClassId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="serProdClassName" placeholder="serProdClassName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refSerProdClass(this);">参照上级分类</button>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="workTimeClassId">工时分类: </label>
 
 								<div class="col-sm-9">
-									<input id="workTimeClassId" placeholder="workTimeClassId" class="col-xs-10 col-sm-5" type="text">
+									<input id="workTimeClassId" placeholder="workTimeClassId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="workTimeClassName" placeholder="workTimeClassName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refWorktimeClass(this);">参照工时分类</button>
 								</div>
 							</div>
+							
+							<%--门店参照--%>
+							<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+							</div>
+								
+							<%--上级分类参照--%>
+							<div class="modal fade" id="serProdClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/serProdClassBaseSer/refserviceProjectClasss" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+						    </div>
+						    
+						    <%--工时分类参照--%>
+							<div class="modal fade" id="workTimeClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="workTimeClassId" src="<%=request.getContextPath() %>/wktBaseSer/refworkTimeClasss" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+						    </div>
 						</div>
 					</div>
 					<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -253,30 +294,29 @@
 		$("#name").val("");
 		$("#storeId").val("");
 		$("#workTimeClassId").val("");
+		$("#parentId").val("");
 	});
 
-	function editRole(userId,obj){
+	function editServicetype(userId,obj){
 		$(obj).attr("data-target","#addUser");
 		$("#modalTitle").html("修改服务项目分类");
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/serviceProjectClass/getServiceProjectClassInfoByID",
-			data: { "id": userId},
-			dataType: "json",
-			success: function (data) {
-				//var data_ =  JSON.parse(data);
-				var user = data.result;
+		$.get("<%=request.getContextPath() %>/serProdClassBaseSer/qryServiceProductClassById",{ "id": userId},function(resultStr){
+			var result = JSON.parse(resultStr);
+			if(result.success){
+				var user = result.result;
 				$("#id").val(user.id);
 				$("#code").val(user.code);
 				$("#name").val(user.name);
 				$("#storeId").val(user.storeId);
+				$("#storeName").val(user.storeName);
 				$("#workTimeClassId").val(user.workTimeClassId);
-			},
-			fail: function (err) {
-				console.log(err)
+				$("#workTimeClassName").val(user.workTimeClassName);
+				$("#serProdClassId").val(user.parentId);
+				$("#serProdClassName").val(user.parentName);
+			}else{
+				alert(result.resultMsg);
 			}
-
-		});
+		})
 	}
 
 	$("#search").click(function(){
@@ -312,7 +352,7 @@
 		paramsCode.val=$("#search_Code").val();
 
 		var paramsArr = [paramsName,paramsCode];
-		submitForm("<%=request.getContextPath() %>/serviceProjectClass/serviceProjectClasss",paramsArr);
+		submitForm("<%=request.getContextPath() %>/serProdClassBaseSer/serviceProjectClasss",paramsArr);
 	});
 
 	//新增操作
@@ -322,18 +362,36 @@
 		var storeId =$("#storeId").val();
 		var workTimeClassId = $("#workTimeClassId").val();
 		var id = $("#id").val();
+		var parentId = $("#serProdClassName").val();
+		var postData = {
+			code:code,
+			name:name,
+			storeId:storeId,
+			id:id,
+			workTimeClassId:workTimeClassId,
+			parentId:parentId
+		}
+		var url = "<%=request.getContextPath() %>/serProdClassBaseSer/updateServiceProductClass";
+		if(id==null||id==""){
+			url="<%=request.getContextPath() %>/serProdClassBaseSer/addServiceProductClass";
+		}
 		$.ajax({
 			type: 'POST',
-			url: "<%=request.getContextPath() %>/serviceProjectClass/addServiceProjectClass",
-			data: { "code": code, "name": name,"storeId":storeId,"id":id,"workTimeClassId":workTimeClassId},
+			url: url,
+			data: JSON.stringify(postData),
 			dataType: "json",
+			contentType: "application/json;charest=UTF-8",
 			success: function (data, status) {
-				if(id==null||id==""){
-					alert("保存成功！！");
+				if(data.success){
+					if(id==null||id==""){
+						alert("保存成功！！");
+					}else{
+						alert("修改成功！！");
+					}
+					submitForm("<%=request.getContextPath() %>/serProdClassBaseSer/serviceProjectClasss",null);
 				}else{
-					alert("修改成功！！");
-				}
-				submitForm("<%=request.getContextPath() %>/serviceProjectClass/serviceProjectClasss",null);
+					alert(data.resultMsg);
+				}				
 			},
 			fail: function (err, status) {
 				console.log(err)
@@ -342,9 +400,29 @@
 		});
 	});
 
-
-
-
+	function deleteClass(id){
+		$.get("<%=request.getContextPath() %>/serProdClassBaseSer/deleteServiceProductClassById",{id:id},function(resultStr){
+			var result = JSON.parse(resultStr);
+			if(result.success){
+				alert("删除成功！")
+				submitForm("<%=request.getContextPath() %>/serProdClassBaseSer/serviceProjectClasss",null);
+			}else{
+				alert(result.resultMsg);
+			}
+		});
+	}
+	
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
+	
+	function refSerProdClass(obj){
+		$(obj).attr("data-target","#serProdClassList");
+	}
+	
+	function refWorktimeClass(obj){
+		$(obj).attr("data-target","#workTimeClassList");
+	}
 
 </script>
 

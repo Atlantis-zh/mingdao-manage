@@ -33,6 +33,8 @@ package com.mingdao.domain;
    * 价格
    */
   private Double price;
+  
+  private AttachProjectDTO dto;
 
   public Long getId() {
     return this.id;
@@ -73,6 +75,26 @@ package com.mingdao.domain;
   public void setStoreId(Long storeId) {
     this.storeId = storeId;
   }
+  
+  public AttachProjectDTO createDto() {
+	  dto = new AttachProjectDTO();
+	  dto.setId(this.getId());
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setPrice(this.getPrice());
+	return dto;
+ }
+
+
+public AttachProjectDTO getDto() {
+	
+	return dto;
+}
+
+public void setDto(AttachProjectDTO dto) {
+	this.dto = dto;
+}
 
 
 }

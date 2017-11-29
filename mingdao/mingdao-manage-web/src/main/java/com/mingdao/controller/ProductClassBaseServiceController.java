@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -48,8 +50,8 @@ public class ProductClassBaseServiceController extends BaseController {
   @RequestMapping("productclass")
   public String getProductClass(Model model,HttpServletRequest request){
 
-      String name =  request.getParameter("search_StoreName");
-      String code =  request.getParameter("search_StoreCode");
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
       Map<String, Object> param = new HashMap<String, Object>();
       if(!StringUtils.isEmpty(name)){
     	  param.put("name", name);
@@ -59,9 +61,32 @@ public class ProductClassBaseServiceController extends BaseController {
       }
 
       Pager<ProductClass> opPager = pcBaseService.pageQueryByCondition(param);
+      List<ProductClassDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
+      model.addAttribute("datas", dtoPager);
       return "product/productclass";
+  }
+  
+  @RequestMapping("refproductclass")
+  public String getRefProductClass(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<ProductClass> opPager = pcBaseService.pageQueryByCondition(param);
+      List<ProductClassDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", dtoPager);
+      return "product/refproductclass";
   }
   
   /**
@@ -79,14 +104,14 @@ public class ProductClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addProductClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addProductClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody ProductClass newPc) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ProductClass newPc = new ProductClass();
-    newPc.setStoreId(jsonObj.getLong("storeId"));
-    newPc.setCode(jsonObj.getString("code"));
-    newPc.setName(jsonObj.getString("name"));
-    newPc.setParentId(jsonObj.getLong("parentId"));
+//    JSONObject jsonObj = JSONObject.parseObject(inputData);
+//    ProductClass newPc = new ProductClass();
+//    newPc.setStoreId(jsonObj.getLong("storeId"));
+//    newPc.setCode(jsonObj.getString("code"));
+//    newPc.setName(jsonObj.getString("name"));
+//    newPc.setParentId(jsonObj.getLong("parentId"));
     super.setTimeStampWithInsert(newPc, request);
     newPc = pcBaseService.insert(newPc);
     if (newPc.getId() != null) {
@@ -114,19 +139,19 @@ public class ProductClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateProductClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateProductClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody ProductClass newvo) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ProductClass oldPc = pcBaseService.queryDocById(jsonObj.getLong("id"));
+
+    ProductClass oldPc = pcBaseService.queryDocById(newvo.getId());
     if (oldPc == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldPc.setStoreId(jsonObj.getLong("storeId"));
-    oldPc.setCode(jsonObj.getString("code"));
-    oldPc.setName(jsonObj.getString("name"));
-    oldPc.setParentId(jsonObj.getLong("parentId"));
+    oldPc.setStoreId(newvo.getStoreId());
+    oldPc.setCode(newvo.getCode());
+    oldPc.setName(newvo.getName());
+    oldPc.setParentId(newvo.getParentId());
     super.setTimeStampWithUpdate(oldPc, request);
     int updateRet = pcBaseService.update(oldPc);
     if (updateRet == 0) {
@@ -267,14 +292,25 @@ public class ProductClassBaseServiceController extends BaseController {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
     ProductClass pc = pcBaseService.queryDocById(id);
+    ProductClassDTO dto = pc.getDto();
+    
     if (pc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(pc));
+      result.setResult(DataUtil.superVOToJsonObject(dto));
     }
     return result;
+  }
+  
+  private List<ProductClassDTO> getDto(List<ProductClass> list){
+	  List<ProductClassDTO> dtos = new ArrayList<ProductClassDTO>();
+	  for(ProductClass vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
   }
 
 }

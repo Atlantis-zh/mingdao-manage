@@ -42,7 +42,7 @@
 								<tbody>
 								<c:forEach items="${datas.datas}" var="userInfo">
 									<tr>
-										<td>${userInfo.storeId }</td>
+										<td>${userInfo.storeName }</td>
 										<td>${userInfo.code } </td>
 										<td>${userInfo.name } </td>
 										<td>${userInfo.price } </td>
@@ -186,6 +186,7 @@
 									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
 
 									<div class="col-sm-9">
+									    <input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
 										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
@@ -273,22 +274,18 @@
 			function editUser(userId,obj){
 				$(obj).attr("data-target","#addUser");
 				$("#modalTitle").html("修改附件项目");
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/attachProject/getAttachProjectByID",
-					data: { "userId": userId},
-					dataType: "json",
-					success: function (data) {
-						//var data_ =  JSON.parse(data);
-						var user = data.result;
+				$.get("<%=request.getContextPath() %>/attachProject/qryAttachProjectById",{"id":userId},function(resultStr){
+					var result = JSON.parse(resultStr);
+					if(result.success){
+						var user = result.result;
 						$("#id").val(user.id);
 						$("#storeId").val(user.storeId);
+						$("#storeName").val(user.storeName);
 						$("#code").val(user.code);
 						$("#name").val(user.name);
 						$("#price").val(user.price);
-					},
-					fail: function (err) {
-						console.log(err)
+					}else{
+						alert(result.resultMsg);
 					}
 
 				});
@@ -338,11 +335,23 @@
 				var name=$("#name").val();
 				var price=$("#price").val();
 
+				var postData={
+						name:name,
+						code:code,
+						storeId:storeId,
+						price:price,
+						id:id
+					}
+				var url = "<%=request.getContextPath() %>/attachProject/addAttachProject";
+				if(id!=""){
+					url = "<%=request.getContextPath() %>/attachProject/updateAttachProject"
+				}
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/attachProject/addAttachProject",
-					data: { "storeId": storeId, "code": code,"name":name,"price":price,"id":id },
+					url: url,
+					data: JSON.stringify(postData),
 					dataType: "json",
+					contentType: "application/json;charest=UTF-8",
 					success: function (data, status) {
 						if(id==null||id==""){
 							alert("保存成功！！");

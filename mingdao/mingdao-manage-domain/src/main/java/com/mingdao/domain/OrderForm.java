@@ -46,8 +46,18 @@ public class OrderForm extends SuperVO {
    * 是否使用消费卡
    */
   private Boolean isUserCosumerCard;
+  
+  private OrderFormDTO dto;
 
-  public Long getId() {
+  public OrderFormDTO getDto() {
+	return dto;
+}
+
+public void setDto(OrderFormDTO dto) {
+	this.dto = dto;
+}
+
+public Long getId() {
     return this.id;
   }
 
@@ -109,6 +119,19 @@ public class OrderForm extends SuperVO {
 
   public void setIsUserCosumerCard(Boolean isUserCosumerCard) {
     this.isUserCosumerCard = isUserCosumerCard;
+  }
+  
+  public OrderFormDTO createDTO(){
+	  OrderFormDTO dto = new OrderFormDTO();
+	  dto.setBillNo(this.getBillNo());
+	  dto.setCarInfoId(this.getCarInfoId());
+	  dto.setId(this.getId());
+	  dto.setIsUserCosumerCard(this.getIsUserCosumerCard());
+	  dto.setMaintenancePsnId(this.getMaintenancePsnId());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setTotalMount(this.getTotalMount());
+	  return dto;
+	  
   }
 
 

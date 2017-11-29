@@ -136,7 +136,7 @@
            </if>
 	</select>
 
-    <delete id="deleteDocById" parameterType="int">
+    <delete id="deleteDocById" parameterType="long">
         delete from serviceproduct_class  where id = #{id}
     </delete>
 

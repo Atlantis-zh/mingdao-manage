@@ -70,8 +70,18 @@ public class Product extends SuperVO {
    * 备注
    */
   private String memo;
+  
+  private ProductDTO dto;
 
-  /**
+  public ProductDTO getDto() {
+	return dto;
+}
+
+public void setDto(ProductDTO dto) {
+	this.dto = dto;
+}
+
+/**
    * 状态 1启用 2停用 0未启用
    */
   private Status status;
@@ -179,6 +189,24 @@ public class Product extends SuperVO {
   public void setStatus(Status status) {
     this.status = status;
   }
+  
+  public ProductDTO createDto() {
+	  dto = new ProductDTO();
+	  dto.setId(this.getId());
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setMncode(this.getMncode());
+	  dto.setAdapteCarType(this.getAdapteCarType());
+	  dto.setMeasdocId(this.getMeasdocId());
+	  dto.setMemo(this.getMemo());
+	  dto.setProductClassId(this.getProductClassId());
+	  dto.setSalePrice(this.getSalePrice());
+	  dto.setShareToBranch(this.getShareToBranch());
+	  dto.setSpec(this.getSpec());
+	  dto.setStatus(this.getStatus());
+	return dto;
+ }
 
 
 

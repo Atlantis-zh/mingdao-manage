@@ -51,6 +51,27 @@
            </if>
 	</select>
 	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="measdocResultMap">
+	    SELECT
+          t.id,
+          t.code,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  measdoc t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code !='' and code != null">
+              and t.code=#{code}
+           </if>
+           <if test="name !='' and name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)

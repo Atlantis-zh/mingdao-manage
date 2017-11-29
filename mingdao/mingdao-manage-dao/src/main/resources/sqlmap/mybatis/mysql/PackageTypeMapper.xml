@@ -22,7 +22,7 @@
 	</resultMap>
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.PackageType" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO package_type
+		INSERT INTO packagetype
 		(storeid,code,name,saleprice,totalcount,expire,timeunit,cost,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
 		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
@@ -30,7 +30,7 @@
 	
 
 	<update id="updateVO" parameterType="com.mingdao.domain.PackageType">
-	    UPDATE custtype SET
+	    UPDATE packagetype SET
 	        <if test="storeId!=null"> storeid=#{storeId},</if>
             <if test="code!=null">code=#{code},</if>
             <if test="name!=null">name=#{name},</if>
@@ -68,7 +68,7 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  package_type t where 1=1
+        FROM  packagetype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -92,7 +92,7 @@
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)
-		from package_type t where 1=1
+		from packagetype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
@@ -114,7 +114,7 @@
 	</select>
 
     <delete id="deleteDocById" parameterType="long">
-        delete from package_type  where id = #{id}
+        delete from packagetype  where id = #{id}
     </delete>
 
 	<select id="queryById" parameterType="long" resultMap="ptResultMap">
@@ -135,7 +135,7 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-        FROM  package_type t where id=#{id}
+        FROM  packagetype t where id=#{id}
 	</select>
 
 	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="ptResultMap">
@@ -156,7 +156,7 @@
           t.createtime,
           t.modifier,
           t.modifiedtime
-		FROM package_type t where 1=1
+		FROM packagetype t where 1=1
            <if test="id != null">
               and t.id=#{id}
            </if>
