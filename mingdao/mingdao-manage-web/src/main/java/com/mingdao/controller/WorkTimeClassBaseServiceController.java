@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,11 @@ import com.mingdao.api.IWorkTimeClassBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
+import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
 import com.mingdao.domain.ResultMessage;
 import com.mingdao.domain.WorkTimeClass;
+import com.mingdao.domain.WorkTimeClassDTO;
 
 /**
  *
@@ -62,9 +66,35 @@ public class WorkTimeClassBaseServiceController extends BaseController {
 
       
       Pager<WorkTimeClass> opPager = wktBaseService.pageQueryByCondition(param);
+      List<WorkTimeClassDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<WorkTimeClassDTO> dtoPager = new Pager<WorkTimeClassDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
+      model.addAttribute("datas", dtoPager);
       return "worktimeclass/list";
+  }
+  
+  @RequestMapping("refworkTimeClasss")
+  public String getRefWorkTimeClasss(Model model, HttpServletRequest request) {
+
+      String name = request.getParameter("search_Name");
+      String code = request.getParameter("search_Code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if (!StringUtils.isEmpty(name)) {
+         
+          param.put("name",name);
+      }
+      if (!StringUtils.isEmpty(code)) {
+         
+          param.put("code",code);
+      }
+
+      
+      Pager<WorkTimeClass> opPager = wktBaseService.pageQueryByCondition(param);
+      List<WorkTimeClassDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<WorkTimeClassDTO> dtoPager = new Pager<WorkTimeClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", dtoPager);
+      return "worktimeclass/refList";
   }
 
 
@@ -83,22 +113,21 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addWorkTimeClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addWorkTimeClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody WorkTimeClass vo) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-
-    WorkTimeClass newWkt = new WorkTimeClass();
-    newWkt.setStoreId(jsonObj.getLong("storeId"));
-    newWkt.setCode(jsonObj.getString("code"));
-    newWkt.setName(jsonObj.getString("name"));
-    newWkt.setMinutes(jsonObj.getInteger("minutes"));
-    newWkt.setPrice(jsonObj.getDouble("price"));
-    newWkt.setIsDefault(jsonObj.getBoolean("isDefault"));
-    super.setTimeStampWithInsert(newWkt, request);
-    newWkt = wktBaseService.insert(newWkt);
-    if (newWkt.getId() != null) {
+    
+//    WorkTimeClass newWkt = new WorkTimeClass();
+//    newWkt.setStoreId(vo.getStoreId());
+//    newWkt.setCode(vo.getCode());
+//    newWkt.setName(vo.getName());
+//    newWkt.setMinutes(jsonObj.getInteger("minutes"));
+//    newWkt.setPrice(jsonObj.getDouble("price"));
+//    newWkt.setIsDefault(jsonObj.getBoolean("isDefault"));
+    super.setTimeStampWithInsert(vo, request);
+    vo = wktBaseService.insert(vo);
+    if (vo.getId() != null) {
       result.setSuccess(true);
-      result.setResult(newWkt.getId());
+      result.setResult(vo.getId());
     } else {
       result.setSuccess(false);
       result.setResultMsg("新增工时分类失败，请检查日志！");
@@ -121,21 +150,21 @@ public class WorkTimeClassBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateWorkTimeClass", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateWorkTimeClass(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody WorkTimeClass newvo) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    WorkTimeClass oldWkt = wktBaseService.queryDocById(jsonObj.getLong("id"));
+
+    WorkTimeClass oldWkt = wktBaseService.queryDocById(newvo.getId());
     if (oldWkt == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldWkt.setStoreId(jsonObj.getLong("storeId"));
-    oldWkt.setCode(jsonObj.getString("code"));
-    oldWkt.setName(jsonObj.getString("name"));
-    oldWkt.setMinutes(jsonObj.getInteger("minutes"));
-    oldWkt.setPrice(jsonObj.getDouble("price"));
-    oldWkt.setIsDefault(jsonObj.getBoolean("isDefault"));
+    oldWkt.setStoreId(newvo.getStoreId());
+    oldWkt.setCode(newvo.getCode());
+    oldWkt.setName(newvo.getName());
+    oldWkt.setMinutes(newvo.getMinutes());
+    oldWkt.setPrice(newvo.getPrice());
+    oldWkt.setIsDefault(newvo.getIsDefault());
     super.setTimeStampWithUpdate(oldWkt, request);
     int updateRet = wktBaseService.update(oldWkt);
     if (updateRet == 0) {
@@ -240,9 +269,18 @@ public class WorkTimeClassBaseServiceController extends BaseController {
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(wkt));
+      result.setResult(DataUtil.superVOToJsonObject(wkt.getDto()));
     }
     return result;
+  }
+  
+  private List<WorkTimeClassDTO> getDto(List<WorkTimeClass> list){
+	  List<WorkTimeClassDTO> dtos = new ArrayList<WorkTimeClassDTO>();
+	  for(WorkTimeClass vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
   }
 
 }

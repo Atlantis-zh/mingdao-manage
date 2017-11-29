@@ -38,8 +38,18 @@ public class ServiceProductClass extends SuperVO {
    * 上级分类
    */
   private Long parentId;
+  
+  private ServiceProductClassDTO dto;
 
-  public static final String ID = "id";
+  public ServiceProductClassDTO getDto() {
+	return dto;
+}
+
+public void setDto(ServiceProductClassDTO dto) {
+	this.dto = dto;
+}
+
+public static final String ID = "id";
   public static final String STOREID = "storeId";
   public static final String CODE = "code";
   public static final String NAME = "name";
@@ -91,6 +101,17 @@ public class ServiceProductClass extends SuperVO {
 
   public void setParentId(Long parentId) {
     this.parentId = parentId;
+  }
+  
+  public ServiceProductClassDTO createDto(){
+	  ServiceProductClassDTO dto = new ServiceProductClassDTO();
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setId(this.getId());
+	  dto.setParentId(this.getParentId());
+	  dto.setStoreId(storeId);
+	  dto.setWorkTimeClassId(this.getWorkTimeClassId());
+	  return dto;
   }
 
 

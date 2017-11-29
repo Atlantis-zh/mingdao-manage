@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,9 @@ import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.ResultMessage;
 import com.mingdao.domain.ServiceProductClass;
+import com.mingdao.domain.ServiceProductClassDTO;
+import com.mingdao.domain.WorkTimeClass;
+import com.mingdao.domain.WorkTimeClassDTO;
 
 /**
  *
@@ -58,8 +62,29 @@ public class ServiceProductClassBaseServiceController extends BaseController {
       }
 
 		Pager<ServiceProductClass> list = spcBaseService.pageQueryByCondition(param);
-      model.addAttribute("datas", list);
+	      List<ServiceProductClassDTO> dtos = this.getDto(list.getDatas());
+	      Pager<ServiceProductClassDTO> dtoPager = new Pager<ServiceProductClassDTO>(dtos.size(),dtos);
+      model.addAttribute("datas", dtoPager);
       return "servieProjectClass/list";
+  }
+  
+  @RequestMapping("refserviceProjectClasss")
+  public String getRefServiceProductClass(Model model, HttpServletRequest request) {
+      String name = request.getParameter("search_name");
+      String code = request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if (!StringUtils.isEmpty(name)) {
+    	  param.put("name", name);
+      }
+      if (!StringUtils.isEmpty(code)) {
+    	  param.put("code", code);
+      }
+
+		Pager<ServiceProductClass> list = spcBaseService.pageQueryByCondition(param);
+	      List<ServiceProductClassDTO> dtos = this.getDto(list.getDatas());
+	      Pager<ServiceProductClassDTO> dtoPager = new Pager<ServiceProductClassDTO>(dtos.size(),dtos);
+      model.addAttribute("datas", list);
+      return "servieProjectClass/refList";
   }
 
   
@@ -266,9 +291,19 @@ public class ServiceProductClassBaseServiceController extends BaseController {
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(spc));
+      result.setResult(DataUtil.superVOToJsonObject(spc.getDto()));
     }
     return result;
   }
+  
+  private List<ServiceProductClassDTO> getDto(List<ServiceProductClass> list){
+	  List<ServiceProductClassDTO> dtos = new ArrayList<ServiceProductClassDTO>();
+	  for(ServiceProductClass vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
+  }
+
 
 }

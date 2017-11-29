@@ -42,8 +42,11 @@ public class WorkTimeClass extends SuperVO {
    * 是否默认
    */
   private Boolean isDefault;
+  
+  private WorkTimeClassDTO dto;
 
-  public static final String ID = "id";
+
+public static final String ID = "id";
   public static final String STOREID = "storeId";
   public static final String CODE = "code";
   public static final String NAME = "name";
@@ -107,5 +110,25 @@ public class WorkTimeClass extends SuperVO {
   public void setIsDefault(Boolean isDefault) {
     this.isDefault = isDefault;
   }
+  
+  public WorkTimeClassDTO getDto() {
+	return dto;
+  }
+
+  public void setDto(WorkTimeClassDTO dto) {
+	this.dto = dto;
+  }
+  
+  public WorkTimeClassDTO createDto() {
+	  dto = new WorkTimeClassDTO();
+	  dto.setId(this.getId());
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setIsDefault(this.getIsDefault());
+	  dto.setMinutes(this.getMinutes());
+	  dto.setPrice(this.getPrice());
+	return dto;
+ }
 
 }

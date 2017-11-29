@@ -38,19 +38,19 @@
 							</thead>
 
 							<tbody>
-							<c:forEach items="${datas.datas}" var="role">
+							<c:forEach items="${datas.datas}" var="servicetype">
 								<tr>
-									<td>${role.code }</td>
-									<td>${role.name }</td>
-									<td>${role.storeId}</td>
-									<td>${role.parentId}</td>
-									<td>${role.workTimeClassId}</td>
+									<td>${servicetype.code }</td>
+									<td>${servicetype.name }</td>
+									<td>${servicetype.storeName}</td>
+									<td>${servicetype.parentName}</td>
+									<td>${servicetype.workTimeClassName}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editServicetype(${servicetype.id},this)" id="editservicetype"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
-										<a class="btn btn-xs btn-danger" onclick="deleteClass(${role.id})" title="删除">
+										<a class="btn btn-xs btn-danger" onclick="deleteClass(${servicetype.id})" title="删除">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</a>
 									</td>
@@ -197,23 +197,56 @@
 								<label class="col-sm-3 control-label no-padding-right" for="storeId">门店: </label>
 
 								<div class="col-sm-9">
-									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
+									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="parentId">上级分类: </label>
 
 								<div class="col-sm-9">
-									<input id="parentId" placeholder="请选择上级分类" class="col-xs-10 col-sm-5" type="text">
+									<input id="serProdClassId" placeholder="serProdClassId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="serProdClassName" placeholder="serProdClassName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refSerProdClass(this);">参照上级分类</button>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="workTimeClassId">工时分类: </label>
 
 								<div class="col-sm-9">
-									<input id="workTimeClassId" placeholder="workTimeClassId" class="col-xs-10 col-sm-5" type="text">
+									<input id="workTimeClassId" placeholder="workTimeClassId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="workTimeClassName" placeholder="workTimeClassName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refWorktimeClass(this);">参照工时分类</button>
 								</div>
 							</div>
+							
+							<%--门店参照--%>
+							<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+							</div>
+								
+							<%--上级分类参照--%>
+							<div class="modal fade" id="serProdClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/serProdClassBaseSer/refserviceProjectClasss" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+						    </div>
+						    
+						    <%--工时分类参照--%>
+							<div class="modal fade" id="workTimeClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="workTimeClassId" src="<%=request.getContextPath() %>/wktBaseSer/refworkTimeClasss" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+						    </div>
 						</div>
 					</div>
 					<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -264,7 +297,7 @@
 		$("#parentId").val("");
 	});
 
-	function editRole(userId,obj){
+	function editServicetype(userId,obj){
 		$(obj).attr("data-target","#addUser");
 		$("#modalTitle").html("修改服务项目分类");
 		$.get("<%=request.getContextPath() %>/serProdClassBaseSer/qryServiceProductClassById",{ "id": userId},function(resultStr){
@@ -275,8 +308,11 @@
 				$("#code").val(user.code);
 				$("#name").val(user.name);
 				$("#storeId").val(user.storeId);
+				$("#storeName").val(user.storeName);
 				$("#workTimeClassId").val(user.workTimeClassId);
-				$("#parentId").val(user.parentId);
+				$("#workTimeClassName").val(user.workTimeClassName);
+				$("#serProdClassId").val(user.parentId);
+				$("#serProdClassName").val(user.parentName);
 			}else{
 				alert(result.resultMsg);
 			}
@@ -326,7 +362,7 @@
 		var storeId =$("#storeId").val();
 		var workTimeClassId = $("#workTimeClassId").val();
 		var id = $("#id").val();
-		var parentId = $("#parentId").val();
+		var parentId = $("#serProdClassName").val();
 		var postData = {
 			code:code,
 			name:name,
@@ -374,6 +410,18 @@
 				alert(result.resultMsg);
 			}
 		});
+	}
+	
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
+	
+	function refSerProdClass(obj){
+		$(obj).attr("data-target","#serProdClassList");
+	}
+	
+	function refWorktimeClass(obj){
+		$(obj).attr("data-target","#workTimeClassList");
 	}
 
 </script>

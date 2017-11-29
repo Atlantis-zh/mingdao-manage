@@ -37,27 +37,30 @@
 							</thead>
 
 							<tbody>
-							<c:forEach items="${datas.datas}" var="role">
+							<c:forEach items="${datas.datas}" var="worktime">
 								<tr>
-									<td>${role.code }</td>
-									<td>${role.name }</td>
-									<td>${role.storeId}</td>
-									<td>${role.minutes }</td>
-									<td>${role.price}</td>
-									<td class="hidden-480">
-										<c:if test="${role.isDefault eq '0' }">
-											<span class="emp">停用</span>
-										</c:if>
-										<c:if test="${role.isDefault eq '1' }">
-											<span>启用</span>
-										</c:if>
-									</td>
+									<td>${worktime.code }</td>
+									<td>${worktime.name }</td>
+									<td>${worktime.storeName}</td>
+									<td>${worktime.minutes }</td>
+									<td>${worktime.price}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+											<c:choose>
+												<c:when test="${worktime.isDefault}">
+													是
+												</c:when>
+												<c:otherwise>
+													否
+												</c:otherwise>
+											</c:choose>
+										</td>
+
+									<td>
+										<a class="btn btn-xs btn-info" onclick="editRole(${worktime.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
-										<a class="btn btn-xs btn-danger" href="deleteWorkTime/${role.id }" title="删除">
+										<a class="btn btn-xs btn-danger" onclick="deleteWorkTime(${worktime.id})" title="删除">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</a>
 									</td>
@@ -72,13 +75,13 @@
 									<td style="vertical-align: top;">
 										<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加角色"  class="btn btn-info fa"  data-toggle="modal">+</a>
 										<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-										<a href="<%=request.getContextPath() %>/workTimeClass/workTimeClasss" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+										<a href="<%=request.getContextPath() %>/wktBaseSer/workTimeClasss" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 									</td>
 									<td style="vertical-align: top;">
 										<c:if test="${datas.total > 0}">
 											<jsp:include page="/jsp/pager.jsp">
 												<jsp:param value="${datas.total }" name="totalRecord"/>
-												<jsp:param value="workTimeClasss" name="url"/>
+												<jsp:param value="wktBaseSer" name="url"/>
 											</jsp:include>
 										</c:if>
 									</td>
@@ -199,6 +202,16 @@
 									<input id="name" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 								</div>
 							</div>
+							
+							<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
+
+									<div class="col-sm-9">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
+									</div>
+								</div>
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="minutes">  时长: </label>
@@ -215,16 +228,22 @@
 									<input id="price" placeholder="price" class="col-xs-10 col-sm-5" type="text">
 								</div>
 							</div>
-
+							
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="isDefault">  是否默认: </label>
-
-								<div class="col-sm-9">
-									<select class="form-control" id="isDefault">
-										<option value="0">是</option>
-										<option value="1">否</option>
-									</select>
-								</div>
+										<label class="col-sm-3 control-label no-padding-right" for="isDefault"></label>
+	
+										<div class="col-sm-9">
+											<input id="isDefault" type="checkbox" style="margin-top:5%;margin-right:5px;">是否默认
+										</div>
+							</div>
+							
+															<%--门店参照--%>
+							<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
 							</div>
 						</div>
 					</div>
@@ -273,33 +292,29 @@
 		$("#name").val("");
 		$("#minutes").val("");
 		$("#price").val("");
-		$("#isDefault").val("");
+		$("#isDefault").prop("checked",false);
 	});
 
 	function editRole(userId,obj){
 		$(obj).attr("data-target","#addUser");
 		$("#modalTitle").html("修改工时分类");
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/workTimeClass/getWorkTimeInfoByID",
-			data: { "id": userId},
-			dataType: "json",
-			success: function (data) {
-				//var data_ =  JSON.parse(data);
-				var user = data.result;
-				$("#id").val(user.id);
-				$("#storeId").val(user.storeId);
-				$("#code").val(user.code);
-				$("#name").val(user.name);
-				$("#minutes").val(user.minutes);
-				$("#price").val(user.price);
-				$("#isDefault").val(user.isDefault);
-			},
-			fail: function (err) {
-				console.log(err)
+		$.get("<%=request.getContextPath() %>/wktBaseSer/qryWorkTimeClassById",{"id":userId},function(resultStr){
+			var data = JSON.parse(resultStr);
+			if(data.success){
+				var worktime = data.result;
+				$("#id").val(worktime.id);
+				$("#code").val(worktime.code);
+				$("#name").val(worktime.name);
+				$("#storeId").val(worktime.storeId);
+				$("#storeName").val(worktime.storeName);
+				$("#minutes").val(worktime.minutes);
+				$("#price").val(worktime.price);
+				$("#isDefault").prop("checked",worktime.isDefault);
+			}else{
+				alert(data.resultMsg);
 			}
-
 		});
+		
 	}
 
 	$("#search").click(function(){
@@ -335,7 +350,7 @@
 		paramsCode.val=$("#search_Code").val();
 
 		var paramsArr = [paramsName,paramsCode];
-		submitForm("<%=request.getContextPath() %>/workTimeClass/workTimeClasss",paramsArr);
+		submitForm("<%=request.getContextPath() %>/wktBaseSer/workTimeClasss",paramsArr);
 	});
 
 	//新增操作
@@ -345,20 +360,39 @@
 		var name=$("#name").val();
 		var minutes=$("#minutes").val();
 		var price=$("#price").val();
-		var isDefault=$("#isDefault").val();
+		var isDefault=$("#isDefault").prop("checked");
 		var id = $("#id").val();
+		var postData={
+				name:name,
+				code:code,
+				storeId:storeId,
+				minutes:minutes,
+				price:price,
+				isDefault:isDefault,
+				id:id
+			}
+		var url = "<%=request.getContextPath() %>/wktBaseSer/addWorkTimeClass";
+		if(id!=""){
+			url = "<%=request.getContextPath() %>/wktBaseSer/updateWorkTimeClass"
+		}
 		$.ajax({
 			type: 'POST',
-			url: "<%=request.getContextPath() %>/workTimeClass/addWorkTime",
-			data: { "storeId": storeId, "code": code,"name":name,"id":id,"minutes":minutes,"price":price,"isDefault":isDefault},
+			url: url,
+			data: JSON.stringify(postData),
 			dataType: "json",
+			contentType: "application/json;charest=UTF-8",
 			success: function (data, status) {
-				if(id==null||id==""){
-					alert("保存成功！！");
+				if(data.success){
+					if(id==null||id==""){
+						alert("保存成功！！");
+					}else{
+						alert("修改成功！！");
+					}
+					submitForm("<%=request.getContextPath() %>/wktBaseSer/workTimeClasss",null);
 				}else{
-					alert("修改成功！！");
+					alert(data.resultMsg);
 				}
-				submitForm("<%=request.getContextPath() %>/workTimeClass/workTimeClasss",null);
+				
 			},
 			fail: function (err, status) {
 				console.log(err)
@@ -366,10 +400,22 @@
 
 		});
 	});
-
-
-
-
+	
+	function deleteWorkTime(id){
+		$.get("<%=request.getContextPath() %>/wktBaseSer/deleteWorkTimeClass",{id:id},function(resultStr){
+			var result = JSON.parse(resultStr);
+			if(result.success){
+				alert("删除成功！")
+				submitForm("<%=request.getContextPath() %>/wktBaseSer/workTimeClasss",null);
+			}else{
+				alert(result.resultMsg);
+			}
+		});
+	}
+	
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
 
 </script>
 
