@@ -65,6 +65,25 @@ public class MeasdocBaseServiceController extends BaseController {
       model.addAttribute("datas", opPager);
       return "measdoc/list";
   }
+  
+  @RequestMapping("refmeasdoc")
+  public String getRefmeasdoc(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<Measdoc> opPager = measdocBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "measdoc/refmeasdoc";
+  }
 
   /**
    * 

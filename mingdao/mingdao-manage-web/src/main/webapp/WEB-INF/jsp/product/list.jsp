@@ -16,9 +16,9 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="ace-icon fa fa-home home-icon"></i>
-					<a href="#">门店管理</a>
+					<a href="#">商品管理</a>
 				</li>
-				<li class="active">门店信息管理</li>
+				<li class="active">商品信息管理</li>
 			</ul>
 		</div>
 		<div class="page-content">
@@ -31,30 +31,39 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>门店编码</th>
-										<th>门店名称</th>
-										<th>门店地址</th>
-										<th>联系方式</th>
-										<th>微信上显示门店</th>
-										<th>微信默认门店</th>
-										<th>是否总店</th>
-										<th>微信公众号id</th>
+										<th>编码</th>
+										<th>名称</th>
+										<th>所属门店</th>
+										<th>所属分类</th>
+										<th>助记码</th>
+										<th>规格型号</th>
+										<th>价格</th>
+										<th>计量单位</th>
+										<th>使用车型</th>
+										<th>是否共享</th>
+										<th>备注</th>
+										<th>状态</th>
 										<th>用户操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
-								<c:forEach items="${datas.datas}" var="userInfo">
+								<c:forEach items="${datas.datas}" var="product">
 									<tr>
 										<td>
-											<a href="#">${userInfo.code }</a>
+											<a href="#">${product.code }</a>
 										</td>
-										<td>${userInfo.name }</td>
-										<td>${userInfo.address}</td>
-										<td>${userInfo.tel1}</td>
+										<td>${product.name }</td>
+										<td>${product.storeName}</td>
+										<td>${product.productClassName}</td>
+										<td>${product.mncode }</td>
+										<td>${product.spec}</td>
+										<td>${product.salePrice}</td>
+										<td>${product.measdocId }</td>
+										<td>${product.adapteCarType}</td>
 										<td>
 											<c:choose>
-												<c:when test="${userInfo.isWxShow}">
+												<c:when test="${product.shareToBranch}">
 													是
 												</c:when>
 												<c:otherwise>
@@ -62,33 +71,14 @@
 												</c:otherwise>
 											</c:choose>
 										</td>
+										<td>${product.memo }</td>
+										<td>${product.status}</td>
 										<td>
-											<c:choose>
-												<c:when test="${userInfo.isWxDefault}">
-													是
-												</c:when>
-												<c:otherwise>
-													否
-												</c:otherwise>
-											</c:choose>
-										</td>
-										<td>
-											<c:choose>
-												<c:when test="${userInfo.isHeadStore}">
-													是
-												</c:when>
-												<c:otherwise>
-													否
-												</c:otherwise>
-											</c:choose>
-										</td>
-										<td>${userInfo.wxPubAccId}</td>
-										<td>
-											<a class="btn btn-xs btn-info" onclick="editStore(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+											<a class="btn btn-xs btn-info" onclick="editProduct(${product.id},this)" id="editProduct"  data-toggle="modal" title="编辑">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</a>
 
-											<a class="btn btn-xs btn-danger" onclick="deleteStore(${userInfo.id})" title="删除">
+											<a class="btn btn-xs btn-danger" onclick="deleteProduct(${product.id})" title="删除">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</a>
 										</td>
@@ -101,15 +91,15 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加门店"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加商品"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-												<a href="<%=request.getContextPath() %>/storeBaseSer/stores" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/productBaseSer/product" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
 														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
-														<jsp:param value="stores" name="url"/>
+														<jsp:param value="product" name="url"/>
 													</jsp:include>
 												</c:if>
 											</td>
@@ -127,7 +117,7 @@
 
 
 	<%--begin_zhangfx_查询框--%>
-	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
@@ -152,20 +142,20 @@
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>门店名称：</label>
+										<label>名称：</label>
 									</td>
 
-									<td class="data"><input type="text" id="search_StoreName" name="search_StoreName" role="textbox"
+									<td class="data"><input type="text" id="search_name" name="search_name" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>门店编号：</label>
+										<label>编码：</label>
 									</td>
 
-									<td class="data"><input type="text"  id="search_StoreCode" name="search_StoreCode" role="textbox"
+									<td class="data"><input type="text"  id="search_code" name="search_code" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
@@ -204,7 +194,7 @@
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 					 style="cursor: move;">
 					<div class="widget-header">
-						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增门店</span>
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增商品</span>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
@@ -215,7 +205,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="name"> 门店名称: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="name"> 名称: </label>
 
 									<div class="col-sm-9">
 										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
@@ -224,7 +214,7 @@
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="code">门店编码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="code">编码: </label>
 
 									<div class="col-sm-9">
 										<input id="code" placeholder="code" class="col-xs-10 col-sm-5" type="text">
@@ -232,48 +222,118 @@
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="tel1">  联系方式: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
 
 									<div class="col-sm-9">
-										<input id="tel1" placeholder="tel1" class="col-xs-10 col-sm-5" type="text">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="address"> 地址: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="productClassId"> 所属分类: </label>
 
 									<div class="col-sm-9">
-										<input id="address" placeholder="address" class="col-xs-10 col-sm-5" type="text">
+										<input id="productClassId" placeholder="productClassId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="productClassName" placeholder="productClassName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refProductClass(this);">参照所属分类</button>
 									</div>
 								</div>
+								
 								<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="isWxShow"></label>
+									<label class="col-sm-3 control-label no-padding-right" for="measdocId"> 计量单位: </label>
+
+									<div class="col-sm-9">
+										<input id="measdocId" placeholder="measdocId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="measdocName" placeholder="measdocName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refMeasdoc(this);">计量单位</button>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="mncode">助记码: </label>
+
+									<div class="col-sm-9">
+										<input id="mncode" placeholder="mncode" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="spec">规格型号: </label>
+
+									<div class="col-sm-9">
+										<input id="spec" placeholder="spec" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="salePrice">销售价格: </label>
+
+									<div class="col-sm-9">
+										<input id="salePrice" placeholder="salePrice" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="adapteCarType">适用车型: </label>
+
+									<div class="col-sm-9">
+										<input id="adapteCarType" placeholder="adapteCarType" class="col-xs-10 col-sm-5" type="text">
+									</div>
+								</div>
+								
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="shareToBranch"></label>
 	
 										<div class="col-sm-9">
-											<input id="isWxShow" type="checkbox" style="margin-top:5%;margin-right:5px;">微信上显示门店
+											<input id="shareToBranch" type="checkbox" style="margin-top:5%;margin-right:5px;">是否共享
 										</div>
 								</div>
+								
 								<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="isWxDefault"></label>
-	
-										<div class="col-sm-9">
-											<input id="isWxDefault" type="checkbox" style="margin-top:5%;margin-right:5px">微信默认门店
-										</div>
+									<label class="col-sm-3 control-label no-padding-right" for="memo">备注: </label>
+
+									<div class="col-sm-9">
+										<input id="memo" placeholder="memo" class="col-xs-10 col-sm-5" type="text">
+									</div>
 								</div>
+								
 								<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="isHeadStore"></label>
-	
-										<div class="col-sm-9">
-											<input id="isHeadStore" type="checkbox" style="margin-top:5%;margin-right:5px">是否总店
-										</div>
+									<label class="col-sm-3 control-label no-padding-right" for="status">状态: </label>
+
+									<div class="col-sm-9">
+										<input id="status" placeholder="status" class="col-xs-10 col-sm-5" type="text">
+									</div>
 								</div>
-								<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="address"> 微信公众号id: </label>
-	
-										<div class="col-sm-9">
-											<input id="wxPubAccId" placeholder="" class="col-xs-10 col-sm-5" type="text">
+								
+								<%--门店参照--%>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
 										</div>
+									</div>
 								</div>
+								
+								<%--上级分类参照--%>
+								<div class="modal fade" id="productClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/productClassBaseSer/refproductclass" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
+								<%--计量照--%>
+								<div class="modal fade" id="measdocList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/measdocBaseSer/refmeasdoc" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -313,40 +373,48 @@
 
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
-				$("#modalTitle").html("新增门店");
+				$("#modalTitle").html("新增产品分类");
 				$("#id").val("");
 				$("#name").val("");
 				$("#code").val("");
-				$("#address").val("");
-				$("#tel1").val("");
-				$("#wxPubAccId").val("");
-				$("#isWxShow").prop("checked",false);
-				$("#isWxDefault").prop("checked",false);
-				$("#isHeadStore").prop("checked",false);
+				$("#storeId").val("");
+				$("#productClassId").val("");
+				$("#measdocId").val("");
+				$("#mncode").val("");
+				$("#spec").val("");
+				$("#salePrice").val("");
+				$("#adapteCarType").val("");
+				$("#memo").val("");
+				$("#shareToBranch").prop("checked",false);
+				$("#status").val("");
 				$("#code").prop("disabled",false);
-				$("#isHeadStore").prop("disabled",false);
+
 			});
 
-			function editStore(userId,obj){
+			function editProduct(userId,obj){
 				$(obj).attr("data-target","#addUser");
-				$("#modalTitle").html("修改门店");
-				$.get("<%=request.getContextPath() %>/storeBaseSer/qryStoreById",{"id":userId},function(resultStr){
+				$("#modalTitle").html("修改产品分类");
+				$.get("<%=request.getContextPath() %>/productBaseSer/qryProductById",{"id":userId},function(resultStr){
 					var result = JSON.parse(resultStr);
 					if(result.success){
-						var user = result.result;
-						$("#id").val(user.id);
-						$("#name").val(user.name);
-						$("#code").val(user.code);
-						$("#address").val(user.address);
-						$("#tel1").val(user.tel1);
-						$("#wxPubAccId").val(user.wxPubAccId);
-						$("#isWxShow").prop("checked",user.isWxShow);
-						$("#isWxDefault").prop("checked",user.isWxDefault);
-						$("#isHeadStore").prop("checked",user.isHeadStore);
+						var product = result.result;
+						$("#id").val(product.id);
+						$("#name").val(product.name);
+						$("#code").val(product.code);
+						$("#storeId").val(product.storeId);
+						$("#storeName").val(product.storeName);
+						$("#productClassId").val(product.parentId);
+						$("#productClassName").val(product.productClassName);
+						$("#measdocId").val(product.measdocId);
+						$("#measdocName").val(product.measdocName);
+						$("#mncode").val(product.mncode);
+						$("#spec").val(product.spec);
+						$("#salePrice").val(product.salePrice);
+						$("#adapteCarType").val(product.adapteCarType);
+						$("#memo").val(product.memo);
+						$("#shareToBranch").prop("checked",product.shareToBranch);
+						$("#status").val(product.status);
 						$("#code").prop("disabled",true);
-						if(user.isHeadStore){
-							$("#isHeadStore").prop("disabled",true);
-						}
 					}else{
 						alert(result.resultMsg);
 					}
@@ -378,42 +446,50 @@
 			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
-				paramsName.name="search_StoreName";
-				paramsName.val=$("#search_StoreName").val();
+				paramsName.name="search_name";
+				paramsName.val=$("#search_name").val();
 
 				var paramsCode = new Object();
-				paramsCode.name="search_StoreCode";
-				paramsCode.val=$("#search_StoreCode").val();
+				paramsCode.name="search_code";
+				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",paramsArr);
+				submitForm("<%=request.getContextPath() %>/productBaseSer/product",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
 				var name = $("#name").val();
 				var code = $("#code").val();
-				var tel1 = $("#tel1").val();
-				var address = $("#address").val();
+				var storeId = $("#storeId").val();
+				var productClassId = $("#productClassId").val();
+				var measdocId = $("#measdocId").val();
+				var mncode = $("#mncode").val();
+				var spec = $("#spec").val();
+				var salePrice = $("#salePrice").val();
+				var adapteCarType = $("#adapteCarType").val();
+				var memo = $("#memo").val();
+				var shareToBranch = $("#shareToBranch").prop("checked");
+				var status = $("#status").val();
 				var id=$("#id").val();
-				var isWxShow = $("#isWxShow").prop("checked");
-				var isWxDefault = $("#isWxShow").prop("checked");
-				var isHeadStore = $("#isHeadStore").prop("checked");
-				var wxPubAccId = $("#wxPubAccId").val();
 				var postData={
 					name:name,
 					code:code,
-					tel1:tel1,
-					address:address,
-					id:id,
-					isWxShow:isWxShow,
-					isWxDefault:isWxDefault,
-					isHeadStore:isHeadStore,
-					wxPubAccId:wxPubAccId
+					storeId:storeId,
+					productClassId:productClassId,
+					measdocId:measdocId,
+					mncode:mncode,
+					spec:spec,
+					salePrice:salePrice,
+					adapteCarType:adapteCarType,
+					memo:memo,
+					shareToBranch:shareToBranch,
+					stauts:status,
+					id:id
 				}
-				var url = "<%=request.getContextPath() %>/storeBaseSer/addStore";
+				var url = "<%=request.getContextPath() %>/productBaseSer/addProduct";
 				if(id!=""){
-					url = "<%=request.getContextPath() %>/storeBaseSer/updateStore"
+					url = "<%=request.getContextPath() %>/productBaseSer/updateProduct"
 				}
 				$.ajax({
 					type: 'POST',
@@ -428,7 +504,7 @@
 							}else{
 								alert("修改成功！！");
 							}
-							submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
+							submitForm("<%=request.getContextPath() %>/productBaseSer/product",null);
 						}else{
 							alert(data.resultMsg);
 						}
@@ -439,16 +515,28 @@
 					}
 				});
 			});
-		function deleteStore(id){
-			$.get("<%=request.getContextPath() %>/storeBaseSer/deleteStore",{id:id},function(resultStr){
+		function deleteProduct(id){
+			$.get("<%=request.getContextPath() %>/productBaseSer/deleteProductById",{id:id},function(resultStr){
 				var result = JSON.parse(resultStr);
 				if(result.success){
 					alert("删除成功！")
-					submitForm("<%=request.getContextPath() %>/storeBaseSer/stores",null);
+					submitForm("<%=request.getContextPath() %>/productBaseSer/product",null);
 				}else{
 					alert(result.resultMsg);
 				}
 			});
+		}
+		
+		function refStores(obj){
+			$(obj).attr("data-target","#storeList");
+		}
+		
+		function refProductClass(obj){
+			$(obj).attr("data-target","#productClassList");
+		}
+		
+		function refMeasdoc(obj){
+			$(obj).attr("data-target","#measdocList");
 		}
 	</script>
 
