@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,11 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.MemberShip;
+import com.mingdao.domain.MemberShipRefDTO;
+import com.mingdao.domain.Product;
 import com.mingdao.domain.ProductClass;
 import com.mingdao.domain.ProductClassDTO;
+import com.mingdao.domain.ProductDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -49,6 +53,63 @@ public class MemberShipBaseServiceController extends BaseController {
   
   @RequestMapping("member")
   public String getMemberShip(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<MemberShip> opPager = spBaseService.pageQueryByCondition(param);
+//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", opPager);
+      return "member/list";
+  }
+  
+  @RequestMapping(value = "/refmembervos", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage  getRefMembervos(HttpServletRequest request){
+
+	    ResultMessage result = new ResultMessage();
+	    Map<String, Object> param = new HashMap<String, Object>();
+	    Pager<MemberShip> opPager = spBaseService.pageQueryByCondition(param);
+	    if (opPager == null) {
+	      result.setSuccess(false);
+	      result.setResultMsg("查询失败，请稍后重试！");
+	      return result;
+	    }
+	    JSONObject obj = new JSONObject();
+	    obj.put(PageResultConst.PAGE, opPager.getOffset());
+	    obj.put(PageResultConst.PAGESIZE, opPager.getSize());
+	    obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
+	    List<MemberShip> list = opPager.getDatas();
+	    List<MemberShipRefDTO> dtos = getDto(list);
+	    JSONArray array = new JSONArray();
+	    if (!CollectionUtils.isEmpty(dtos)) {
+	      array = DataUtil.list2JsonArray(dtos);
+	    }
+	    obj.put(PageResultConst.DATAS, array);
+	    result.setSuccess(true);
+	    result.setResult(obj);
+	    return result;
+  }
+  
+  private List<MemberShipRefDTO> getDto(List<MemberShip> list){
+	  List<MemberShipRefDTO> dtos = new ArrayList<MemberShipRefDTO>();
+	  for(MemberShip vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
+  }
+  
+  @RequestMapping("refmember")
+  public String getRefMemberShip(Model model,HttpServletRequest request){
 
       String name =  request.getParameter("search_name");
       String code =  request.getParameter("search_code");
