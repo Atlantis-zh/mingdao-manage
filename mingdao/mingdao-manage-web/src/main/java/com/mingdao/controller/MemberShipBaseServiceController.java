@@ -19,16 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mingdao.api.IMemberInfoBaseService;
 import com.mingdao.api.IMemberShipBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
+import com.mingdao.domain.MemberInfo;
 import com.mingdao.domain.MemberShip;
 import com.mingdao.domain.MemberShipRefDTO;
-import com.mingdao.domain.Product;
-import com.mingdao.domain.ProductClass;
-import com.mingdao.domain.ProductClassDTO;
-import com.mingdao.domain.ProductDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -49,6 +47,9 @@ public class MemberShipBaseServiceController extends BaseController {
 
   @Autowired
   private IMemberShipBaseService spBaseService;
+  
+  @Autowired
+  IMemberInfoBaseService memberInfoBaseService;
 
   
   @RequestMapping("member")
@@ -282,6 +283,52 @@ public class MemberShipBaseServiceController extends BaseController {
     obj.put(PageResultConst.PAGESIZE, opPager.getSize());
     obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
     List<MemberShip> list = opPager.getDatas();
+    JSONArray array = new JSONArray();
+    if (!CollectionUtils.isEmpty(list)) {
+      array = DataUtil.list2JsonArray(list);
+    }
+    obj.put(PageResultConst.DATAS, array);
+    result.setSuccess(true);
+    result.setResult(obj);
+    return result;
+  }
+  
+  /**
+   * 
+   * <p>
+   * 说明：分页查询所有
+   * <li></li>
+   * </p>
+   * 
+   * @param request
+   * @return
+   * @date 2017年11月25日 上午1:42:14
+   * @since NC6.5
+   */
+  @RequestMapping(value = "/pageQryMemberinfo", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage pageQryMemberInfo(HttpServletRequest request) {
+    ResultMessage result = new ResultMessage();
+    String phone = request.getParameter("phone");
+    if (phone == null) {
+      result.setSuccess(false);
+      result.setResultMsg("手机号不能为空！");
+    }
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("phone", phone);
+    MemberInfo vo  = memberInfoBaseService.singleQryByCondtion(param);
+    List<MemberInfo> info = new ArrayList<MemberInfo>();
+    info.add(vo);
+    Pager<MemberInfo> pages = new Pager<MemberInfo>(1, info);
+    if (vo == null) {
+      result.setSuccess(false);
+      result.setResultMsg("查询失败，请稍后重试！");
+      return result;
+    }
+    JSONObject obj = new JSONObject();
+    obj.put(PageResultConst.PAGE, pages.getOffset());
+    obj.put(PageResultConst.PAGESIZE, pages.getSize());
+    obj.put(PageResultConst.TOTALCOUNT, pages.getTotal());
+    List<MemberInfo> list = pages.getDatas();
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
