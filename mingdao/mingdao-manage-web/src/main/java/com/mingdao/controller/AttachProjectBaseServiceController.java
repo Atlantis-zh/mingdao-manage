@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -186,13 +187,16 @@ public class AttachProjectBaseServiceController extends BaseController {
   @RequestMapping(value = "/pageQryAttachProjects", method = RequestMethod.GET)
   public @ResponseBody ResultMessage pageQryAttachProjects(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    Long storeId = Long.valueOf(request.getParameter("storeId"));
-    if (storeId == null) {
-      result.setSuccess(false);
-      result.setResultMsg("所属门店不能为空！");
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(request.getParameter("storeId"))) {
+			Long storeId = Long.valueOf(request.getParameter("storeId"));
+			if (storeId == null) {
+				result.setSuccess(false);
+				result.setResultMsg("所属门店不能为空！");
+				return result;
+			}
+			param.put("storeId", storeId);
     }
-    Map<String, Object> param = new HashMap<String, Object>();
-    param.put("storeId", storeId);
     Pager<AttachProject> opPager = apBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);

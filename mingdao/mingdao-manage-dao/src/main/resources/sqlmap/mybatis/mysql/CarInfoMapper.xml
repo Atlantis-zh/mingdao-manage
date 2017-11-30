@@ -78,6 +78,35 @@
            </if>
 	</select>
 	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="carInfoResultMap">
+	    SELECT
+          t.id,
+          t.customerid,
+          t.platnumber,
+          t.carprice,
+          t.annualexpiration,
+          t.addressofperson,
+          t.nextservicecyc,
+          t.vin,
+          t.buycartime,
+          t.brandid,
+          t.insurecompany,
+          t.insureexpir,
+          t.precyc,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  car_info t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerId != '' and customerId != null">
+              and t.customerid=#{customerId}
+           </if>
+	</select>
+	
+	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="carInfoResultMap">
 	    SELECT
           t.id,

@@ -14,7 +14,7 @@
 	<div class="main-content-inner">
 		<div class="page-content">
 
-			<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
+			<%--<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table">
 				<div>
 					<div id="fbox_grid-table" class="searchFilter" style="overflow:auto">
 						<table class="group ui-widget ui-widget-content ui-search-table" style="border:0px none;">
@@ -42,7 +42,7 @@
 						</table>
 					</div>
 				</div>
-			</div>
+			</div>--%>
 
 			<div class="row">
 				<div class="col-xs-12">
@@ -107,9 +107,9 @@
 		    function getSelecOption(){
 				var value = $('input:radio:checked').val();
 				var array =value.split(",");
-				parent.document.getElementById("serviceProjectId").value = array[0];
-				parent.document.getElementById("serviceProjectName").value = array[1];
-				parent.document.getElementById("serviceProjectList").style.display="none";
+				parent.document.getElementById("serviceName").innerText = array[1];
+				parent.document.getElementById("serviceName").setAttribute('data-code', array[0]);
+				parent.document.getElementById("serviceList").style.display="none";
 			}
 
 			function submitForm(action, params) {

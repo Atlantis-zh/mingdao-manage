@@ -54,6 +54,50 @@
            </if>
 	</select>
 	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="custPointsResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.customerid,
+          t.points,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_points t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid !='' and customerid != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="storeid !='' and storeid != null">
+              and t.storeid=#{storeId}
+           </if>
+	</select>
+	
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="custPointsResultMap">
+		 SELECT
+          t.id,
+          t.storeid,
+          t.customerid,
+          t.points,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_points t where 1=1
+           <if test="id != '' and id != null">
+              and t.id=#{id}
+           </if>
+           <if test="customerid !='' and customerid != null">
+              and t.customerid=#{customerId}
+           </if>
+           <if test="storeid !='' and storeid != null">
+              and t.storeid=#{storeId}
+           </if>
+	</select>
+	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select
 		   count(1)

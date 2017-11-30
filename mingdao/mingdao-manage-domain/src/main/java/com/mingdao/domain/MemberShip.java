@@ -66,6 +66,51 @@ public class MemberShip extends SuperVO {
    * 备注
    */
   private String memo;
+  
+  private MemberShipRefDTO dto;
+  
+  private CarInfo carinfo;
+  
+  public CarInfo getCarinfo() {
+	return carinfo;
+}
+
+public void setCarinfo(CarInfo carinfo) {
+	if(dto==null){
+		dto=createDTO();
+	}
+	if(carinfo==null){
+		this.carinfo=null;
+	}
+	dto.setPlatNumber(carinfo.getPlatNumber());
+	this.carinfo = carinfo;
+}
+
+public MemberShipRefDTO getDto() {
+	  if(dto==null){
+		  dto=createDTO();
+	  }
+	return dto;
+}
+
+public void setDto(MemberShipRefDTO dto) {
+	this.dto = dto;
+}
+
+public Customer getCustomer() {
+	return customer;
+}
+
+public void setCustomer(Customer customer) {
+	if(dto==null){
+		  dto=createDTO();
+	  }
+	dto.setCustName(customer.getCode());
+	dto.setCustPhone(customer.getPhone());
+	this.customer = customer;
+}
+
+private Customer customer;
 
   public Long getId() {
     return this.id;
@@ -170,6 +215,21 @@ public class MemberShip extends SuperVO {
 
   public void setCardNo(String cardNo) {
     this.cardNo = cardNo;
+  }
+  
+  private MemberShipRefDTO createDTO(){
+	  MemberShipRefDTO dto = new MemberShipRefDTO();
+	  dto.setCardNo(this.getCardNo());
+	  dto.setCarInfoId(this.getCarInfoId());
+	  dto.setCustomerId(this.getCustomerId());
+	  dto.setId(this.getId());
+	  dto.setCrash(this.getCrash());
+	  dto.setPackageTypeId(this.getPackageTypeId());
+	  dto.setMemberShipCardId(this.getMemberShipCardId());
+	  dto.setPercentagePsnId(this.getPercentagePsnId());
+	  dto.setStoreId(this.getStoreId());
+	  return dto;
+	  
   }
 
 
