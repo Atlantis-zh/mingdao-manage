@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -210,40 +211,45 @@ public class ServiceProjectBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryServiceProjects", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryServiceProjects(HttpServletRequest request) {
-    ResultMessage result = new ResultMessage();
-    Long storeId = Long.valueOf(request.getParameter("storeId"));
-    if (storeId == null) {
-      result.setSuccess(false);
-      result.setResultMsg("所属门店不能为空！");
-    }
-    Map<String, Object> param = new HashMap<String, Object>();
-    param.put("storeId", storeId);
-    Long serProdClassId = Long.valueOf(request.getParameter("serProdClassId"));
-    if (serProdClassId != null) {
-      param.put("serProdClassId", serProdClassId);
-    }
-    Pager<ServiceProject> opPager = spBaseService.pageQueryByCondition(param);
-    if (opPager == null) {
-      result.setSuccess(false);
-      result.setResultMsg("查询失败，请稍后重试！");
-      return result;
-    }
-    JSONObject obj = new JSONObject();
-    obj.put(PageResultConst.PAGE, opPager.getOffset());
-    obj.put(PageResultConst.PAGESIZE, opPager.getSize());
-    obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<ServiceProject> list = opPager.getDatas();
-    JSONArray array = new JSONArray();
-    if (!CollectionUtils.isEmpty(list)) {
-      array = DataUtil.list2JsonArray(list);
-    }
-    obj.put(PageResultConst.DATAS, array);
-    result.setSuccess(true);
-    result.setResult(obj);
-    return result;
-  }
+	@RequestMapping(value = "/pageQryServiceProjects", method = RequestMethod.GET)
+	public @ResponseBody ResultMessage pageQryServiceProjects(HttpServletRequest request) {
+		ResultMessage result = new ResultMessage();
+		Map<String, Object> param = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(request.getParameter("storeId"))) {
+			Long storeId = Long.valueOf(request.getParameter("storeId"));
+			if (storeId == null) {
+				result.setSuccess(false);
+				result.setResultMsg("所属门店不能为空！");
+				return result;
+			}
+			param.put("storeId", storeId);
+		}
+		if (StringUtils.isNotBlank(request.getParameter("serProdClassId"))) {
+			Long serProdClassId = Long.valueOf(request.getParameter("serProdClassId"));
+			if (serProdClassId != null) {
+				param.put("serProdClassId", serProdClassId);
+			}
+		}
+		Pager<ServiceProject> opPager = spBaseService.pageQueryByCondition(param);
+		if (opPager == null) {
+			result.setSuccess(false);
+			result.setResultMsg("查询失败，请稍后重试！");
+			return result;
+		}
+		JSONObject obj = new JSONObject();
+		obj.put(PageResultConst.PAGE, opPager.getOffset());
+		obj.put(PageResultConst.PAGESIZE, opPager.getSize());
+		obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
+		List<ServiceProject> list = opPager.getDatas();
+		JSONArray array = new JSONArray();
+		if (!CollectionUtils.isEmpty(list)) {
+			array = DataUtil.list2JsonArray(list);
+		}
+		obj.put(PageResultConst.DATAS, array);
+		result.setSuccess(true);
+		result.setResult(obj);
+		return result;
+	}
 
   /**
    * 
