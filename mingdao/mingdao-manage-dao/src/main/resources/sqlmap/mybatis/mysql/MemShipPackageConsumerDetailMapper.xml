@@ -35,26 +35,6 @@
         WHERE id=#{id}
 	</update>
 	
-	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="mspcdResultMap">
-	    SELECT
-          t.id,
-          t.membershipid,
-          t.orderformid,
-          t.cost,
-          t.ispackagepay, 
-          t.servicetype,                
-          t.creator,
-          t.createtime,
-          t.modifier,
-          t.modifiedtime
-        FROM  memship_packagecom_detail t where 1=1
-           <if test="id != null">
-              and t.id=#{id}
-           </if>
-           <if test="memberShipId != null">
-              and t.membershipid=#{memberShipId}
-           </if>                             
-	</select>
 	
 	<select id="getCountByCondition" parameterType="java.util.Map" resultType="int">
 		select

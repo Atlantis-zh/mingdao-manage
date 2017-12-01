@@ -45,10 +45,32 @@
           t.modifier,
           t.modifiedtime
         FROM  memship_recard_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
+              and t.membershipid=#{memberShipId}
+           </if>                             
+	</select>	
+	
+	
+	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="msrccdResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.orderformid,
+          t.cost,
+          t.ismemcardpay,             
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  memship_recard_detail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
            </if>                             
 	</select>
@@ -57,12 +79,12 @@
 		select
 		   count(1)
 		from memship_recard_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
-           </if>                 
+           </if>                
 	</select>
 
 
