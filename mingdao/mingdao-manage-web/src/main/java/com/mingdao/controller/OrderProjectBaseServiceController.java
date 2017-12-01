@@ -178,6 +178,37 @@ public class OrderProjectBaseServiceController extends BaseController {
     return result;
   }
 
+
+  @RequestMapping(value = "/getSystemMessage", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage getSystemMessage(HttpServletRequest request) {
+    ResultMessage result = new ResultMessage();
+    String phone = request.getParameter("phone");
+    /***
+     * 这里是根据手机号查询消息，暂时做的是假接口
+     */
+    JSONArray array = new JSONArray();
+    JSONObject obj1 = new JSONObject();
+    JSONObject obj2 = new JSONObject();
+    JSONObject obj3 = new JSONObject();
+    obj1.put("date","2017-11-29");
+    obj1.put("title","维修明细单");
+    obj1.put("content","王红丽女士，您好，您于2017-11-29日，于青岛名道汽修店消费480元，明细如下，换米其林轮胎一件480元，请知晓！！");
+
+    obj2.put("date","2017-11-30");
+    obj2.put("title","洗车明细单");
+    obj2.put("content","王红丽女士，您好，您于2017-11-30日，于青岛名道汽修店消费50元，明细如下，自助洗车一次50元，请知晓！！");
+
+    obj3.put("date","2017-11-30");
+    obj3.put("title","保养明细单");
+    obj3.put("content","王红丽女士，您好，您于2017-11-30日，于青岛名道汽修店消费1200元，明细如下，做保养一次1200元，请知晓！！");
+    array.add(obj1);
+    array.add(obj2);
+    array.add(obj3);
+    result.setSuccess(true);
+    result.setResult(array);
+    return result;
+  }
+
   @RequestMapping(value = "/updateOrderProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateOrderProject(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
