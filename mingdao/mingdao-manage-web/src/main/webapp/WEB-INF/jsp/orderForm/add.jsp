@@ -754,7 +754,7 @@ $("#btn_save").on("click",function(){
     }
     $.ajax({
         type: 'POST',
-        url: "<%=request.getContextPath() %>/storeBaseSer/addStore",
+        url: "<%=request.getContextPath() %>/orderFormBaseSer/addOrderForm",
         data: JSON.stringify(postData),
         dataType: "json",
         contentType: "application/json;charest=UTF-8",
