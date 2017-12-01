@@ -44,11 +44,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/careList")
 public class CareListController extends BaseController {
 
-  private static final String TOKEN_URL="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-  private static final String APPID="wx10f2d9caa94df544";
-  private static final String APPSECRET="22b416fcc1e4504105dfcd9623fbbeba";
-  private static final String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
-  private static final String USER_INFO_URL="https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+
 
   @Autowired
   private IUserInfoBaseServiceItf uiBaseService;
@@ -78,7 +74,10 @@ public class CareListController extends BaseController {
   }
 
 
-  private static String getTokenUrl(){
+  private  String getTokenUrl(){
+    String TOKEN_URL="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+    String APPID="wx10f2d9caa94df544";
+    String APPSECRET="22b416fcc1e4504105dfcd9623fbbeba";
     String requestUrl = TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
     String token = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(token);
@@ -86,7 +85,8 @@ public class CareListController extends BaseController {
   }
 
 
-  private static int getUserCount(String token){
+  private  int getUserCount(String token){
+    String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
     String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
     String userList = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(userList);
@@ -94,7 +94,8 @@ public class CareListController extends BaseController {
     return  array.size();
   }
 
-  private static Map<Integer,JSONArray> getUserIds(String token){
+  private  Map<Integer,JSONArray> getUserIds(String token){
+    String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
     String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
     String userList = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(userList);
@@ -113,8 +114,9 @@ public class CareListController extends BaseController {
     return data;
   }
 
-  private static JSONArray getCarUserList(Map<Integer,JSONArray> data,int position,String token){
-      JSONArray curPageInfo = data.get(position);
+  private  JSONArray getCarUserList(Map<Integer,JSONArray> data,int position,String token){
+    String USER_INFO_URL="https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+    JSONArray curPageInfo = data.get(position);
       JSONArray list = new JSONArray();
       for(int i=0;i<curPageInfo.size();i++){
         String openid = curPageInfo.getString(i);
@@ -167,10 +169,15 @@ public class CareListController extends BaseController {
       getCarUserList(data,1,token);
     System.out.println(data);*/
 
-      long l = Long.valueOf("1490583149000");
+     /* long l = Long.valueOf("1490583149000");
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       String date = simpleDateFormat.format(new Date(l));
-      System.out.println(date);
+      System.out.println(date);*/
+      CareListController test=new CareListController();
+      String token =  test.getTokenUrl();
+      String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
+      String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
+      System.out.println(requestUrl);
   }
 
 }
