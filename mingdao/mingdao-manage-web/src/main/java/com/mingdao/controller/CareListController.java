@@ -1,26 +1,22 @@
 package com.mingdao.controller;
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mingdao.api.IUserInfoBaseServiceItf;
-import com.mingdao.common.consts.PageResultConst;
+
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DataUtil;
-import com.mingdao.common.utils.DateUtil;
+
 import com.mingdao.common.utils.HttpRequest;
 import com.mingdao.domain.CareUser;
-import com.mingdao.domain.ResultMessage;
-import com.mingdao.domain.UserInfo;
-import org.apache.commons.collections.CollectionUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -42,6 +38,7 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping("/careList")
+@SuppressWarnings("unchecked")
 public class CareListController extends BaseController {
 
 
@@ -51,7 +48,7 @@ public class CareListController extends BaseController {
 
   
   @RequestMapping("careLists")
-  public String getUserInfo(Model model,HttpServletRequest request,Pager pager){
+  public String getUserInfo(Model model,HttpServletRequest request){
       int page=0;
       String pageStr = request.getParameter("page");
       String count =request.getParameter("pager.offset");
@@ -100,7 +97,7 @@ public class CareListController extends BaseController {
     String userList = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(userList);
     JSONArray array =  jsonObject.getJSONObject("data").getJSONArray("openid");
-    Map<Integer,JSONArray> data = new HashMap<>();
+    Map<Integer,JSONArray> data = new HashMap<Integer,JSONArray>();
     int page = array.size()/10 + 1;
     for(int k=0;k<page;k++){
       JSONArray userIds = new JSONArray();
@@ -148,36 +145,5 @@ public class CareListController extends BaseController {
     return date;
   }
 
-    public static void main(String[] args){
-  /*  String token =  getTokenUrl();
-    String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
-    String userList = HttpRequest.sendGet(requestUrl,null);
-    JSONObject jsonObject = JSONObject.parseObject(userList);
-    JSONArray array =  jsonObject.getJSONObject("data").getJSONArray("openid");
-    Map<Integer,JSONArray> data = new HashMap<>();
-
-    int page = array.size()/10 + 1;
-    for(int k=0;k<page;k++){
-      JSONArray userIds = new JSONArray();
-      for(int i=0;i<array.size();i++){
-        if(i/10==k){
-          userIds.add(array.getString(i));
-        }
-      }
-      data.put(k+1,userIds);
-    }
-      getCarUserList(data,1,token);
-    System.out.println(data);*/
-
-     /* long l = Long.valueOf("1490583149000");
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-      String date = simpleDateFormat.format(new Date(l));
-      System.out.println(date);*/
-      CareListController test=new CareListController();
-      String token =  test.getTokenUrl();
-      String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
-      String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
-      System.out.println(requestUrl);
-  }
 
 }
