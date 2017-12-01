@@ -152,6 +152,32 @@ public class OrderProjectBaseServiceController extends BaseController {
     return result;
   }
 
+
+  @RequestMapping(value = "/getOrderById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage getOrderById(HttpServletRequest request) {
+    ResultMessage result = new ResultMessage();
+    String id = request.getParameter("id");
+    if (StringUtils.isEmpty(id)) {
+      result.setSuccess(false);
+      result.setResultMsg("传入id！！");
+      return result;
+    }
+    long pk = Long.valueOf(id);
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("id", pk);
+    Pager<OrderProject> opPager = orderProjectService.pageQueryByCondition(param);
+    if (opPager == null) {
+      result.setSuccess(false);
+      result.setResultMsg("查询预约项目失败，请稍后重试！");
+      return result;
+    }
+    List<OrderProject> list = opPager.getDatas();
+    JSONObject obj = DataUtil.superVOToJsonObject(list.get(0));
+    result.setSuccess(true);
+    result.setResult(obj);
+    return result;
+  }
+
   @RequestMapping(value = "/updateOrderProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateOrderProject(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
