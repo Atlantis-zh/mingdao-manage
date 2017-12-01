@@ -218,7 +218,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/memberShipCardBaseSer/refcardtype" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/memberShipCardBaseSer/cardtype" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											设置卡类型
 										</a>

@@ -48,6 +48,13 @@ button,input,optgroup,select,textarea {
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="storeName">所属门店</label>
+                        <div class="col-sm-9">
+                            <input type="hidden" id="storeId" class="col-xs-10 col-sm-5">
+                            <input type="text" id="storeName" class="col-xs-10 col-sm-5" readonly>
+                        </div>
+                    </div> 
+                    <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="customerName">顾客姓名</label>
                         <div class="col-sm-9">
                             <input type="hidden" id="customerId" class="col-xs-10 col-sm-5">
@@ -475,6 +482,9 @@ function initCustomerTable(){
             },{
                 field:"custPhone",
                 title: "手机号"
+            },{
+                field:"storeName",
+                title: "所属门店"	
             },
             {
                 field: "platNumber",
@@ -517,6 +527,8 @@ function initCustomerTable(){
             $("#memberShipId").val(row.cardNo);
             $("#carInfoId").val(row.carInfoId);
             $("#carInfoNO").val(row.platNumber);
+            $("#storeId").val(row.storeId);
+            $("#storeName").val(row.storeName);
             $("#custRefModal").modal("hide");
         }
     });
@@ -724,6 +736,7 @@ $("#btn_save").on("click",function(){
     var carInfoId = $("#carInfoId").val();
     var maintenancePsnId = $("#maintenancePsnId").val();
     var totalMount = $("#totalMount").val();
+    var storeId = $("#storeId").val();
     var isUserCosumerCard = $("#isUserCosumerCard").prop("checked");
     var product = $('#productTable').bootstrapTable('getData');
     var service = $('#serviceTable').bootstrapTable('getData');
@@ -745,6 +758,7 @@ $("#btn_save").on("click",function(){
         customerId:customerId,
         //memberShipId:memberShipId,
         carInfoId:carInfoId,
+        storeId:storeId,
         maintenancePsnId:maintenancePsnId,
         totalMount:totalMount,
         isUserCosumerCard:isUserCosumerCard,

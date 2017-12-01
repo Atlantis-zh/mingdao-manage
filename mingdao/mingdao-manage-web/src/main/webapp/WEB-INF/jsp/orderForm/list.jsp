@@ -54,8 +54,12 @@ $("#orderTable").bootstrapTable({
             field: "billNo",
             title: "单据号"
         }, {
-            field: "customerId",
+            field: "customerName",
             title: "顾客姓名"
+        },
+        {
+            field: "storeName",
+            title: "所属门店"
         },
         {
             field: "memberShipId",
@@ -135,9 +139,6 @@ function operateFormatter() {
         "<div class='btn-group'>",
         "<button class='btn-white btn btn-xs edit'>编辑</button>",
         "<button class='btn-white btn btn-xs delete'>删除</button>",
-        "<button class='btn-white btn btn-xs runonce'>立即执行</button>",
-        "<button class='btn-white btn btn-xs pause'>暂停</button>",
-        "<button class='btn-white btn btn-xs resume'>恢复</button>",
         "</div>"
     ].join("");
 }

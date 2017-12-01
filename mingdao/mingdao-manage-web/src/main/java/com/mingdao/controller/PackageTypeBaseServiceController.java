@@ -49,7 +49,7 @@ public class PackageTypeBaseServiceController extends BaseController {
 
 
   @RequestMapping("packagetype")
-  public String getProductClass(Model model,HttpServletRequest request){
+  public String getPackagetype(Model model,HttpServletRequest request){
 
       String name =  request.getParameter("search_name");
       String code =  request.getParameter("search_code");
@@ -67,6 +67,27 @@ public class PackageTypeBaseServiceController extends BaseController {
 
       model.addAttribute("datas", opPager);
       return "packagetype/list";
+  }
+  
+  @RequestMapping("refpackagetype")
+  public String getRefPackagetype(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
+//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", opPager);
+      return "packagetype/reflist";
   }
   
   /**

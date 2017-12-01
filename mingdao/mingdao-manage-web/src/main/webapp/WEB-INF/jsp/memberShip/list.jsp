@@ -6,7 +6,16 @@
 <html>
 <head>
 <%@ include file="../common/common_css.jsp"%>
-
+<style>
+	.storebtn{
+		height: 34px;
+    	margin-top: 4px;
+    	background-color: #6fb3e0;
+    	border: 0;
+    	color: #fff;
+    	outline: none;
+	}
+</style>
 
 
 </head>
@@ -16,9 +25,9 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="ace-icon fa fa-home home-icon"></i>
-					<a href="#">用户管理</a>
+					<a href="#">会员中心</a>
 				</li>
-				<li class="active">用户信息管理</li>
+				<li class="active">会员卡办理</li>
 			</ul>
 		</div>
 		<div class="page-content">
@@ -31,57 +40,69 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>用户编码</th>
-										<th>用户名称</th>
-										<th>用户状态</th>
 										<th>所属门店</th>
-										<th>手机</th>
-										<th>用户邮箱<i class="icon-envelope"/></th>
-										<th>用户操作</th>
+										<th>姓名</th>
+										<th>卡号</th>
+										<th>车牌号码</th>
+										<th>计次套餐</th>
+										<th>手机号码</th>
+										<th>会员卡种</th>
+										<th>赠送积分</th>
+										<th>现金</th>
+										<th>余额</th>
+										<th>剩余次数</th>
+										<th>备注</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
-								<c:forEach items="${datas.datas}" var="userInfo">
+								<c:forEach items="${datas.datas}" var="item">
 									<tr>
+									    <td>
+									    	${item.storeName}
+									    </td>
 										<td>
-											<a href="#">${userInfo.userCode }</a>
+											${item.custName}
 										</td>
-										<td>${userInfo.userName } </td>
-										<td class="hidden-480">
-											<c:if test="${userInfo.status eq '0' }">
-												<span class="emp">停用</span>
-												<a onclick="startUser(${userInfo.id });"  class="list_op">启用</a>
-											</c:if>
-											<c:if test="${userInfo.status eq '1' }">
-												<span>启用</span>
-												<a  onclick="stopUser(${userInfo.id });" class="list_op">停用</a>
-											</c:if>
-										</td>
-										<td>${userInfo.shopId}</td>
-										<td>${userInfo.phone}</td>
-										<td class="hidden-480">	${userInfo.email }</td>
-
 										<td>
-									
-												<c:if test="${userInfo.status eq '1' }">
-													<button class="btn btn-xs btn-success" title="启用"> 
-														<i class="ace-icon fa fa-check-square-o bigger-120"></i>
-													</button>
-												</c:if>
-												<c:if test="${userInfo.status eq '0' }">
-													<button class="btn btn-xs btn-success" title="停用">
-														<i class="ace-icon fa fa-square-o bigger-120"></i>
-													</button>
-												</c:if>
+											${item.cardNo }
+										</td>
+										<td>
+											${item.platNumber}
+										</td>
+										<td>
+											${item.packageTypeId}
+										</td>
+										<td>
+											${item.custPhone}
+										</td>
+										<td>
+											${item.memberShipCardId}
+										</td>
+										<td>
+											${item.points}
+										</td>
+										<td>
+											${item.crash}
+										</td>
+										<td>
+											${item.remaining }
+										</td>
+										<td>
+											${item.totalRemainCount}
+										</td>
+										<td>
+											${item.memo}
+										</td>
+										<td>
+											<a class="btn btn-xs btn-info" onclick="editProduct(${item.id},this)" id="editProduct"  data-toggle="modal" title="编辑">
+												<i class="ace-icon fa fa-pencil bigger-120"></i>
+											</a>
 
-												<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</a>
-
-												<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</a>
+											<a class="btn btn-xs btn-danger" onclick="deleteProduct(${item.id})" title="删除">
+												<i class="ace-icon fa fa-trash-o bigger-120"></i>
+											</a>
 										</td>
 									</tr>
 								</c:forEach>
@@ -92,15 +113,15 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加用户"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加会员卡"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-												<a href="<%=request.getContextPath() %>/user/users" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/productBaseSer/product" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
 														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
-														<jsp:param value="users" name="url"/>
+														<jsp:param value="product" name="url"/>
 													</jsp:include>
 												</c:if>
 											</td>
@@ -118,7 +139,7 @@
 
 
 	<%--begin_zhangfx_查询框--%>
-	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
@@ -143,20 +164,20 @@
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>姓名：</label>
+										<label>名称：</label>
 									</td>
 
-									<td class="data"><input type="text" id="search_userName" name="search_userName" role="textbox"
+									<td class="data"><input type="text" id="search_name" name="search_name" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>编号：</label>
+										<label>编码：</label>
 									</td>
 
-									<td class="data"><input type="text"  id="search_userCode" name="search_userCode" role="textbox"
+									<td class="data"><input type="text"  id="search_code" name="search_code" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
@@ -195,7 +216,7 @@
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
 					 style="cursor: move;">
 					<div class="widget-header">
-						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增用户</span>
+						<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增会员卡</span>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
@@ -206,72 +227,135 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户名(必须是英文): </label>
+									<label class="col-sm-3 control-label no-padding-right" for="storeName"> 所属门店: </label>
+
+									<div class="col-sm-9">
+										<input id="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="所属门店" class="col-xs-10 col-sm-5" type="text" disabled>
+										<button data-toggle="modal" class="storebtn" onclick="refStores(this)">参照门店</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="cardNo"> 卡号: </label>
 
 									<div class="col-sm-9">
 										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="userName" placeholder="userName" class="col-xs-10 col-sm-5" type="text">
+										<input id="cardNo" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  店铺: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="custName">姓名: </label>
 
 									<div class="col-sm-9">
-										<input id="shopId" placeholder="shopId" class="col-xs-10 col-sm-5" type="text">
+									    <input id="customerId" type="hidden" />
+									    <input id="carInfoId" type="hidden" />
+										<input id="custName" placeholder="姓名" class="col-xs-10 col-sm-5" type="text" disabled="true">
+										<button data-toggle="modal" class="storebtn" onclick="refCustom(this)">参照客户</button>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="userName">  用户编码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="memberShipCardName">会员卡种: </label>
 
 									<div class="col-sm-9">
-										<input id="userCode" placeholder="userCode" class="col-xs-10 col-sm-5" type="text">
+										<input id="memberShipCardId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="memberShipCard" class="col-xs-10 col-sm-5" type="text" disabled>
+										<button  data-toggle="modal" class="storebtn" onclick="refMemberShipCar(this);">参照会员卡</button>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName">  用户名(必须是英文): </label>
+									<label class="col-sm-3 control-label no-padding-right" for="packageType"> 套餐: </label>
 
 									<div class="col-sm-9">
-										<input id="nickName" placeholder="nickName" class="col-xs-10 col-sm-5" type="text">
+										<input id="packageTypeId" placeholder="productClassId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="packageType" placeholder="选择套餐" class="col-xs-10 col-sm-5" type="text" disabled>
+										<button  data-toggle="modal" class="storebtn" onclick="refpackagetype(this);">参照套餐类型</button>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="password">  用户密码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="crash"> 现金:</label>
 
 									<div class="col-sm-9">
-										<input id="passWord" placeholder="passWord" class="col-xs-10 col-sm-5" type="text">
+										<input id="crash" placeholder="现金" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
-
+								
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="nickName"> 手机号码:</label>
+									<label class="col-sm-3 control-label no-padding-right" for="points">赠送积分: </label>
 
 									<div class="col-sm-9">
-										<input id="phone" placeholder="phone" class="col-xs-10 col-sm-5" type="text">
+										<input id="points" placeholder="赠送积分" class="col-xs-10 col-sm-5" type="text" value="0"/>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email"> 电子邮箱:  </label>
+									<label class="col-sm-3 control-label no-padding-right" for="remaining">余额: </label>
 
 									<div class="col-sm-9">
-										<input id="email" placeholder="email" class="col-xs-10 col-sm-5" type="text">
+										<input id="remaining" placeholder="余额" class="col-xs-10 col-sm-5" type="text" value="0"/>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="email">状态: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="totalRemainCount">剩余次数: </label>
 
 									<div class="col-sm-9">
-										<select class="form-control" id="status">
-											<option value="0">停用</option>
-											<option value="1">启用</option>
-										</select>
+										<input id="totalRemainCount" placeholder="剩余次数" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="memo">备注: </label>
+
+									<div class="col-sm-9">
+										<textarea id="memo" placeholder="备注" class="col-xs-10 col-sm-5"></textarea>
+									</div>
+								</div>
+								<%--会员卡参照--%>
+								<div class="modal fade" id="vipCardList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="vipCard" src="<%=request.getContextPath() %>/memberShipCardBaseSer/refcardtype" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								<div class="modal fade" id="packageTypeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="packageType" src="<%=request.getContextPath() %>/packageTypeBaseSer/refpackageType" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								<%--门店参照--%>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
+								<%--上级分类参照--%>
+								<div class="modal fade" id="productClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/productClassBaseSer/refproductclass" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
+								<%--计量照--%>
+								<div class="modal fade" id="measdocList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/measdocBaseSer/refmeasdoc" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -308,82 +392,54 @@
 
 
 	<script type="text/javascript">
-
-		function startUser(userId){
-			$.ajax({
-				type: 'POST',
-				url: "<%=request.getContextPath() %>/user/addUser",
-				data: {"status":1,"id":userId },
-				dataType: "json",
-				success: function (data) {
-					alert("启用成功！");
-					submitForm("<%=request.getContextPath() %>/user/users",null);
-				},
-				fail: function (err, status) {
-					console.log(err)
-				}
-
-			});
-		}
-
-		function stopUser(userId){
-			$.ajax({
-				type: 'POST',
-				url: "<%=request.getContextPath() %>/user/addUser",
-				data: {"status":0,"id":userId },
-				dataType: "json",
-				success: function (data) {
-					alert("停用成功！");
-					submitForm("<%=request.getContextPath() %>/user/users",null);
-				},
-				fail: function (err, status) {
-					console.log(err)
-				}
-
-			});
-		}
-
-
+	        var updata = false;
 
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
-				$("#modalTitle").html("新增用户");
-				$("#id").val("");
-				$("#userName").val("");
-				$("#nickName").val("");
-				$("#passWord").val("");
-				$("#userCode").val("");
-				$("#phone").val("");
-				$("#email").val("");
-				$("#status").val("");
-				$("#shopId").val("");
+				$("#storeName").val("");
+				$("#storeId").val("");
+				$("#cardNo").val("");
+				$("#id").val();
+				$("#custName").val("");
+				$("#custId").val("");
+				$("#carInfoId").val("");
+				$("#memberShipCard").val("");
+				$("#memberShipCardId").val("");
+				$("#packageType").val("");
+				$("#packageTypeId").val("");
+				$("#crash").val("0");
+				$("#points").val("0");
+				$("#remaining").val("0");
+				$("#totalRemainCount").val("0");
+				$("#memo").val("");
 			});
 
-			function editUser(userId,obj){
+			function editProduct(userId,obj){
+				updata = true;
 				$(obj).attr("data-target","#addUser");
-				$("#modalTitle").html("修改用户");
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/getUserInfoByID",
-					data: { "userId": userId},
-					dataType: "json",
-					success: function (data) {
-						//var data_ =  JSON.parse(data);
-						var user = data.result;
-						$("#id").val(user.id);
-						$("#userName").val(user.userName);
-						$("#nickName").val(user.nickName);
-						$("#passWord").val(user.passWord);
-						$("#userCode").val(user.userCode);
-						$("#phone").val(user.phone);
-						$("#email").val(user.email);
-						$("#status").val(user.status);
-						$("#shopId").val(user.shopId);
-					},
-					fail: function (err) {
-						console.log(err)
+				$.get("<%=request.getContextPath() %>/memberShipBaseSer/qryMemberShipById",{"id":userId},function(resultStr){
+					var result = JSON.parse(resultStr);
+					if(result.success){
+						var product = result.result;
+						$("#storeName").val(product.storeName);
+						$("#storeId").val(product.storeId);
+						$("#cardNo").val(product.cardNo);
+						$("#id").val(product.id);
+						$("#custName").val(product.custName);
+						$("#custId").val(product.custId);
+						$("#carInfoId").val(product.carInfoId);
+						$("#memberShipCard").val(product.memberShipCard);
+						$("#memberShipCardId").val(product.memberShipCardId);
+						$("#packageType").val(product.packageType);
+						$("#packageTypeId").val(product.packageTypeId);
+						$("#crash").val(product.crash);
+						$("#points").val(product.points);
+						$("#remaining").val(product.remaining);
+						$("#totalRemainCount").val(product.totalRemainCount);
+						$("#memo").val(product.memo);
+					}else{
+						alert(result.resultMsg);
 					}
-
 				});
 			}
 
@@ -412,47 +468,95 @@
 			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
-				paramsName.name="search_userName";
-				paramsName.val=$("#search_userName").val();
+				paramsName.name="search_name";
+				paramsName.val=$("#search_name").val();
 
 				var paramsCode = new Object();
-				paramsCode.name="search_userCode";
-				paramsCode.val=$("#search_userCode").val();
+				paramsCode.name="search_code";
+				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/user/users",paramsArr);
+				submitForm("<%=request.getContextPath() %>/memberShipBaseSer/pageQryMemberShips",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
-				var userName = $("#userName").val();
-				var nickName = $("#nickName").val();
-				var passWord = $("#passWord").val();
-				var userCode = $("#userCode").val();
-				var phone =$("#phone").val();
-				var id =$("#id").val();
-				var email = $("#email").val();
-				var status = $("#status").val();
-				var shopId = $("#shopId").val();
-
+				var postData = {};
+				postData.storeName = $("#storeName").val();
+				postData.storeId = $("#storeId").val();
+				postData.cardNo = $("#cardNo").val();
+				postData.id = $("#id").val();
+				postData.custName = $("#custName").val();
+				postData.custId = $("#custId").val();
+				postData.carInfoId = $("#carInfoId").val();
+				postData.memberShipCard = $("#memberShipCard").val();
+				postData.memberShipCardId = $("#memberShipCardId").val();
+				postData.packageType = $("#packageType").val();
+				postData.packageTypeId = $("#packageTypeId").val();
+				postData.crash = $("#crash").val();
+				postData.points = $("#points").val();
+				postData.remaining = $("#remaining").val();
+				postData.totalRemainCount = $("#totalRemainCount").val();
+				$("#memo").val("");
+				var url = "<%=request.getContextPath() %>/memberShipBaseSer/addMemberShip";
+				if(updata){
+					url = "<%=request.getContextPath() %>/memberShipBaseSer/updateMemberShip"
+				}
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/user/addUser",
-					data: { "userName": userName, "nickName": nickName,"passWord":passWord,"userCode":userCode,"phone":phone,"email":email,"status":status,"shopId":shopId,"id":id },
+					url: url,
+					data: JSON.stringify(postData),
 					dataType: "json",
+					contentType: "application/json;charest=UTF-8",
 					success: function (data, status) {
-						if(id==null||id==""){
-							alert("保存成功！！");
+						if(data.success){
+							if(id==null||id==""){
+								alert("保存成功！！");
+							}else{
+								alert("修改成功！！");
+							}
+							submitForm("<%=request.getContextPath() %>/memberShipBaseSer/member",null);
 						}else{
-							alert("修改成功！！");
+							alert(data.resultMsg);
 						}
-						submitForm("<%=request.getContextPath() %>/user/users",null);
+						
 					},
 					fail: function (err, status) {
 						console.log(err)
 					}
 				});
 			});
+		function deleteProduct(id){
+			$.get("<%=request.getContextPath() %>/memberShipBaseSer/deleteMemberShipById",{id:id},function(resultStr){
+				var result = JSON.parse(resultStr);
+				if(result.success){
+					alert("删除成功！")
+					submitForm("<%=request.getContextPath() %>/memberShipBaseSer/member",null);
+				}else{
+					alert(result.resultMsg);
+				}
+			});
+		}
+
+		function refMemberShipCar(obj){
+			$(obj).attr("data-target", "#vipCardList");
+		}
+		
+		function refpackagetype(obj){
+			$(obj).attr("data-target", "#packageTypeList");
+		}
+
+		function refStores(obj){
+			$(obj).attr("data-target","#storeList");
+		}
+		
+		function refProductClass(obj){
+			$(obj).attr("data-target","#productClassList");
+		}
+		
+		function refMeasdoc(obj){
+			$(obj).attr("data-target","#measdocList");
+		}
 	</script>
 
 </body>
