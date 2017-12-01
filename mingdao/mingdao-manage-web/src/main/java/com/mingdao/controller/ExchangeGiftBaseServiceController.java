@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,31 +16,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IIntegralRuleBaseService;
+import com.mingdao.api.IExchangeGiftBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
-import com.mingdao.domain.IntegralRule;
+import com.mingdao.domain.ExchangeGift;
 import com.mingdao.domain.ResultMessage;
 
 /**
  *
- * <code>IntegralRuleBaseServiceController<code> <strong></strong>
+ * <code>ExchangeGiftBaseServiceController<code> <strong></strong>
  * <p>
  * 说明：
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年12月2日 上午12:22:50
+ * @version 2017年12月2日 上午12:37:31
  * @author libin
  */
 @Controller
-@RequestMapping("/integralRuleBaseSer")
-public class IntegralRuleBaseServiceController extends BaseController {
+@RequestMapping("/exchangeGiftBaseSer")
+public class ExchangeGiftBaseServiceController extends BaseController {
 
   @Autowired
-  private IIntegralRuleBaseService spBaseService;
+  private IExchangeGiftBaseService spBaseService;
 
   /**
    * 
@@ -56,16 +55,15 @@ public class IntegralRuleBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
-  @RequestMapping(value = "/addIntegralRule", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addIntegralRule(HttpServletRequest request,
+  @RequestMapping(value = "/addExchangeGift", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addExchangeGift(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    IntegralRule newsp = new IntegralRule();
+    ExchangeGift newsp = new ExchangeGift();
     newsp.setStoreId(jsonObj.getLong("storeId"));
-    newsp.setCardTypeId(jsonObj.getLong("cardTypeId"));
-    newsp.setConsume(jsonObj.getDouble("consume"));
-    newsp.setMemo(jsonObj.getString("memo"));
+    newsp.setName(jsonObj.getString("name"));
+    newsp.setPoints(jsonObj.getInteger("points"));
     super.setTimeStampWithInsert(newsp, request);
     newsp = spBaseService.insert(newsp);
     if (newsp.getId() != null) {
@@ -91,21 +89,21 @@ public class IntegralRuleBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
-  @RequestMapping(value = "/updateIntegralRule", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateIntegralRule(HttpServletRequest request,
+  @RequestMapping(value = "/updateExchangeGift", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateExchangeGift(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    IntegralRule oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
+    ExchangeGift oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
     if (oldSp == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
     oldSp.setStoreId(jsonObj.getLong("storeId"));
-    oldSp.setCardTypeId(jsonObj.getLong("cardTypeId"));
-    oldSp.setConsume(jsonObj.getDouble("consume"));
-    oldSp.setMemo(jsonObj.getString("memo"));
+    oldSp.setStoreId(jsonObj.getLong("storeId"));
+    oldSp.setName(jsonObj.getString("name"));
+    oldSp.setPoints(jsonObj.getInteger("points"));
     super.setTimeStampWithUpdate(oldSp, request);
     int updateRet = spBaseService.update(oldSp);
     if (updateRet == 0) {
@@ -130,8 +128,8 @@ public class IntegralRuleBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:00
    * @since NC6.5
    */
-  @RequestMapping(value = "/deleteIntegralRuleById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage deleteIntegralRuleById(HttpServletRequest request) {
+  @RequestMapping(value = "/deleteExchangeGiftById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteExchangeGiftById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
     int updateRet = spBaseService.deleteDocById(id);
@@ -159,8 +157,8 @@ public class IntegralRuleBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryIntegralRules", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryIntegralRules(HttpServletRequest request) {
+  @RequestMapping(value = "/pageQryExchangeGifts", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage pageQryExchangeGifts(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long storeId = Long.valueOf(request.getParameter("storeId"));
     if (storeId == null) {
@@ -169,10 +167,7 @@ public class IntegralRuleBaseServiceController extends BaseController {
     }
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("storeId", storeId);
-    if (!StringUtils.isEmpty(request.getParameter("cardTypeId"))) {
-      param.put("cardTypeId", Long.valueOf(request.getParameter("cardTypeId")));
-    }
-    Pager<IntegralRule> opPager = spBaseService.pageQueryByCondition(param);
+    Pager<ExchangeGift> opPager = spBaseService.pageQueryByCondition(param);
     if (opPager == null) {
       result.setSuccess(false);
       result.setResultMsg("查询失败，请稍后重试！");
@@ -182,7 +177,7 @@ public class IntegralRuleBaseServiceController extends BaseController {
     obj.put(PageResultConst.PAGE, opPager.getOffset());
     obj.put(PageResultConst.PAGESIZE, opPager.getSize());
     obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<IntegralRule> list = opPager.getDatas();
+    List<ExchangeGift> list = opPager.getDatas();
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
@@ -205,11 +200,11 @@ public class IntegralRuleBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:30
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryIntegralRuleById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage qryIntegralRuleById(HttpServletRequest request) {
+  @RequestMapping(value = "/qryExchangeGiftById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryExchangeGiftById(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    IntegralRule spc = spBaseService.queryDocById(id);
+    ExchangeGift spc = spBaseService.queryDocById(id);
     if (spc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");

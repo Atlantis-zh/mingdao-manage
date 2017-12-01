@@ -54,12 +54,12 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 
   @Override
   public ExchangeGift singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
   public List<ExchangeGift> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override
@@ -69,7 +69,7 @@ public class ExchangeGiftBaseServiceImpl implements IExchangeGiftBaseService {
 
   @Override
   public ExchangeGift queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
