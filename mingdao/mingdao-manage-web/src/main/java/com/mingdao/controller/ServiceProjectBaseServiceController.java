@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,10 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.ResultMessage;
+import com.mingdao.domain.ServiceProductClass;
+import com.mingdao.domain.ServiceProductClassDTO;
 import com.mingdao.domain.ServiceProject;
+import com.mingdao.domain.ServiceProjectDTO;
 
 /**
  *
@@ -58,8 +62,10 @@ public class ServiceProjectBaseServiceController extends BaseController {
     	  param.put("code", code);
       }
       Pager<ServiceProject> opPager = spBaseService.pageQueryByCondition(param);
+      List<ServiceProjectDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<ServiceProjectDTO> dtoPager = new Pager<ServiceProjectDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
+      model.addAttribute("datas", dtoPager);
       return "serviceProject/list";
   }
   
@@ -98,20 +104,9 @@ public class ServiceProjectBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addServiceProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addServiceProduct(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody ServiceProject newsp) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ServiceProject newsp = new ServiceProject();
-    newsp.setStoreId(jsonObj.getLong("storeId"));
-    newsp.setCode(jsonObj.getString("code"));
-    newsp.setName(jsonObj.getString("name"));
-    newsp.setSpec(jsonObj.getString("spec"));
-    newsp.setSalePrice(jsonObj.getDouble("salePrice"));
-    newsp.setCost(jsonObj.getDouble("cost"));
-    newsp.setWorkHours(jsonObj.getInteger("workHours"));
-    newsp.setIsSelfHelp(jsonObj.getBoolean("isSelfHelp"));
-    newsp.setUnit(jsonObj.getString("unit"));
-    newsp.setSerProdClassId(jsonObj.getLong("serProdClassId"));
+    
     super.setTimeStampWithInsert(newsp, request);
     newsp = spBaseService.insert(newsp);
     if (newsp.getId() != null) {
@@ -139,25 +134,24 @@ public class ServiceProjectBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateServiceProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateServiceProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody ServiceProject newvo) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    ServiceProject oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
+    ServiceProject oldSp = spBaseService.queryDocById(newvo.getId());
     if (oldSp == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldSp.setStoreId(jsonObj.getLong("storeId"));
-    oldSp.setCode(jsonObj.getString("code"));
-    oldSp.setName(jsonObj.getString("name"));
-    oldSp.setSpec(jsonObj.getString("spec"));
-    oldSp.setSalePrice(jsonObj.getDouble("salePrice"));
-    oldSp.setCost(jsonObj.getDouble("cost"));
-    oldSp.setWorkHours(jsonObj.getInteger("workHours"));
-    oldSp.setIsSelfHelp(jsonObj.getBoolean("isSelfHelp"));
-    oldSp.setUnit(jsonObj.getString("unit"));
-    oldSp.setSerProdClassId(jsonObj.getLong("serProdClassId"));
+    oldSp.setStoreId(newvo.getStoreId());
+    oldSp.setCode(newvo.getCode());
+    oldSp.setName(newvo.getName());
+    oldSp.setSpec(newvo.getSpec());
+    oldSp.setSalePrice(newvo.getSalePrice());
+    oldSp.setCost(newvo.getCost());
+    oldSp.setWorkHours(newvo.getWorkHours());
+    oldSp.setIsSelfHelp(newvo.getIsSelfHelp());
+    oldSp.setUnit(newvo.getUnit());
+    oldSp.setSerProdClassId(newvo.getSerProdClassId());
     super.setTimeStampWithUpdate(oldSp, request);
     int updateRet = spBaseService.update(oldSp);
     if (updateRet == 0) {
@@ -273,9 +267,18 @@ public class ServiceProjectBaseServiceController extends BaseController {
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(spc));
+      result.setResult(DataUtil.superVOToJsonObject(spc.getDto()));
     }
     return result;
+  }
+  
+  private List<ServiceProjectDTO> getDto(List<ServiceProject> list){
+	  List<ServiceProjectDTO> dtos = new ArrayList<ServiceProjectDTO>();
+	  for(ServiceProject vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
   }
 
 

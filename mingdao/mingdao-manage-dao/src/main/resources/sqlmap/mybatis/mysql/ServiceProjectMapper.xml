@@ -22,7 +22,7 @@
 	
 	<insert id="insertVO" parameterType="com.mingdao.domain.ServiceProject" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO service_product
-        (storeid,code,name,spec,cost,spec,workhours,saleprice,isselfhelp,unit,serprodclassid,creator,createtime,modifier,modifiedtime)
+        (storeid,code,name,spec,cost,workhours,saleprice,isselfhelp,unit,serprodclassid,creator,createtime,modifier,modifiedtime)
         VALUES
         (#{storeId},#{code},#{name},#{spec},#{cost},#{workHours},#{salePrice},#{isSelfHelp},#{unit},#{serProdClassId},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
@@ -102,7 +102,7 @@
            </if>
 	</select>
 
-    <delete id="deleteDocById" parameterType="int">
+    <delete id="deleteDocById" parameterType="long">
         delete from service_product  where id = #{id}
     </delete>
     

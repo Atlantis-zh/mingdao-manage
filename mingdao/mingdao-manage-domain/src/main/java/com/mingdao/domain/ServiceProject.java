@@ -57,8 +57,21 @@ public class ServiceProject extends SuperVO {
    * 所属分类
    */
   private Long serProdClassId;
+  
+  private ServiceProjectDTO dto;
 
-  public static final String ID = "id";
+  public ServiceProjectDTO getDto() {
+	  if(dto==null){
+		  dto = createDTO();
+	  }
+	return dto;
+  }
+
+  public void setDto(ServiceProjectDTO dto) {
+	this.dto = dto;
+  }
+
+public static final String ID = "id";
   public static final String STOREID = "storeId";
   public static final String CODE = "code";
   public static final String NAME = "name";
@@ -157,5 +170,21 @@ public class ServiceProject extends SuperVO {
 
   public void setUnit(String unit) {
     this.unit = unit;
+  }
+  
+  private ServiceProjectDTO createDTO(){
+	  ServiceProjectDTO dto = new ServiceProjectDTO();
+	  dto.setCode(this.getCode());
+	  dto.setCost(this.getCost());
+	  dto.setId(this.getId());
+	  dto.setIsSelfHelp(this.getIsSelfHelp());
+	  dto.setName(this.getName());
+	  dto.setSalePrice(this.getSalePrice());
+	  dto.setSerProdClassId(this.getSerProdClassId());
+	  dto.setSpec(this.getSpec());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setStoreName(this.getUnit());
+	  dto.setWorkHours(this.getWorkHours());
+	  return dto;
   }
 }

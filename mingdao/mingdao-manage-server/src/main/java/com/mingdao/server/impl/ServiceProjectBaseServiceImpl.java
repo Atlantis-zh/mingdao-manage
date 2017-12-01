@@ -1,5 +1,7 @@
 package com.mingdao.server.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +12,16 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IServiceProjectBaseService;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
+import com.mingdao.dao.base.IProductClassDao;
+import com.mingdao.dao.base.IServiceProductClassDao;
 import com.mingdao.dao.base.IServiceProjectDao;
+import com.mingdao.dao.base.IStoreDao;
+import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
+import com.mingdao.domain.ServiceProductClass;
 import com.mingdao.domain.ServiceProject;
+import com.mingdao.domain.ServiceProjectDTO;
+import com.mingdao.domain.Store;
 
 /**
  *
@@ -31,6 +41,12 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 
   @Autowired
   private IServiceProjectDao dao;
+  
+  @Autowired
+  private IServiceProductClassDao typedao;
+  
+  @Autowired
+  private IStoreDao storedao;
 
   @Override
   public ServiceProject insert(ServiceProject t) {
@@ -48,6 +64,7 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
     int count = dao.getCountByCondition(param);
     PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
     List<ServiceProject> list = dao.pageQueryByCondition(param, pageBounds);
+    processDTO(list);
     Pager<ServiceProject> pages = new Pager<ServiceProject>(count, list);
     return pages;
   }
@@ -71,6 +88,45 @@ public class ServiceProjectBaseServiceImpl implements IServiceProjectBaseService
 
   @Override
   public ServiceProject queryDocById(Long id) {
-    return dao.queryById(id);
+	  ServiceProject vo = dao.queryById(id);
+	  List<ServiceProject> list = new ArrayList<ServiceProject>();
+	  processDTO(list);
+    return vo;
+  }
+  
+  private void processDTO(List<ServiceProject> list){
+
+	  Map<String, Object>  param = new HashMap<String, Object>();
+	  int count = storedao.getCountByCondition(param);
+	  PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+	  List<Store> stores = storedao.pageQueryByCondition(param, pageBounds);
+	  
+	  List<ServiceProductClass> products = typedao.batchQueryByCondition(param);
+	  
+	  Map<Long,Store> map =new HashMap<Long,Store>();
+	  Map<Long,ServiceProductClass> type_map =new HashMap<Long,ServiceProductClass>();
+	  for(Store vo : stores){
+		  map.put(vo.getId(), vo);
+	  }
+	  
+	  for(ServiceProductClass vo : products){
+		  type_map.put(vo.getId(), vo);
+	  }
+
+	  for(ServiceProject vo : list){
+		  ServiceProjectDTO dto = vo.getDto();
+		  Store store = map.get(vo.getStoreId());
+		  if(store!=null){
+			  dto.setStoreCode(store.getCode());
+			  dto.setStoreName(store.getName());
+		  }
+		  ServiceProductClass typevo = type_map.get(vo.getSerProdClassId());
+		  if(typevo!=null){
+			  dto.setSerProdClassICode(typevo.getCode());
+			  dto.setSerProdClassIName(typevo.getName());
+		  }
+		  vo.setDto(dto);
+	  }
+	  
   }
 }

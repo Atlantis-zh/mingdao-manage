@@ -41,22 +41,22 @@
 							</thead>
 
 							<tbody>
-							<c:forEach items="${datas.datas}" var="role">
+							<c:forEach items="${datas.datas}" var="serviceproject">
 								<tr>
-									<td>${role.code }</td>
-									<td>${role.name }</td>
-									<td>${role.storeId}</td>
-									<td>${role.cost}</td>
-									<td>${role.salePrice }</td>
-									<td>${role.workHours }</td>
-									<td>${role.unit}</td>
-									<td>${role.serProdClassId}</td>
+									<td>${serviceproject.code }</td>
+									<td>${serviceproject.name }</td>
+									<td>${serviceproject.storeName}</td>
+									<td>${serviceproject.cost}</td>
+									<td>${serviceproject.salePrice }</td>
+									<td>${serviceproject.workHours }</td>
+									<td>${serviceproject.unit}</td>
+									<td>${serviceproject.serProdClassIName}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editrPoject(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editrPoject(${serviceproject.id},this)" id="editrPoject"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
-										<a class="btn btn-xs btn-danger" href="deleteServiceProject/${role.id }" title="删除">
+										<a class="btn btn-xs btn-danger" onclick="deletePoject(${serviceproject.id})" title="删除">
 											<i class="ace-icon fa fa-trash-o bigger-120"></i>
 										</a>
 									</td>
@@ -123,7 +123,7 @@
 									<label>项目名称：</label>
 								</td>
 
-								<td class="data"><input type="text" id="search_Name" name="search_Name" role="textbox"
+								<td class="data"><input type="text" id="search_name" name="search_name" role="textbox"
 														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 								</td>
 							</tr>
@@ -133,7 +133,7 @@
 									<label>项目编码：</label>
 								</td>
 
-								<td class="data"><input type="text"  id="search_Code" name="search_Code" role="textbox"
+								<td class="data"><input type="text"  id="search_name" name="search_name" role="textbox"
 														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 								</td>
 							</tr>
@@ -198,6 +198,16 @@
 									<input id="name" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="storeId">门店: </label>
+
+								<div class="col-sm-9">
+									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
+								</div>
+							</div>
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="cost">  成本: </label>
@@ -235,9 +245,28 @@
 								<label class="col-sm-3 control-label no-padding-right" for="serProdClassId"> 项目分类: </label>
 
 								<div class="col-sm-9">
-									<input id="serProdClassId" placeholder="serProdClassId" class="col-xs-10 col-sm-5" type="text">
+									<input id="serProdClassId" placeholder="serProdClassId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="serProdClassName" placeholder="serProdClassName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refSerProdClass(this);">参照项目</button>
 								</div>
 							</div>
+							<%--门店参照--%>
+							<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+							</div>
+								
+							<%--上级分类参照--%>
+							<div class="modal fade" id="serProdClassList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/serProdClassBaseSer/refserviceProjectClasss" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+						    </div>
 						</div>
 					</div>
 					<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -295,14 +324,10 @@
 	function editrPoject(userId,obj){
 		$(obj).attr("data-target","#addUser");
 		$("#modalTitle").html("修改项目");
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/serviceProject/getServiceProjectInfoByID",
-			data: { "id": userId},
-			dataType: "json",
-			success: function (data) {
-				//var data_ =  JSON.parse(data);
-				var user = data.result;
+		$.get("<%=request.getContextPath() %>/serProductBaseSer/qryServiceProjectById",{ "id": userId},function(resultStr){
+			var result = JSON.parse(resultStr);
+			if(result.success){
+				var user = result.result;
 				$("#id").val(user.id);
 				$("#code").val(user.code);
 				$("#name").val(user.name);
@@ -310,14 +335,12 @@
 				$("#workHours").val(user.workHours);
 				$("#salePrice").val(user.salePrice);
 				$("#unit").val(user.unit);
-				$("#serProdClassId").val(user.serProdClassId);
-				$("#storeId").val(user.storeId);
-			},
-			fail: function (err) {
-				console.log(err)
+				$("#serProdClassName").val(user.serProdClassIName);
+				$("#storeName").val(user.storeName);
+			}else{
+				alert(result.resultMsg);
 			}
-
-		});
+		})		
 	}
 
 	$("#search").click(function(){
@@ -345,15 +368,15 @@
 	//查询所有
 	$("#fbox_grid-table_search").click(function(){
 		var paramsName = new Object();
-		paramsName.name="search_Name";
-		paramsName.val=$("#search_Name").val();
+		paramsName.name="search_name";
+		paramsName.val=$("#search_name").val();
 
 		var paramsCode = new Object();
-		paramsCode.name="search_Code";
-		paramsCode.val=$("#search_Code").val();
+		paramsCode.name="search_code";
+		paramsCode.val=$("#search_code").val();
 
 		var paramsArr = [paramsName,paramsCode];
-		submitForm("<%=request.getContextPath() %>/serviceProject/serviceProjects",paramsArr);
+		submitForm("<%=request.getContextPath() %>/serProductBaseSer/serviceProjects",paramsArr);
 	});
 
 	//新增操作
@@ -367,28 +390,65 @@
 		var unit=$("#unit").val();
 		var serProdClassId=$("#serProdClassId").val();
 		var storeId=$("#storeId").val();
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/serviceProject/addServiceProject",
-			data: { "id": id, "code": code,"name":name,"cost":cost,"workHours":workHours,"salePrice":salePrice,"unit":unit,"serProdClassId":serProdClassId,"storeId":storeId},
-			dataType: "json",
-			success: function (data, status) {
-				if(id==null||id==""){
-					alert("保存成功！！");
-				}else{
-					alert("修改成功！！");
-				}
-				submitForm("<%=request.getContextPath() %>/serviceProject/serviceProjects",null);
-			},
-			fail: function (err, status) {
-				console.log(err)
+		var postData = {
+				code:code,
+				name:name,
+				storeId:storeId,
+				id:id,
+				workHours:workHours,
+				salePrice:salePrice,
+				unit:unit,
+				serProdClassId:serProdClassId
 			}
+			var url = "<%=request.getContextPath() %>/serProductBaseSer/updateServiceProject";
+			if(id==null||id==""){
+				url="<%=request.getContextPath() %>/serProductBaseSer/addServiceProject";
+			}
+			$.ajax({
+				type: 'POST',
+				url: url,
+				data: JSON.stringify(postData),
+				dataType: "json",
+				contentType: "application/json;charest=UTF-8",
+				success: function (data, status) {
+					if(data.success){
+						if(id==null||id==""){
+							alert("保存成功！！");
+						}else{
+							alert("修改成功！！");
+						}
+						submitForm("<%=request.getContextPath() %>/serProductBaseSer/serviceProjects",null);
+					}else{
+						alert(data.resultMsg);
+					}				
+				},
+				fail: function (err, status) {
+					console.log(err)
+				}
 
-		});
+			});	
 	});
-
-
-
+	
+	
+	function deletePoject(id){
+		$.get("<%=request.getContextPath() %>/serProductBaseSer/deleteServiceProjectById",{id:id},function(resultStr){
+			var result = JSON.parse(resultStr);
+			if(result.success){
+				alert("删除成功！")
+				submitForm("<%=request.getContextPath() %>/serProductBaseSer/serviceProjects",null);
+			}else{
+				alert(result.resultMsg);
+			}
+		});
+	}
+	
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
+	
+	function refSerProdClass(obj){
+		$(obj).attr("data-target","#serProdClassList");
+	}
 
 
 </script>
