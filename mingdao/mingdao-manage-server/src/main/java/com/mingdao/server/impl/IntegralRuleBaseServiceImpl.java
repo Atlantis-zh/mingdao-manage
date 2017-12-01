@@ -52,12 +52,12 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 
   @Override
   public IntegralRule singleQryByCondtion(Map<String, Object> param) {
-    return null;
+    return dao.singleQueryByCondition(param);
   }
 
   @Override
   public List<IntegralRule> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class IntegralRuleBaseServiceImpl implements IIntegralRuleBaseService {
 
   @Override
   public IntegralRule queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
