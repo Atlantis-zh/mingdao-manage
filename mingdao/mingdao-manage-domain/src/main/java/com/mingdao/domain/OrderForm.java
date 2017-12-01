@@ -1,5 +1,7 @@
 package com.mingdao.domain;
 
+import java.util.List;
+
 /**
  *
  * <code>OrderForm<code> <strong></strong>
@@ -48,6 +50,36 @@ public class OrderForm extends SuperVO {
   private Boolean isUserCosumerCard;
   
   private OrderFormDTO dto;
+  
+  private List<OrderFormOfProduct> product;
+  
+  public List<OrderFormOfProduct> getProduct() {
+	return product;
+}
+
+public void setProduct(List<OrderFormOfProduct> product) {
+	this.product = product;
+}
+
+public List<OrderFormOfServiceProject> getService() {
+	return service;
+}
+
+public void setService(List<OrderFormOfServiceProject> service) {
+	this.service = service;
+}
+
+public List<OrderFormOfAttachProject> getAttach() {
+	return attach;
+}
+
+public void setAttach(List<OrderFormOfAttachProject> attach) {
+	this.attach = attach;
+}
+
+private List<OrderFormOfServiceProject> service;
+  
+  private List<OrderFormOfAttachProject> attach;
 
   public OrderFormDTO getDto() {
 	return dto;

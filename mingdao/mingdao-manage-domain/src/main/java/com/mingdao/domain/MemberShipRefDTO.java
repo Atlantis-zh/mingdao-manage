@@ -24,117 +24,6 @@ public class MemberShipRefDTO extends SuperVO {
 	   */
 	  private Long customerId;
 	  
-	  public String getStoreName() {
-		return storeName;
-	}
-
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
-	}
-
-	public String getStoreCode() {
-		return storeCode;
-	}
-
-	public void setStoreCode(String storeCode) {
-		this.storeCode = storeCode;
-	}
-
-	public String getCustName() {
-		return custName;
-	}
-
-	public void setCustName(String custName) {
-		this.custName = custName;
-	}
-
-	public String getCustPhone() {
-		return custPhone;
-	}
-
-	public void setCustPhone(String custPhone) {
-		this.custPhone = custPhone;
-	}
-
-	public String getPlatNumber() {
-		return platNumber;
-	}
-
-	public void setPlatNumber(String platNumber) {
-		this.platNumber = platNumber;
-	}
-
-	public Double getCarPrice() {
-		return carPrice;
-	}
-
-	public void setCarPrice(Double carPrice) {
-		this.carPrice = carPrice;
-	}
-
-	public Timestamp getAnnualExpiration() {
-		return annualExpiration;
-	}
-
-	public void setAnnualExpiration(Timestamp annualExpiration) {
-		this.annualExpiration = annualExpiration;
-	}
-
-	public String getAddressOfPerson() {
-		return addressOfPerson;
-	}
-
-	public void setAddressOfPerson(String addressOfPerson) {
-		this.addressOfPerson = addressOfPerson;
-	}
-
-	public Double getNextServiceCyc() {
-		return nextServiceCyc;
-	}
-
-	public void setNextServiceCyc(Double nextServiceCyc) {
-		this.nextServiceCyc = nextServiceCyc;
-	}
-
-	public Timestamp getBuyCarTime() {
-		return buyCarTime;
-	}
-
-	public void setBuyCarTime(Timestamp buyCarTime) {
-		this.buyCarTime = buyCarTime;
-	}
-
-	public Long getBrandId() {
-		return brandId;
-	}
-
-	public void setBrandId(Long brandId) {
-		this.brandId = brandId;
-	}
-
-	public String getInsureCompany() {
-		return insureCompany;
-	}
-
-	public void setInsureCompany(String insureCompany) {
-		this.insureCompany = insureCompany;
-	}
-
-	public Timestamp getInsureExpir() {
-		return insureExpir;
-	}
-
-	public void setInsureExpir(Timestamp insureExpir) {
-		this.insureExpir = insureExpir;
-	}
-
-	public Double getPreCyc() {
-		return preCyc;
-	}
-
-	public void setPreCyc(Double preCyc) {
-		this.preCyc = preCyc;
-	}
 
 	private String custName;
 	  
@@ -327,5 +216,118 @@ public class MemberShipRefDTO extends SuperVO {
 	  public void setCardNo(String cardNo) {
 	    this.cardNo = cardNo;
 	  }
+	  
+	  public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreCode() {
+		return storeCode;
+	}
+
+	public void setStoreCode(String storeCode) {
+		this.storeCode = storeCode;
+	}
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+
+	public String getCustPhone() {
+		return custPhone;
+	}
+
+	public void setCustPhone(String custPhone) {
+		this.custPhone = custPhone;
+	}
+
+	public String getPlatNumber() {
+		return platNumber;
+	}
+
+	public void setPlatNumber(String platNumber) {
+		this.platNumber = platNumber;
+	}
+
+	public Double getCarPrice() {
+		return carPrice;
+	}
+
+	public void setCarPrice(Double carPrice) {
+		this.carPrice = carPrice;
+	}
+
+	public Timestamp getAnnualExpiration() {
+		return annualExpiration;
+	}
+
+	public void setAnnualExpiration(Timestamp annualExpiration) {
+		this.annualExpiration = annualExpiration;
+	}
+
+	public String getAddressOfPerson() {
+		return addressOfPerson;
+	}
+
+	public void setAddressOfPerson(String addressOfPerson) {
+		this.addressOfPerson = addressOfPerson;
+	}
+
+	public Double getNextServiceCyc() {
+		return nextServiceCyc;
+	}
+
+	public void setNextServiceCyc(Double nextServiceCyc) {
+		this.nextServiceCyc = nextServiceCyc;
+	}
+
+	public Timestamp getBuyCarTime() {
+		return buyCarTime;
+	}
+
+	public void setBuyCarTime(Timestamp buyCarTime) {
+		this.buyCarTime = buyCarTime;
+	}
+
+	public Long getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(Long brandId) {
+		this.brandId = brandId;
+	}
+
+	public String getInsureCompany() {
+		return insureCompany;
+	}
+
+	public void setInsureCompany(String insureCompany) {
+		this.insureCompany = insureCompany;
+	}
+
+	public Timestamp getInsureExpir() {
+		return insureExpir;
+	}
+
+	public void setInsureExpir(Timestamp insureExpir) {
+		this.insureExpir = insureExpir;
+	}
+
+	public Double getPreCyc() {
+		return preCyc;
+	}
+
+	public void setPreCyc(Double preCyc) {
+		this.preCyc = preCyc;
+	}
+
 
 }

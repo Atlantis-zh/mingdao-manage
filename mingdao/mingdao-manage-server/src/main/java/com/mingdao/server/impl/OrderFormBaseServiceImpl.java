@@ -16,6 +16,9 @@ import com.mingdao.dao.base.ICustomerDao;
 import com.mingdao.dao.base.IMeasdocDao;
 import com.mingdao.dao.base.IMemberShipDao;
 import com.mingdao.dao.base.IOrderFormDao;
+import com.mingdao.dao.base.IOrderFormOfAttachProjectDao;
+import com.mingdao.dao.base.IOrderFormOfProductDao;
+import com.mingdao.dao.base.IOrderFormOfServiceProjectDao;
 import com.mingdao.dao.base.IProductClassDao;
 import com.mingdao.dao.base.IProductDao;
 import com.mingdao.dao.base.IStoreDao;
@@ -24,6 +27,9 @@ import com.mingdao.domain.Measdoc;
 import com.mingdao.domain.MemberShip;
 import com.mingdao.domain.OrderForm;
 import com.mingdao.domain.OrderFormDTO;
+import com.mingdao.domain.OrderFormOfAttachProject;
+import com.mingdao.domain.OrderFormOfProduct;
+import com.mingdao.domain.OrderFormOfServiceProject;
 import com.mingdao.domain.Product;
 import com.mingdao.domain.ProductClass;
 import com.mingdao.domain.ProductDTO;
@@ -57,9 +63,38 @@ public class OrderFormBaseServiceImpl implements IOrderFormBaseService {
   
   @Autowired
   private IMemberShipDao memberdao;
+  
+  @Autowired
+  IOrderFormOfServiceProjectDao servicedao;
+  
+  @Autowired
+  IOrderFormOfProductDao prdtdao;
+  
+  @Autowired
+  IOrderFormOfAttachProjectDao attachdao;
 
   @Override
   public OrderForm insert(OrderForm t) {
+	  List<OrderFormOfProduct> products = t.getProduct();
+	  if(products!=null){
+		  for(OrderFormOfProduct vo : products){
+			  prdtdao.insertVO(vo);
+		  }
+	  }
+	  
+	  List<OrderFormOfServiceProject> services = t.getService();
+	  if(services!=null){
+		  for(OrderFormOfServiceProject vo : services){
+			  servicedao.insertVO(vo);
+		  }
+	  }
+	  
+	  List<OrderFormOfAttachProject> attach = t.getAttach();
+	  if(attach!=null){
+		  for(OrderFormOfAttachProject vo : attach){
+			  attachdao.insertVO(vo);
+		  }
+	  }
     dao.insertVO(t);
     return t;
   }
