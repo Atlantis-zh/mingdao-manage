@@ -16,30 +16,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingdao.api.IMemShipCardDiscountBaseService;
-import com.mingdao.common.consts.PageResultConst;
-import com.mingdao.common.pageUtil.Pager;
+import com.mingdao.api.IMemShipPackageConsumerDetailBaseService;
 import com.mingdao.common.utils.DataUtil;
-import com.mingdao.domain.MemShipCardDiscount;
+import com.mingdao.domain.MemShipPackageConsumerDetail;
 import com.mingdao.domain.ResultMessage;
 
 /**
  *
- * <code>MemShipCardDiscountBaseServiceController<code> <strong></strong>
+ * <code>MemShipPackageConsumerDetailBaseSerController<code> <strong></strong>
  * <p>
- * 说明：会员折扣
+ * 说明：会员套餐消费明细表controller
  * <li></li>
  * </p>
  * 
  * @since NC6.5
- * @version 2017年11月26日 上午1:20:09
+ * @version 2017年12月1日 下午11:57:20
  * @author libin
  */
 @Controller
-@RequestMapping("/memShipDiscountBaseSer")
-public class MemShipCardDiscountBaseServiceController extends BaseController {
+@RequestMapping("/memShipPackageComBaseSer")
+public class MemShipPackageConsumerDetailBaseSerController extends BaseController {
   @Autowired
-  private IMemShipCardDiscountBaseService spBaseService;
+  private IMemShipPackageConsumerDetailBaseService spBaseService;
 
   /**
    * 
@@ -54,19 +52,17 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
-  @RequestMapping(value = "/addMemShipCardDiscount", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addMemShipCardDiscount(HttpServletRequest request,
+  @RequestMapping(value = "/addMemShipPackageConsumerDetail", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addMemShipPackageConsumerDetail(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    MemShipCardDiscount newsp = new MemShipCardDiscount();
-    newsp.setStoreId(jsonObj.getLong("storeId"));
-    newsp.setMemberShipCardId(jsonObj.getLong("memberShipCardId"));
-    newsp.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
-    newsp.setDiscount(jsonObj.getDouble("discount"));
-    newsp.setMemberShipPrice(jsonObj.getDouble("memberShipPrice"));
-    newsp.setProductId(jsonObj.getLong("productId"));
-    newsp.setMemo(jsonObj.getString("memo"));
+    MemShipPackageConsumerDetail newsp = new MemShipPackageConsumerDetail();
+    newsp.setMemberShipId(jsonObj.getLong("memberShipId"));
+    newsp.setOrderFormId(jsonObj.getLong("orderFormId"));
+    newsp.setCost(jsonObj.getDouble("cost"));
+    newsp.setIsPackagePay(jsonObj.getBoolean("isPackagePay"));
+    newsp.setServiceType(jsonObj.getInteger("serviceType"));
     super.setTimeStampWithInsert(newsp, request);
     newsp = spBaseService.insert(newsp);
     if (newsp.getId() != null) {
@@ -92,25 +88,22 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
-  @RequestMapping(value = "/updateMemShipCardDiscount", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateMemShipCardDiscount(HttpServletRequest request,
+  @RequestMapping(value = "/updateMemShipPackageConsumerDetail", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateMemShipPackageConsumerDetail(HttpServletRequest request,
       @RequestBody String inputData) {
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
-    MemShipCardDiscount oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
+    MemShipPackageConsumerDetail oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
     if (oldSp == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldSp.setStoreId(jsonObj.getLong("storeId"));
-    oldSp.setStoreId(jsonObj.getLong("storeId"));
-    oldSp.setMemberShipCardId(jsonObj.getLong("memberShipCardId"));
-    oldSp.setServiceProjectId(jsonObj.getLong("serviceProjectId"));
-    oldSp.setDiscount(jsonObj.getDouble("discount"));
-    oldSp.setMemberShipPrice(jsonObj.getDouble("memberShipPrice"));
-    oldSp.setProductId(jsonObj.getLong("productId"));
-    oldSp.setMemo(jsonObj.getString("memo"));
+    oldSp.setMemberShipId(jsonObj.getLong("memberShipId"));
+    oldSp.setOrderFormId(jsonObj.getLong("orderFormId"));
+    oldSp.setCost(jsonObj.getDouble("cost"));
+    oldSp.setIsPackagePay(jsonObj.getBoolean("isPackagePay"));
+    oldSp.setServiceType(jsonObj.getInteger("serviceType"));
     super.setTimeStampWithUpdate(oldSp, request);
     int updateRet = spBaseService.update(oldSp);
     if (updateRet == 0) {
@@ -135,8 +128,9 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:00
    * @since NC6.5
    */
-  @RequestMapping(value = "/deleteMemShipCardDiscountById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage deleteMemShipCardDiscountById(HttpServletRequest request) {
+  @RequestMapping(value = "/deleteMemShipPackageConsumerDetailById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteMemShipPackageConsumerDetailById(
+      HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
     int updateRet = spBaseService.deleteDocById(id);
@@ -155,7 +149,7 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
   /**
    * 
    * <p>
-   * 说明：分页查询所有
+   * 说明：根据条件查询满足的所有档案
    * <li></li>
    * </p>
    * 
@@ -164,34 +158,23 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:14
    * @since NC6.5
    */
-  @RequestMapping(value = "/pageQryMemShipCardDiscounts", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage pageQryMemShipCardDiscounts(HttpServletRequest request) {
+  @RequestMapping(value = "/qryMemShipPackageConsumerDetails", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryMemShipPackageConsumerDetails(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
-    Long storeId = Long.valueOf(request.getParameter("storeId"));
-    if (storeId == null) {
+    Long memberShipId = Long.valueOf(request.getParameter("memberShipId"));
+    if (memberShipId == null) {
       result.setSuccess(false);
-      result.setResultMsg("所属门店不能为空！");
+      result.setResultMsg("请求参数错误，会员id不能为空！");
     }
     Map<String, Object> param = new HashMap<String, Object>();
-    param.put("storeId", storeId);
-    Pager<MemShipCardDiscount> opPager = spBaseService.pageQueryByCondition(param);
-    if (opPager == null) {
-      result.setSuccess(false);
-      result.setResultMsg("查询失败，请稍后重试！");
-      return result;
-    }
-    JSONObject obj = new JSONObject();
-    obj.put(PageResultConst.PAGE, opPager.getOffset());
-    obj.put(PageResultConst.PAGESIZE, opPager.getSize());
-    obj.put(PageResultConst.TOTALCOUNT, opPager.getTotal());
-    List<MemShipCardDiscount> list = opPager.getDatas();
+    param.put("memberShipId", memberShipId);
+    List<MemShipPackageConsumerDetail> list = spBaseService.qryAllDoces(param);
     JSONArray array = new JSONArray();
     if (!CollectionUtils.isEmpty(list)) {
       array = DataUtil.list2JsonArray(list);
     }
-    obj.put(PageResultConst.DATAS, array);
     result.setSuccess(true);
-    result.setResult(obj);
+    result.setResult(array);
     return result;
   }
 
@@ -207,11 +190,12 @@ public class MemShipCardDiscountBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:42:30
    * @since NC6.5
    */
-  @RequestMapping(value = "/qryMemShipCardDiscountById", method = RequestMethod.GET)
-  public @ResponseBody ResultMessage qryMemShipCardDiscountById(HttpServletRequest request) {
+  @RequestMapping(value = "/qryMemShipPackageConsumerDetailById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage qryMemShipPackageConsumerDetailById(
+      HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
     Long id = Long.valueOf(request.getParameter("id"));
-    MemShipCardDiscount spc = spBaseService.queryDocById(id);
+    MemShipPackageConsumerDetail spc = spBaseService.queryDocById(id);
     if (spc == null) {
       result.setSuccess(false);
       result.setResultMsg("查询数据不存在！");

@@ -48,10 +48,10 @@
           t.modifier,
           t.modifiedtime
         FROM  memship_packagecom_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
            </if>                             
 	</select>
@@ -60,10 +60,10 @@
 		select
 		   count(1)
 		from memship_packagecom_detail t where 1=1
-           <if test="id != null and id != ''">
+           <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="membershipid != null and membershipid != ''">
+           <if test="memberShipId != null">
               and t.membershipid=#{memberShipId}
            </if>                 
 	</select>
@@ -72,5 +72,43 @@
     <delete id="deleteDocById" parameterType="long">
         delete from memship_packagecom_detail  where id = #{id}
     </delete>
-	
+    
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="mspcdResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.orderformid,
+          t.cost,
+          t.ispackagepay, 
+          t.servicetype,                
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  memship_packagecom_detail t where 1=1
+           <if test="memberShipId != null">
+              and t.membershipid=#{memberShipId}
+           </if>                             
+	</select>	
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="mspcdResultMap">
+	    SELECT
+          t.id,
+          t.membershipid,
+          t.orderformid,
+          t.cost,
+          t.ispackagepay, 
+          t.servicetype,                
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  memship_packagecom_detail t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="memberShipId != null">
+              and t.membershipid=#{memberShipId}
+           </if>                             
+	</select>
 </mapper>

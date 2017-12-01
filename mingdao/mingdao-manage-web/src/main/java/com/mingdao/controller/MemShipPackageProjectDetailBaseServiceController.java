@@ -27,7 +27,7 @@ import com.mingdao.domain.ResultMessage;
  *
  * <code>MemShipPackageProjectDetailBaseServiceController<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：会员套餐明细子表controller
  * <li></li>
  * </p>
  * 
