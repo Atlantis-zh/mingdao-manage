@@ -71,4 +71,39 @@
     <delete id="deletePermission" parameterType="int">
         delete from permission  where id = #{id}
     </delete>
+
+	<select id="queryById" parameterType="long" resultMap="permissionResultMap">
+	    SELECT
+          t.id,
+          t.permissioncode,
+          t.permissionname,
+          t.permissionmemo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  permission t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="permissionResultMap">
+	    SELECT
+          t.id,
+          t.permissioncode,
+          t.permissionname,
+          t.permissionmemo,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM permission t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="permissionCode != null">
+              and t.permissioncode=#{permissionCode}
+           </if>
+           <if test="permissionName != null">
+              and t.permissionname=#{permissionName}
+           </if>
+	</select>    
 </mapper>

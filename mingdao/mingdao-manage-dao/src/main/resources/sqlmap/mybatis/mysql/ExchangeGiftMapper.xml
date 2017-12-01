@@ -31,6 +31,28 @@
         WHERE id=#{id}
 	</update>
 
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="excGiftResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.points,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  exchange_gift t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="excGiftResultMap">
 	    SELECT
           t.id,
@@ -45,7 +67,7 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
            </if>
            <if test="name != null">
@@ -60,11 +82,50 @@
            <if test="id != null">
               and t.id=#{id}
            </if>
-           <if test="storeid != null">
+           <if test="storeId != null">
               and t.storeid=#{storeId}
            </if>
            <if test="name != null">
               and t.name=#{name}
            </if>
 	</select>
+	
+    <delete id="deleteDocById" parameterType="long">
+        delete from exchange_gift  where id = #{id}
+    </delete>
+
+	<select id="queryById" parameterType="long" resultMap="excGiftResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.points,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  exchange_gift t where id=#{id}
+	</select>
+
+	<select id="singleQueryByCondition" parameterType="java.util.Map" resultMap="excGiftResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.points,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+		FROM exchange_gift t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>	
 </mapper>
