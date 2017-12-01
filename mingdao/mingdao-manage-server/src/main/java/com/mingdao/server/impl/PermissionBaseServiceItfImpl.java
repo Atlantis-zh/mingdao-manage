@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.mingdao.api.IPermissionBaseServiceItf;
 import com.mingdao.common.pageUtil.PageBoundsUtil;
 import com.mingdao.common.pageUtil.Pager;
-import com.mingdao.common.utils.DateUtil;
 import com.mingdao.dao.base.IPermissionDao;
 import com.mingdao.domain.Permission;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -29,36 +28,48 @@ import org.springframework.stereotype.Service;
 @Service
 public class PermissionBaseServiceItfImpl implements IPermissionBaseServiceItf {
 
-	@Autowired
-	private IPermissionDao permissionDao;
+  @Autowired
+  private IPermissionDao dao;
 
-	@Override
-	public Permission insertPermission(Permission permission) {
-		permissionDao.insertVO(permission);
-		return permission;
-	}
+  @Override
+  public Permission insert(Permission t) {
+    dao.insertVO(t);
+    return t;
+  }
 
-	@Override
-	public Permission updatePermission(Permission permission) {
-		//permission.setModifier(modifyUserId);
-		permission.setModifiedTime(DateUtil.getCurrentTimestamp());
-		permissionDao.updateVO(permission);
-		return permission;
-	}
+  @Override
+  public int update(Permission t) {
+    return dao.updateVO(t);
+  }
 
+  @Override
+  public Pager<Permission> pageQueryByCondition(Map<String, Object> param) {
+    int count = dao.getCountByCondition(param);
+    PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
+    List<Permission> list = dao.pageQueryByCondition(param, pageBounds);
+    Pager<Permission> pages = new Pager<Permission>(count, list);
+    return pages;
+  }
 
-	@Override
-	public Pager<Permission> pageQueryPermissionByCondition(Map<String, Object> param) {
-		int count = permissionDao.getCountByCondition(param);
-		PageBounds pageBounds = PageBoundsUtil.PageBoundsOrderExtend("modifiedtime.desc");
-		List<Permission> list = permissionDao.pageQueryByCondition(param, pageBounds);
-		Pager<Permission> pages = new Pager<Permission>(count, list);
-		return pages;
-	}
+  @Override
+  public Permission singleQryByCondtion(Map<String, Object> param) {
+    return dao.singleQueryByCondition(param);
+  }
 
-	@Override
-	public int deletePermission(int id){
-		return permissionDao.deletePermission(id);
-	}
+  @Override
+  public List<Permission> qryAllDoces(Map<String, Object> param) {
+    return null;
+  }
+
+  @Override
+  public int deleteDocById(Long id) {
+    return dao.deleteDocById(id);
+  }
+
+  @Override
+  public Permission queryDocById(Long id) {
+    return dao.queryById(id);
+  }
+
 
 }
