@@ -66,10 +66,12 @@ public class MemberShipBaseServiceController extends BaseController {
       }
 
       Pager<MemberShip> opPager = spBaseService.pageQueryByCondition(param);
+      List<MemberShip> list = opPager.getDatas();
+	    List<MemberShipRefDTO> dtos = getDto(list);
 //      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
-//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+      Pager<MemberShipRefDTO> dtoPager = new Pager<MemberShipRefDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
+      model.addAttribute("datas", dtoPager);
       return "member/list";
   }
   
