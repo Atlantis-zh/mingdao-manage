@@ -59,7 +59,7 @@ public class MemberShipReChargeCardComDetailBaseServiceImpl
 
   @Override
   public List<MemberShipReChargeCardComDetail> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override

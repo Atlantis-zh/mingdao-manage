@@ -60,7 +60,7 @@ public class MemShipPackageConsumerDetailBaseServiceImpl
 
   @Override
   public List<MemShipPackageConsumerDetail> qryAllDoces(Map<String, Object> param) {
-    return null;
+    return dao.batchQueryByCondition(param);
   }
 
   @Override
@@ -70,7 +70,7 @@ public class MemShipPackageConsumerDetailBaseServiceImpl
 
   @Override
   public MemShipPackageConsumerDetail queryDocById(Long id) {
-    return null;
+    return dao.queryById(id);
   }
 
 }
