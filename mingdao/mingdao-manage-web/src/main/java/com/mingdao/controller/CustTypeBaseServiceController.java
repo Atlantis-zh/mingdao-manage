@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,10 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.CustType;
+import com.mingdao.domain.CustType;
+import com.mingdao.domain.CustTypeDTO;
+import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -42,6 +48,48 @@ public class CustTypeBaseServiceController extends BaseController {
   @Autowired
   private ICustTypeBaseService apBaseService;
 
+  @RequestMapping("CustType")
+  public String getCustType(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<CustType> opPager = apBaseService.pageQueryByCondition(param);
+      List<CustTypeDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<CustTypeDTO> dtoPager = new Pager<CustTypeDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", dtoPager);
+      return "custType/list";
+  }
+  
+  @RequestMapping("refCustType")
+  public String getRefCustType(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<CustType> opPager = apBaseService.pageQueryByCondition(param);
+      List<CustTypeDTO> dtos = this.getDto(opPager.getDatas());
+      Pager<CustTypeDTO> dtoPager = new Pager<CustTypeDTO>(dtos.size(),dtos);
+
+      model.addAttribute("datas", dtoPager);
+      return "custType/refcusttype";
+  }
+  
   /**
    * 
    * <p>
@@ -57,14 +105,8 @@ public class CustTypeBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addCustType", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addCustType(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody CustType newap) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    CustType newap = new CustType();
-    newap.setStoreId(jsonObj.getLong("storeId"));
-    newap.setCode(jsonObj.getString("code"));
-    newap.setName(jsonObj.getString("name"));
-    newap.setParentId(jsonObj.getLong("parentId"));
     super.setTimeStampWithInsert(newap, request);
     newap = apBaseService.insert(newap);
     if (newap.getId() != null) {
@@ -92,19 +134,18 @@ public class CustTypeBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/updateCustType", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateCustType(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody CustType newap) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    CustType oldap = apBaseService.queryDocById(jsonObj.getLong("id"));
+    CustType oldap = apBaseService.queryDocById(newap.getId());
     if (oldap == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldap.setStoreId(jsonObj.getLong("storeId"));
-    oldap.setCode(jsonObj.getString("code"));
-    oldap.setName(jsonObj.getString("name"));
-    oldap.setParentId(jsonObj.getLong("parentId"));
+    oldap.setStoreId(newap.getStoreId());
+    oldap.setCode(newap.getCode());
+    oldap.setName(newap.getName());
+    oldap.setParentId(newap.getParentId());
     super.setTimeStampWithUpdate(oldap, request);
     int updateRet = apBaseService.update(oldap);
     if (updateRet == 0) {
@@ -248,9 +289,18 @@ public class CustTypeBaseServiceController extends BaseController {
       result.setResultMsg("查询数据不存在！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(spc));
+      result.setResult(DataUtil.superVOToJsonObject(spc.getDto()));
     }
     return result;
+  }
+  
+  private List<CustTypeDTO> getDto(List<CustType> list){
+	  List<CustTypeDTO> dtos = new ArrayList<CustTypeDTO>();
+	  for(CustType vo: list){
+		  dtos.add(vo.getDto());
+	  }
+	  return dtos;
+	  
   }
 
 

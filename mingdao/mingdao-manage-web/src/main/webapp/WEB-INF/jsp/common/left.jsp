@@ -190,7 +190,7 @@
 										<b class="arrow"></b>
 									</li>
 									<li class="">
-										<a href="<%=request.getContextPath() %>/custType/custTypes" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/custTypeBaseSer/CustType" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											客户分类
 										</a>

@@ -31,25 +31,29 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>所属门店</th>
-										<th>名称</th>
 										<th>编码</th>
+										<th>名称</th>
+										<th>所属门店</th>
+										<th>上级分类</th>
 										<th>用户操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
-								<c:forEach items="${datas.datas}" var="userInfo">
+								<c:forEach items="${datas.datas}" var="custtype">
 									<tr>
-										<td>${userInfo.storeId }</td>
-										<td>${userInfo.name } </td>
-										<td>${userInfo.code}</td>
 										<td>
-											<a class="btn btn-xs btn-info" onclick="editUser(${userInfo.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+											<a href="#">${custtype.code }</a>
+										</td>
+										<td>${custtype.name }</td>
+										<td>${custtype.storeName}</td>
+										<td>${custtype.parentName}</td>
+										<td>
+											<a class="btn btn-xs btn-info" onclick="editcCusttype(${custtype.id},this)" id="editcCusttype"  data-toggle="modal" title="编辑">
 												<i class="ace-icon fa fa-pencil bigger-120"></i>
 											</a>
 
-											<a class="btn btn-xs btn-danger" href="deleteUser/${userInfo.id }" title="删除">
+											<a class="btn btn-xs btn-danger" onclick="deleteCusttype(${custtype.id})" title="删除">
 												<i class="ace-icon fa fa-trash-o bigger-120"></i>
 											</a>
 										</td>
@@ -62,15 +66,15 @@
 									<tbody>
 										<tr>
 											<td style="vertical-align: top;">
-												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加客户分类"  class="btn btn-info fa"  data-toggle="modal">+</a>
+												<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加分类"  class="btn btn-info fa"  data-toggle="modal">+</a>
 												<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-												<a href="<%=request.getContextPath() %>/custType/custTypes" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+												<a href="<%=request.getContextPath() %>/storeBaseSer/stores" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 											</td>
 											<td style="vertical-align: top;">
 												<c:if test="${datas.total > 0}">
 														<jsp:include page="/jsp/pager.jsp">
 														<jsp:param value="${datas.total }" name="totalRecord"/>
-														<jsp:param value="custTypes" name="url"/>
+														<jsp:param value="stores" name="url"/>
 													</jsp:include>
 												</c:if>
 											</td>
@@ -88,7 +92,7 @@
 
 
 	<%--begin_zhangfx_查询框--%>
-	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="searchUser" tabindex="-1" role="dialog" style="width:400px;" aria-labelledby="myModalLabel" aria-hidden="false">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table"
@@ -113,10 +117,10 @@
 								<tr>
 									<td class="first"></td>
 									<td class="columns">
-										<label>姓名：</label>
+										<label>名称：</label>
 									</td>
 
-									<td class="data"><input type="text" id="search_Name" name="search_Name" role="textbox"
+									<td class="data"><input type="text" id="search_name" name="search_name" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
@@ -126,7 +130,7 @@
 										<label>编码：</label>
 									</td>
 
-									<td class="data"><input type="text"  id="search_Code" name="search_Code" role="textbox"
+									<td class="data"><input type="text"  id="search_code" name="search_code" role="textbox"
 															class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 									</td>
 								</tr>
@@ -176,30 +180,60 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="storeId">所属门店: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="name"> 名称: </label>
 
 									<div class="col-sm-9">
 										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="name">  名称: </label>
-
-									<div class="col-sm-9">
 										<input id="name" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="code">  编码: </label>
+									<label class="col-sm-3 control-label no-padding-right" for="code">编码: </label>
 
 									<div class="col-sm-9">
 										<input id="code" placeholder="code" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
 
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="storeId">  所属门店: </label>
+
+									<div class="col-sm-9">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="custTypeId"> 上级分类: </label>
+
+									<div class="col-sm-9">
+										<input id="custTypeId" placeholder="custTypeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="custTypeName" placeholder="custTypeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refCustType(this);">参照上级分类</button>
+									</div>
+								</div>
+								
+								<%--门店参照--%>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
+								<%--上级分类参照--%>
+								<div class="modal fade" id="custTypeList" tabindex="-1" role="dialog" style="width:700px;height:1000px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="parent" src="<%=request.getContextPath() %>/custTypeBaseSer/refCustType" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -241,31 +275,32 @@
 				$(this).attr("data-target","#addUser");
 				$("#modalTitle").html("新增客户分类");
 				$("#id").val("");
-				$("#storeId").val("");
 				$("#name").val("");
 				$("#code").val("");
+				$("#storeId").val("");
+				$("#custTypeId").val("");
+				$("#code").prop("disabled",false);
+
 			});
 
-			function editUser(userId,obj){
+			function editcCusttype(userId,obj){
 				$(obj).attr("data-target","#addUser");
-				$("#modalTitle").html("修改客户分类");
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/custType/getCustTypeByID",
-					data: { "id": userId},
-					dataType: "json",
-					success: function (data) {
-						//var data_ =  JSON.parse(data);
-						var user = data.result;
+				$("#modalTitle").html("修改产品分类");
+				$.get("<%=request.getContextPath() %>/custTypeBaseSer/qryCustTypeById",{"id":userId},function(resultStr){
+					var result = JSON.parse(resultStr);
+					if(result.success){
+						var user = result.result;
 						$("#id").val(user.id);
-						$("#storeId").val(user.storeId);
 						$("#name").val(user.name);
 						$("#code").val(user.code);
-					},
-					fail: function (err) {
-						console.log(err)
+						$("#storeId").val(user.storeId);
+						$("#storeName").val(user.storeName);
+						$("#custTypeId").val(user.parentId);
+						$("#custTypeName").val(user.parentName);
+						$("#code").prop("disabled",true);
+					}else{
+						alert(result.resultMsg);
 					}
-
 				});
 			}
 
@@ -294,42 +329,78 @@
 			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
-				paramsName.name="search_Name";
-				paramsName.val=$("#search_Name").val();
+				paramsName.name="search_name";
+				paramsName.val=$("#search_name").val();
 
 				var paramsCode = new Object();
-				paramsCode.name="search_Code";
-				paramsCode.val=$("#search_Code").val();
+				paramsCode.name="search_code";
+				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/custType/custTypes",paramsArr);
+				submitForm("<%=request.getContextPath() %>/custTypeBaseSer/productclass",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
-				var storeId = $("#storeId").val();
 				var name = $("#name").val();
 				var code = $("#code").val();
-				var id = $("#id").val();
-
+				var storeId = $("#storeId").val();
+				var parentId = $("#custTypeId").val();
+				var id=$("#id").val();
+				var postData={
+					name:name,
+					code:code,
+					storeId:storeId,
+					parentId:parentId,
+					id:id
+				}
+				var url = "<%=request.getContextPath() %>/custTypeBaseSer/addCustType";
+				if(id!=""){
+					url = "<%=request.getContextPath() %>/custTypeBaseSer/updateCustType"
+				}
 				$.ajax({
 					type: 'POST',
-					url: "<%=request.getContextPath() %>/custType/addCustType",
-					data: { "storeId": storeId, "name": name,"code":code,"id":id },
+					url: url,
+					data: JSON.stringify(postData),
 					dataType: "json",
+					contentType: "application/json;charest=UTF-8",
 					success: function (data, status) {
-						if(id==null||id==""){
-							alert("保存成功！！");
+						if(data.success){
+							if(id==null||id==""){
+								alert("保存成功！！");
+							}else{
+								alert("修改成功！！");
+							}
+							submitForm("<%=request.getContextPath() %>/custTypeBaseSer/CustType",null);
 						}else{
-							alert("修改成功！！");
+							alert(data.resultMsg);
 						}
-						submitForm("<%=request.getContextPath() %>/custType/custTypes",null);
+						
 					},
 					fail: function (err, status) {
 						console.log(err)
 					}
 				});
 			});
+		function deleteCusttype(id){
+			$.get("<%=request.getContextPath() %>/custTypeBaseSer/deleteCustTypeById",{id:id},function(resultStr){
+				var result = JSON.parse(resultStr);
+				if(result.success){
+					alert("删除成功！")
+					submitForm("<%=request.getContextPath() %>/productClassBaseSer/productclass",null);
+				}else{
+					alert(result.resultMsg);
+				}
+			});
+		}
+		
+		function refStores(obj){
+			$(obj).attr("data-target","#storeList");
+		}
+		
+		function refCustType(obj){
+			$(obj).attr("data-target","#productClassList");
+		}
 	</script>
 
 </body>

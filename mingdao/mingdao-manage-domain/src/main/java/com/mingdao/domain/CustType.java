@@ -34,8 +34,21 @@ public class CustType extends SuperVO {
    * 上级分类
    */
   private Long parentId;
+  
+  private CustTypeDTO dto;
 
-  public static final String ID = "id";
+  public CustTypeDTO getDto() {
+	  if(dto==null){
+		  dto=this.createDto();
+	  }
+	return dto;
+}
+
+public void setDto(CustTypeDTO dto) {
+	this.dto = dto;
+}
+
+public static final String ID = "id";
   public static final String CODE = "code";
   public static final String NAME = "name";
 
@@ -80,5 +93,15 @@ public class CustType extends SuperVO {
   public void setParentId(Long parentId) {
     this.parentId = parentId;
   }
+  
+  private CustTypeDTO createDto() {
+	  CustTypeDTO dto = new CustTypeDTO();
+	  dto.setId(this.getId());
+	  dto.setCode(this.getCode());
+	  dto.setName(this.getName());
+	  dto.setStoreId(this.getStoreId());
+	  dto.setParentId(this.getParentId());
+	return dto;
+ }
 
 }
