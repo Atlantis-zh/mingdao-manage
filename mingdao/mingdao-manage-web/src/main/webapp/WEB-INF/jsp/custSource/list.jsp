@@ -31,7 +31,6 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>所属门店</th>
 										<th>名称</th>
 										<th>编码</th>
 										<th>用户操作</th>
@@ -41,7 +40,6 @@
 								<tbody>
 								<c:forEach items="${datas.datas}" var="userInfo">
 									<tr>
-										<td>${userInfo.storeId }</td>
 										<td>${userInfo.name } </td>
 										<td>${userInfo.code}</td>
 										<td>
@@ -175,19 +173,12 @@
 					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:auto">
 						<div class="row">
 							<div class="col-xs-12">
-								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="storeId">所属门店: </label>
-
-									<div class="col-sm-9">
-										<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
-									</div>
-								</div>
 
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="name">  名称: </label>
 
 									<div class="col-sm-9">
+									    <input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
 										<input id="name" placeholder="name" class="col-xs-10 col-sm-5" type="text">
 									</div>
 								</div>
@@ -241,7 +232,6 @@
 				$(this).attr("data-target","#addUser");
 				$("#modalTitle").html("新增客户来源");
 				$("#id").val("");
-				$("#storeId").val("");
 				$("#name").val("");
 				$("#code").val("");
 			});
@@ -249,24 +239,17 @@
 			function editUser(userId,obj){
 				$(obj).attr("data-target","#addUser");
 				$("#modalTitle").html("修改客户来源");
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/custSource/getCustSourcesByID",
-					data: { "id": userId},
-					dataType: "json",
-					success: function (data) {
-						//var data_ =  JSON.parse(data);
-						var user = data.result;
+				$.get("<%=request.getContextPath() %>/custSource/qryCustSourceById",{"id":userId},function(resultStr){
+					var result = JSON.parse(resultStr);
+					if(result.success){
+						var user = result.result;
 						$("#id").val(user.id);
-						$("#storeId").val(user.storeId);
 						$("#name").val(user.name);
 						$("#code").val(user.code);
-					},
-					fail: function (err) {
-						console.log(err)
+					}else{
+						alert(result.resultMsg);
 					}
-
-				});
+				});			
 			}
 
 			$("#search").click(function(){
@@ -294,12 +277,12 @@
 			//查询所有
 			$("#fbox_grid-table_search").click(function(){
 				var paramsName = new Object();
-				paramsName.name="search_Name";
-				paramsName.val=$("#search_Name").val();
+				paramsName.name="search_name";
+				paramsName.val=$("#search_name").val();
 
 				var paramsCode = new Object();
-				paramsCode.name="search_Code";
-				paramsCode.val=$("#search_Code").val();
+				paramsCode.name="search_code";
+				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
 				submitForm("<%=request.getContextPath() %>/custSource/custSources",paramsArr);
@@ -307,28 +290,42 @@
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
-				var storeId = $("#storeId").val();
 				var name = $("#name").val();
 				var code = $("#code").val();
 				var id = $("#id").val();
-
-				$.ajax({
-					type: 'POST',
-					url: "<%=request.getContextPath() %>/custSource/addCustSource",
-					data: { "storeId": storeId, "name": name,"code":code,"id":id },
-					dataType: "json",
-					success: function (data, status) {
-						if(id==null||id==""){
-							alert("保存成功！！");
-						}else{
-							alert("修改成功！！");
-						}
-						submitForm("<%=request.getContextPath() %>/custSource/custSources",null);
-					},
-					fail: function (err, status) {
-						console.log(err)
+				
+				var postData={
+						name:name,
+						code:code,
+						id:id
 					}
-				});
+					var url = "<%=request.getContextPath() %>/custSource/addCustSource";
+					if(id!=""){
+						url = "<%=request.getContextPath() %>/custSource/updateCustSource"
+					}
+					$.ajax({
+						type: 'POST',
+						url: url,
+						data: JSON.stringify(postData),
+						dataType: "json",
+						contentType: "application/json;charest=UTF-8",
+						success: function (data, status) {
+							if(data.success){
+								if(id==null||id==""){
+									alert("保存成功！！");
+								}else{
+									alert("修改成功！！");
+								}
+								submitForm("<%=request.getContextPath() %>/custSource/custSources",null);
+							}else{
+								alert(data.resultMsg);
+							}
+							
+						},
+						fail: function (err, status) {
+							console.log(err)
+						}
+					});		
 			});
 	</script>
 

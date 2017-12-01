@@ -22,10 +22,9 @@
 	
 	
 	<update id="updateVO" parameterType="com.mingdao.domain.CustSource">
-	    UPDATE custtype SET
+	    UPDATE cust_source SET
             <if test="code!=null"> code=#{code},</if>
             <if test="name!=null">name=#{name},</if>
-            <if test="storeId!=null">storeid=#{storeId},</if>
             <if test="creator!=null">creator=#{creator},</if>
             <if test="createTime!=null">createtime=#{createTime},</if>
             <if test="modifier!=null">modifier=#{modifier},</if>
@@ -35,6 +34,31 @@
 	
 	
 	<select id="pageQueryByCondition" parameterType="java.util.Map" resultMap="custSourceResultMap">
+	    SELECT
+          t.id,
+          t.storeid,
+          t.code,
+          t.name,
+          t.creator,
+          t.createtime,
+          t.modifier,
+          t.modifiedtime
+        FROM  cust_source t where 1=1
+           <if test="id != null">
+              and t.id=#{id}
+           </if>
+           <if test="code != null">
+              and t.code=#{code}
+           </if>
+           <if test="storeId != null">
+              and t.storeid=#{storeId}
+           </if>                      
+           <if test="name != null">
+              and t.name=#{name}
+           </if>
+	</select>
+	
+	<select id="batchQueryByCondition" parameterType="java.util.Map" resultMap="custSourceResultMap">
 	    SELECT
           t.id,
           t.storeid,

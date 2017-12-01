@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +23,8 @@ import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
 import com.mingdao.domain.CustSource;
+import com.mingdao.domain.ProductClass;
+import com.mingdao.domain.ProductClassDTO;
 import com.mingdao.domain.ResultMessage;
 
 /**
@@ -34,11 +39,50 @@ import com.mingdao.domain.ResultMessage;
  * @version 2017年11月25日 下午8:31:53
  * @author libin
  */
-
+@Controller
+@RequestMapping("/custSource")
 public class CustSourceBaseServiceController extends BaseController {
   @Autowired
   private ICustSourceBaseService apBaseService;
 
+  @RequestMapping("custSources")
+  public String getCustSource(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<CustSource> opPager = apBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "custSource/list";
+  }
+  
+  @RequestMapping("refCustSource")
+  public String getRefCustSource(Model model,HttpServletRequest request){
+
+      String name =  request.getParameter("search_name");
+      String code =  request.getParameter("search_code");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+    	  param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+    	  param.put("code", code);
+      }
+
+      Pager<CustSource> opPager = apBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "custSource/refCustSource";
+  }
+  
   /**
    * 
    * <p>
@@ -54,13 +98,8 @@ public class CustSourceBaseServiceController extends BaseController {
    */
   @RequestMapping(value = "/addCustSource", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addCustSource(HttpServletRequest request,
-      @RequestBody String inputData) {
+	      @RequestBody CustSource newap) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    CustSource newap = new CustSource();
-    newap.setStoreId(jsonObj.getLong("storeId"));
-    newap.setCode(jsonObj.getString("code"));
-    newap.setName(jsonObj.getString("name"));
     super.setTimeStampWithInsert(newap, request);
     newap = apBaseService.insert(newap);
     if (newap.getId() != null) {
@@ -86,20 +125,19 @@ public class CustSourceBaseServiceController extends BaseController {
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
+  
   @RequestMapping(value = "/updateCustSource", method = RequestMethod.POST)
   public @ResponseBody ResultMessage updateCustSource(HttpServletRequest request,
-      @RequestBody String inputData) {
+      @RequestBody CustSource newvo) {
     ResultMessage result = new ResultMessage();
-    JSONObject jsonObj = JSONObject.parseObject(inputData);
-    CustSource oldap = apBaseService.queryDocById(jsonObj.getLong("id"));
+    CustSource oldap = apBaseService.queryDocById(newvo.getId());
     if (oldap == null) {
       result.setSuccess(false);
       result.setResultMsg("更新数据不存在！");
       return result;
     }
-    oldap.setStoreId(jsonObj.getLong("storeId"));
-    oldap.setCode(jsonObj.getString("code"));
-    oldap.setName(jsonObj.getString("name"));
+    oldap.setCode(newvo.getCode());
+    oldap.setName(newvo.getName());
     super.setTimeStampWithUpdate(oldap, request);
     int updateRet = apBaseService.update(oldap);
     if (updateRet == 0) {
