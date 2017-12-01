@@ -143,7 +143,7 @@
 							<b class="arrow"></b>
 							<ul class="submenu">
 								<li class="">
-									<a href="weixinlist.html">
+									<a href="<%=request.getContextPath() %>/careList/careLists?page=1" target="mainFrame">
 										<i class="menu-icon fa fa-caret-right"></i>
 										关注列表
 									</a>

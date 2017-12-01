@@ -7,6 +7,7 @@ import com.mingdao.api.IUserInfoBaseServiceItf;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
+import com.mingdao.common.utils.DateUtil;
 import com.mingdao.common.utils.HttpRequest;
 import com.mingdao.domain.CareUser;
 import com.mingdao.domain.ResultMessage;
@@ -22,10 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +41,7 @@ import java.util.regex.Pattern;
  * @author libin
  */
 @Controller
-@RequestMapping("/carList")
+@RequestMapping("/careList")
 public class CareListController extends BaseController {
 
   private static final String TOKEN_URL="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
@@ -55,17 +54,27 @@ public class CareListController extends BaseController {
   private IUserInfoBaseServiceItf uiBaseService;
 
   
-  @RequestMapping("carLists")
-  @ResponseBody
-  public JSONObject getUserInfo(HttpServletRequest request){
+  @RequestMapping("careLists")
+  public String getUserInfo(Model model,HttpServletRequest request,Pager pager){
+      int page=0;
       String pageStr = request.getParameter("page");
-      int page = Integer.valueOf(pageStr);
+      String count =request.getParameter("pager.offset");
+      if(StringUtils.isEmpty(pageStr)){
+          page = (Integer.valueOf(count)/10) +1;
+      }
+      if(StringUtils.isEmpty(count)){
+        page = Integer.valueOf(pageStr);
+      }
       JSONObject reulst = new JSONObject();
       String token =  getTokenUrl();
       Map<Integer,JSONArray> data= getUserIds(token);
+      int cout = getUserCount(token);
       JSONArray list = getCarUserList(data,page,token);
+      Pager<CareUser> data1 = new Pager(cout,list.toJavaList(CareUser.class));
+      data1.setSize(10);
       reulst.put("data",list);
-    return reulst;
+      model.addAttribute("datas", data1);
+    return "careList/list";
   }
 
 
@@ -74,6 +83,15 @@ public class CareListController extends BaseController {
     String token = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(token);
     return jsonObject.getString("access_token");
+  }
+
+
+  private static int getUserCount(String token){
+    String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
+    String userList = HttpRequest.sendGet(requestUrl,null);
+    JSONObject jsonObject = JSONObject.parseObject(userList);
+    JSONArray array =  jsonObject.getJSONObject("data").getJSONArray("openid");
+    return  array.size();
   }
 
   private static Map<Integer,JSONArray> getUserIds(String token){
@@ -102,44 +120,40 @@ public class CareListController extends BaseController {
         String openid = curPageInfo.getString(i);
         String requestUrl = USER_INFO_URL.replace("ACCESS_TOKEN", token).replace("OPENID", openid);
         String userList = HttpRequest.sendGet(requestUrl,null);
-        userList = filterEmoji(userList);
         JSONObject jsonObject = JSONObject.parseObject(userList);
         CareUser user = new CareUser();
         user.setCity(jsonObject.getString("city"));
         user.setCountry(jsonObject.getString("country"));
         user.setSex(jsonObject.getInteger("sex"));
-        user.setHeadimgurl(jsonObject.getString("headimgurl"));
+        user.setHeadimgurl(jsonObject.getString("headimgurl")+".jpg");
         user.setNickname(jsonObject.getString("nickname"));
         user.setOpenid(jsonObject.getString("openid"));
         user.setSubscribe(jsonObject.getInteger("subscribe"));
-        user.setSubscribe_time(jsonObject.getString("subscribe_time"));
+        user.setSubscribe_time(getTimeString(jsonObject.getString("subscribe_time")));
         list.add(user);
       }
     return list;
   }
 
 
-  public static String filterEmoji(String source) {
-    if (source == null) {
-      return source;
-    }
-    Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
-            Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
-    Matcher emojiMatcher = emoji.matcher(source);
-    if (emojiMatcher.find()) {
-      source = emojiMatcher.replaceAll("*");
-      return source;
-    }
-    return source;
+
+
+
+  private static String getTimeString(String time){
+    long l = Long.valueOf(time+"000");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    String date = simpleDateFormat.format(new Date(l));
+    return date;
   }
 
     public static void main(String[] args){
-    String token =  getTokenUrl();
+  /*  String token =  getTokenUrl();
     String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
     String userList = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(userList);
     JSONArray array =  jsonObject.getJSONObject("data").getJSONArray("openid");
     Map<Integer,JSONArray> data = new HashMap<>();
+
     int page = array.size()/10 + 1;
     for(int k=0;k<page;k++){
       JSONArray userIds = new JSONArray();
@@ -150,7 +164,13 @@ public class CareListController extends BaseController {
       }
       data.put(k+1,userIds);
     }
-    System.out.println(data);
+      getCarUserList(data,1,token);
+    System.out.println(data);*/
+
+      long l = Long.valueOf("1490583149000");
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      String date = simpleDateFormat.format(new Date(l));
+      System.out.println(date);
   }
 
 }
