@@ -107,7 +107,7 @@
 				var array =value.split(",");
 				parent.document.getElementById("memberShipCardId").value = array[0];
 				parent.document.getElementById("memberShipCard").value = array[1];
-				parent.document.getElementById("vipCardListList").style.display="none";
+				parent.document.getElementById("vipCardList").style.display="none";
 			}
 
 			function submitForm(action, params) {

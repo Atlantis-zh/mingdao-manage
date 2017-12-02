@@ -62,6 +62,24 @@ public class MemberShipCardBaseServiceController extends BaseController {
       model.addAttribute("datas", opPager);
       return "membership/list";
   }
+  @RequestMapping("refcardtype")
+  public String getRefInfo(Model model,HttpServletRequest request){
+    
+      String name =  request.getParameter("search_StoreName");
+      String code =  request.getParameter("search_StoreCode");
+      Map<String, Object> param = new HashMap<String, Object>();
+      if(!StringUtils.isEmpty(name)){
+        param.put("name", name);
+      }
+      if(!StringUtils.isEmpty(code)){
+        param.put("code", code);
+      }
+
+      Pager<MemberShipCard> opPager = spBaseService.pageQueryByCondition(param);
+
+      model.addAttribute("datas", opPager);
+      return "vip/reflist";
+  }
 
   /**
    * 卡类型
