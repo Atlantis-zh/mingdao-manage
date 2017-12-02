@@ -6,7 +6,6 @@
 <html>
 <head>
 	<%@ include file="../common/common_css.jsp"%>
-	<%@ include file="../reference/Store.html" %>
 </head>
 <body class="no-skin">
 <div class="main-content-inner">
@@ -14,9 +13,9 @@
 		<ul class="breadcrumb">
 			<li>
 				<i class="ace-icon fa fa-home home-icon"></i>
-				<a href="#">未处理订单管理</a>
+				<a href="#">已经处理订单管理</a>
 			</li>
-			<li class="active">未处理订单信息管理</li>
+			<li class="active">已经处理订单信息管理</li>
 		</ul>
 	</div>
 	<div class="page-content">
@@ -34,33 +33,17 @@
 								<th>预约时间</th>
 								<th>车牌号</th>
 								<th>预约联系人</th>
-								<th>用户操作</th>
 							</tr>
 							</thead>
 
 							<tbody>
 							<c:forEach items="${datas.datas}" var="role">
 								<tr>
-									<td>
-										<a href="#">${role.storeId}</a>
-									</td>
-									<td>${role.serviceProjectId }</td>
+									<td>${role.storeId}</td>
+									<td>${role.serviceName }</td>
 									<td>${role.orderTime}</td>
-									<td>${role.carInfoId}</td>
-									<td>${role.customerId}</td>
-									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
-											<i class="ace-icon fa fa-pencil bigger-120"></i>
-										</a>
-
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="dealOrderProduct"  data-toggle="modal" title="处理订单">
-											<i class="ace-icon fa fa-pencil bigger-120"></i>
-										</a>
-
-										<a class="btn btn-xs btn-danger" href="deleteOrderProject/${role.id }" title="删除">
-											<i class="ace-icon fa fa-trash-o bigger-120"></i>
-										</a>
-									</td>
+									<td>${role.carNo}</td>
+									<td>${role.customerName}</td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -72,7 +55,7 @@
 									<td style="vertical-align: top;">
 										<a href="#" id="add" target="mainFrame" style="color:#FFF;text-decoration:none;" title="添加角色"  class="btn btn-info fa"  data-toggle="modal">+</a>
 										<a href="#" id="search" target="mainFrame" style="color:#FFF;text-decoration:none;" title="搜索" class="btn btn-info fa fa-search orange" data-toggle="modal" ></a>
-										<a href="<%=request.getContextPath() %>/orderProject/orderProjects" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
+										<a href="<%=request.getContextPath() %>/finishOrderProject/orderProjects" style="color:#FFF;text-decoration:none;" class="btn btn-info fa fa-refresh" title="刷新列表"></a>
 									</td>
 									<td style="vertical-align: top;">
 										<c:if test="${datas.total > 0}">
@@ -121,23 +104,26 @@
 							<tr>
 								<td class="first"></td>
 								<td class="columns">
-									<label>车牌号：</label>
+									<label>所属门店：</label>
 								</td>
 
-								<td class="data"><input type="text" id="search_car" name="search_car" role="textbox"
-														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
+								<td class="data">
+									<div class="col-sm-9">
+										<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+										<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
+									</div>
+									<%--门店参照--%>
+									<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+											</div>
+										</div>
+									</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="first"></td>
-								<td class="columns">
-									<label>服务项目：</label>
-								</td>
 
-								<td class="data"><input type="text"  id="search_serviceprojectid" name="search_serviceprojectid" role="textbox"
-														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
-								</td>
-							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -166,90 +152,6 @@
 </div>
 
 
-<%--  新增框--%>
-<div class="modal fade" id="addUser" tabindex="-1" role="dialog" style="width:600px;" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="ui-jqdialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" id="searchhdfbox_grid-table_add"
-				 style="cursor: move;">
-				<div class="widget-header">
-					<span class="ui-jqdialog-title" id="modalTitle" style="float: left;">新增未完成任务</span>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						&times;
-					</button>
-				</div>
-			</div>
-			<div class="ui-jqdialog-content ui-widget-content" id="searchcntfbox_grid-table_add">
-				<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="storeId">所属门店: </label>
-
-								<div class="col-sm-9">
-									<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="serviceProjectId">服务项目: </label>
-
-								<div class="col-sm-9">
-									<input id="serviceProjectId" placeholder="serviceProjectId" class="col-xs-10 col-sm-5" type="text">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="orderTime">  预约时间: </label>
-								<div class="col-sm-9">
-									<input id="orderTime" placeholder="请选择日期" value="2017-11-19" data-date-format="yyyy-mm-dd" class="col-xs-10 col-sm-5 form_datetime" type="text">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="linkmanName">  联系人: </label>
-
-								<div class="col-sm-9">
-									<input id="linkmanName" placeholder="linkmanName" class="col-xs-10 col-sm-5" type="text">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="linkTel">  手机号码: </label>
-
-								<div class="col-sm-9">
-									<input id="linkTel" placeholder="linkTel" class="col-xs-10 col-sm-5" type="text">
-								</div>
-							</div>
-						</div>
-					</div>
-					<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
-						<tbody>
-						<tr>
-							<td colspan="2">
-								<hr class="ui-widget-content" style="margin:1px">
-							</td>
-						</tr>
-						<tr>
-							<td class="EditButton" style="text-align:left"><a id="fbox_grid-table_reset_add"
-																			  class="fm-button ui-state-default ui-corner-all fm-button-icon-left ui-reset btn btn-sm btn-info"><span
-									class="ace-icon fa fa-retweet"></span>重置</a></td>
-							<td class="EditButton"><a id="fbox_grid-table_add"
-													  class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-search btn btn-sm btn-purple"><span
-									class="ace-icon fa fa-search"></span>添加</a></td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="jqResize ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se"></div>
-		</div>
-	</div>
-</div>
-<%--//end_zhangfx--%>
-
-
 
 <%@ include file="../common/common_js.jsp"%>
 
@@ -258,56 +160,6 @@
 
 
 <script type="text/javascript">
-	$('.form_datetime').datetimepicker({
-		weekStart: 0, //一周从哪一天开始
-		todayBtn:  1, //
-		autoClose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-		showMeridian: 1
-	});
-	$('.form_datetime').datetimepicker('setStartDate', '2017-11-19');
-	$('.form_datetime').datetimepicker('setEndDate', '2012-12-19');
-
-
-	$("#add").click(function(){
-		$(this).attr("data-target","#addUser");
-		$("#modalTitle").html("新增未处理订单");
-		$("#id").val("");
-		$("#storeId").val("");
-		$("#serviceProjectId").val("");
-		$("#orderTime").val("");
-		$("#carNo").val("");
-		$("#linkmanName").val("");
-		$("#linkTel").val("");
-	});
-
-	function editRole(userId,obj){
-		$(obj).attr("data-target","#addUser");
-		$("#modalTitle").html("修改未处理订单");
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/orderProject/getOrderProjectByID",
-			data: { "id": userId},
-			dataType: "json",
-			success: function (data) {
-				//var data_ =  JSON.parse(data);
-				var user = data.result;
-				$("#id").val(user.id);
-				$("#storeId").val(user.storeId);
-				$("#serviceProjectId").val(user.serviceProjectId);
-				$("#orderTime").val(user.orderTime);
-				$("#carNo").val(user.carNo);
-				$("#linkmanName").val(user.linkmanName);
-				$("#linkTel").val(user.linkTel);
-			},
-			fail: function (err) {
-				console.log(err)
-			}
-
-		});
-	}
 
 	$("#search").click(function(){
 		$(this).attr("data-target","#searchUser");
@@ -334,53 +186,18 @@
 	//查询所有
 	$("#fbox_grid-table_search").click(function(){
 		var paramsName = new Object();
-		paramsName.name="search_car";
-		paramsName.val=$("#search_car").val();
+		paramsName.name="search_storeId";
+		paramsName.val=$("#search_storeId").val();
 
-		var paramsCode = new Object();
-		paramsCode.name="search_serviceprojectid";
-		paramsCode.val=$("#search_serviceprojectid").val();
 
 		var paramsArr = [paramsName,paramsCode];
-		submitForm("<%=request.getContextPath() %>/orderProject/orderProjects",paramsArr);
-	});
-
-	//新增操作
-	$("#fbox_grid-table_add").click(function(){
-		var id = $("#id").val();
-		var storeId = $("#storeId").val();
-		var serviceProjectId = $("#serviceProjectId").val();
-		var orderTime = $("#orderTime").val();
-		var carNo = $("#carNo").val();
-		var linkmanName = $("#linkmanName").val();
-		var linkTel = $("#linkTel").val();
-		$.ajax({
-			type: 'POST',
-			url: "<%=request.getContextPath() %>/orderProject/addOrderProject",
-			data: { "storeId": storeId, "serviceProjectId": serviceProjectId,"orderTime":orderTime,"id":id,"carNo":carNo, "linkmanName":linkmanName,"linkTel":linkTel},
-			dataType: "json",
-			success: function (data, status) {
-				if(id==null||id==""){
-					alert("保存成功！！");
-				}else{
-					alert("修改成功！！");
-				}
-				submitForm("<%=request.getContextPath() %>/orderProject/orderProjects",null);
-			},
-			fail: function (err, status) {
-				console.log(err)
-			}
-
-		});
+		submitForm("<%=request.getContextPath() %>/finishOrderProject/orderProjects",paramsArr);
 	});
 
 
-	//门店参照
-	$("")
-
-
-
-
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
 
 </script>
 

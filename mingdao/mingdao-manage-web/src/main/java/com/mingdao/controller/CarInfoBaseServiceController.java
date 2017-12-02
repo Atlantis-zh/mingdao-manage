@@ -13,6 +13,7 @@ import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.domain.ServiceProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -134,6 +135,30 @@ public class CarInfoBaseServiceController extends BaseController {
 		return result;
 	}
 
+
+	@RequestMapping(value = "/getCarsPCByCustId", method = RequestMethod.GET)
+	public String getCarsPCByCustId(Model model,HttpServletRequest request) {
+		/*String phone = request.getParameter(Customer.PHONE);
+		Map<String, Object> custParam = new HashMap<String, Object>();
+		custParam.put(Customer.PHONE, phone);
+		Customer cust = custBaseService.singleQryByCondtion(custParam);
+		Map<String, Object> param = new HashMap<String, Object>();
+		if(cust==null){
+			param.put("customerId", -1L);
+		}else{
+			param.put("customerId", cust.getId());
+		}*/
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		Pager<CarInfo> data=null;
+		try {
+			data = carInfoBaseService.pageQueryByCondition(param);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		model.addAttribute("datas",data);
+		return "";
+	}
 
 	@RequestMapping(value = "/getCarsByCustId", method = RequestMethod.GET)
 	@ResponseBody

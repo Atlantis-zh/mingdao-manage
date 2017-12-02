@@ -63,6 +63,8 @@ public class Customer extends SuperVO {
    * 性别
    */
   private Integer sex;
+
+  private String  area;
   /**
    * 地址
    */
@@ -193,5 +195,14 @@ public class Customer extends SuperVO {
 
   public void setStoreName(String storeName) {
     this.storeName = storeName;
+  }
+
+
+  public String getArea() {
+    return area;
+  }
+
+  public void setArea(String area) {
+    this.area = area;
   }
 }

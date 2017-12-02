@@ -83,26 +83,27 @@ public class LoginController extends BaseController {
     Map<String, Object> param = new HashMap<String, Object>();
     param.put(Customer.PHONE, phone);
     Customer cust = custBaseService.singleQryByCondtion(param);
-    if (cust == null) {
-      result.setSuccess(false);
-      result.setResultMsg("用户暂未注册!");
-      return result;
-    }
     String verifycode = request.getParameter("verifycode");
-    // TODO 加上短信验证的逻辑
-    JSONObject val = new JSONObject();
     long longTime = System.currentTimeMillis();
 
-    if (verifycode.equals("123456")) {
+    // TODO 加上短信验证的逻辑
+    JSONObject val = new JSONObject();
+    if("123456".equals(verifycode)){
+      if (cust == null) {
+        cust.setPhone(phone);
+        custBaseService.insert(cust);
+      }
+      result.setSuccess(true);
       val.put(Customer.PHONE, phone);
       val.put(Customer.SYSTEMTIME, longTime);
-      result.setSuccess(true);
+      result.setResultMsg("登陆成功！！!");
       result.setResult(val);
-    } else {
+      return result;
+    }else{
       result.setSuccess(false);
-      result.setResultMsg("短信验证码错误!");
+      result.setResultMsg("密码为空或不正确!");
+      return result;
     }
-    return result;
   }
 
 

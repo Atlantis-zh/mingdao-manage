@@ -13,9 +13,9 @@
 		<ul class="breadcrumb">
 			<li>
 				<i class="ace-icon fa fa-home home-icon"></i>
-				<a href="#">已处理订单管理</a>
+				<a href="#">未处理订单管理</a>
 			</li>
-			<li class="active">已处理订单信息管理</li>
+			<li class="active">未处理订单信息管理</li>
 		</ul>
 	</div>
 	<div class="page-content">
@@ -40,19 +40,17 @@
 							<tbody>
 							<c:forEach items="${datas.datas}" var="role">
 								<tr>
-									<td>
-										<a href="#">${role.storeId}</a>
-									</td>
-									<td>${role.serviceProjectId }</td>
+									<td>${role.storeId}</td>
+									<td>${role.serviceName }</td>
 									<td>${role.orderTime}</td>
-									<td>${role.carInfoId}</td>
-									<td>${role.customerId}</td>
+									<td>${role.carNo}</td>
+									<td>${role.customerName}</td>
 									<td>
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
+										<a class="btn btn-xs btn-info" onclick="editOrder(${role.id},this)" id="editUserInfo"  data-toggle="modal" title="编辑">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
-										<a class="btn btn-xs btn-info" onclick="editRole(${role.id},this)" id="dealOrderProduct"  data-toggle="modal" title="处理订单">
+										<a class="btn btn-xs btn-info" onclick="editOrder(${role.id},this)" id="dealOrderProduct"  data-toggle="modal" title="处理订单">
 											<i class="ace-icon fa fa-pencil bigger-120"></i>
 										</a>
 
@@ -127,16 +125,7 @@
 														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
 								</td>
 							</tr>
-							<tr>
-								<td class="first"></td>
-								<td class="columns">
-									<label>服务项目：</label>
-								</td>
 
-								<td class="data"><input type="text"  id="search_serviceprojectid" name="search_serviceprojectid" role="textbox"
-														class="input-elm ui-widget-content ui-corner-all" style="width: 96%;">
-								</td>
-							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -186,8 +175,17 @@
 								<label class="col-sm-3 control-label no-padding-right" for="storeId">所属门店: </label>
 
 								<div class="col-sm-9">
-									<input id="id" placeholder="id" class="col-xs-10 col-sm-5" type="hidden">
-									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="text">
+									<input id="storeId" placeholder="storeId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="storeName" placeholder="storeName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refStores(this);">参照门店</button>
+								</div>
+								<%--门店参照--%>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
 								</div>
 							</div>
 
@@ -195,7 +193,13 @@
 								<label class="col-sm-3 control-label no-padding-right" for="serviceProjectId">服务项目: </label>
 
 								<div class="col-sm-9">
-									<input id="serviceProjectId" placeholder="serviceProjectId" class="col-xs-10 col-sm-5" type="text">
+									<input id="serviceProjectId" placeholder="serviceProjectId" class="col-xs-10 col-sm-5" type="hidden">
+									<input id="serviceName" placeholder="serviceName" class="col-xs-10 col-sm-5" type="text">
+									<button  data-toggle="modal" onclick="refServiceProject(this);">参照服务项目</button>
+								</div>
+								<div class="modal-backdrop serviceModal" style="background-color:rgba(0,0,0,0.5);display:none;z-index:10" id="serviceList">
+									<iframe src="<%=request.getContextPath() %>/serProductBaseSer/refserviceProjects" width="100%" height="500px" frameborder="0" name="serverProject"
+											id="serverProject"></iframe>
 								</div>
 							</div>
 
@@ -208,20 +212,19 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="linkmanName">  联系人: </label>
+								<label class="col-sm-3 control-label no-padding-right" for="carInfoId">车辆信息: </label>
 
 								<div class="col-sm-9">
-									<input id="linkmanName" placeholder="linkmanName" class="col-xs-10 col-sm-5" type="text">
-								</div>
+								<input id="carInfoId" placeholder="carInfoId" class="col-xs-10 col-sm-5" type="hidden">
+								<input id="carNo" placeholder="carNo" class="col-xs-10 col-sm-5" type="text">
+								<button  data-toggle="modal" onclick="refCar(this);">参照门店</button>
+							</div>
+							<div class="modal-backdrop serviceModal" style="background-color:rgba(0,0,0,0.5);display:none;z-index:10" id="carList">
+								<iframe src="<%=request.getContextPath() %>/weixin/carInfoBaseSer/getCarsPCByCustId" width="100%" height="500px" frameborder="0" name="serverProject"
+										id="car"></iframe>
+							</div>
 							</div>
 
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="linkTel">  手机号码: </label>
-
-								<div class="col-sm-9">
-									<input id="linkTel" placeholder="linkTel" class="col-xs-10 col-sm-5" type="text">
-								</div>
-							</div>
 						</div>
 					</div>
 					<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -266,11 +269,10 @@
 		$("#modalTitle").html("新增已处理订单");
 		$("#id").val("");
 		$("#storeId").val("");
+		$("#orderPsnId").val("");
 		$("#serviceProjectId").val("");
 		$("#orderTime").val("");
-		$("#carNo").val("");
-		$("#linkmanName").val("");
-		$("#linkTel").val("");
+		$("#carInfoId").val("");
 	});
 
 	function editRole(userId,obj){
@@ -363,6 +365,18 @@
 
 		});
 	});
+
+	function refStores(obj){
+		$(obj).attr("data-target","#storeList");
+	}
+
+	function refServiceProject(obj){
+		$(obj).attr("data-target","#serviceList");
+	}
+
+	function refCar(obj){
+		$(obj).attr("data-target","#carList");
+	}
 
 
 

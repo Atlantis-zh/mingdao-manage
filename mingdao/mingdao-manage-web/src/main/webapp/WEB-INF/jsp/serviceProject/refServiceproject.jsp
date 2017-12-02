@@ -107,7 +107,7 @@
 		    function getSelecOption(){
 				var value = $('input:radio:checked').val();
 				var array =value.split(",");
-				parent.document.getElementById("serviceName").innerText = array[1];
+				parent.document.getElementById("serviceProjectId").innerText = array[1];
 				parent.document.getElementById("serviceName").setAttribute('data-code', array[0]);
 				parent.document.getElementById("serviceList").style.display="none";
 			}

@@ -274,6 +274,7 @@ public class CustBaseServiceController extends BaseController {
     String phone = request.getParameter(MingDaoHttpRequestConsts.PHONE);
     String field = request.getParameter(MingDaoHttpRequestConsts.FIELD);
     String value = request.getParameter(MingDaoHttpRequestConsts.VALUE);
+    String area = request.getParameter("area");
     Map<String, Object> param = new HashMap<String, Object>();
     param.put(Customer.PHONE, phone);
     Customer cust = custBaseService.singleQryByCondtion(param);
@@ -283,7 +284,14 @@ public class CustBaseServiceController extends BaseController {
       return result;
     }
     if (field.equals(Customer.ADDRESS)) {
-      cust.setAddress(value);
+      String str = "";
+      if(!org.springframework.util.StringUtils.isEmpty(area)){
+        str = str+area;
+      }
+      if(!org.springframework.util.StringUtils.isEmpty(value)){
+        str = str+"-"+value;
+      }
+      cust.setAddress(str);
     } else if (field.equals(Customer.NAME)) {
       cust.setName(value);
     } else if (field.equals(Customer.SEX)) {
@@ -325,6 +333,18 @@ public class CustBaseServiceController extends BaseController {
     Map<String, Object> param = new HashMap<String, Object>();
     param.put(Customer.PHONE, phone);
     Customer cust = custBaseService.singleQryByCondtion(param);
+    String address =  cust.getAddress();
+    if(!org.springframework.util.StringUtils.isEmpty(address)){
+       String[] array =  address.split("-");
+       if(array.length==1){
+         cust.setArea(array[0]);
+       }
+      if(array.length==2){
+        cust.setArea(array[0]);
+        cust.setAddress(array[1]);
+      }
+
+    }
     if (cust == null) {
       result.setSuccess(false);
       result.setResultMsg("手机号[" + phone + "]未注册!");
