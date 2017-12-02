@@ -1,5 +1,7 @@
 package com.mingdao.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,15 @@ public class BaseController {
   public void setTimeStampWithUpdate(SuperVO vo, HttpServletRequest request) {
     Timestamp date = DateUtil.getCurrentTimestamp();
     vo.setModifiedTime(date);
+  }
+  
+  public String getRequestBody(HttpServletRequest request)throws IOException {
+		BufferedReader br = request.getReader();
+		String str, wholeStr = "";
+		while((str = br.readLine()) != null){
+		wholeStr += str;
+		}
+		return wholeStr;
   }
 
 }

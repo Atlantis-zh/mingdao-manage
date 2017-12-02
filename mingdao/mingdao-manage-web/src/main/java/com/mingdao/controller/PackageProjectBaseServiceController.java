@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,12 +77,13 @@ public class PackageProjectBaseServiceController extends BaseController {
    * @param request
    * @param inputData
    * @return
+ * @throws IOException 
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
   @RequestMapping(value = "/addPackageProject", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addPackageProject(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage addPackageProject(HttpServletRequest request) throws IOException {
+	String inputData=getRequestBody(request);
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
     PackageProject newap = new PackageProject();

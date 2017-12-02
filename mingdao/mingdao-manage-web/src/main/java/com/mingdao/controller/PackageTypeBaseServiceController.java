@@ -1,5 +1,6 @@
 package com.mingdao.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +22,6 @@ import com.mingdao.api.IPackageTypeBaseService;
 import com.mingdao.common.consts.PageResultConst;
 import com.mingdao.common.pageUtil.Pager;
 import com.mingdao.common.utils.DataUtil;
-import com.mingdao.domain.MemberShip;
 import com.mingdao.domain.PackageType;
 import com.mingdao.domain.ResultMessage;
 
@@ -49,47 +48,49 @@ public class PackageTypeBaseServiceController extends BaseController {
 
 
   @RequestMapping("packagetype")
-  public String getPackagetype(Model model,HttpServletRequest request){
+  public String getPackagetype(Model model, HttpServletRequest request) {
 
-      String name =  request.getParameter("search_name");
-      String code =  request.getParameter("search_code");
-      Map<String, Object> param = new HashMap<String, Object>();
-      if(!StringUtils.isEmpty(name)){
-    	  param.put("name", name);
-      }
-      if(!StringUtils.isEmpty(code)){
-    	  param.put("code", code);
-      }
+    String name = request.getParameter("search_name");
+    String code = request.getParameter("search_code");
+    Map<String, Object> param = new HashMap<String, Object>();
+    if (!StringUtils.isEmpty(name)) {
+      param.put("name", name);
+    }
+    if (!StringUtils.isEmpty(code)) {
+      param.put("code", code);
+    }
 
-      Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
-//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
-//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+    Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
+    // List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+    // Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
-      return "packagetype/list";
+    model.addAttribute("datas", opPager);
+    return "packagetype/list";
   }
-  
+
+
+
   @RequestMapping("refpackagetype")
-  public String getRefPackagetype(Model model,HttpServletRequest request){
+  public String getRefPackagetype(Model model, HttpServletRequest request) {
 
-      String name =  request.getParameter("search_name");
-      String code =  request.getParameter("search_code");
-      Map<String, Object> param = new HashMap<String, Object>();
-      if(!StringUtils.isEmpty(name)){
-    	  param.put("name", name);
-      }
-      if(!StringUtils.isEmpty(code)){
-    	  param.put("code", code);
-      }
+    String name = request.getParameter("search_name");
+    String code = request.getParameter("search_code");
+    Map<String, Object> param = new HashMap<String, Object>();
+    if (!StringUtils.isEmpty(name)) {
+      param.put("name", name);
+    }
+    if (!StringUtils.isEmpty(code)) {
+      param.put("code", code);
+    }
 
-      Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
-//      List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
-//      Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
+    Pager<PackageType> opPager = ptBaseService.pageQueryByCondition(param);
+    // List<MemberShipDTO> dtos = this.getDto(opPager.getDatas());
+    // Pager<ProductClassDTO> dtoPager = new Pager<ProductClassDTO>(dtos.size(),dtos);
 
-      model.addAttribute("datas", opPager);
-      return "packagetype/reflist";
+    model.addAttribute("datas", opPager);
+    return "packagetype/reflist";
   }
-  
+
   /**
    * 
    * <p>
@@ -100,12 +101,13 @@ public class PackageTypeBaseServiceController extends BaseController {
    * @param request
    * @param inputData
    * @return
+   * @throws IOException
    * @date 2017年11月19日 下午4:30:35
    * @since NC6.5
    */
   @RequestMapping(value = "/addPackageType", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addPackageType(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage addPackageType(HttpServletRequest request) throws IOException {
+    String inputData = getRequestBody(request);
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
     PackageType op = new PackageType();
@@ -193,12 +195,14 @@ public class PackageTypeBaseServiceController extends BaseController {
    * @param request
    * @param inputData
    * @return
+   * @throws IOException
    * @date 2017年11月25日 下午9:01:31
    * @since NC6.5
    */
   @RequestMapping(value = "/updatePackageType", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updatePackageType(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage updatePackageType(HttpServletRequest request)
+      throws IOException {
+    String inputData = getRequestBody(request);
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
     PackageType oldOP = ptBaseService.queryDocById(jsonObj.getLong("id"));

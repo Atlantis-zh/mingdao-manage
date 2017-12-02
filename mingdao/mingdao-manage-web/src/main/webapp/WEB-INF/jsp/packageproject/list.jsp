@@ -44,12 +44,12 @@
 										<th>姓名</th>
 										<th>卡号</th>
 										<th>车牌号码</th>
-										<%--<th>计次套餐</th>--%>
+										<th>计次套餐</th>
 										<th>手机号码</th>
 										<th>会员卡种</th>
 										<th>赠送积分</th>
 										<th>现金</th>
-										<th>余额</th>
+										<%--<th>余额</th>--%>
 										<th>剩余次数</th>
 										<th>备注</th>
 										<th>操作</th>
@@ -71,9 +71,9 @@
 										<td>
 											${item.platNumber}
 										</td>
-										<%--<td>
+										<td>
 											${item.packageTypeId}
-										</td>--%>
+										</td>
 										<td>
 											${item.custPhone}
 										</td>
@@ -86,9 +86,9 @@
 										<td>
 											${item.crash}
 										</td>
-										<td>
+										<%-- <td>
 											${item.remaining }
-										</td>
+										</td>--%>
 										<td>
 											${item.totalRemainCount}
 										</td>
@@ -265,7 +265,7 @@
 									</div>
 								</div>
 
-								<%--<div class="form-group">
+								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="packageType"> 套餐: </label>
 
 									<div class="col-sm-9">
@@ -273,7 +273,7 @@
 										<input id="packageType" placeholder="选择套餐" class="col-xs-10 col-sm-5" type="text" disabled>
 										<button  data-toggle="modal" class="storebtn" onclick="refpackagetype(this);">参照套餐类型</button>
 									</div>
-								</div>--%>
+								</div>
 								
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="crash"> 现金:</label>
@@ -326,7 +326,7 @@
 								<div class="modal fade" id="packageTypeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
-											<iframe id="packageType" src="<%=request.getContextPath() %>/packageTypeBaseSer/refpackageType" width="100%" height="500px" frameborder="0"></iframe>
+											<iframe id="packageType" src="<%=request.getContextPath() %>/packageTypeBaseSer/refpackagetype" width="100%" height="500px" frameborder="0"></iframe>
 										</div>
 									</div>
 								</div>
@@ -406,9 +406,10 @@
 				$("#carInfoId").val("");
 				$("#memberShipCard").val("");
 				$("#memberShipCardId").val("");
+				$("#packageType").val("");
+				$("#packageTypeId").val("");
 				$("#crash").val("0");
 				$("#points").val("0");
-				$("#remaining").val("0");
 				$("#totalRemainCount").val("0");
 				$("#memo").val("");
 			});
@@ -416,7 +417,7 @@
 			function editProduct(userId,obj){
 				updata = true;
 				$(obj).attr("data-target","#addUser");
-				$.get("<%=request.getContextPath() %>/memberShipBaseSer/qryMemberShipById",{"id":userId},function(resultStr){
+				$.get("<%=request.getContextPath() %>/packageProjectBaseSer/qryPackageProjects",{"id":userId},function(resultStr){
 					var result = JSON.parse(resultStr);
 					if(result.success){
 						var product = result.result;
@@ -429,9 +430,10 @@
 						$("#carInfoId").val(product.carInfoId);
 						$("#memberShipCard").val(product.memberShipCard);
 						$("#memberShipCardId").val(product.memberShipCardId);
+						$("#packageType").val(product.packageType);
+						$("#packageTypeId").val(product.packageTypeId);
 						$("#crash").val(product.crash);
 						$("#points").val(product.points);
-						$("#remaining").val(product.remaining);
 						$("#totalRemainCount").val(product.totalRemainCount);
 						$("#memo").val(product.memo);
 					}else{
@@ -473,7 +475,7 @@
 				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/memberShipBaseSer/pageQryMemberShips",paramsArr);
+				submitForm("<%=request.getContextPath() %>/packageProjectBaseSer/pageQryPackageProjects",paramsArr);
 	    	});
 
 		//新增操作
@@ -484,18 +486,19 @@
 				postData.cardNo = $("#cardNo").val();
 				postData.id = $("#id").val();
 				postData.custName = $("#custName").val();
-				postData.customerId = $("#custId").val();
+				postData.custId = $("#custId").val();
 				postData.carInfoId = $("#carInfoId").val();
 				postData.memberShipCard = $("#memberShipCard").val();
 				postData.memberShipCardId = $("#memberShipCardId").val();
+				postData.packageType = $("#packageType").val();
+				postData.packageTypeId = $("#packageTypeId").val();
 				postData.crash = $("#crash").val();
 				postData.points = $("#points").val();
-				postData.remaining = $("#remaining").val();
 				postData.totalRemainCount = $("#totalRemainCount").val();
 				$("#memo").val("");
-				var url = "<%=request.getContextPath() %>/memberShipBaseSer/addMemberShip";
+				var url = "<%=request.getContextPath() %>/packageProjectBaseSer/addPackageProject";
 				if(updata){
-					url = "<%=request.getContextPath() %>/memberShipBaseSer/updateMemberShip"
+					url = "<%=request.getContextPath() %>/packageProjectBaseSer/updatePackageProject"
 				}
 				$.ajax({
 					type: 'POST',
@@ -510,7 +513,7 @@
 							}else{
 								alert("修改成功！！");
 							}
-							submitForm("<%=request.getContextPath() %>/memberShipBaseSer/member",null);
+							submitForm("<%=request.getContextPath() %>/packageProjectBaseSer/packageproject",null);
 						}else{
 							alert(data.resultMsg);
 						}
@@ -522,7 +525,7 @@
 				});
 			});
 		function deleteProduct(id){
-			$.get("<%=request.getContextPath() %>/memberShipBaseSer/deleteMemberShipById",{id:id},function(resultStr){
+			$.get("<%=request.getContextPath() %>/packageProjectBaseSer/deletePackageProjectById",{id:id},function(resultStr){
 				var result = JSON.parse(resultStr);
 				if(result.success){
 					alert("删除成功！")
