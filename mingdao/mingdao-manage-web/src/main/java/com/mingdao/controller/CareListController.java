@@ -60,6 +60,9 @@ public class CareListController extends BaseController {
       }
       JSONObject reulst = new JSONObject();
       String token =  getTokenUrl();
+      if(StringUtils.isEmpty(token)){
+         token =  getTokenUrl();
+      }
       Map<Integer,JSONArray> data= getUserIds(token);
       int cout = getUserCount(token);
       JSONArray list = getCarUserList(data,page,token);
@@ -77,6 +80,7 @@ public class CareListController extends BaseController {
     String APPSECRET="22b416fcc1e4504105dfcd9623fbbeba";
     String requestUrl = TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
     String token = HttpRequest.sendGet(requestUrl,null);
+   // System.out.println("获取到的token串是***"+token);
     JSONObject jsonObject = JSONObject.parseObject(token);
     return jsonObject.getString("access_token");
   }
@@ -93,7 +97,11 @@ public class CareListController extends BaseController {
 
   private  Map<Integer,JSONArray> getUserIds(String token){
     String USER_LIST_URL="https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
-    String requestUrl = USER_LIST_URL.replace("ACCESS_TOKEN", token).replace("NEXT_OPENID", "");
+   // System.out.println("token*********************"+token);
+    String requestUrlo = USER_LIST_URL.replace("ACCESS_TOKEN", token);
+   // System.out.println("第一次替换后**********************"+requestUrlo);
+    String requestUrl=requestUrlo.replace("NEXT_OPENID", "");
+   // System.out.println("第二次替换后*****************************"+requestUrl);
     String userList = HttpRequest.sendGet(requestUrl,null);
     JSONObject jsonObject = JSONObject.parseObject(userList);
     JSONArray array =  jsonObject.getJSONObject("data").getJSONArray("openid");
@@ -143,6 +151,16 @@ public class CareListController extends BaseController {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String date = simpleDateFormat.format(new Date(l));
     return date;
+  }
+
+
+  public static void main(String[] args){
+    CareListController test = new CareListController();
+    String token =  test.getTokenUrl();
+    System.out.println(token);
+
+    Map<Integer,JSONArray> data=  test.getUserIds(token);
+    System.out.println(data.toString());
   }
 
 

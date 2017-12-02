@@ -240,7 +240,7 @@ public class OrderProjectBaseServiceController extends BaseController {
       result.setResultMsg("更新失败，请稍后重新尝试！");
     } else {
       result.setSuccess(true);
-      result.setResult(DataUtil.superVOToJsonObject(oldOP));
+      result.setResult("更新成功！！");
     }
     return result;
   }
