@@ -67,6 +67,7 @@ public class OrderProjectBaseServiceController extends BaseController {
   @RequestMapping(value = "/addOrderProject", method = RequestMethod.POST)
   public @ResponseBody ResultMessage addOrderProject(HttpServletRequest request) {
     ResultMessage result = new ResultMessage();
+    String id = request.getParameter("id");
     String storeIdStr =  request.getParameter("storeId");
     String serviceProjectIdStr =  request.getParameter("serviceProjectId");
     String orderTimeStr =  request.getParameter("orderTime");
@@ -74,6 +75,10 @@ public class OrderProjectBaseServiceController extends BaseController {
     String carInfoIdStr =  request.getParameter("carInfoId");
 
     OrderProject op = new OrderProject();
+    if(!org.springframework.util.StringUtils.isEmpty(id)){
+      long pk = Long.valueOf(id);
+      op.setId(pk);
+    }
     op.setStoreId(Long.valueOf(storeIdStr));
     //op.setOrderPsnId(jsonObj.getLong("orderPsnId"));
     op.setServiceProjectId(Long.valueOf(serviceProjectIdStr));
@@ -83,14 +88,21 @@ public class OrderProjectBaseServiceController extends BaseController {
     op.setStatus(0);// 新增默认都是未确认
    /* op.setSource(jsonObj.getInteger("source"));
     op.setMeno(jsonObj.getString("meno"));*/
-    super.setTimeStampWithInsert(op, request);
-    op = orderProjectService.insert(op);
-    if (op.getId() != null) {
+    int successCount = 0;
+    if(op.getId()!=null && op.getId()!=0){
+      super.setTimeStampWithUpdate(op, request);
+      successCount = orderProjectService.update(op);
+    }else{
+      super.setTimeStampWithInsert(op, request);
+      op = orderProjectService.insert(op);
+    }
+
+    if (op.getId() != null ||successCount>0) {
       result.setSuccess(true);
       result.setResult(op.getId());
     } else {
       result.setSuccess(false);
-      result.setResultMsg("新增预约项目失败，请检查日志！");
+      result.setResultMsg("保存预约项目失败，请检查日志！");
     }
     return result;
   }
