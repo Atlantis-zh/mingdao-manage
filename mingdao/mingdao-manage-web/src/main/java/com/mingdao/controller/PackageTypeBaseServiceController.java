@@ -69,6 +69,8 @@ public class PackageTypeBaseServiceController extends BaseController {
       return "packagetype/list";
   }
   
+  
+  
   @RequestMapping("refpackagetype")
   public String getRefPackagetype(Model model,HttpServletRequest request){
 

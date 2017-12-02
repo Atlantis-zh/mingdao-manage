@@ -1,5 +1,8 @@
 package com.mingdao.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +36,7 @@ import com.mingdao.domain.ResultMessage;
  *
  * <code>MemberShipBaseServiceController<code> <strong></strong>
  * <p>
- * 说明：
+ * 说明：会员信息controller
  * <li></li>
  * </p>
  * 
@@ -142,12 +145,13 @@ public class MemberShipBaseServiceController extends BaseController {
    * @param request
    * @param inputData
    * @return
+ * @throws IOException 
    * @date 2017年11月25日 上午12:07:06
    * @since NC6.5
    */
   @RequestMapping(value = "/addMemberShip", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage addMemberShip(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage addMemberShip(HttpServletRequest request) throws IOException {
+	String inputData=getRequestBody(request);
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
     MemberShip newsp = new MemberShip();
@@ -174,6 +178,8 @@ public class MemberShipBaseServiceController extends BaseController {
     }
     return result;
   }
+  
+  
 
   /**
    * 
@@ -185,12 +191,13 @@ public class MemberShipBaseServiceController extends BaseController {
    * @param request
    * @param inputData
    * @return
+ * @throws IOException 
    * @date 2017年11月25日 上午1:41:43
    * @since NC6.5
    */
   @RequestMapping(value = "/updateMemberShip", method = RequestMethod.POST)
-  public @ResponseBody ResultMessage updateMemberShip(HttpServletRequest request,
-      @RequestBody String inputData) {
+  public @ResponseBody ResultMessage updateMemberShip(HttpServletRequest request) throws IOException {
+	String inputData=getRequestBody(request);
     ResultMessage result = new ResultMessage();
     JSONObject jsonObj = JSONObject.parseObject(inputData);
     MemberShip oldSp = spBaseService.queryDocById(jsonObj.getLong("id"));
