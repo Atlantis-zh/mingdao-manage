@@ -182,7 +182,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=request.getContextPath() %>/store/stores" target="mainFrame">
+										<a href="<%=request.getContextPath() %>/customerBaseSer/queryPCCustomer" target="mainFrame">
 											<i class="menu-icon fa fa-caret-right"></i>
 											客户信息
 										</a>

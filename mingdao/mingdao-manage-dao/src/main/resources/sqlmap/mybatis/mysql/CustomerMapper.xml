@@ -33,7 +33,6 @@
 	    UPDATE customer SET
         <if test="storeId!=null"> storeid=#{storeId},</if>
         <if test="code!=null">code=#{code},</if>
-        <if test="name!=null">name=#{name},</if>
         <if test="wxNickName!=null">wxnickname=#{wxNickName},</if>
         <if test="birthday!=null">birthday=#{birthday},</if>
         <if test="phone!=null"> phone=#{phone},</if>
@@ -47,6 +46,7 @@
         <if test="createTime!=null">createtime=#{createTime},</if>
         <if test="modifier!=null">modifier=#{modifier},</if>
         <if test="modifiedTime!=null">modifiedtime=#{modifiedTime} </if>
+        <if test="name!=null">name=#{name}</if>
         WHERE id=#{id}
 	</update>
 	

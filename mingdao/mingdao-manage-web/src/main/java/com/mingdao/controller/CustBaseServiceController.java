@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -335,4 +336,113 @@ public class CustBaseServiceController extends BaseController {
     return result;
   }
 
+
+
+  /**=======================================================================================================***/
+  @RequestMapping(value = "/addPCCustomer", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage addProduct(HttpServletRequest request,
+                                                @RequestBody Customer customer) {
+    ResultMessage result = new ResultMessage();
+    super.setTimeStampWithInsert(customer, request);
+    customer = custBaseService.insert(customer);
+    if (customer.getId() != null) {
+      result.setSuccess(true);
+      result.setResult(customer.getId());
+    } else {
+      result.setSuccess(false);
+      result.setResultMsg("新增失败，请检查日志！");
+    }
+    return result;
+  }
+
+
+  @RequestMapping(value = "/updatePCustomer", method = RequestMethod.POST)
+  public @ResponseBody ResultMessage updateProduct(HttpServletRequest request,
+                                                   @RequestBody Customer newvo) {
+    ResultMessage result = new ResultMessage();
+
+    Customer oldPc = custBaseService.queryDocById(newvo.getId());
+    if (oldPc == null) {
+      result.setSuccess(false);
+      result.setResultMsg("更新数据不存在！");
+      return result;
+    }
+
+    super.setTimeStampWithUpdate(oldPc, request);
+    int updateRet = custBaseService.update(newvo);
+    if (updateRet == 0) {
+      result.setSuccess(false);
+      result.setResultMsg("更新失败，请稍后重新尝试！");
+    } else {
+      result.setSuccess(true);
+      result.setResult("更新成功");
+    }
+    return result;
+  }
+
+
+
+  @RequestMapping("qryProductById")
+  @ResponseBody
+  public JSONObject qryProductById(Model model,HttpServletRequest request){
+    JSONObject result = new JSONObject();
+    String id =  request.getParameter("id");
+    Long pk = Long.valueOf(id);
+    Customer customer= custBaseService.queryDocById(pk);
+    JSONObject object = (JSONObject) JSONObject.toJSON(customer);
+    result.put("result",object);
+    result.put("success",true);
+    result.put("resultMsg","获取成功！！");
+    return result;
+  }
+
+  @RequestMapping("queryPCCustomer")
+  public String getProduct(Model model,HttpServletRequest request){
+
+    String name =  request.getParameter("search_name");
+    String code =  request.getParameter("search_code");
+    Map<String, Object> param = new HashMap<String, Object>();
+    if(!StringUtils.isEmpty(name)){
+      param.put("name", name);
+    }
+    if(!StringUtils.isEmpty(code)){
+      param.put("code", code);
+    }
+
+    Pager<Customer> opPager = custBaseService.pageQueryByCondition(param);
+    model.addAttribute("datas", opPager);
+    return "customer/list";
+  }
+
+
+  /**
+   *
+   * <p>
+   * 说明：根据主键删除
+   * <li></li>
+   * </p>
+   *
+   * @param request
+   * @return
+   * @date 2017年11月25日 上午1:42:00
+   * @since NC6.5
+   */
+  @RequestMapping(value = "/deletePCCustomerById", method = RequestMethod.GET)
+  public @ResponseBody ResultMessage deleteProductClassById(HttpServletRequest request) {
+    ResultMessage result = new ResultMessage();
+    Long id = Long.valueOf(request.getParameter("id"));
+    int updateRet = custBaseService.deleteDocById(id);
+    if (updateRet == 0) {
+      result.setSuccess(false);
+      result.setResultMsg("删除数据不存在！");
+    } else {
+      result.setSuccess(true);
+      result.setResult("删除成功！");
+    }
+    return result;
+  }
 }
+
+
+
+

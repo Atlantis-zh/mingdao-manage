@@ -22,6 +22,7 @@ public class Customer extends SuperVO {
    * 所属门店
    */
   private Long storeId;
+  private String storeName;
   /**
    * 姓名
    */
@@ -186,4 +187,11 @@ public class Customer extends SuperVO {
     this.custSourceId = custSourceId;
   }
 
+  public String getStoreName() {
+    return storeName;
+  }
+
+  public void setStoreName(String storeName) {
+    this.storeName = storeName;
+  }
 }
