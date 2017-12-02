@@ -23,6 +23,14 @@
 	.setradio{
 		margin-top: 18px;
 	}
+	.storebtn{
+		height: 34px;
+    	margin-top: 4px;
+    	background-color: #6fb3e0;
+    	border: 0;
+    	color: #fff;
+    	outline: none;
+	}
 </style>
 
 
@@ -211,6 +219,15 @@
 					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
 						<div class="row">
 							<div class="col-xs-12">
+							<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="storeName"> 所属门店: </label>
+
+									<div class="col-sm-9">
+										<input id="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="所属门店" class="col-xs-10 col-sm-5" type="text" disabled>
+										<button data-toggle="modal" class="storebtn" onclick="refStores(this)">参照门店</button>
+									</div>
+								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="name"> 卡名称: </label>
 
@@ -290,6 +307,13 @@
 										<input name="status" value="0" type="radio" checked />不正常
 									</div>
 									<div class="clear"></div>
+								</div>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -384,6 +408,13 @@
 										<input type="radio" name="changeshareToBranch" value="1" />是
 									</div>
 								</div>
+								<div class="modal fade" id="storeList" tabindex="-1" role="dialog" style="width:700px;height:500px;" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<iframe id="stores" src="<%=request.getContextPath() %>/storeBaseSer/refStores" width="100%" height="500px" frameborder="0"></iframe>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<table class="EditTable" style="border:0px none;margin-top:5px;width:600px;" id="fbox_grid-table_btn">
@@ -426,7 +457,7 @@
 
 
 	<script type="text/javascript">
-
+		var updata = false;
 		function startUser(userId){
 			$.ajax({
 				type: 'POST',
@@ -531,12 +562,13 @@
 				paramsCode.val=$("#search_userCode").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/memberShipCardBaseSer/refcardtype",paramsArr);
+				submitForm("<%=request.getContextPath() %>/memberShipCardBaseSer/membership",paramsArr);
 	    	});
 
 		//新增操作
 			$("#fbox_grid-table_add").click(function(){
 				var obj = {};
+				obj.storeId = $("#storeId").val();
 				obj.name = $("#name").val();
 				obj.code = $("#code").val();
 				obj.cardRecharge = $("#cardRecharge").val();
@@ -550,10 +582,11 @@
 				$.ajax({
 					type: 'POST',
 					url: "<%=request.getContextPath() %>/memberShipCardBaseSer/addMemberShipCard",
-					data: obj,
+					data: JSON.stringify(obj),
 					dataType: "json",
+					contentType: "application/json",
 					success: function (data, status) {
-						if(id==null||id==""){
+						if(!updata){
 							alert("保存成功！！");
 						}else{
 							alert("修改成功！！");
@@ -565,6 +598,9 @@
 					}
 				});
 			});
+			function refStores(obj){
+				$(obj).attr("data-target","#storeList");
+			}
 	</script>
 
 </body>

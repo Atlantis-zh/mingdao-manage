@@ -36,6 +36,7 @@
 	  text-align: center;
 	  border: 1px solid #dedede;
 	}
+	
 	.tabOper{
 		color: #ff0000;
 		cursor: pointer;
@@ -102,7 +103,7 @@
 								<tbody>
 								<c:forEach items="${datas.datas}" var="item">
 									<tr>
-									    <td>${item.storeId}</td>
+									    <td>${item.storeName}</td>
 										<td>
 											<a href="#">${item.name }</a>
 										</td>
@@ -254,6 +255,15 @@
 					<div id="fbox_grid-table_add1" class="searchFilter" style="overflow:hidden">
 						<div class="row">
 							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="storeName"> 所属门店: </label>
+
+									<div class="col-sm-9">
+										<input id="storeId" class="col-xs-10 col-sm-5" type="hidden">
+										<input id="storeName" placeholder="所属门店" class="col-xs-10 col-sm-5" type="text" disabled>
+										<button data-toggle="modal" class="storebtn" onclick="refStores(this)">参照门店</button>
+									</div>
+								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="name"> 套餐名称: </label>
 
@@ -441,8 +451,11 @@
 <script src="<%=request.getContextPath() %>/resources/ace/assets/js/x-editable/bootstrap-editable.js"></script>
 	<script type="text/javascript">
 	  		var curIndex = 0;
+	  		var updata = false;
 			$("#add").click(function(){
 				$(this).attr("data-target","#addUser");
+				$("#storeName").val("");
+				$("#storeId").val("");
 				$("#name").val("");
 				$("#salePrice").val("");
 				$("#storeId").val("");
@@ -467,6 +480,7 @@
 		    
 			function editProduct(userId,obj){
 				$(obj).attr("data-target","#addUser");
+				updata = true;
 				$("#modalTitle").html("修改产品分类");
 				$.get("<%=request.getContextPath() %>/packageTypeBaseSer/qryPackageTypeById",{"id":userId},function(resultStr){
 					var result = JSON.parse(resultStr);
@@ -558,7 +572,7 @@
 				paramsCode.val=$("#search_code").val();
 
 				var paramsArr = [paramsName,paramsCode];
-				submitForm("<%=request.getContextPath() %>/productBaseSer/product",paramsArr);
+				submitForm("<%=request.getContextPath() %>/packageTypeBaseSer/packagetype",paramsArr);
 	    	});
 
 		//新增操作
@@ -588,6 +602,9 @@
 			    postData.status = $("input[name='status']:checked").val();
 			    postData.serviceProject = projectArr;			
 				var url = "<%=request.getContextPath() %>/packageTypeBaseSer/addPackageType";
+				if (updata){
+					url = "<%=request.getContextPath() %>/packageTypeBaseSer/updatePackageType";
+				}
 				$.ajax({
 					type: 'POST',
 					url: url,
@@ -596,7 +613,7 @@
 					contentType: "application/json;charest=UTF-8",
 					success: function (data, status) {
 						if(data.success){
-							submitForm("<%=request.getContextPath() %>/packageTypeBaseSer/String",null);
+							submitForm("<%=request.getContextPath() %>/packageTypeBaseSer/packagetype",null);
 						}else{
 							alert(data.resultMsg);
 						}
@@ -608,7 +625,7 @@
 				});
 			});
 		function deleteProduct(id){
-			$.get("<%=request.getContextPath() %>/productBaseSer/deleteProductById",{id:id},function(resultStr){
+			$.get("<%=request.getContextPath() %>/packageTypeBaseSer/deletePackageTypeById",{id:id},function(resultStr){
 				var result = JSON.parse(resultStr);
 				if(result.success){
 					alert("删除成功！")

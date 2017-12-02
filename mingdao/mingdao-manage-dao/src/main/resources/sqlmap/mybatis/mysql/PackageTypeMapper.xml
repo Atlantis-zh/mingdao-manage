@@ -25,7 +25,7 @@
 		INSERT INTO packagetype
 		(storeid,code,name,saleprice,totalcount,expire,timeunit,cost,sharetobranch,source,status,memo,creator,createtime,modifier,modifiedtime)
 		VALUES
-		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
+		(#{storeId},#{code},#{name},#{salePrice},#{totalCount},#{expire},#{timeUnit},#{cost},#{shareToBranch},#{source},#{status},#{memo},#{creator},#{createTime},#{modifier},#{modifiedTime})
 	</insert>
 	
 
@@ -37,6 +37,7 @@
             <if test="salePrice!=null">saleprice=#{salePrice},</if>
             <if test="totalCount!=null">totalcount=#{totalCount},</if>
             <if test="expire!=null">expire=#{expire},</if>
+            <if test="cost!=null">cost=#{cost},</if>
             <if test="timeUnit!=null">timeunit=#{timeUnit},</if>
             <if test="shareToBranch!=null">sharetobranch=#{shareToBranch},</if>
             <if test="source!=null">source=#{source},</if>
@@ -60,6 +61,7 @@
           t.totalcount,
           t.expire,
           t.timeunit,
+          t.cost,
           t.sharetobranch,
           t.source,
           t.status,
@@ -127,6 +129,7 @@
           t.totalcount,
           t.expire,
           t.timeunit,
+          t.cost,
           t.sharetobranch,
           t.source,
           t.status,
@@ -148,6 +151,7 @@
           t.totalcount,
           t.expire,
           t.timeunit,
+          t.cost,
           t.sharetobranch,
           t.source,
           t.status,
